@@ -1,0 +1,24 @@
+@import '../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+
+.Claimable {
+	> span {
+		display: block;
+		text-align: right;
+
+		&:nth-of-type(2) {
+			font-size: 0.75rem;
+			padding-top: 0.25rem;
+			color: #{$grey};
+		}
+	}
+}
+
+.Right {
+	margin-left: auto;
+	text-align: right;
+}
+
+.Center {
+	margin: 0 auto;
+	text-align: center;
+}
