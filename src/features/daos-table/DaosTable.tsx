@@ -51,7 +51,7 @@ export const DaosTable: FC = () => {
 					isLoading={isLoading}
 				/>
 			) : (
-				<p className={styles.Empty}>You have no any daos</p>
+				<p className={styles.Empty}>You have no any daos!</p>
 			)}
 		</>
 	);
