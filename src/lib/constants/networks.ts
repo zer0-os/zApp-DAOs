@@ -20,3 +20,5 @@ export const NETWORK_CONFIGS: {
 		ipfsGateway: 'snapshot.mypinata.cloud',
 	},
 };
+
+export const DEFAULT_NETWORK_PROTOCAL = '0://';
