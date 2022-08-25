@@ -15,7 +15,7 @@ export const useAllDaos = (znas: zNA[]): UseAllDaosReturn => {
 
 	// Query
 	const { isLoading, data: daos = [] } = useQuery(
-		`get-all-daos-${chainId}`,
+		`daos-all-${chainId}`,
 		async () => {
 			try {
 				return await Promise.all(znas.map((zna) => sdk.getZDAOByZNA(zna)));

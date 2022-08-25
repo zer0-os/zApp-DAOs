@@ -7,7 +7,7 @@ import { ConnectWallet } from '../features/ui';
 import { DAOList } from './DAOList';
 import { DAOPage } from './DAOPage';
 
-export const Container: FC = () => {
+export const DAOs: FC = () => {
 	const { account } = useWeb3();
 	const { zna, isLoading, dao } = useCurrentDao();
 	const { redirect } = useRedirect();

@@ -15,7 +15,7 @@ export const useAllZnas = (): UseAllZnasReturn => {
 
 	// Query
 	const { isLoading, data: znas = [] } = useQuery(
-		`get-all-znas-${chainId}`,
+		`daos-znas-all-${chainId}`,
 		async () => {
 			try {
 				return await sdk.listZNAs();

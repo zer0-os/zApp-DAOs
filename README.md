@@ -1,6 +1,6 @@
 # zFi dApp
 
-This is the zFi dApp, ported from zNS-dapp's "DAO" app.
+This is the zFi dApp, ported from zNS-dapp's "DAOs zApp" app.
 
 ## Running Locally
 

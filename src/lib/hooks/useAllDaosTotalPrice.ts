@@ -18,7 +18,7 @@ export const useAllDaosTotalPrice = (
 
 	// Query
 	const { isLoading, data: totalUsd } = useQuery(
-		`get-all-daos-total-price-${chainId}`,
+		`daos-all-total-price-${chainId}`,
 		async () => {
 			try {
 				const amounts = await Promise.all(

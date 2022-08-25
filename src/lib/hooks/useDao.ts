@@ -13,7 +13,7 @@ export const useDao = (zna: string): UseDaoReturn => {
 
 	// Query
 	const { isLoading, data: dao } = useQuery(
-		`get-zdao-by-zna-${zna}`,
+		`dao-zna-${zna}`,
 		async () => {
 			try {
 				return await sdk.getZDAOByZNA(zna);
