@@ -13,12 +13,12 @@ export const NETWORK_CONFIGS: {
 } = {
 	[Network.MAINNET]: {
 		rpcUrl: 'https://mainnet.infura.io/v3/77c3d733140f4c12a77699e24cb30c27',
-		ipfsGateway: 'snapshot.mypinata.cloud',
+		ipfsGateway: 'snapshot.mypinata.cloud'
 	},
 	[Network.RINKEBY]: {
 		rpcUrl: 'https://rinkeby.infura.io/v3/fa959ead3761429bafa6995a4b25397e',
-		ipfsGateway: 'snapshot.mypinata.cloud',
-	},
+		ipfsGateway: 'snapshot.mypinata.cloud'
+	}
 };
 
 export const DEFAULT_NETWORK_PROTOCAL = '0://';

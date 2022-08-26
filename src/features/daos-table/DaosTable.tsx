@@ -3,7 +3,7 @@ import type { zDAO } from '@zero-tech/zdao-sdk';
 import type { Column } from '@zero-tech/zui/components/AsyncTable';
 import type { DAOTableDataItem } from './DaosTable.types';
 
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { AsyncTable } from '@zero-tech/zui/components';
 import { useAllZnas, useAllDaos } from '../../lib/hooks';
 import { DaosTableRow } from './DaosTableRow';
@@ -15,7 +15,7 @@ import styles from './DaosTable.module.scss';
  */
 const COLUMNS: Column[] = [
 	{ id: 'title', header: 'DAO', alignment: 'left' },
-	{ id: 'amount', header: 'Value (USD)', alignment: 'right' },
+	{ id: 'amount', header: 'Value (USD)', alignment: 'right' }
 ];
 
 export const DaosTable: FC = () => {
@@ -33,7 +33,7 @@ export const DaosTable: FC = () => {
 			return {
 				[TABLE_KEYS.TITLE]: dao.title,
 				[TABLE_KEYS.ZNA]: zna,
-				[TABLE_KEYS.DAO]: dao,
+				[TABLE_KEYS.DAO]: dao
 			};
 		});
 	}, [znas, daos]);

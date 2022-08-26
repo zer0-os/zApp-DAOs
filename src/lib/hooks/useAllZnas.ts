@@ -26,12 +26,12 @@ export const useAllZnas = (): UseAllZnasReturn => {
 		{
 			retry: false,
 			refetchOnMount: false,
-			refetchOnWindowFocus: false,
-		},
+			refetchOnWindowFocus: false
+		}
 	);
 
 	return {
 		isLoading,
-		znas,
+		znas
 	};
 };

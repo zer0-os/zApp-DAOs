@@ -25,12 +25,12 @@ export const useDao = (zna: string): UseDaoReturn => {
 			retry: false,
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
-			enabled: zna.trim().length > 0,
-		},
+			enabled: zna.trim().length > 0
+		}
 	);
 
 	return {
 		isLoading,
-		dao,
+		dao
 	};
 };

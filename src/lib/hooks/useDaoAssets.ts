@@ -19,21 +19,21 @@ export const useDaoAssets = (dao?: zDAO): UseDaoAssetsReturn => {
 				const assets: zDAOAssets = await dao.listAssets();
 				const collectibles = assets.collectibles.map((c) => ({
 					...c,
-					type: AssetType.ERC721,
+					type: AssetType.ERC721
 				}));
 
 				const allAssets: Asset[] = [
 					...assets.coins.filter((d) => d.amount !== '0'),
-					...collectibles,
+					...collectibles
 				];
 
 				return {
 					totalUsd: assets.amountInUSD,
-					assets: allAssets,
+					assets: allAssets
 				};
 			} catch (e) {
 				return {
-					assets: [],
+					assets: []
 				};
 			}
 		},
@@ -41,13 +41,13 @@ export const useDaoAssets = (dao?: zDAO): UseDaoAssetsReturn => {
 			retry: false,
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
-			enabled: Boolean(dao),
-		},
+			enabled: Boolean(dao)
+		}
 	);
 
 	return {
 		isLoading,
 		totalUsd: data?.totalUsd,
-		assets: data?.assets,
+		assets: data?.assets
 	};
 };

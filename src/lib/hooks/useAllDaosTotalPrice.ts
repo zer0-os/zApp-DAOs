@@ -10,7 +10,7 @@ type UseAllDaosTotalPriceReturn = {
 };
 
 export const useAllDaosTotalPrice = (
-	znas: zNA[],
+	znas: zNA[]
 ): UseAllDaosTotalPriceReturn => {
 	const { chainId } = useWeb3();
 
@@ -25,7 +25,7 @@ export const useAllDaosTotalPrice = (
 					daos.map(async (d: zDAO) => {
 						const assets = await d.listAssets();
 						return assets?.amountInUSD;
-					}),
+					})
 				);
 				return amounts.filter(Boolean).reduce((a, b) => a + b, 0);
 			} catch (e) {
@@ -36,12 +36,12 @@ export const useAllDaosTotalPrice = (
 			retry: false,
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
-			enabled: daos.length > 0,
-		},
+			enabled: daos.length > 0
+		}
 	);
 
 	return {
 		isLoading: isLoading || isLoadingDaos,
-		totalUsd,
+		totalUsd
 	};
 };

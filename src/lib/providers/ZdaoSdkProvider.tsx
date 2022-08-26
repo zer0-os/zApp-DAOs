@@ -1,18 +1,18 @@
 import type { FC, ReactNode } from 'react';
 import type { Config } from '@zero-tech/zdao-sdk';
 
-import { createContext, useMemo } from 'react';
+import React, { createContext, useMemo } from 'react';
 import { providers } from 'ethers';
 import {
 	createSDKInstance,
 	developmentConfiguration,
-	productionConfiguration,
+	productionConfiguration
 } from '@zero-tech/zdao-sdk';
 import { useWeb3 } from '../hooks';
 import {
 	DEFAULT_NETWORK,
 	Network,
-	NETWORK_CONFIGS,
+	NETWORK_CONFIGS
 } from '../constants/networks';
 
 type ZdaoSdkProviderProps = {
@@ -28,9 +28,9 @@ export const ZdaoSdkContext = createContext(
 	createSDKInstance(
 		defaultConfig(
 			new providers.JsonRpcProvider(NETWORK_CONFIGS[DEFAULT_NETWORK].rpcUrl),
-			NETWORK_CONFIGS[DEFAULT_NETWORK].ipfsGateway,
-		),
-	),
+			NETWORK_CONFIGS[DEFAULT_NETWORK].ipfsGateway
+		)
+	)
 );
 
 export const ZdaoSdkProvider: FC<ZdaoSdkProviderProps> = ({ children }) => {
@@ -54,13 +54,13 @@ export const ZdaoSdkProvider: FC<ZdaoSdkProviderProps> = ({ children }) => {
 
 		const config: Config = createConfig(
 			p,
-			NETWORK_CONFIGS[DEFAULT_NETWORK].ipfsGateway,
+			NETWORK_CONFIGS[DEFAULT_NETWORK].ipfsGateway
 		);
 
 		const sdk = createSDKInstance(config);
 
 		return sdk;
-	}, [provider]);
+	}, [provider, chainId]);
 
 	return (
 		<ZdaoSdkContext.Provider value={sdk}>{children}</ZdaoSdkContext.Provider>

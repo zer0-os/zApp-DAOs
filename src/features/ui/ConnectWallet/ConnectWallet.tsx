@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 
+import React from 'react';
 import { Button } from '@zero-tech/zui/components';
 import { useWeb3 } from '../../../lib/hooks';
 import styles from './ConnectWallet.module.scss';
@@ -11,7 +12,7 @@ type ConnectWalletProps = {
 
 export const ConnectWallet: FC<ConnectWalletProps> = ({
 	buttonText,
-	message,
+	message
 }) => {
 	const { connectWallet } = useWeb3();
 

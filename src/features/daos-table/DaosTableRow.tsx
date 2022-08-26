@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 import type { DAOTableDataItem } from './DaosTable.types';
 
+import React from 'react';
 import { Skeleton } from '@zero-tech/zui/components';
 import { isNaN, isNil } from 'lodash';
 import { useDaoAssets } from '../../lib/hooks';

@@ -4,21 +4,23 @@
  * - Exports the root component
  */
 
+import type { FC } from 'react';
 import type { AppProps } from './lib/types/app';
 
+import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ZUIProvider from '@zero-tech/zui/ZUIProvider';
-import App from './App';
-import ChainGate from './lib/util/ChainGate';
+import { App } from './App';
+import { ChainGate } from './lib/util/ChainGate';
 import {
 	Web3Provider,
 	ZdaoSdkProvider,
-	CurrentDaoProvider,
+	CurrentDaoProvider
 } from './lib/providers';
 
 const queryClient = new QueryClient();
 
-const Index = ({ provider, web3 }: AppProps) => (
+export const DaosApp: FC<AppProps> = ({ provider, web3 }) => (
 	<QueryClientProvider client={queryClient}>
 		<Web3Provider
 			provider={provider}
@@ -38,5 +40,3 @@ const Index = ({ provider, web3 }: AppProps) => (
 		</Web3Provider>
 	</QueryClientProvider>
 );
-
-export default Index;

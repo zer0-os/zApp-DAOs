@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useWeb3, useCurrentDao, useRedirect } from '../lib/hooks';
 import { ROOT_PATH, ROUTES } from '../lib/constants/routes';
 import { ConnectWallet } from '../features/ui';
@@ -23,7 +23,7 @@ export const DAOs: FC = () => {
 		if (!dao) {
 			redirect(ROOT_PATH + ROUTES.ZDAO, 'Could not find a DAO for ' + zna);
 		}
-	}, [dao, zna]);
+	}, [isLoading, dao, zna, redirect]);
 
 	if (!account) {
 		return (

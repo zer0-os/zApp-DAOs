@@ -1,5 +1,6 @@
 import type { FC, ReactNode } from 'react';
 
+import React from 'react';
 import { Network } from '../constants/networks';
 import { useWeb3 } from '../hooks';
 
@@ -11,7 +12,7 @@ interface ChainGateProps {
  * Prevents rendering of children if the connected chain ID
  * is unsupported.
  */
-const ChainGate: FC<ChainGateProps> = ({ children }) => {
+export const ChainGate: FC<ChainGateProps> = ({ children }) => {
 	const { chainId } = useWeb3();
 
 	const isSupportedNetwork = Object.values(Network).includes(chainId);
@@ -26,5 +27,3 @@ const ChainGate: FC<ChainGateProps> = ({ children }) => {
 
 	return <>{children}</>;
 };
-
-export default ChainGate;

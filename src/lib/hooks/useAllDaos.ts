@@ -27,12 +27,12 @@ export const useAllDaos = (znas: zNA[]): UseAllDaosReturn => {
 			retry: false,
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
-			enabled: znas.length > 0,
-		},
+			enabled: znas.length > 0
+		}
 	);
 
 	return {
 		isLoading,
-		daos,
+		daos
 	};
 };
