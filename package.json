@@ -83,7 +83,7 @@
 	"lint-staged": {
 		"*.{js,jsx,css,ts,tsx}": [
 			"prettier --write",
-			"lint"
+			"npm run lint"
 		]
 	}
 }
