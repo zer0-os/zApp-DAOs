@@ -9,7 +9,7 @@ import type { AppProps } from './lib/types/app';
 
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import ZUIProvider from '@zero-tech/zui/ZUIProvider';
+import { ZUIProvider } from '@zero-tech/zui/ZUIProvider';
 import { App } from './App';
 import { ChainGate } from './lib/util/ChainGate';
 import {
