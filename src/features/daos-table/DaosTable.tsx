@@ -23,6 +23,7 @@ export const DaosTable: FC = () => {
 	const { isLoading: isLoadingDaos, daos } = useAllDaos(znas);
 
 	const isLoading = isLoadingZnas || isLoadingDaos;
+	const hasNoDaos = !isLoading && daos.length === 0;
 
 	const tableData: DAOTableDataItem[] = useMemo(() => {
 		if (!znas.length || !daos.length || znas.length !== daos.length) return [];
@@ -40,7 +41,7 @@ export const DaosTable: FC = () => {
 
 	return (
 		<>
-			{!(!isLoading && daos.length === 0) ? (
+			{!hasNoDaos ? (
 				<AsyncTable
 					data={tableData}
 					itemKey={TABLE_KEYS.ZNA}

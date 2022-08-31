@@ -3,6 +3,7 @@ import type { FC } from 'react';
 import React from 'react';
 import { Card } from '@zero-tech/zui/components';
 import { useAllZnas, useAllDaosTotalPrice } from '../lib/hooks';
+import { USD } from '../lib/constants/currency';
 import { formatFiat } from '../lib/util/format';
 import { DaosTable } from '../features/daos-table';
 import styles from './DAOList.module.scss';
@@ -19,7 +20,7 @@ export const DAOList: FC = () => {
 					title="Total Value"
 					value={{
 						isLoading: isLoadingZnas || isLoadingTotalPrice,
-						text: '$' + formatFiat(totalUsd)
+						text: USD + formatFiat(totalUsd)
 					}}
 				/>
 				<Card

@@ -6,4 +6,6 @@ export * from './useAllZnas';
 export * from './useAllDaos';
 export * from './useAllDaosTotalPrice';
 export * from './useDaoAssets';
+export * from './useDaoTransactions';
+export * from './useDaoProposals';
 export * from './useRedirect';

@@ -21,7 +21,7 @@ export const DAOs: FC = () => {
 		}
 
 		if (!dao) {
-			redirect(ROOT_PATH + ROUTES.ZDAO, 'Could not find a DAO for ' + zna);
+			redirect(ROOT_PATH + ROUTES.ZDAOS, 'Could not find a DAO for ' + zna);
 		}
 	}, [isLoading, dao, zna, redirect]);
 
@@ -30,6 +30,8 @@ export const DAOs: FC = () => {
 			<ConnectWallet message={'Connect a Web3 wallet to see your Dao data.'} />
 		);
 	}
+
+	console.log({ zna, isLoading, dao });
 
 	return zna === '' ? <DAOList /> : <DAOPage />;
 };

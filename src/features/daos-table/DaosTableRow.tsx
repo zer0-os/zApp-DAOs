@@ -6,6 +6,7 @@ import { Skeleton } from '@zero-tech/zui/components';
 import { isNaN, isNil } from 'lodash';
 import { useDaoAssets } from '../../lib/hooks';
 import { formatFiat } from '../../lib/util/format';
+import { USD } from '../../lib/constants/currency';
 import { DEFAULT_NETWORK_PROTOCAL } from '../../lib/constants/networks';
 import DaoIcon from '../../assets/default_dao.svg';
 import styles from './DaosTableRow.module.scss';
@@ -25,7 +26,7 @@ export const DaosTableRow: FC<DaosTableRowProps> = ({ daoData }) => {
 			return <>ERR</>;
 		}
 
-		return '$' + formatFiat(totalUsd);
+		return USD + formatFiat(totalUsd);
 	};
 
 	return (

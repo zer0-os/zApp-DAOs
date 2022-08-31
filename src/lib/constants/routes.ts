@@ -2,7 +2,7 @@ export const ROOT_PATH = '/wilder';
 
 export enum ROUTES {
 	// ----- zDao ----- //
-	ZDAO = '/dao',
+	ZDAOS = '/daos',
 	ZDAO_ASSETS = '/assets',
 	ZDAO_TRANSACTIONS = '/transactions',
 	ZDAO_PROPOSALS = '/proposals',
