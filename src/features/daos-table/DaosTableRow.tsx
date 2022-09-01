@@ -2,12 +2,14 @@ import type { FC } from 'react';
 import type { DAOTableDataItem } from './DaosTable.types';
 
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Skeleton } from '@zero-tech/zui/components';
 import { isNaN, isNil } from 'lodash';
 import { useDaoAssets } from '../../lib/hooks';
 import { formatFiat } from '../../lib/util/format';
 import { USD } from '../../lib/constants/currency';
 import { DEFAULT_NETWORK_PROTOCAL } from '../../lib/constants/networks';
+import { ROOT_PATH, ROUTES } from '../../lib/constants/routes';
 import DaoIcon from '../../assets/default_dao.svg';
 import styles from './DaosTableRow.module.scss';
 
@@ -16,6 +18,7 @@ type DaosTableRowProps = {
 };
 
 export const DaosTableRow: FC<DaosTableRowProps> = ({ daoData }) => {
+	const history = useHistory();
 	const { isLoading, totalUsd } = useDaoAssets(daoData.dao);
 
 	const getAsyncAmountColumn = () => {
@@ -29,8 +32,15 @@ export const DaosTableRow: FC<DaosTableRowProps> = ({ daoData }) => {
 		return USD + formatFiat(totalUsd);
 	};
 
+	/**
+	 * Navigates to the selected DAO zNA
+	 */
+	const onClickRow = () => {
+		history.push(ROOT_PATH + ROUTES.ZDAOS + '/' + daoData.zna);
+	};
+
 	return (
-		<tr>
+		<tr className={styles.Row} onClick={onClickRow}>
 			<td>
 				<div className={styles.Dao}>
 					<img alt={daoData.dao.title + ' icon'} src={DaoIcon} />

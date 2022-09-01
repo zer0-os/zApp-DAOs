@@ -40,7 +40,7 @@ export const DaosTable: FC = () => {
 	}, [znas, daos]);
 
 	return (
-		<>
+		<div className={styles.Container}>
 			{!hasNoDaos ? (
 				<AsyncTable
 					data={tableData}
@@ -54,6 +54,6 @@ export const DaosTable: FC = () => {
 			) : (
 				<p className={styles.Empty}>You have no any daos!</p>
 			)}
-		</>
+		</div>
 	);
 };

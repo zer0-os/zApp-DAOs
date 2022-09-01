@@ -1,34 +1,52 @@
 @use '@zero-tech/zui/styles/colors';
 
-.Dao {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
+.Row {
+	cursor: pointer;
 
-	img {
-		height: 2.5rem;
-		width: 2.5rem;
-		border-radius: 0.5rem;
+	&:hover {
+		background: #{colors.$purple-10};
 	}
 
-	.Content {
-		display: flex;
-		flex-direction: column;
-		gap: 0.2rem;
-		
-		.Domain {
-			font-size: 0.85rem;
-			color: colors.$grey-lighter-2;
+	> td {
+		&:first-of-type {
+			padding-left: 0.5rem;
+		}
+
+		&:last-of-type {
+			padding-right: 0.5rem;
 		}
 	}
-}
 
-.Right {
-	margin-left: auto;
-	text-align: right;
-}
+	.Dao {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
 
-.Center {
-	margin: 0 auto;
-	text-align: center;
+		img {
+			height: 2.5rem;
+			width: 2.5rem;
+			border-radius: 0.5rem;
+		}
+
+		.Content {
+			display: flex;
+			flex-direction: column;
+			gap: 0.2rem;
+			
+			.Domain {
+				font-size: 0.85rem;
+				color: colors.$grey-lighter-2;
+			}
+		}
+	}
+
+	.Right {
+		margin-left: auto;
+		text-align: right;
+	}
+
+	.Center {
+		margin: 0 auto;
+		text-align: center;
+	}
 }

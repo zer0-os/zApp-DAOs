@@ -1,3 +1,10 @@
+.Container {
+	> table {
+		border-collapse: collapse;
+    	border-spacing: 0;
+	}
+}
+
 .Empty {
 	padding: 1rem;
 	text-align: center;
