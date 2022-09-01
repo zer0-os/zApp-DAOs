@@ -4,8 +4,7 @@ import React, { useEffect } from 'react';
 import { useWeb3, useCurrentDao, useRedirect } from '../lib/hooks';
 import { ROOT_PATH, ROUTES } from '../lib/constants/routes';
 import { ConnectWallet } from '../features/ui';
-import { DAOList } from './DAOList';
-import { DAOPage } from './DAOPage';
+import { DAOList, DAOPage } from './index';
 
 export const DAOs: FC = () => {
 	const { account } = useWeb3();
@@ -30,8 +29,6 @@ export const DAOs: FC = () => {
 			<ConnectWallet message={'Connect a Web3 wallet to see your Dao data.'} />
 		);
 	}
-
-	console.log({ zna, isLoading, dao });
 
 	return zna === '' ? <DAOList /> : <DAOPage />;
 };

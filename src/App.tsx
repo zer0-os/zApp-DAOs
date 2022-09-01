@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import React from 'react';
-import { DAOs } from './pages/DAOs';
+import { DAOs } from './pages';
 import styles from './App.module.scss';
 
 export const App: FC = () => {

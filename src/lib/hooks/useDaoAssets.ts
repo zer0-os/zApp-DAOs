@@ -13,7 +13,7 @@ type UseDaoAssetsReturn = {
 export const useDaoAssets = (dao?: zDAO): UseDaoAssetsReturn => {
 	// Query
 	const { isLoading, data } = useQuery(
-		`daos-${dao.id}-assets`,
+		`daos-${dao?.id}-assets`,
 		async () => {
 			try {
 				const assets: zDAOAssets = await dao.listAssets();
