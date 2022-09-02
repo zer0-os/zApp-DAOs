@@ -46,17 +46,17 @@ export const DAOPage: FC = () => {
 						{
 							text: DaoPageTab.Assets,
 							to: toTabRoute(ROUTES.ZDAO_ASSETS),
-							content: <DaoAssetsTable />
+							content: <DaoAssetsTable dao={dao} />
 						},
 						{
 							text: DaoPageTab.Transactions,
 							to: toTabRoute(ROUTES.ZDAO_TRANSACTIONS),
-							content: <DaoTransactionsTable />
+							content: <DaoTransactionsTable dao={dao} />
 						},
 						{
 							text: DaoPageTab.Proposals,
 							to: toTabRoute(ROUTES.ZDAO_PROPOSALS),
-							content: <DaoProposalsTable />
+							content: <DaoProposalsTable dao={dao} />
 						}
 					]}
 				/>
