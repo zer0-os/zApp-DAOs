@@ -11,6 +11,7 @@ import { DaoAssetsTable } from '../../features/dao-assets-table';
 import { DaoTransactionsTable } from '../../features/dao-transactions-table';
 import { DaoProposalsTable } from '../../features/dao-proposals-table';
 import DaoIcon from '../../assets/default_dao.svg';
+import { DaoPageTab } from './DAOPage.constants';
 import styles from './DAOPage.module.scss';
 
 export const DAOPage: FC = () => {
@@ -40,20 +41,20 @@ export const DAOPage: FC = () => {
 
 			<div className={styles.Content}>
 				<TabNav
-					defaultValue={'Assets'}
+					defaultValue={DaoPageTab.Assets}
 					tabs={[
 						{
-							text: 'Assets',
+							text: DaoPageTab.Assets,
 							to: toTabRoute(ROUTES.ZDAO_ASSETS),
 							content: <DaoAssetsTable />
 						},
 						{
-							text: 'Transactions',
+							text: DaoPageTab.Transactions,
 							to: toTabRoute(ROUTES.ZDAO_TRANSACTIONS),
 							content: <DaoTransactionsTable />
 						},
 						{
-							text: 'Proposals',
+							text: DaoPageTab.Proposals,
 							to: toTabRoute(ROUTES.ZDAO_PROPOSALS),
 							content: <DaoProposalsTable />
 						}
