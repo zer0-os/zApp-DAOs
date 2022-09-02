@@ -1,18 +1,24 @@
 import type { FC } from 'react';
 
 import React from 'react';
-import { Card, Skeleton } from '@zero-tech/zui/components';
+import { Card, Skeleton, TabNav } from '@zero-tech/zui/components';
 import { ROOT_PATH, ROUTES } from '../../lib/constants/routes';
 import { useCurrentDao, useDaoAssets } from '../../lib/hooks';
 import { USD } from '../../lib/constants/currency';
 import { formatFiat } from '../../lib/util/format';
 import { BackLinkButton } from '../../features/ui';
+import { DaoAssetsTable } from '../../features/dao-assets-table';
+import { DaoTransactionsTable } from '../../features/dao-transactions-table';
+import { DaoProposalsTable } from '../../features/dao-proposals-table';
 import DaoIcon from '../../assets/default_dao.svg';
 import styles from './DAOPage.module.scss';
 
 export const DAOPage: FC = () => {
-	const { dao, isLoading: isLoadingDao } = useCurrentDao();
+	const { dao, isLoading: isLoadingDao, zna } = useCurrentDao();
 	const { totalUsd, isLoading: isLoadingDaoAssets } = useDaoAssets(dao);
+
+	const toTabRoute = (route: ROUTES) =>
+		ROOT_PATH + ROUTES.ZDAOS + '/' + zna + route;
 
 	return (
 		<div className={styles.Container}>
@@ -32,8 +38,28 @@ export const DAOPage: FC = () => {
 				/>
 			</div>
 
-			{/* TODO:: Should show tab nav and dao details */}
-			<p>DAO - Detail Page</p>
+			<div className={styles.Content}>
+				<TabNav
+					defaultValue={'Assets'}
+					tabs={[
+						{
+							text: 'Assets',
+							to: toTabRoute(ROUTES.ZDAO_ASSETS),
+							content: <DaoAssetsTable />
+						},
+						{
+							text: 'Transactions',
+							to: toTabRoute(ROUTES.ZDAO_TRANSACTIONS),
+							content: <DaoTransactionsTable />
+						},
+						{
+							text: 'Proposals',
+							to: toTabRoute(ROUTES.ZDAO_PROPOSALS),
+							content: <DaoProposalsTable />
+						}
+					]}
+				/>
+			</div>
 		</div>
 	);
 };
