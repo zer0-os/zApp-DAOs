@@ -1,8 +1,13 @@
 @use '@zero-tech/zui/styles/colors';
 
-.Row {
-	cursor: pointer;
+.Container {
+	> table {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+}
 
+.Row {
 	&:hover {
 		background: #{colors.$purple-10};
 	}
@@ -22,9 +27,18 @@
 		align-items: center;
 		gap: 0.5rem;
 
-		img {
+		.Image {
+			display: flex;
+			justify-content: center;
+			align-items: center;
 			height: 2.5rem;
 			width: 2.5rem;
+
+			img {
+				width: 100%;
+				height: 100%;
+			}
+
 			border-radius: 0.5rem;
 		}
 
@@ -33,7 +47,7 @@
 			flex-direction: column;
 			gap: 0.2rem;
 
-			.Domain {
+			.Symbol {
 				font-size: 0.85rem;
 				color: colors.$grey-lighter-2;
 			}

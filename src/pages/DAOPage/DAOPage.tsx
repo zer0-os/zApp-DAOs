@@ -46,7 +46,7 @@ export const DAOPage: FC = () => {
 						{
 							text: DaoPageTab.Assets,
 							to: toTabRoute(ROUTES.ZDAO_ASSETS),
-							content: <DaoAssetsTable dao={dao} />
+							content: <DaoAssetsTable isLoadingDao={isLoadingDao} dao={dao} />
 						},
 						{
 							text: DaoPageTab.Transactions,
