@@ -1,25 +1,12 @@
-import type { zDAO } from '@zero-tech/zdao-sdk';
-
 import { useQuery } from 'react-query';
 import { useZdaoSdk } from './useZdaoSdk';
-
-type UseDaoReturn = {
-	dao?: zDAO;
-	isLoading: boolean;
-};
-
-export const useDao = (zna: string): UseDaoReturn => {
+export const useDao = (zna: string) => {
 	const sdk = useZdaoSdk();
 
-	// Query
-	const { isLoading, data: dao } = useQuery(
-		`dao-zna-${zna}`,
+	return useQuery(
+		['dao-zna', zna],
 		async () => {
-			try {
-				return await sdk.getZDAOByZNA(zna);
-			} catch (e) {
-				return undefined;
-			}
+			return await sdk.getZDAOByZNA(zna);
 		},
 		{
 			retry: false,
@@ -28,9 +15,4 @@ export const useDao = (zna: string): UseDaoReturn => {
 			enabled: zna.trim().length > 0
 		}
 	);
-
-	return {
-		isLoading,
-		dao
-	};
 };

@@ -4,7 +4,7 @@ import type { DaoAssetTableDataItem } from './DaoAssetsTable.types';
 import millify from 'millify';
 import { formatUnits } from 'ethers/lib/utils';
 import { formatFiat } from '../../lib/util/format';
-import { USD } from '../../lib/constants/currency';
+import { DOLLAR_SYMBOL } from '../../lib/constants/currency';
 import { DAO_ASSET_MILIFY_OPTIONS } from './DaoAssetsTable.constants';
 import defaultAssetIcon from '../../assets/default_asset.png';
 import wildIcon from '../../assets/WWLogo-Padded.svg';
@@ -31,7 +31,9 @@ export const convertAsset = (asset: Asset): DaoAssetTableDataItem => {
 		key: amount + a.address,
 		name: a.metadata?.name ?? a.metadata?.title ?? a.name ?? a.tokenName,
 		subtext: a.symbol ?? a.tokenSymbol,
-		amountInUSD: a.amountInUSD ? USD + formatFiat(a.amountInUSD) : '-'
+		amountInUSD: a.amountInUSD
+			? DOLLAR_SYMBOL + formatFiat(a.amountInUSD)
+			: '-'
 	};
 };
 
@@ -41,14 +43,14 @@ export const isZnsToken = (label: string): boolean => {
 
 /**
  * Format a total amount of asset tokens
- * @param item to format
+ * @param amount - string or number
+ * @param decimals - number
  * @returns formatted total ammount of asset tockens
  */
 export const formatTotalAmountOfTokens = (
-	item: DaoAssetTableDataItem
+	amount: string | number,
+	decimals?: number
 ): string => {
-	const { amount, decimals } = item;
-
 	return millify(
 		Number(formatUnits(amount, decimals)),
 		DAO_ASSET_MILIFY_OPTIONS

@@ -19,15 +19,15 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({
 	isLoadingDao,
 	dao
 }) => {
-	const { isLoading, assets } = useDaoAssets(dao);
+	const { isLoading, data: assetsData } = useDaoAssets(dao);
 
 	const tableData: DaoAssetTableDataItem[] = useMemo(() => {
-		if (!assets) return [];
+		if (!assetsData?.assets) return [];
 
-		return assets.map(convertAsset);
-	}, [assets]);
+		return assetsData.assets.map(convertAsset);
+	}, [assetsData]);
 
-	const hasNoAssets = !isLoading && assets?.length === 0;
+	const hasNoAssets = !isLoading && assetsData?.assets?.length === 0;
 
 	return (
 		<div className={styles.Container}>
@@ -42,7 +42,7 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({
 					isLoading={isLoadingDao || isLoading}
 				/>
 			) : (
-				<p className={styles.Empty}>You have no any assets!</p>
+				<p className={styles.Empty}>This DAO has no assets.</p>
 			)}
 		</div>
 	);

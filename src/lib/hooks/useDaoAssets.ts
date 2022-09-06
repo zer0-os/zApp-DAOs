@@ -4,38 +4,25 @@ import type { Asset } from '../types/dao';
 import { useQuery } from 'react-query';
 import { AssetType } from '@zero-tech/zdao-sdk';
 
-type UseDaoAssetsReturn = {
-	totalUsd?: number;
-	assets: Asset[];
-	isLoading: boolean;
-};
-
-export const useDaoAssets = (dao?: zDAO): UseDaoAssetsReturn => {
-	// Query
-	const { isLoading, data } = useQuery(
-		`daos-${dao?.id}-assets`,
+export const useDaoAssets = (dao?: zDAO) => {
+	return useQuery(
+		['dao-assets', dao?.id],
 		async () => {
-			try {
-				const assets: zDAOAssets = await dao.listAssets();
-				const collectibles = assets.collectibles.map((c) => ({
-					...c,
-					type: AssetType.ERC721
-				}));
+			const assets: zDAOAssets = await dao.listAssets();
+			const collectibles = assets.collectibles.map((c) => ({
+				...c,
+				type: AssetType.ERC721
+			}));
 
-				const allAssets: Asset[] = [
-					...assets.coins.filter((d) => d.amount !== '0'),
-					...collectibles
-				];
+			const allAssets: Asset[] = [
+				...assets.coins.filter((d) => d.amount !== '0'),
+				...collectibles
+			];
 
-				return {
-					totalUsd: assets.amountInUSD,
-					assets: allAssets
-				};
-			} catch (e) {
-				return {
-					assets: []
-				};
-			}
+			return {
+				totalUsd: assets.amountInUSD,
+				assets: allAssets
+			};
 		},
 		{
 			retry: false,
@@ -44,10 +31,4 @@ export const useDaoAssets = (dao?: zDAO): UseDaoAssetsReturn => {
 			enabled: Boolean(dao)
 		}
 	);
-
-	return {
-		isLoading,
-		totalUsd: data?.totalUsd,
-		assets: data?.assets
-	};
 };

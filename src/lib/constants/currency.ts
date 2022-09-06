@@ -1,1 +1,1 @@
-export const USD = '$';
+export const DOLLAR_SYMBOL = '$';

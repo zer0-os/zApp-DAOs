@@ -26,7 +26,7 @@ export const CurrentDaoProvider: FC<CurrentDaoProviderProps> = ({
 	const { pathname } = useLocation();
 	const zna = zNAFromPathname(pathname);
 
-	const { isLoading, dao } = useDao(zna);
+	const { isLoading, data: dao } = useDao(zna);
 
 	const context = {
 		dao,

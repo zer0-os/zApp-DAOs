@@ -1,16 +1,30 @@
+// Types import
 import type { FC } from 'react';
 import type { DAOTableDataItem } from './DaosTable.types';
 
+// React import
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+
+// Libraries import
 import { Skeleton } from '@zero-tech/zui/components';
 import { isNaN, isNil } from 'lodash';
+
+// Hooks import
 import { useDaoAssets } from '../../lib/hooks';
+
+// Utils import
 import { formatFiat } from '../../lib/util/format';
-import { USD } from '../../lib/constants/currency';
-import { DEFAULT_NETWORK_PROTOCAL } from '../../lib/constants/networks';
+
+// Constants import
+import { DOLLAR_SYMBOL } from '../../lib/constants/currency';
+import { ZERO_ROOT_SYMBOL } from '../../lib/constants/networks';
 import { ROOT_PATH, ROUTES } from '../../lib/constants/routes';
+
+// Assets import
 import DaoIcon from '../../assets/default_dao.svg';
+
+// Styles import
 import styles from './DaosTableRow.module.scss';
 
 type DaosTableRowProps = {
@@ -19,17 +33,17 @@ type DaosTableRowProps = {
 
 export const DaosTableRow: FC<DaosTableRowProps> = ({ daoData }) => {
 	const history = useHistory();
-	const { isLoading, totalUsd } = useDaoAssets(daoData.dao);
+	const { isLoading, data: daoAssetsData } = useDaoAssets(daoData.dao);
 
 	const getAsyncAmountColumn = () => {
 		if (isLoading) {
 			return <Skeleton width={100} />;
 		}
-		if (isNaN(totalUsd) || isNil(totalUsd)) {
+		if (isNaN(daoAssetsData?.totalUsd) || isNil(daoAssetsData?.totalUsd)) {
 			return <>ERR</>;
 		}
 
-		return USD + formatFiat(totalUsd);
+		return DOLLAR_SYMBOL + formatFiat(daoAssetsData?.totalUsd);
 	};
 
 	/**
@@ -47,7 +61,7 @@ export const DaosTableRow: FC<DaosTableRowProps> = ({ daoData }) => {
 					<div className={styles.Content}>
 						<span className={styles.Title}>{daoData.dao.title}</span>
 						<span className={styles.Domain}>
-							{DEFAULT_NETWORK_PROTOCAL + daoData.zna}
+							{ZERO_ROOT_SYMBOL + daoData.zna}
 						</span>
 					</div>
 				</div>

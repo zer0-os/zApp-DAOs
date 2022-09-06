@@ -1,27 +1,15 @@
-import type { zNA } from '@zero-tech/zdao-sdk';
-
 import { useQuery } from 'react-query';
 import { useWeb3 } from './useWeb3';
 import { useZdaoSdk } from './useZdaoSdk';
 
-type UseAllZnasReturn = {
-	znas: zNA[];
-	isLoading: boolean;
-};
-
-export const useAllZnas = (): UseAllZnasReturn => {
+export const useAllZnas = () => {
 	const sdk = useZdaoSdk();
 	const { chainId } = useWeb3();
 
-	// Query
-	const { isLoading, data: znas = [] } = useQuery(
-		`daos-znas-all-${chainId}`,
+	return useQuery(
+		['daos-znas-all', chainId],
 		async () => {
-			try {
-				return await sdk.listZNAs();
-			} catch (e) {
-				return [];
-			}
+			return await sdk.listZNAs();
 		},
 		{
 			retry: false,
@@ -29,9 +17,4 @@ export const useAllZnas = (): UseAllZnasReturn => {
 			refetchOnWindowFocus: false
 		}
 	);
-
-	return {
-		isLoading,
-		znas
-	};
 };

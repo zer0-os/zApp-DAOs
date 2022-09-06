@@ -1,22 +1,12 @@
-import type { zDAO, Transaction } from '@zero-tech/zdao-sdk';
+import type { zDAO } from '@zero-tech/zdao-sdk';
 
 import { useQuery } from 'react-query';
 
-type UseDaoTransactionsReturn = {
-	transactions: Transaction[];
-	isLoading: boolean;
-};
-
-export const useDaoTransactions = (dao?: zDAO): UseDaoTransactionsReturn => {
-	// Query
-	const { isLoading, data: transactions } = useQuery(
-		`daos-${dao.id}-transactions`,
+export const useDaoTransactions = (dao?: zDAO) => {
+	return useQuery(
+		['dao-transactions', dao?.id],
 		async () => {
-			try {
-				return await dao.listTransactions();
-			} catch (e) {
-				return [];
-			}
+			return await dao.listTransactions();
 		},
 		{
 			retry: false,
@@ -25,9 +15,4 @@ export const useDaoTransactions = (dao?: zDAO): UseDaoTransactionsReturn => {
 			enabled: Boolean(dao)
 		}
 	);
-
-	return {
-		isLoading,
-		transactions
-	};
 };

@@ -1,13 +1,11 @@
 import type { FC } from 'react';
 
 import React, { useEffect } from 'react';
-import { useWeb3, useCurrentDao, useRedirect } from '../lib/hooks';
+import { useCurrentDao, useRedirect } from '../lib/hooks';
 import { ROOT_PATH, ROUTES } from '../lib/constants/routes';
-import { ConnectWallet } from '../features/ui';
-import { DAOList, DAOPage } from './index';
+import { BrowseDAOs, DAO } from './index';
 
 export const DAOs: FC = () => {
-	const { account } = useWeb3();
 	const { zna, isLoading, dao } = useCurrentDao();
 	const { redirect } = useRedirect();
 
@@ -24,11 +22,5 @@ export const DAOs: FC = () => {
 		}
 	}, [isLoading, dao, zna, redirect]);
 
-	if (!account) {
-		return (
-			<ConnectWallet message={'Connect a Web3 wallet to see your Dao data.'} />
-		);
-	}
-
-	return zna === '' ? <DAOList /> : <DAOPage />;
+	return zna === '' ? <BrowseDAOs /> : <DAO />;
 };

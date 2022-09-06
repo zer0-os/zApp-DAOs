@@ -1,22 +1,37 @@
+// Types imports
 import type { FC } from 'react';
 
+// React imports
 import React from 'react';
-import { Card, Skeleton, TabNav } from '@zero-tech/zui/components';
-import { ROOT_PATH, ROUTES } from '../../lib/constants/routes';
+
+// Hooks imports
 import { useCurrentDao, useDaoAssets } from '../../lib/hooks';
-import { USD } from '../../lib/constants/currency';
+
+// Library imports
+import { Card, Skeleton, TabNav } from '@zero-tech/zui/components';
 import { formatFiat } from '../../lib/util/format';
+
+// Components imports
 import { BackLinkButton } from '../../features/ui';
 import { DaoAssetsTable } from '../../features/dao-assets-table';
 import { DaoTransactionsTable } from '../../features/dao-transactions-table';
 import { DaoProposalsTable } from '../../features/dao-proposals-table';
-import DaoIcon from '../../assets/default_dao.svg';
-import { DaoPageTab } from './DAOPage.constants';
-import styles from './DAOPage.module.scss';
 
-export const DAOPage: FC = () => {
+// Constants imports
+import { ROOT_PATH, ROUTES } from '../../lib/constants/routes';
+import { DOLLAR_SYMBOL } from '../../lib/constants/currency';
+import { DaoTab } from './DAO.constants';
+
+// Assets imports
+import DaoIcon from '../../assets/default_dao.svg';
+
+// Styles imports
+import styles from './DAO.module.scss';
+
+export const DAO: FC = () => {
 	const { dao, isLoading: isLoadingDao, zna } = useCurrentDao();
-	const { totalUsd, isLoading: isLoadingDaoAssets } = useDaoAssets(dao);
+	const { data: daoAssetsData, isLoading: isLoadingDaoAssets } =
+		useDaoAssets(dao);
 
 	const toTabRoute = (route: ROUTES) =>
 		ROOT_PATH + ROUTES.ZDAOS + '/' + zna + route;
@@ -34,27 +49,27 @@ export const DAOPage: FC = () => {
 					title="Total Value"
 					value={{
 						isLoading: isLoadingDao || isLoadingDaoAssets,
-						text: USD + formatFiat(totalUsd)
+						text: DOLLAR_SYMBOL + formatFiat(daoAssetsData?.totalUsd)
 					}}
 				/>
 			</div>
 
 			<div className={styles.Content}>
 				<TabNav
-					defaultValue={DaoPageTab.Assets}
+					defaultValue={DaoTab.Assets}
 					tabs={[
 						{
-							text: DaoPageTab.Assets,
+							text: DaoTab.Assets,
 							to: toTabRoute(ROUTES.ZDAO_ASSETS),
 							content: <DaoAssetsTable isLoadingDao={isLoadingDao} dao={dao} />
 						},
 						{
-							text: DaoPageTab.Transactions,
+							text: DaoTab.Transactions,
 							to: toTabRoute(ROUTES.ZDAO_TRANSACTIONS),
 							content: <DaoTransactionsTable dao={dao} />
 						},
 						{
-							text: DaoPageTab.Proposals,
+							text: DaoTab.Proposals,
 							to: toTabRoute(ROUTES.ZDAO_PROPOSALS),
 							content: <DaoProposalsTable dao={dao} />
 						}

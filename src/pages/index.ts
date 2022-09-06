@@ -1,3 +1,3 @@
 export * from './DAOs';
-export * from './DAOList';
-export * from './DAOPage';
+export * from './BrowseDAOs';
+export * from './DAO';

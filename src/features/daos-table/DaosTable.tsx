@@ -10,14 +10,15 @@ import { TABLE_KEYS, TABLE_COLUMNS } from './DaosTable.constants';
 import styles from './DaosTable.module.scss';
 
 export const DaosTable: FC = () => {
-	const { isLoading: isLoadingZnas, znas } = useAllZnas();
-	const { isLoading: isLoadingDaos, daos } = useAllDaos(znas);
+	const { isLoading: isLoadingZnas, data: znas } = useAllZnas();
+	const { isLoading: isLoadingDaos, data: daos } = useAllDaos(znas);
 
 	const isLoading = isLoadingZnas || isLoadingDaos;
 	const hasNoDaos = !isLoading && daos.length === 0;
 
 	const tableData: DAOTableDataItem[] = useMemo(() => {
-		if (!znas.length || !daos.length || znas.length !== daos.length) return [];
+		if (!znas?.length || !daos?.length || znas?.length !== daos?.length)
+			return [];
 
 		return znas.map((zna, index) => {
 			const dao: zDAO = daos[index];
@@ -43,7 +44,7 @@ export const DaosTable: FC = () => {
 					isLoading={isLoading}
 				/>
 			) : (
-				<p className={styles.Empty}>You have no any daos!</p>
+				<p className={styles.Empty}>No DAOs here.</p>
 			)}
 		</div>
 	);

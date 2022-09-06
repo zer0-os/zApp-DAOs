@@ -6,8 +6,6 @@ import classNames from 'classnames/bind';
 import { IconArrowLeft } from '../Icons';
 import styles from './BackLinkButton.module.scss';
 
-const cx = classNames.bind(styles);
-
 type BackLinkButtonProps = {
 	to: string;
 	label: string;
@@ -20,7 +18,7 @@ export const BackLinkButton: FC<BackLinkButtonProps> = ({
 	className
 }) => {
 	return (
-		<Link className={cx(styles.Link, className)} to={to}>
+		<Link className={classNames(styles.Link, className)} to={to}>
 			<IconArrowLeft /> {label}
 		</Link>
 	);

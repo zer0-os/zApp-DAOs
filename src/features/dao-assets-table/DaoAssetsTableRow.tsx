@@ -11,7 +11,7 @@ type DaoAssetsTableRowProps = {
 };
 
 export const DaoAssetsTableRow: FC<DaoAssetsTableRowProps> = ({ data }) => {
-	const { image, name, subtext, amountInUSD } = data;
+	const { image, name, subtext, amountInUSD, amount, decimals } = data;
 
 	return (
 		<tr className={styles.Row}>
@@ -29,7 +29,9 @@ export const DaoAssetsTableRow: FC<DaoAssetsTableRowProps> = ({ data }) => {
 					</div>
 				</div>
 			</td>
-			<td className={styles.Right}>{formatTotalAmountOfTokens(data)}</td>
+			<td className={styles.Right}>
+				{formatTotalAmountOfTokens(amount, decimals)}
+			</td>
 			<td className={styles.Right}>{amountInUSD}</td>
 		</tr>
 	);
