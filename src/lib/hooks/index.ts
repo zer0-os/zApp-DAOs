@@ -4,7 +4,7 @@ export * from './useDao';
 export * from './useCurrentDao';
 export * from './useAllZnas';
 export * from './useAllDaos';
-export * from './useAllDaosTotalPrice';
+export * from './useDaosTotal';
 export * from './useDaoAssets';
 export * from './useDaoTransactions';
 export * from './useDaoProposals';

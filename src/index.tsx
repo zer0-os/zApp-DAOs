@@ -15,7 +15,8 @@ import { ChainGate } from './lib/util/ChainGate';
 import {
 	Web3Provider,
 	ZdaoSdkProvider,
-	CurrentDaoProvider
+	CurrentDaoProvider,
+	DaosTotalProvider
 } from './lib/providers';
 
 const queryClient = new QueryClient();
@@ -31,9 +32,11 @@ export const DaosApp: FC<AppProps> = ({ provider, web3 }) => (
 			<ChainGate>
 				<ZdaoSdkProvider>
 					<CurrentDaoProvider>
-						<ZUIProvider>
-							<App />
-						</ZUIProvider>
+						<DaosTotalProvider>
+							<ZUIProvider>
+								<App />
+							</ZUIProvider>
+						</DaosTotalProvider>
 					</CurrentDaoProvider>
 				</ZdaoSdkProvider>
 			</ChainGate>
