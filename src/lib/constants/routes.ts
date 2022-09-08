@@ -1,4 +1,4 @@
-export const ROOT_PATH = '/wilder';
+export const ROOT_PATH = '/0.wilder';
 
 export enum ROUTES {
 	// ----- zDao ----- //
