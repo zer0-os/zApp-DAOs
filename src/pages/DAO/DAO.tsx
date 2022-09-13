@@ -8,7 +8,7 @@ import React from 'react';
 import { useCurrentDao, useDaoAssets } from '../../lib/hooks';
 
 // Library imports
-import { Card, Skeleton, TabNav } from '@zero-tech/zui/components';
+import { Card, Skeleton, Tabs } from '@zero-tech/zui/components';
 import { formatFiat } from '../../lib/util/format';
 
 // Components imports
@@ -33,6 +33,8 @@ export const DAO: FC = () => {
 	const { data: daoAssetsData, isLoading: isLoadingDaoAssets } =
 		useDaoAssets(dao);
 
+	// TODO:: Update TabNav from zUI to support react-router-dom
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const toTabRoute = (route: ROUTES) =>
 		ROOT_PATH + ROUTES.ZDAOS + '/' + zna + route;
 
@@ -55,22 +57,22 @@ export const DAO: FC = () => {
 			</div>
 
 			<div className={styles.Content}>
-				<TabNav
+				<Tabs
 					defaultValue={DaoTab.Assets}
 					tabs={[
 						{
 							text: DaoTab.Assets,
-							to: toTabRoute(ROUTES.ZDAO_ASSETS),
+							// to: toTabRoute(ROUTES.ZDAO_ASSETS),
 							content: <DaoAssetsTable isLoadingDao={isLoadingDao} dao={dao} />
 						},
 						{
 							text: DaoTab.Transactions,
-							to: toTabRoute(ROUTES.ZDAO_TRANSACTIONS),
+							// to: toTabRoute(ROUTES.ZDAO_TRANSACTIONS),
 							content: <DaoTransactions dao={dao} />
 						},
 						{
 							text: DaoTab.Proposals,
-							to: toTabRoute(ROUTES.ZDAO_PROPOSALS),
+							// to: toTabRoute(ROUTES.ZDAO_PROPOSALS),
 							content: <DaoProposalsTable dao={dao} />
 						}
 					]}
