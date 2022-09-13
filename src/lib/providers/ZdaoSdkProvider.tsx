@@ -54,7 +54,7 @@ export const ZdaoSdkProvider: FC<ZdaoSdkProviderProps> = ({ children }) => {
 
 		const config: Config = createConfig(
 			p,
-			NETWORK_CONFIGS[DEFAULT_NETWORK].ipfsGateway
+			NETWORK_CONFIGS[network].ipfsGateway
 		);
 
 		const sdk = createSDKInstance(config);

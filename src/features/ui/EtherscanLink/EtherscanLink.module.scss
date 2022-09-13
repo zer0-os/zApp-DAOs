@@ -1,0 +1,8 @@
+@use '@zero-tech/zui/styles/colors';
+
+.Link {
+    &, &:hover, &:active {
+        color: #{colors.$text-primary};
+        text-shadow: none;
+    }
+}

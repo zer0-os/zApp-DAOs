@@ -4,7 +4,7 @@ import type { zDAO } from '@zero-tech/zdao-sdk';
 import React, { createContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDao } from '../hooks';
-import { zNAFromPathname } from '../util/zna';
+import { zNAFromPathname } from '../util/domains';
 
 export const CurrentDaoContext = createContext({
 	dao: undefined as zDAO | undefined,

@@ -14,7 +14,7 @@ import { formatFiat } from '../../lib/util/format';
 // Components imports
 import { BackLinkButton } from '../../features/ui';
 import { DaoAssetsTable } from '../../features/dao-assets-table';
-import { DaoTransactionsTable } from '../../features/dao-transactions-table';
+import { DaoTransactions } from '../../features/dao-transactions';
 import { DaoProposalsTable } from '../../features/dao-proposals-table';
 
 // Constants imports
@@ -66,7 +66,7 @@ export const DAO: FC = () => {
 						{
 							text: DaoTab.Transactions,
 							to: toTabRoute(ROUTES.ZDAO_TRANSACTIONS),
-							content: <DaoTransactionsTable dao={dao} />
+							content: <DaoTransactions dao={dao} />
 						},
 						{
 							text: DaoTab.Proposals,
