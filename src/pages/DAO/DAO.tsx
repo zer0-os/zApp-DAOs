@@ -1,14 +1,22 @@
 // Types imports
 import type { FC } from 'react';
+import type { TabNav } from '@zero-tech/zui/components';
 
 // React imports
-import React from 'react';
+import React, { useMemo } from 'react';
+import {
+	Switch,
+	Route,
+	Redirect,
+	useRouteMatch,
+	useLocation
+} from 'react-router-dom';
 
 // Hooks imports
 import { useCurrentDao, useDaoAssets } from '../../lib/hooks';
 
 // Library imports
-import { Card, Skeleton, Tabs } from '@zero-tech/zui/components';
+import { Card, Skeleton, TabsNav } from '@zero-tech/zui/components';
 import { formatFiat } from '../../lib/util/format';
 
 // Components imports
@@ -33,10 +41,28 @@ export const DAO: FC = () => {
 	const { data: daoAssetsData, isLoading: isLoadingDaoAssets } =
 		useDaoAssets(dao);
 
-	// TODO:: Update TabNav from zUI to support react-router-dom
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const toTabRoute = (route: ROUTES) =>
-		ROOT_PATH + ROUTES.ZDAOS + '/' + zna + route;
+	const { pathname } = useLocation();
+	const { url: matchUrl } = useRouteMatch();
+
+	const daoBaseUrl = matchUrl + '/' + zna;
+
+	const tabs: TabNav[] = useMemo(
+		() => [
+			{
+				text: DaoTab.Assets,
+				to: daoBaseUrl + ROUTES.ZDAO_ASSETS
+			},
+			{
+				text: DaoTab.Transactions,
+				to: daoBaseUrl + ROUTES.ZDAO_TRANSACTIONS
+			},
+			{
+				text: DaoTab.Proposals,
+				to: daoBaseUrl + ROUTES.ZDAO_PROPOSALS
+			}
+		],
+		[daoBaseUrl]
+	);
 
 	return (
 		<div className={styles.Container}>
@@ -57,28 +83,29 @@ export const DAO: FC = () => {
 			</div>
 
 			<div className={styles.Content}>
-				<Tabs
-					defaultValue={DaoTab.Assets}
-					tabs={[
-						{
-							text: DaoTab.Assets,
-							// to: toTabRoute(ROUTES.ZDAO_ASSETS),
-							content: <DaoAssetsTable isLoadingDao={isLoadingDao} dao={dao} />
-						},
-						{
-							text: DaoTab.Transactions,
-							// to: toTabRoute(ROUTES.ZDAO_TRANSACTIONS),
-							content: (
-								<DaoTransactions isLoadingDao={isLoadingDao} dao={dao} />
-							)
-						},
-						{
-							text: DaoTab.Proposals,
-							// to: toTabRoute(ROUTES.ZDAO_PROPOSALS),
-							content: <DaoProposalsTable dao={dao} />
-						}
-					]}
-				/>
+				<TabsNav tabs={tabs} location={pathname} />
+
+				<div className={styles.TabsContent}>
+					<Switch>
+						<Route
+							path={daoBaseUrl + ROUTES.ZDAO_ASSETS}
+							render={() => (
+								<DaoAssetsTable isLoadingDao={isLoadingDao} dao={dao} />
+							)}
+						/>
+						<Route
+							path={daoBaseUrl + ROUTES.ZDAO_TRANSACTIONS}
+							render={() => <DaoTransactions isLoadingDao={isLoadingDao} dao={dao} />}
+						/>
+						<Route
+							path={daoBaseUrl + ROUTES.ZDAO_PROPOSALS}
+							render={() => <DaoProposalsTable isLoadingDao={isLoadingDao} dao={dao} />}
+						/>
+						<Route path={daoBaseUrl} exact>
+							<Redirect to={daoBaseUrl + ROUTES.ZDAO_ASSETS} />
+						</Route>
+					</Switch>
+				</div>
 			</div>
 		</div>
 	);
