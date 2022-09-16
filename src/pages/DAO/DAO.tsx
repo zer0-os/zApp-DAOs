@@ -68,7 +68,9 @@ export const DAO: FC = () => {
 						{
 							text: DaoTab.Transactions,
 							// to: toTabRoute(ROUTES.ZDAO_TRANSACTIONS),
-							content: <DaoTransactions dao={dao} />
+							content: (
+								<DaoTransactions isLoadingDao={isLoadingDao} dao={dao} />
+							)
 						},
 						{
 							text: DaoTab.Proposals,

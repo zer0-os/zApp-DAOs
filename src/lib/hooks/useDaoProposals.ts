@@ -9,9 +9,6 @@ export const useDaoProposals = (dao?: zDAO) => {
 			return await dao.listProposals();
 		},
 		{
-			retry: false,
-			refetchOnMount: false,
-			refetchOnWindowFocus: false,
 			enabled: Boolean(dao)
 		}
 	);

@@ -9,3 +9,6 @@ export * from './useDaoAssets';
 export * from './useDaoTransactions';
 export * from './useDaoProposals';
 export * from './useRedirect';
+export * from './useDidUpdate';
+export * from './useInterval';
+export * from './useTimer';

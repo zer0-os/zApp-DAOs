@@ -10,11 +10,18 @@ import { TRANSACTION_GROUP_LABELS } from './DaoTransactions.constants';
 import styles from './DaoTransactions.module.scss';
 
 type DaoTransactionsProps = {
+	isLoadingDao: boolean;
 	dao?: zDAO;
 };
 
-export const DaoTransactions: FC<DaoTransactionsProps> = ({ dao }) => {
-	const { isLoading, data: transactions } = useDaoTransactions(dao);
+export const DaoTransactions: FC<DaoTransactionsProps> = ({
+	isLoadingDao,
+	dao
+}) => {
+	const { isLoading: isLoadingTransactions, data: transactions } =
+		useDaoTransactions(dao);
+
+	const isLoading = isLoadingDao || isLoadingTransactions;
 
 	const groupedTransactions = useMemo(() => {
 		if (transactions?.length > 0) {
