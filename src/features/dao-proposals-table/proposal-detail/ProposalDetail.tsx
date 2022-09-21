@@ -120,7 +120,7 @@ export const ProposalDetail: FC<ProposalDetailProps> = ({
 
 						{/* Proposal body (Markdown content) */}
 						<MarkDownViewer
-							text={formatProposalBody(proposal.body)}
+							text={formatProposalBody(proposal?.body)}
 							className={styles.MarkDownViewerContent}
 						/>
 

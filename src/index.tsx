@@ -15,6 +15,7 @@ import { ChainGate } from './lib/util/ChainGate';
 import {
 	Web3Provider,
 	ZdaoSdkProvider,
+	ZnsSdkProvider,
 	CurrentDaoProvider,
 	DaosTotalProvider
 } from './lib/providers';
@@ -30,15 +31,17 @@ export const DaosApp: FC<AppProps> = ({ provider, web3 }) => (
 			connectWallet={web3.connectWallet}
 		>
 			<ChainGate>
-				<ZdaoSdkProvider>
-					<CurrentDaoProvider>
-						<DaosTotalProvider>
-							<ZUIProvider>
-								<App />
-							</ZUIProvider>
-						</DaosTotalProvider>
-					</CurrentDaoProvider>
-				</ZdaoSdkProvider>
+				<ZnsSdkProvider>
+					<ZdaoSdkProvider>
+						<CurrentDaoProvider>
+							<DaosTotalProvider>
+								<ZUIProvider>
+									<App />
+								</ZUIProvider>
+							</DaosTotalProvider>
+						</CurrentDaoProvider>
+					</ZdaoSdkProvider>
+				</ZnsSdkProvider>
 			</ChainGate>
 		</Web3Provider>
 	</QueryClientProvider>

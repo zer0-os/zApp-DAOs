@@ -9,14 +9,19 @@ import {
 	Route,
 	Redirect,
 	useRouteMatch,
-	useLocation
+	useLocation,
+	useHistory
 } from 'react-router-dom';
 
 // Hooks imports
-import { useCurrentDao, useDaoAssets } from '../../lib/hooks';
+import {
+	useCurrentDao,
+	useDaoAssets,
+	useUserPaymentTokenBalance
+} from '../../lib/hooks';
 
 // Library imports
-import { Card, Skeleton, TabsNav } from '@zero-tech/zui/components';
+import { Card, Skeleton, TabsNav, Button } from '@zero-tech/zui/components';
 import { formatFiat } from '../../lib/util/format';
 
 // Components imports
@@ -25,13 +30,14 @@ import { DaoAssetsTable } from '../../features/dao-assets-table';
 import { DaoTransactions } from '../../features/dao-transactions';
 import {
 	DaoProposalsTable,
-	ProposalDetail
+	ProposalDetail,
+	CreateProposal
 } from '../../features/dao-proposals-table';
 
 // Constants imports
 import { ROOT_PATH, ROUTES } from '../../lib/constants/routes';
 import { DOLLAR_SYMBOL } from '../../lib/constants/currency';
-import { DaoTab } from './DAO.constants';
+import { DaoTab, DAO_CREATE_PROPOSAL } from './DAO.constants';
 
 // Assets imports
 import DaoIcon from '../../assets/default_dao.svg';
@@ -43,11 +49,19 @@ export const DAO: FC = () => {
 	const { dao, isLoading: isLoadingDao, zna } = useCurrentDao();
 	const { data: daoAssetsData, isLoading: isLoadingDaoAssets } =
 		useDaoAssets(dao);
+	const { data: userPaymentTokenBalance } = useUserPaymentTokenBalance(
+		dao?.votingToken.token
+	);
 
+	const history = useHistory();
 	const { pathname } = useLocation();
 	const { url: matchUrl } = useRouteMatch();
 
 	const daoBaseUrl = matchUrl + '/' + zna;
+
+	const showCreateProposalButton =
+		pathname === daoBaseUrl + ROUTES.ZDAO_PROPOSALS &&
+		userPaymentTokenBalance?.gt(0);
 
 	const tabs: TabNav[] = useMemo(
 		() => [
@@ -66,6 +80,12 @@ export const DAO: FC = () => {
 		],
 		[daoBaseUrl]
 	);
+
+	const handleNewProposalButtonClick = () => {
+		history.push(
+			`${daoBaseUrl + ROUTES.ZDAO_PROPOSALS}/${DAO_CREATE_PROPOSAL}`
+		);
+	};
 
 	return (
 		<div className={styles.Container}>
@@ -88,8 +108,15 @@ export const DAO: FC = () => {
 					/>
 				</div>
 
-				{/* Dao Tabs */}
-				<TabsNav tabs={tabs} location={pathname} />
+				<div className={styles.TabsNav}>
+					{/* Dao Tabs */}
+					<TabsNav tabs={tabs} location={pathname} />
+
+					{/* New Proposal Button */}
+					{showCreateProposalButton && (
+						<Button onPress={handleNewProposalButtonClick}>New Proposal</Button>
+					)}
+				</div>
 			</div>
 
 			<div className={styles.Content}>
@@ -104,6 +131,14 @@ export const DAO: FC = () => {
 						path={daoBaseUrl + ROUTES.ZDAO_TRANSACTIONS}
 						render={() => (
 							<DaoTransactions isLoadingDao={isLoadingDao} dao={dao} />
+						)}
+					/>
+					<Route
+						path={
+							daoBaseUrl + ROUTES.ZDAO_PROPOSALS + '/' + DAO_CREATE_PROPOSAL
+						}
+						render={() => (
+							<CreateProposal isLoadingDao={isLoadingDao} dao={dao} />
 						)}
 					/>
 					<Route

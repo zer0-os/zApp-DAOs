@@ -3,3 +3,5 @@ export enum DaoTab {
 	Transactions = 'Transactions',
 	Proposals = 'Proposals',
 }
+
+export const DAO_CREATE_PROPOSAL = 'create';

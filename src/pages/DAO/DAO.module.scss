@@ -1,3 +1,5 @@
+@use '../../../node_modules/@zero-tech/zui/styles/dimensions';
+
 .Container {
 	.Stats {
 		display: flex;
@@ -22,6 +24,25 @@
 			h1 {
 				font-size: 1.5rem;
 			}
+		}
+	}
+
+	.TabsNav {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		@media only screen and (min-width: dimensions.$breakpoint-tablet-s) {
+			flex-direction: row;
+			justify-content: space-between;
+		}
+
+		> div {
+			padding: 0.5rem 0;
+		}
+
+		> button {
+			margin-left: auto;
 		}
 	}
 

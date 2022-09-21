@@ -1,5 +1,6 @@
 export * from './useWeb3';
 export * from './useZdaoSdk';
+export * from './useZnsSdk';
 export * from './useDao';
 export * from './useCurrentDao';
 export * from './useAllZnas';
@@ -11,6 +12,7 @@ export * from './useDaoProposals';
 export * from './useDaoProposal';
 export * from './useProposalVotes';
 export * from './useUserProposalVoteData';
+export * from './useUserPaymentTokenBalance';
 export * from './useRedirect';
 export * from './useDidUpdate';
 export * from './useInterval';
