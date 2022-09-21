@@ -1,14 +1,21 @@
-import type { Proposal } from '@zero-tech/zdao-sdk';
+import type { zDAO, Proposal, TokenMetaData, Token } from '@zero-tech/zdao-sdk';
 import type { ProposalClosingStatus } from './DaoProposals.types';
 
 import moment from 'moment';
 import { isEmpty } from 'lodash';
+import millify from 'millify';
+import { formatUnits } from 'ethers/lib/utils';
 import { ProposalState } from '@zero-tech/zdao-sdk';
+import { formatFiat } from '../../lib/util/format';
 import { secondsToDhms } from '../../lib/util/datetime';
+import { DOLLAR_SYMBOL } from '../../lib/constants/currency';
 import {
 	PROPOSAL_FILTER_START_DATE,
 	DEFAULT_TIMMER_EXPIRED_LABEL
 } from './DaoProposals.constants';
+
+const MILLIFY_THRESHOLD = 1000000;
+const MILLIFY_PRECISION = 3;
 
 /**
  * Sort proposals by active & ending time
@@ -90,6 +97,18 @@ export const isFromSnapshotWithMultipleChoices = (
 };
 
 /**
+ * Get snapshot proposal link
+ * @param proposal to get
+ * @returns snapshot proposal link to vote
+ */
+export const getSnpashotProposalLink = (
+	dao: zDAO,
+	proposal: Proposal
+): string => {
+	return `https://snapshot.org/#/${dao.ens}/proposal/${proposal.id}`;
+};
+
+/**
  * Format proposal status
  * @param proposal to format
  * @returns formatted proposal status string
@@ -130,4 +149,78 @@ export const formatProposalEndTime = (timeDiff: number): string => {
 	}
 
 	return secondsToDhms(timeDiff / 1000);
+};
+
+/**
+ * Format a voting power amount
+ * @param amount to format
+ * @param symbol voting token symbol
+ * @returns formatted ammount of voting power
+ */
+export const formatVotingPowerAmount = (
+	amount: number,
+	token?: Token,
+	showSymbol?: boolean
+): string | null => {
+	if (!amount || !token) return null;
+
+	const formattedAmount =
+		amount >= MILLIFY_THRESHOLD
+			? millify(amount, { precision: MILLIFY_PRECISION })
+			: formatFiat(amount);
+
+	const symbol =
+		token.decimals > 0 ? token.symbol : 'NFT' + (amount > 1 ? 's' : '');
+
+	return formattedAmount + (showSymbol ? ' ' + symbol : '');
+};
+
+/**
+ * Format a total amount of proposal metadata
+ * @param tokenMetaData to format
+ * @returns formatted total ammount of proposal metadata
+ */
+export const formatTotalAmountOfTokenMetadata = (
+	tokenMetaData?: TokenMetaData,
+	asNumber = false
+): string | number | null => {
+	if (!tokenMetaData) return null;
+
+	const { amount, decimals } = tokenMetaData;
+
+	if (!amount || !decimals) return null;
+
+	const calculatedAmount = Math.min(
+		Number(formatUnits(amount, decimals)),
+		Number.MAX_SAFE_INTEGER
+	);
+
+	if (!calculatedAmount) return null;
+
+	if (asNumber) {
+		return calculatedAmount;
+	}
+
+	const formattedAmount =
+		calculatedAmount >= MILLIFY_THRESHOLD
+			? millify(calculatedAmount, { precision: MILLIFY_PRECISION })
+			: formatFiat(calculatedAmount);
+
+	return formattedAmount + ' ' + tokenMetaData.symbol;
+};
+
+/**
+ * Format a total amount in USD of proposal metadata
+ * @param tokenMetaData to format
+ * @returns formatted total ammount in USD of proposal metadata
+ */
+export const formatAmountInUSDOfTokenMetadata = (
+	wildPriceUsd: number,
+	tokenMetaData?: TokenMetaData
+): string | null => {
+	const amountInWILD = formatTotalAmountOfTokenMetadata(tokenMetaData, true);
+
+	if (!amountInWILD) return null;
+
+	return DOLLAR_SYMBOL + formatFiat(Number(amountInWILD) * wildPriceUsd);
 };

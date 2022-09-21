@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import type { LinkProps } from 'react-router-dom';
 
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -7,7 +8,7 @@ import { IconArrowLeft } from '../Icons';
 import styles from './BackLinkButton.module.scss';
 
 type BackLinkButtonProps = {
-	to: string;
+	to: LinkProps['to'];
 	label: string;
 	className?: string;
 };

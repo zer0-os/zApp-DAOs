@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query';
 import { useZdaoSdk } from './useZdaoSdk';
+
 export const useDao = (zna: string) => {
 	const sdk = useZdaoSdk();
 

@@ -23,7 +23,10 @@ import { formatFiat } from '../../lib/util/format';
 import { BackLinkButton } from '../../features/ui';
 import { DaoAssetsTable } from '../../features/dao-assets-table';
 import { DaoTransactions } from '../../features/dao-transactions';
-import { DaoProposalsTable } from '../../features/dao-proposals-table';
+import {
+	DaoProposalsTable,
+	ProposalDetail
+} from '../../features/dao-proposals-table';
 
 // Constants imports
 import { ROOT_PATH, ROUTES } from '../../lib/constants/routes';
@@ -66,46 +69,59 @@ export const DAO: FC = () => {
 
 	return (
 		<div className={styles.Container}>
-			<BackLinkButton label="All DAOs" to={ROOT_PATH + ROUTES.ZDAOS} />
+			<div className={styles.Header} id="dao-page-nav-tabs">
+				{/* Back to All Daos */}
+				<BackLinkButton label="All DAOs" to={ROOT_PATH + ROUTES.ZDAOS} />
 
-			<div className={styles.Header}>
-				<div className={styles.Dao}>
-					<img alt={dao?.title + ' icon'} src={DaoIcon} />
-					{isLoadingDao ? <Skeleton width={100} /> : <h1>{dao?.title}</h1>}
+				{/* Dao logo, title and total amount */}
+				<div className={styles.Stats}>
+					<div className={styles.Dao}>
+						<img alt={dao?.title + ' icon'} src={DaoIcon} />
+						{isLoadingDao ? <Skeleton width={100} /> : <h1>{dao?.title}</h1>}
+					</div>
+					<Card
+						title="Total Value"
+						value={{
+							isLoading: isLoadingDao || isLoadingDaoAssets,
+							text: DOLLAR_SYMBOL + formatFiat(daoAssetsData?.totalUsd)
+						}}
+					/>
 				</div>
-				<Card
-					title="Total Value"
-					value={{
-						isLoading: isLoadingDao || isLoadingDaoAssets,
-						text: DOLLAR_SYMBOL + formatFiat(daoAssetsData?.totalUsd)
-					}}
-				/>
+
+				{/* Dao Tabs */}
+				<TabsNav tabs={tabs} location={pathname} />
 			</div>
 
 			<div className={styles.Content}>
-				<TabsNav tabs={tabs} location={pathname} />
-
-				<div className={styles.TabsContent}>
-					<Switch>
-						<Route
-							path={daoBaseUrl + ROUTES.ZDAO_ASSETS}
-							render={() => (
-								<DaoAssetsTable isLoadingDao={isLoadingDao} dao={dao} />
-							)}
-						/>
-						<Route
-							path={daoBaseUrl + ROUTES.ZDAO_TRANSACTIONS}
-							render={() => <DaoTransactions isLoadingDao={isLoadingDao} dao={dao} />}
-						/>
-						<Route
-							path={daoBaseUrl + ROUTES.ZDAO_PROPOSALS}
-							render={() => <DaoProposalsTable isLoadingDao={isLoadingDao} dao={dao} />}
-						/>
-						<Route path={daoBaseUrl} exact>
-							<Redirect to={daoBaseUrl + ROUTES.ZDAO_ASSETS} />
-						</Route>
-					</Switch>
-				</div>
+				<Switch>
+					<Route
+						path={daoBaseUrl + ROUTES.ZDAO_ASSETS}
+						render={() => (
+							<DaoAssetsTable isLoadingDao={isLoadingDao} dao={dao} />
+						)}
+					/>
+					<Route
+						path={daoBaseUrl + ROUTES.ZDAO_TRANSACTIONS}
+						render={() => (
+							<DaoTransactions isLoadingDao={isLoadingDao} dao={dao} />
+						)}
+					/>
+					<Route
+						path={daoBaseUrl + ROUTES.ZDAO_PROPOSALS + '/:proposalId'}
+						render={() => (
+							<ProposalDetail isLoadingDao={isLoadingDao} dao={dao} />
+						)}
+					/>
+					<Route
+						path={daoBaseUrl + ROUTES.ZDAO_PROPOSALS}
+						render={() => (
+							<DaoProposalsTable isLoadingDao={isLoadingDao} dao={dao} />
+						)}
+					/>
+					<Route path={daoBaseUrl} exact>
+						<Redirect to={daoBaseUrl + ROUTES.ZDAO_ASSETS} />
+					</Route>
+				</Switch>
 			</div>
 		</div>
 	);

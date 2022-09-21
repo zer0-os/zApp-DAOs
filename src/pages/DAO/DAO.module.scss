@@ -1,8 +1,8 @@
 .Container {
-	.Header {
+	.Stats {
 		display: flex;
 		gap: 1rem;
-		margin-top: 1rem;
+		margin: 1rem 0 2rem;
 
 		> * {
 			flex: 1;
@@ -26,10 +26,6 @@
 	}
 
 	.Content {
-		margin-top: 2rem;
-
-		.TabsContent {
-			margin-top: 1rem;
-		}
+		margin-top: 1rem;
 	}
 }

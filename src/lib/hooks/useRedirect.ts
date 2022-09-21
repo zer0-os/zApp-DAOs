@@ -1,7 +1,9 @@
+import type { LinkProps } from 'react-router-dom';
+
 import { useHistory } from 'react-router-dom';
 
 type UseRedirectReturn = {
-	redirect: (to: string, message?: string) => void;
+	redirect: (to: LinkProps, message?: string) => void;
 };
 
 /**
@@ -11,7 +13,7 @@ type UseRedirectReturn = {
 export const useRedirect = (): UseRedirectReturn => {
 	const { replace } = useHistory();
 
-	const redirect = (to: string, message?: string) => {
+	const redirect = (to: LinkProps, message?: string) => {
 		if (message) {
 			// TODO - Implement Toast. If toast is not used hooks, then move to util
 			// Use window.alert for now
