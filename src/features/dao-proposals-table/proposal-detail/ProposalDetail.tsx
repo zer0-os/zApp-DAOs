@@ -12,10 +12,10 @@ import {
 	useRedirect
 } from '../../../lib/hooks';
 import {
-	isFromSnapshotWithMultipleChoices
-	// formatProposalBody
+	isFromSnapshotWithMultipleChoices,
+	formatProposalBody
 } from '../DaoProposals.helpers';
-import { BackLinkButton } from '../../../features/ui';
+import { BackLinkButton, MarkDownViewer } from '../../../features/ui';
 import { Vote } from './Vote';
 import { VoteBar } from './VoteBar';
 import { VoteHistories } from './VoteHistories';
@@ -119,6 +119,10 @@ export const ProposalDetail: FC<ProposalDetailProps> = ({
 						)}
 
 						{/* Proposal body (Markdown content) */}
+						<MarkDownViewer
+							text={formatProposalBody(proposal.body)}
+							className={styles.MarkDownViewerContent}
+						/>
 
 						{/* Vote histories */}
 						<VoteHistories

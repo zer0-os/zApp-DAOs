@@ -78,6 +78,20 @@ export const getProposalClosingStatus = (
 };
 
 /**
+ * Format the proposal body
+ * @param body string to format
+ * @returns formatted proposal bod
+ */
+export const formatProposalBody = (body = ''): string => {
+	// 1. Convert ipfs:// formated image into https://snapshot image because snapshot image is not showing correctly
+	let convertedBody = body;
+	return convertedBody.replace(
+		'ipfs://',
+		'https://snapshot.mypinata.cloud/ipfs/'
+	);
+};
+
+/**
  * Check if proposal is from snapshot and have multiple choices
  * @param proposal to check
  * @returns true if the proposal is from snapshot with multiple choices
