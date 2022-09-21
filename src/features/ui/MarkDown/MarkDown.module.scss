@@ -1,0 +1,62 @@
+@use '../../../../node_modules/@zero-tech/zui/styles/colors';
+@use '../../../../node_modules/@zero-tech/zui/styles/typography';
+
+/**
+* MarkDownEditor Styles
+*/
+.MarkDownEditorContainer {
+	.CustomTextToolbarButton {
+		padding: 0.25rem 0.5rem !important;
+		font-size: typography.$size-tiny !important;
+	}
+
+	:global(.content) {
+		display: inherit;
+		margin: 0;
+		padding: 0;
+	}
+}
+
+/**
+* MarkDownViewer Styles
+*/
+.MarkDownViewerContainer {
+	/* TODO:: update the markdown viewer styles here */
+	:global(.wmde-markdown) {
+		padding: 1rem;
+		background-color: unset;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		border: none;
+	}
+
+	a {
+		color: colors.$blue;
+		text-decoration: none !important;
+		transition: text-shadow 0.1s ease-in-out;
+
+		&:hover {
+			text-shadow: 0px 0px 24px transparentize(colors.$purple-100, 0.6),
+			0px 0px 12px transparentize(colors.$purple-100, 0.6),
+			0px 0px 6px transparentize(colors.$purple-100, 0.6) !important;
+		}
+	}
+}
+
+/**
+* Other Styles
+*/
+.ErrorMessage {
+	display: block;
+	margin-top: 0.75rem;
+	color: colors.$helitrope;
+	font-size: typography.$size-small;
+	font-weight: typography.$font-weight-bold;
+	text-align: center;
+}
