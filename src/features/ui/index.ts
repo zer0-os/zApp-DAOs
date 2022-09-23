@@ -4,3 +4,4 @@ export * from './Icons';
 export * from './Image';
 export * from './EtherscanLink';
 export * from './MarkDown';
+export * from './Select';

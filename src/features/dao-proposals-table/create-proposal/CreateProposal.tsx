@@ -5,7 +5,7 @@ import React, { useLayoutEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { LoadingIndicator } from '@zero-tech/zui/components';
 import { DAO_CREATE_PROPOSAL } from '../../../pages/DAO/DAO.constants';
-import { BackLinkButton } from '../../ui';
+import { BackLinkButton, Select } from '../../ui';
 import styles from './CreateProposal.module.scss';
 
 type CreateProposalProps = {
@@ -59,6 +59,12 @@ export const CreateProposal: FC<CreateProposalProps> = ({
 						<h1 className={styles.Title}>Create a Proposal</h1>
 						{/* Form */}
 						Proposal form of {dao?.title}
+						<Select
+							options={[{ title: 'option 1' }, { title: 'option 2' }]}
+							onSelect={(option) => console.log({ option })}
+						>
+							Open
+						</Select>
 					</div>
 				)}
 			</div>
