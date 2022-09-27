@@ -3,8 +3,9 @@ import type { Choice, Proposal } from '@zero-tech/zdao-sdk';
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ProposalState } from '@zero-tech/zdao-sdk';
 import { isNil } from 'lodash';
+import classNames from 'classnames/bind';
+import { ProposalState } from '@zero-tech/zdao-sdk';
 //TODO:: replace Tooltip to InfoTooltip after zui version up
 import { LoadingIndicator, Tooltip } from '@zero-tech/zui/components';
 import { ConnectWallet } from '../../../ui';
@@ -19,6 +20,7 @@ import {
 	isFromSnapshotWithMultipleChoices,
 	getSnpashotProposalLink
 } from '../../DaoProposals.helpers';
+import externalIcon from '../../../../assets/external-link.svg';
 import styles from './Vote.module.scss';
 
 interface VoteActionProps {
@@ -85,15 +87,18 @@ export const VoteAction: FC<VoteActionProps> = ({
 
 	if (isFromSnapshotWithMultipleChoices(proposal)) {
 		const snapshotProposalLink = getSnpashotProposalLink(dao, proposal);
+
 		return (
-			<span className={`${styles.FooterText} ${styles.Snapshot}`}>
+			<span className={classNames(styles.FooterText, styles.Snapshot)}>
 				Please vote on this proposal using
 				<Link
 					to={{ pathname: snapshotProposalLink }}
 					target="_blank"
 					rel="noreferrer"
+					className={styles.SnapshotLink}
 				>
-					<strong> Snapshot</strong>
+					Snapshot
+					<img alt="button icon" src={externalIcon} />
 				</Link>
 			</span>
 		);
