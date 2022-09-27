@@ -1,17 +1,14 @@
 import type { FC } from 'react';
-import type { zDAO } from '@zero-tech/zdao-sdk';
+import type { CreateProposalProps } from './CreateProposal.types';
 
 import React, { useLayoutEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { LoadingIndicator } from '@zero-tech/zui/components';
+import { useUserPaymentTokenBalance, useDaoAssets } from '../../../lib/hooks';
 import { DAO_CREATE_PROPOSAL } from '../../../pages/DAO/DAO.constants';
-import { BackLinkButton, Select } from '../../ui';
+import { BackLinkButton } from '../../ui';
+import { CreateProposalForm } from './CreateProposalForm';
 import styles from './CreateProposal.module.scss';
-
-type CreateProposalProps = {
-	isLoadingDao: boolean;
-	dao?: zDAO;
-};
 
 export const CreateProposal: FC<CreateProposalProps> = ({
 	isLoadingDao,
@@ -19,8 +16,15 @@ export const CreateProposal: FC<CreateProposalProps> = ({
 }) => {
 	// Hooks
 	const history = useHistory();
+	const { data: aseetsData } = useDaoAssets(dao);
+	const {
+		isLoading: isLoadingPaymentTokenBalance,
+		data: userPaymentTokenBalance
+	} = useUserPaymentTokenBalance(dao?.votingToken.token);
 
 	// Data
+	const isLoading = isLoadingDao || isLoadingPaymentTokenBalance;
+	const isHoldingVotingToken = !userPaymentTokenBalance?.gt(0);
 	const toAllProposals = history.location.pathname.replace(
 		`/${DAO_CREATE_PROPOSAL}`,
 		''
@@ -45,7 +49,7 @@ export const CreateProposal: FC<CreateProposalProps> = ({
 
 			{/* Content */}
 			<div className={styles.Content}>
-				{isLoadingDao && (
+				{isLoading && (
 					<LoadingIndicator
 						className={styles.Loading}
 						text="Loading dao"
@@ -53,18 +57,21 @@ export const CreateProposal: FC<CreateProposalProps> = ({
 					/>
 				)}
 
-				{!isLoadingDao && (
+				{!isLoading && !isHoldingVotingToken && (
 					<div className={styles.Wrapper}>
 						{/* Title */}
 						<h1 className={styles.Title}>Create a Proposal</h1>
+
 						{/* Form */}
-						Proposal form of {dao?.title}
-						<Select
-							options={[{ title: 'option 1' }, { title: 'option 2' }]}
-							onSelect={(option) => console.log({ option })}
-						>
-							Open
-						</Select>
+						<CreateProposalForm dao={dao} assets={aseetsData?.assets ?? []} />
+					</div>
+				)}
+
+				{!isLoading && isHoldingVotingToken && (
+					<div className={styles.TokenError}>
+						To create a proposal, you need to be holding the {dao?.title} voting
+						token
+						{dao.votingToken.symbol && ` (${dao.votingToken.symbol})`}.
 					</div>
 				)}
 			</div>

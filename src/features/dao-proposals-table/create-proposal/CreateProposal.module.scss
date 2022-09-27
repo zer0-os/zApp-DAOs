@@ -23,5 +23,44 @@
 				line-height: 1.875rem;
 			}
 		}
+
+		.Section {
+			margin-top: 3rem;
+
+			&Title {
+				display: flex;
+				align-items: center;
+				font-size: #{typography.$size-medium}rem; // todo- fix variable in zui
+				font-weight: typography.$font-weight-bold;
+				line-height: 1.375rem;
+
+				>span {
+					margin-left: 0.3125rem;
+				}
+			}
+
+			&Content {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				column-gap: 1.5rem;
+				row-gap: 1.5rem;
+				padding: 1.5rem 0;
+
+				@media only screen and (max-width: #{dimensions.$breakpoint-mobile-l}) {
+					grid-template-columns: repeat(1, 1fr);
+				}
+			}
+		}
 	}
+
+	.TokenError {
+		margin-top: 3rem;
+		font-weight: typography.$font-weight-bold;
+		text-align: center;
+	}
+}
+
+:global(.zui-tooltip__content) {
+	font-size: typography.$size-default;
+	font-weight: typography.$font-weight-regular;
 }

@@ -27,9 +27,6 @@ export const MarkDownEditor: React.FC<MarkDownEditorProps> = ({
 }) => {
 	const onCommandsFilter = (command: ICommand<string>) => {
 		switch (command.name) {
-			case MARKDOWN_EDITOR_MODES.LIVE:
-				return false;
-
 			case MARKDOWN_EDITOR_MODES.EDIT:
 				return {
 					...command,

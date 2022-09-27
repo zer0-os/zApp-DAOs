@@ -5,6 +5,10 @@ import type { Option, SelectProps } from './Select.types';
 //- React Imports
 import React, { useState, useRef } from 'react';
 
+// Component Imports
+import { Input } from '@zero-tech/zui/components';
+import { IconChevronDown } from '../../ui';
+
 // Library Imports
 import { useOnClickOutside } from '../../../lib/hooks';
 
@@ -15,11 +19,13 @@ import styles from './Select.module.scss';
 const cx = classnames.bind(styles);
 
 export const Select: FC<SelectProps> = ({
+	label,
 	options,
 	selected,
 	onSelect,
 	classNames,
-	children
+	error,
+	helperText
 }) => {
 	//////////////////
 	// State & Refs //
@@ -53,23 +59,31 @@ export const Select: FC<SelectProps> = ({
 			ref={wrapperRef}
 		>
 			<div className={styles.Header} onClick={handleToggle(!isOpen)}>
-				{children}
+				<Input
+					label={label}
+					value={selected?.title}
+					onChange={null}
+					error={error}
+					helperText={helperText}
+				/>
+				<IconChevronDown />
 			</div>
 			{isOpen && (
-				<ul className={styles.Drawer}>
-					{options.map((o, index) => (
-						<li
-							className={cx({
-								Selected: selected === o,
-								[classNames?.selected]: selected === o
-							})}
-							onClick={handleSelect(o)}
-							key={`select-${index}`}
-						>
-							{o.title}
-						</li>
-					))}
-				</ul>
+				<div className={styles.Drawer}>
+					<ul>
+						{options.map((o, index) => (
+							<li
+								className={cx({
+									[classNames?.selected]: selected.value === o.value
+								})}
+								onClick={handleSelect(o)}
+								key={`select-${index}`}
+							>
+								{o.title}
+							</li>
+						))}
+					</ul>
+				</div>
 			)}
 		</div>
 	);

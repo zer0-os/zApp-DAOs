@@ -4,21 +4,40 @@
 
 .Dropdown {
 	position: relative;
-	display: flex;
-	align-items: flex-end;
+	.Header {
+		cursor: pointer;
+
+		:global(.zui-input-input) {
+			cursor: pointer;
+
+			input {
+				pointer-events: none;
+			}
+		}
+
+		> svg {
+			position: absolute;
+			top: 1.5rem;
+			right: 1.5rem;
+		}
+	}
 }
 
 .Drawer {
 	position: absolute;
-	top: calc(100%);
-	left: 50%;
-	width: 14rem;
-	background: colors.$purple-10;
-	border: 1px solid colors.$bossanova;
-	transform: translateX(-50%);
-	z-index: 10;
+	top: 0;
+	left: -2px;
+	right: -2px;
+	background: colors.$almost-black;
+	border: 1px solid colors.$anakiwa-lighter;
+	border-radius: 1rem;
 	overflow: hidden;
-	padding: 0.5rem 0;
+
+	> ul {
+		margin: unset;
+		padding: 0.5rem 0;
+		background: colors.$ocean-10;
+	}
 }
 
 .Drawer li {
@@ -26,7 +45,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
-	padding: 0.5rem 0 0.5rem 1rem;
+	margin: 0 1rem;
+	padding: 1rem 0;
 	cursor: pointer;
 
 	transition: text-shadow animations.$time-short ease-in-out,
@@ -35,10 +55,6 @@
 	&:hover {
 		text-shadow: colors.$text-glow-white;
 	}
-}
-
-.Selected {
-	background: rgba(82, 87, 255, 0.05) !important;
 }
 
 .Selected::before {
