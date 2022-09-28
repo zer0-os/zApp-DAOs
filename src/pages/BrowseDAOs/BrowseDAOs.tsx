@@ -5,7 +5,7 @@ import { Card } from '@zero-tech/zui/components';
 import { useAllZnas, useDaosTotal } from '../../lib/hooks';
 import { DOLLAR_SYMBOL } from '../../lib/constants/currency';
 import { formatFiat } from '../../lib/util/format';
-import { DaosTable } from '../../features/daos-table';
+import { DaosTable } from '../../features/view-daos';
 import styles from './BrowseDAOs.module.scss';
 
 export const BrowseDAOs: FC = () => {

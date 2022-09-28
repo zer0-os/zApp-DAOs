@@ -26,13 +26,11 @@ import { formatFiat } from '../../lib/util/format';
 
 // Components imports
 import { BackLinkButton } from '../../features/ui';
-import { DaoAssetsTable } from '../../features/dao-assets-table';
-import { DaoTransactions } from '../../features/dao-transactions';
-import {
-	DaoProposalsTable,
-	ProposalDetail,
-	CreateProposal
-} from '../../features/dao-proposals-table';
+import { DaoAssetsTable } from '../../features/view-dao-assets';
+import { DaoTransactions } from '../../features/view-dao-transactions';
+import { DaoProposalsTable } from '../../features/view-dao-proposals';
+import { ProposalDetail } from '../../features/view-proposal';
+import { CreateProposal } from '../../features/create-proposal';
 
 // Constants imports
 import { ROOT_PATH, ROUTES } from '../../lib/constants/routes';

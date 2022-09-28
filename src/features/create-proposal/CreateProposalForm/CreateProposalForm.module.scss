@@ -1,0 +1,179 @@
+@use '../../../../node_modules/@zero-tech/zui/styles/colors';
+@use '../../../../node_modules/@zero-tech/zui/styles/typography';
+@use '../../../../node_modules/@zero-tech/zui/styles/dimensions';
+
+.DaoAddress {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 3rem;
+    padding: 0 1.5rem;
+    color: colors.$text-primary;
+    background: colors.$ocean-10;
+    border-radius: 1.5rem;
+
+    &Header {
+        display: flex;
+        font-size: 0.75rem;
+        font-weight: typography.$font-weight-regular;
+        line-height: 1rem;
+        color: colors.$grey-lighter-2;
+
+        >span {
+            margin-left: 0.25rem;
+        }
+    }
+
+    &Content {
+        margin-top: 0.25rem;
+        font-size: typography.$size-tiny;
+        font-weight: typography.$font-weight-regular;
+        line-height: 1rem;
+    }
+}
+
+.SelectedToken {
+    font-weight: typography.$font-weight-bold;
+    border-bottom: 1px solid colors.$grey-lighter-2;
+}
+
+.MarkdownEditor {
+    &Col {
+        margin-top: 24px;
+		grid-column: 1 / -1;
+    }
+    &Container {
+        &.Error {
+            :global(.w-md-editor) {
+                border-color: #f6677c;
+            }
+        }
+
+        :global(.w-md-editor) {
+            // min-height: 15rem;
+            color: colors.$white;
+            background-color: colors.$almost-black;
+            border: 1px solid colors.$anakiwa-lighter;
+            border-radius: 1.5rem;
+            box-shadow: unset;
+            overflow: hidden;
+        }
+
+        :global(.w-md-editor-toolbar) {
+            background: colors.$ocean-10;
+            border: unset;
+
+            >ul:first-child {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                height: 2.5rem !important;
+                margin: auto 1.5rem;
+
+                @media only screen and (max-width: dimensions.$breakpoint-mobile-l) {
+                    margin: auto 0.75rem;
+                }
+
+                >li>button {
+                    color: colors.$white;
+                    height: 1.5rem;
+
+                    >svg {
+                        width: 1.125rem;
+                        height: 1.125rem;
+                    }
+
+                    @media only screen and (max-width: dimensions.$breakpoint-mobile-l) {
+                        height: 1.25rem;
+
+                        >svg {
+                            width: 1.125rem;
+                            height: 1.125rem;
+                        }
+                    }
+                }
+
+                :global(.w-md-editor-toolbar-divider) {
+                    margin: 0 0.85rem !important;
+                    background-color: unset;
+
+                    @media only screen and (max-width: dimensions.$breakpoint-mobile-l) {
+                        margin: 0 0.25rem !important;
+                    }
+                }
+            }
+
+            >ul:last-child {
+                display: none;
+            }
+        }
+
+        :global(.w-md-editor-content) {
+            textarea {
+                font-size: typography.$size-default;
+                line-height: 1.5rem;
+
+                &::placeholder {
+                    color: colors.$grey-lighter-2;
+                }
+            }
+        }
+
+        :global(.w-md-editor-text-pre) {
+            code {
+                font-size: typography.$size-default !important;
+                line-height: 1.5rem !important;
+                color: colors.$white !important;
+
+                span {
+                    color: colors.$white !important;
+                }
+            }
+        }
+
+        :global(.w-md-editor-bar) {
+            margin-top: -1.5rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: url('../../../assets/md-resize-bar.svg') no-repeat;
+
+            svg {
+                display: none;
+            }
+        }
+
+        :global(.w-md-editor-input) {
+            position: absolute;
+            padding: 1.5rem 0 1.5rem 1.5rem;
+            box-sizing: border-box;
+            overflow-y: auto;
+
+            &::-webkit-scrollbar {
+                width: 0.5rem;
+                background-color: rgba(82, 203, 255, 0.25);
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: colors.$anakiwa-lighter;
+                border-radius: 0.5rem;
+            }
+        }
+    }
+
+    &Error {
+        margin-top: 2px;
+        margin-left: 1.5rem;
+        font-size: typography.$size-tiny;
+        font-weight: typography.$font-weight-regular;
+        line-height: 1rem;
+        color: colors.$red-300;
+        text-align: left;
+    }
+}
+
+.SubmitSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,71 @@
+@use '../../../../node_modules/@zero-tech/zui/styles/colors';
+@use '../../../../node_modules/@zero-tech/zui/styles/typography';
+@use '../../../../node_modules/@zero-tech/zui/styles/dimensions';
+
+.Container {
+	margin-bottom: 1.5rem;
+
+	.Wrapper {
+		position: relative;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+		grid-row-start: 1;
+		column-gap: 0.5rem;
+		margin-top: 1rem;
+		padding: 0;
+
+		.Attribute {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			width: 100%;
+			height: 3rem;
+			margin: 0.25rem 0;
+			background: colors.$purple-5;
+			border-radius: 9999px;
+
+			> span {
+				padding-left: 1rem;
+
+				&.Traits {
+					font-size: typography.$size-tiny;
+					color: #bcbcbc; // todo - should be colors variable
+				}
+	
+				&.Properties {
+					font-size: typography.$size-tiny;
+					margin-top: 0.25rem;
+				}
+			}
+		}
+
+		.ButtonContainer {
+			grid-column-start: -2;
+
+			.ToggleAttributes {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				width: 100%;
+				height: 3rem;
+				margin: 0.25rem 0;
+				color: colors.$blue;
+				background: none;
+				border: none;
+				cursor: pointer;
+			}
+
+			.SetOpacityAnimation {
+				animation: animatedOpacity 0.3s ease-in-out;
+			}
+		}
+	}
+
+	@media only screen and (max-width: #{dimensions.$breakpoint-mobile-s}) {
+		.Wrapper {
+			grid-template-columns: 1fr;
+			column-gap: 0.5rem;
+		}
+	}
+}
