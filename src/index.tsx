@@ -16,6 +16,7 @@ import {
 	Web3Provider,
 	ZdaoSdkProvider,
 	ZnsSdkProvider,
+	RouterBlockerProvider,
 	CurrentDaoProvider,
 	DaosTotalProvider
 } from './lib/providers';
@@ -33,13 +34,15 @@ export const DaosApp: FC<AppProps> = ({ provider, web3 }) => (
 			<ChainGate>
 				<ZnsSdkProvider>
 					<ZdaoSdkProvider>
-						<CurrentDaoProvider>
-							<DaosTotalProvider>
-								<ZUIProvider>
-									<App />
-								</ZUIProvider>
-							</DaosTotalProvider>
-						</CurrentDaoProvider>
+						<RouterBlockerProvider>
+							<CurrentDaoProvider>
+								<DaosTotalProvider>
+									<ZUIProvider>
+										<App />
+									</ZUIProvider>
+								</DaosTotalProvider>
+							</CurrentDaoProvider>
+						</RouterBlockerProvider>
 					</ZdaoSdkProvider>
 				</ZnsSdkProvider>
 			</ChainGate>

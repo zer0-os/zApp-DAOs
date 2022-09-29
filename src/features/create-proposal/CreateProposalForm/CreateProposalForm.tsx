@@ -4,12 +4,22 @@ import type { Option } from '../../ui';
 
 import React, { useState, useMemo } from 'react';
 import classNames from 'classnames/bind';
-import { isEmpty } from 'lodash';
+import { isEmpty, isEqual } from 'lodash';
 import { Input, Button } from '@zero-tech/zui/components';
 import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
+<<<<<<< HEAD:src/features/create-proposal/CreateProposalForm/CreateProposalForm.tsx
 import { EtherscanLink, Select, MarkDownEditor } from '../../ui';
 import { useWeb3, usePropsState } from '../../../lib/hooks';
 import { getEtherscanUri } from '../../../lib/util/network';
+=======
+import { EtherscanLink, Select, MarkDownEditor } from '../../../ui';
+import {
+	useWeb3,
+	usePropsState,
+	useRouteChangeDialog
+} from '../../../../lib/hooks';
+import { getEtherscanUri } from '../../../../lib/util/network';
+>>>>>>> f77854c (add route blocker hooks and integrate it in create proposal form):src/features/dao-proposals-table/create-proposal/CreateProposalForm/CreateProposalForm.tsx
 import { VotingDetails } from '../VotingDetails';
 import { ProposalPublishModal } from '../ProposalPublishModal';
 import {
@@ -41,6 +51,28 @@ export const CreateProposalForm: FC<CreateProposalFormProps> = ({
 	const [body, setBody] = useState<string>('');
 	const [errors, setErrors] = useState<{ [key: string]: string }>({});
 	const [isOpenPublishModal, setIsOpenPublishModal] = useState<boolean>(false);
+
+	// Route Block
+	const isFormChanged =
+		!isEmpty(title) ||
+		!isEmpty(amount) ||
+		!isEmpty(recipient) ||
+		!isEmpty(body) ||
+		!isEqual(tokenOption, tokenDropdownOptions?.[0]);
+
+	useRouteChangeDialog(
+		{
+			title: 'Discard Proposal?',
+			message: 'If you leave now you will lose your progress on this proposal',
+			confirmButtonConfig: {
+				text: 'Discard Proposal'
+			},
+			cancelButtonConfig: {
+				text: 'Keep Editing'
+			}
+		},
+		isFormChanged
+	);
 
 	// Memoized Data
 	const tokenOptions = useMemo(() => {
