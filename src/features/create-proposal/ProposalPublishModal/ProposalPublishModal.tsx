@@ -8,7 +8,11 @@ import classNames from 'classnames/bind';
 import { parseUnits } from 'ethers/lib/utils';
 import { Wizard, Modal } from '@zero-tech/zui/components';
 import { useWeb3, useDaoProposals } from '../../../lib/hooks';
-import { Step, HEADER, BODY } from './ProposalPublishModal.constants';
+import {
+	Step,
+	PUBLISH_MODAL_HEADER,
+	PUBLISH_MODAL_BODY
+} from './ProposalPublishModal.constants';
 import { DAO_CREATE_PROPOSAL } from '../../../pages/DAO/DAO.constants';
 import {
 	DEFAULT_VOTE_CHOICES,
@@ -120,7 +124,7 @@ export const ProposalPublishModal: FC<ProposalPublishModalProps> = ({
 	return (
 		<Modal open onOpenChange={onClose} className={styles.Modal}>
 			<Wizard.Container
-				header={HEADER[step]}
+				header={PUBLISH_MODAL_HEADER[step]}
 				className={styles.WizardContainer}
 			>
 				<div
@@ -128,7 +132,7 @@ export const ProposalPublishModal: FC<ProposalPublishModalProps> = ({
 						Success: step === Step.Success
 					})}
 				>
-					{BODY[step]}
+					{PUBLISH_MODAL_BODY[step]}
 				</div>
 
 				{error && <p className={styles.Error}>{error}</p>}

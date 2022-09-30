@@ -30,7 +30,6 @@ export const CreateProposal: FC<CreateProposalProps> = ({
 		''
 	);
 
-	// Life cycle
 	useLayoutEffect(() => {
 		const nav = document.getElementById('dao-page-nav-tabs');
 
@@ -57,23 +56,22 @@ export const CreateProposal: FC<CreateProposalProps> = ({
 					/>
 				)}
 
-				{!isLoading && !isHoldingVotingToken && (
-					<div className={styles.Wrapper}>
-						{/* Title */}
-						<h1 className={styles.Title}>Create a Proposal</h1>
+				{!isLoading &&
+					(isHoldingVotingToken ? (
+						<div className={styles.TokenError}>
+							To create a proposal, you need to be holding the {dao.title}{' '}
+							voting token
+							{dao.votingToken.symbol && ` (${dao.votingToken.symbol})`}.
+						</div>
+					) : (
+						<div className={styles.Wrapper}>
+							{/* Title */}
+							<h1 className={styles.Title}>Create a Proposal</h1>
 
-						{/* Form */}
-						<CreateProposalForm dao={dao} assets={aseetsData?.assets ?? []} />
-					</div>
-				)}
-
-				{!isLoading && isHoldingVotingToken && (
-					<div className={styles.TokenError}>
-						To create a proposal, you need to be holding the {dao?.title} voting
-						token
-						{dao.votingToken.symbol && ` (${dao.votingToken.symbol})`}.
-					</div>
-				)}
+							{/* Form */}
+							<CreateProposalForm dao={dao} assets={aseetsData?.assets ?? []} />
+						</div>
+					))}
 			</div>
 		</div>
 	);

@@ -1,6 +1,7 @@
-import React, { FC, useMemo } from 'react';
-import type { Proposal } from '@zero-tech/zdao-sdk';
+import type { FC } from 'react';
+import type { DaoProposalsTableRowProps } from './DaoProposals.types';
 
+import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import moment from 'moment';
@@ -12,18 +13,13 @@ import {
 	formatProposalEndTime
 } from './DaoProposals.helpers';
 import {
-	DEFAULT_TIMMER_INTERVAL,
-	PROPOSAL_TITLE_LIMIT,
-	PROPOSAL_TABLE_LOCATION_STATE_KEY,
-	PROPOSAL_TABLE_LOCATION_STATE
+	DEFAULT_TIMER_INTERVAL,
+	PROPOSAL_TITLE_MAX_CHARACTERS,
+	ProposalClosingStatus
 } from './DaoProposals.constants';
 import styles from './DaoProposalsTable.module.scss';
 
 const cx = classNames.bind(styles);
-
-type DaoProposalsTableRowProps = {
-	proposal: Proposal;
-};
 
 export const DaoProposalsTableRow: FC<DaoProposalsTableRowProps> = ({
 	proposal
@@ -35,17 +31,14 @@ export const DaoProposalsTableRow: FC<DaoProposalsTableRowProps> = ({
 
 	const { time } = useTimer(
 		proposal.end,
-		isConcluded ? null : DEFAULT_TIMMER_INTERVAL
+		isConcluded ? null : DEFAULT_TIMER_INTERVAL
 	);
 
-	const closingStatus = useMemo(
-		() => getProposalClosingStatus(time, isConcluded),
-		[time, isConcluded]
-	);
+	const closingStatus = getProposalClosingStatus(time, isConcluded);
 
 	const handleRowClick = () => {
 		history.push(`${location.pathname}/${proposal.id}`, {
-			[PROPOSAL_TABLE_LOCATION_STATE_KEY]: PROPOSAL_TABLE_LOCATION_STATE.ROW
+			isGridView: false
 		});
 	};
 
@@ -53,7 +46,7 @@ export const DaoProposalsTableRow: FC<DaoProposalsTableRowProps> = ({
 		<tr className={styles.Row} onClick={handleRowClick}>
 			{/* Title */}
 			<td className={styles.Title}>
-				{truncateString(proposal.title, PROPOSAL_TITLE_LIMIT)}
+				{truncateString(proposal.title, PROPOSAL_TITLE_MAX_CHARACTERS)}
 			</td>
 
 			{/* Status */}
@@ -63,8 +56,8 @@ export const DaoProposalsTableRow: FC<DaoProposalsTableRowProps> = ({
 			<td
 				className={cx(styles.Timer, {
 					Concluded: isConcluded,
-					Warning: closingStatus === 'warning',
-					Error: closingStatus === 'error'
+					Warning: closingStatus === ProposalClosingStatus.WARNING,
+					Error: closingStatus === ProposalClosingStatus.ERROR
 				})}
 			>
 				{formatProposalEndTime(time)}

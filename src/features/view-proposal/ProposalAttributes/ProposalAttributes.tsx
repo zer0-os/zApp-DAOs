@@ -18,7 +18,7 @@ import type { ProposalAttribute } from './ProposalAttributes.types';
 
 // - Constants
 import { PROPOSAL_ATTRIBUTES_VISIBLE_COUNTS_BY_VIEWPORT } from './ProposalAttributes.constants';
-import { DEFAULT_TIMMER_INTERVAL } from '../../view-dao-proposals/DaoProposals.constants';
+import { DEFAULT_TIMER_INTERVAL } from '../../view-dao-proposals/DaoProposals.constants';
 
 // - Components
 import { EtherscanLink } from '../../ui';
@@ -61,7 +61,7 @@ export const ProposalAttributes: React.FC<ProposalAttributesProps> = ({
 
 	const { time: timeRemaining } = useTimer(
 		proposal.end,
-		isConcluded ? null : DEFAULT_TIMMER_INTERVAL
+		isConcluded ? null : DEFAULT_TIMER_INTERVAL
 	);
 
 	const attributes: ProposalAttribute[] = useMemo(() => {
@@ -115,9 +115,7 @@ export const ProposalAttributes: React.FC<ProposalAttributesProps> = ({
 			parsedAttributes.splice(2, 0, { label: 'Type', value: 'Funding' });
 			parsedAttributes.splice(3, 0, {
 				label: 'Amount',
-				value:
-					formatTotalAmountOfTokenMetadata(proposal.metadata)?.toString() ||
-					'-'
+				value: formatTotalAmountOfTokenMetadata(proposal.metadata)
 			});
 			if (proposal.metadata?.recipient) {
 				parsedAttributes.splice(4, 0, {

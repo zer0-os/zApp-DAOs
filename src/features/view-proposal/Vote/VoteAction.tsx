@@ -18,7 +18,7 @@ import { VoteButtons, Approve, Deny } from './VoteButtons';
 import { VoteStatus } from './Vote.constants';
 import {
 	isFromSnapshotWithMultipleChoices,
-	getSnpashotProposalLink
+	getSnapshotProposalLink
 } from '../../view-dao-proposals/DaoProposals.helpers';
 import externalIcon from '../../../assets/external-link.svg';
 import styles from './Vote.module.scss';
@@ -86,7 +86,7 @@ export const VoteAction: FC<VoteActionProps> = ({
 	}
 
 	if (isFromSnapshotWithMultipleChoices(proposal)) {
-		const snapshotProposalLink = getSnpashotProposalLink(dao, proposal);
+		const snapshotProposalLink = getSnapshotProposalLink(dao, proposal);
 
 		return (
 			<span className={classNames(styles.FooterText, styles.Snapshot)}>

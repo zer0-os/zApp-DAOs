@@ -205,6 +205,7 @@ export const CreateProposalForm: FC<CreateProposalFormProps> = ({
 					title={title}
 					amount={amount}
 					token={tokenOption?.value}
+					recipient={recipient}
 					body={body}
 				/>
 			)}

@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import type { zDAO } from '@zero-tech/zdao-sdk';
+import type { DaoProposalsTableProps } from './DaoProposals.types';
 
 import React, { useMemo } from 'react';
 import { AsyncTable } from '@zero-tech/zui/components';
@@ -8,11 +8,6 @@ import { sortProposals } from './DaoProposals.helpers';
 import { TABLE_COLUMNS } from './DaoProposals.constants';
 import { DaoProposalsTableRow } from './DaoProposalsTableRow';
 import styles from './DaoProposalsTable.module.scss';
-
-type DaoProposalsTableProps = {
-	isLoadingDao: boolean;
-	dao?: zDAO;
-};
 
 export const DaoProposalsTable: FC<DaoProposalsTableProps> = ({
 	isLoadingDao,

@@ -1,5 +1,4 @@
 import type { zDAO, Proposal, TokenMetaData, Token } from '@zero-tech/zdao-sdk';
-import type { ProposalClosingStatus } from './DaoProposals.types';
 
 import moment from 'moment';
 import { isEmpty } from 'lodash';
@@ -8,10 +7,12 @@ import { formatUnits } from 'ethers/lib/utils';
 import { ProposalState } from '@zero-tech/zdao-sdk';
 import { formatFiat } from '../../lib/util/format';
 import { secondsToDhms } from '../../lib/util/datetime';
-import { DOLLAR_SYMBOL } from '../../lib/constants/currency';
 import {
 	PROPOSAL_FILTER_START_DATE,
-	DEFAULT_TIMMER_EXPIRED_LABEL
+	DEFAULT_TIMER_EXPIRED_LABEL,
+	HOUR_IN_MILLISECONDS,
+	DAY_IN_MILLISECONDS,
+	ProposalClosingStatus
 } from './DaoProposals.constants';
 
 const MILLIFY_THRESHOLD = 1000000;
@@ -36,27 +37,29 @@ export const sortProposals = (
 		(p) => p.created.getTime() > new Date(fromDate).getTime()
 	);
 
-	// 2. Sort by state and endting time
-	const closedProposals = filteredProposals.filter(
+	// 2. Sorts an array of proposals by status, then by closing time (soonest to latest)
+	const inactiveProposals = filteredProposals.filter(
 		(p) => p.state === ProposalState.CLOSED || moment(p.end).isBefore(moment())
 	);
 	const activeProposals = filteredProposals.filter(
-		(p) => !closedProposals.includes(p)
+		(p) => !inactiveProposals.includes(p)
 	);
 
 	activeProposals.sort((a, b) =>
 		moment(a.end).isAfter(moment(b.end)) ? 1 : -1
 	);
 
-	closedProposals.sort((a, b) =>
+	inactiveProposals.sort((a, b) =>
 		moment(a.end).isBefore(moment(b.end)) ? 1 : -1
 	);
 
-	return [...activeProposals, ...closedProposals];
+	return [...activeProposals, ...inactiveProposals];
 };
 
 /**
- * Get proposal closing status
+ * Get proposal closing status by checking remaining proposal time
+ * in miliseconds and return the status (normal | warning | error)
+ *
  * @param time miliseconds from now to proposal end time
  * @param isConcluded indicate proposal is concluded or not
  * @returns formatted proposal closing status
@@ -65,16 +68,13 @@ export const getProposalClosingStatus = (
 	time: number,
 	isConcluded: boolean
 ): ProposalClosingStatus => {
-	let status: ProposalClosingStatus = 'normal';
-	if (!isConcluded && time < 1 * 3600 * 1000) {
-		// less than 1 hour
-		status = 'error';
-	} else if (!isConcluded && time <= 24 * 3600 * 1000) {
-		// less than 1 day
-		status = 'warning';
+	if (!isConcluded && time < HOUR_IN_MILLISECONDS) {
+		return ProposalClosingStatus.ERROR;
+	} else if (!isConcluded && time <= DAY_IN_MILLISECONDS) {
+		return ProposalClosingStatus.WARNING;
 	}
 
-	return status;
+	return ProposalClosingStatus.NORMAL;
 };
 
 /**
@@ -82,13 +82,8 @@ export const getProposalClosingStatus = (
  * @param body string to format
  * @returns formatted proposal bod
  */
-export const formatProposalBody = (body = ''): string => {
-	// 1. Convert ipfs:// formated image into https://snapshot image because snapshot image is not showing correctly
-	let convertedBody = body;
-	return convertedBody.replace(
-		'ipfs://',
-		'https://snapshot.mypinata.cloud/ipfs/'
-	);
+export const formatProposalBody = (body: string): string => {
+	return body.replace('ipfs://', 'https://snapshot.mypinata.cloud/ipfs/');
 };
 
 /**
@@ -99,14 +94,6 @@ export const formatProposalBody = (body = ''): string => {
 export const isFromSnapshotWithMultipleChoices = (
 	proposal: Proposal
 ): boolean => {
-	/**
-	 * 06/10/2022 Note - https://www.notion.so/zerotech/For-any-proposal-created-in-snapshot-display-the-Please-vote-on-this-proposal-in-Snapshot-footer-171742b056a445169bdaffe840d358a1
-	 *
-	 * To work around this in the MVP, lets just show the
-	 * ‘‘Please vote on this proposal in Snapshot’ footer’ for ANY Snapshot proposals
-	 *
-	 */
-	//  return !proposal.metadata && proposal.choices.length > 2;
 	return !proposal.metadata;
 };
 
@@ -115,7 +102,7 @@ export const isFromSnapshotWithMultipleChoices = (
  * @param proposal to get
  * @returns snapshot proposal link to vote
  */
-export const getSnpashotProposalLink = (
+export const getSnapshotProposalLink = (
 	dao: zDAO,
 	proposal: Proposal
 ): string => {
@@ -159,7 +146,7 @@ export const formatProposalStatus = (proposal?: Proposal): string => {
  */
 export const formatProposalEndTime = (timeDiff: number): string => {
 	if (timeDiff < 0) {
-		return DEFAULT_TIMMER_EXPIRED_LABEL;
+		return DEFAULT_TIMER_EXPIRED_LABEL;
 	}
 
 	return secondsToDhms(timeDiff / 1000);
@@ -195,9 +182,8 @@ export const formatVotingPowerAmount = (
  * @returns formatted total ammount of proposal metadata
  */
 export const formatTotalAmountOfTokenMetadata = (
-	tokenMetaData?: TokenMetaData,
-	asNumber = false
-): string | number | null => {
+	tokenMetaData?: TokenMetaData
+): string => {
 	if (!tokenMetaData) return null;
 
 	const { amount, decimals } = tokenMetaData;
@@ -209,11 +195,7 @@ export const formatTotalAmountOfTokenMetadata = (
 		Number.MAX_SAFE_INTEGER
 	);
 
-	if (!calculatedAmount) return null;
-
-	if (asNumber) {
-		return calculatedAmount;
-	}
+	if (!calculatedAmount) return '-';
 
 	const formattedAmount =
 		calculatedAmount >= MILLIFY_THRESHOLD
@@ -221,20 +203,4 @@ export const formatTotalAmountOfTokenMetadata = (
 			: formatFiat(calculatedAmount);
 
 	return formattedAmount + ' ' + tokenMetaData.symbol;
-};
-
-/**
- * Format a total amount in USD of proposal metadata
- * @param tokenMetaData to format
- * @returns formatted total ammount in USD of proposal metadata
- */
-export const formatAmountInUSDOfTokenMetadata = (
-	wildPriceUsd: number,
-	tokenMetaData?: TokenMetaData
-): string | null => {
-	const amountInWILD = formatTotalAmountOfTokenMetadata(tokenMetaData, true);
-
-	if (!amountInWILD) return null;
-
-	return DOLLAR_SYMBOL + formatFiat(Number(amountInWILD) * wildPriceUsd);
 };
