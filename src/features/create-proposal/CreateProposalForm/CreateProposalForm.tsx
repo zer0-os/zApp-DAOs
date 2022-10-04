@@ -7,19 +7,13 @@ import classNames from 'classnames/bind';
 import { isEmpty, isEqual } from 'lodash';
 import { Input, Button } from '@zero-tech/zui/components';
 import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
-<<<<<<< HEAD:src/features/create-proposal/CreateProposalForm/CreateProposalForm.tsx
 import { EtherscanLink, Select, MarkDownEditor } from '../../ui';
-import { useWeb3, usePropsState } from '../../../lib/hooks';
-import { getEtherscanUri } from '../../../lib/util/network';
-=======
-import { EtherscanLink, Select, MarkDownEditor } from '../../../ui';
 import {
 	useWeb3,
 	usePropsState,
 	useRouteChangeDialog
-} from '../../../../lib/hooks';
-import { getEtherscanUri } from '../../../../lib/util/network';
->>>>>>> f77854c (add route blocker hooks and integrate it in create proposal form):src/features/dao-proposals-table/create-proposal/CreateProposalForm/CreateProposalForm.tsx
+} from '../../../lib/hooks';
+import { getEtherscanUri } from '../../../lib/util/network';
 import { VotingDetails } from '../VotingDetails';
 import { ProposalPublishModal } from '../ProposalPublishModal';
 import {
