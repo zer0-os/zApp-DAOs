@@ -4,7 +4,7 @@ import type { zDAO, ProposalId } from '@zero-tech/zdao-sdk';
 import React, { useMemo, useEffect, useLayoutEffect, useCallback } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { cloneDeep } from 'lodash';
-import { LoadingIndicator } from '@zero-tech/zui/components';
+import { LoadingIndicator, MarkdownViewer } from '@zero-tech/zui/components';
 import {
 	useDaoProposal,
 	useProposalVotes,
@@ -15,7 +15,7 @@ import {
 	isFromSnapshotWithMultipleChoices,
 	formatProposalBody
 } from '../view-dao-proposals/DaoProposals.helpers';
-import { BackLinkButton, MarkDownViewer } from '../ui';
+import { BackLinkButton } from '../ui';
 import { Vote } from './Vote';
 import { VoteBar } from './VoteBar';
 import { VoteHistories } from './VoteHistories';
@@ -119,10 +119,7 @@ export const ProposalDetail: FC<ProposalDetailProps> = ({
 						)}
 
 						{/* Proposal body (Markdown content) */}
-						<MarkDownViewer
-							text={formatProposalBody(proposal?.body)}
-							className={styles.MarkDownViewerContent}
-						/>
+						<MarkdownViewer text={formatProposalBody(proposal?.body)} />
 
 						{/* Vote histories */}
 						<VoteHistories

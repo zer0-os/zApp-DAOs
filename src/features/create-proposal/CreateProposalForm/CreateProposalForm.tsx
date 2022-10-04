@@ -5,9 +5,9 @@ import type { Option } from '../../ui';
 import React, { useState, useMemo } from 'react';
 import classNames from 'classnames/bind';
 import { isEmpty, isEqual } from 'lodash';
-import { Input, Button } from '@zero-tech/zui/components';
+import { Input, Button, MarkdownEditor } from '@zero-tech/zui/components';
 import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
-import { EtherscanLink, Select, MarkDownEditor } from '../../ui';
+import { EtherscanLink, Select } from '../../ui';
 import {
 	useWeb3,
 	usePropsState,
@@ -22,8 +22,6 @@ import {
 } from './CreateProposalForm.helpers';
 import parentStyles from '../CreateProposal.module.scss';
 import styles from './CreateProposalForm.module.scss';
-
-const cx = classNames.bind(styles);
 
 export const CreateProposalForm: FC<CreateProposalFormProps> = ({
 	dao,
@@ -199,16 +197,11 @@ export const CreateProposalForm: FC<CreateProposalFormProps> = ({
 						styles.MarkdownEditorCol
 					)}
 				>
-					<MarkDownEditor
-						classNames={{
-							container: cx(styles.MarkdownEditorContainer, {
-								Error: Boolean(errors['body'])
-							}),
-							error: styles.MarkdownEditorError
-						}}
+					<MarkdownEditor
 						text={body}
 						placeholder="Proposal Content"
 						onChange={onChange('body')}
+						error={Boolean(errors['body'])}
 						errorText={errors['body']}
 					/>
 				</div>
