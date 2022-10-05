@@ -69,7 +69,7 @@ export const CreateProposal: FC<CreateProposalProps> = ({
 							<h1 className={styles.Title}>Create a Proposal</h1>
 
 							{/* Form */}
-							<CreateProposalForm dao={dao} assets={aseetsData?.assets ?? []} />
+							<CreateProposalForm dao={dao} assets={aseetsData?.assets} />
 						</div>
 					))}
 			</div>
