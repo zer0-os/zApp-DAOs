@@ -40,7 +40,7 @@ export const DaoTransactions: FC<DaoTransactionsProps> = ({
 	}
 
 	if (!isLoading && !transactions?.length) {
-		return <div className={styles.Empty}>No transactions yet</div>;
+		return <div className={styles.Empty}>This DAO has no transactions.</div>;
 	}
 
 	return (
