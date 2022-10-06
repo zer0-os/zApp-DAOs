@@ -32,7 +32,7 @@ export const DaoProposalsTable: FC<DaoProposalsTableProps> = ({
 	const noProposals = !isLoading && proposals?.length === 0;
 
 	if (noProposals) {
-		return <div className={styles.Empty}>No proposals yet</div>;
+		return <div className={styles.Empty}>This DAO has no proposals.</div>;
 	}
 
 	return (
