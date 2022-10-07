@@ -21,7 +21,7 @@ import {
 } from '../../lib/hooks';
 
 // Library imports
-import { Card, Skeleton, TabsNav, Button } from '@zero-tech/zui/components';
+import { Card, SkeletonText, TabsNav, Button } from '@zero-tech/zui/components';
 import { formatFiat } from '../../lib/util/format';
 
 // Components imports
@@ -95,11 +95,15 @@ export const DAO: FC = () => {
 				<div className={styles.Stats}>
 					<div className={styles.Dao}>
 						<img alt={dao?.title + ' icon'} src={DaoIcon} />
-						{isLoadingDao ? <Skeleton width={100} /> : <h1>{dao?.title}</h1>}
+						<SkeletonText
+							as="h1"
+							asyncText={{ text: dao?.title, isLoading: isLoadingDao }}
+							skeletonOptions={{ width: 100 }}
+						/>
 					</div>
 					<Card
-						title="Total Value"
-						value={{
+						label="Total Value"
+						primaryText={{
 							isLoading: isLoadingDao || isLoadingDaoAssets,
 							text: DOLLAR_SYMBOL + formatFiat(daoAssetsData?.totalUsd)
 						}}

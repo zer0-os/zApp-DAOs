@@ -3,9 +3,10 @@ import type { Proposal } from '@zero-tech/zdao-sdk';
 
 import React from 'react';
 import classNames from 'classnames/bind';
+import { TableData } from '@zero-tech/zui/components/AsyncTable/Column';
 import { ProposalClosingStatus } from './DaoProposals.constants';
 import { useDaoProposalsTableItemData } from './hooks';
-import styles from './DaoProposalsTable.module.scss';
+import styles from './DaoProposalsTableRow.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -22,13 +23,18 @@ export const DaoProposalsTableRow: FC<DaoProposalsTableRowProps> = ({
 	return (
 		<tr className={styles.Row} onClick={onClick}>
 			{/* Title */}
-			<td className={styles.Title}>{title}</td>
+			<TableData alignment="left" className={styles.Title}>
+				{title}
+			</TableData>
 
 			{/* Status */}
-			<td className={styles.Status}>{status}</td>
+			<TableData alignment="left" className={styles.Status}>
+				{status}
+			</TableData>
 
 			{/* Closes with humanized format */}
-			<td
+			<TableData
+				alignment="left"
 				className={cx(styles.Timer, {
 					Concluded: isConcluded,
 					Warning: closingStatus === ProposalClosingStatus.WARNING,
@@ -36,12 +42,12 @@ export const DaoProposalsTableRow: FC<DaoProposalsTableRowProps> = ({
 				})}
 			>
 				{endTime}
-			</td>
+			</TableData>
 
 			{/* Total votes count of proposal */}
-			<td className={styles.Votes}>
+			<TableData alignment="right" className={styles.Votes}>
 				<p>{proposal.votes}</p>
-			</td>
+			</TableData>
 		</tr>
 	);
 };

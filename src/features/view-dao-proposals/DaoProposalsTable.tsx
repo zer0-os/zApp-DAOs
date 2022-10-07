@@ -1,14 +1,16 @@
 import type { FC } from 'react';
 import type { DaoProposalsTableProps } from './DaoProposals.types';
 
-import React, { useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { get } from 'lodash';
 import { AsyncTable } from '@zero-tech/zui/components';
+import { Controls } from '../ui';
+import { DaoProposalsTableRow } from './DaoProposalsTableRow';
+import { DaoProposalsTableCard } from './DaoProposalsTableCard';
+import { get } from 'lodash';
 import { useDaoProposals, useCurrentDao } from '../../lib/hooks';
 import { sortProposals } from './DaoProposals.helpers';
 import { TABLE_COLUMNS } from './DaoProposals.constants';
-import { DaoProposalsTableRow } from './DaoProposalsTableRow';
 import styles from './DaoProposalsTable.module.scss';
 
 export const DaoProposalsTable: FC<DaoProposalsTableProps> = ({
@@ -20,14 +22,15 @@ export const DaoProposalsTable: FC<DaoProposalsTableProps> = ({
 		useDaoProposals(dao);
 	const { isLoading: isLoadingCurrentDao } = useCurrentDao();
 
+	const [isGridView, setIsGridView] = useState<boolean>(
+		get(location.state, 'isGridView', false)
+	);
+
 	const proposals = useMemo(
 		() => sortProposals(proposalsData),
 		[proposalsData]
 	);
 
-	// TODO:: Use isGridViewByDefault when we integrate grid layout
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const isGridViewByDefault = get(location.state, 'isGridView', false);
 	const isLoading = isLoadingDao || isLoadingCurrentDao || isLoadingProposals;
 	const noProposals = !isLoading && proposals?.length === 0;
 
@@ -37,16 +40,25 @@ export const DaoProposalsTable: FC<DaoProposalsTableProps> = ({
 
 	return (
 		<div className={styles.Container}>
+			<Controls
+				placeholder="Search by proposal title"
+				isGridView={isGridView}
+				onChangeView={setIsGridView}
+			/>
 			<AsyncTable
+				className={styles.Table}
 				data={proposals}
 				itemKey={'title'}
 				columns={TABLE_COLUMNS}
 				rowComponent={(proposal) => (
 					<DaoProposalsTableRow proposal={proposal} />
 				)}
-				gridComponent={() => <>UNHANDLED</>}
+				gridComponent={(proposal) => (
+					<DaoProposalsTableCard proposal={proposal} />
+				)}
 				searchKey={null}
 				isLoading={isLoading}
+				isGridView={isGridView}
 			/>
 		</div>
 	);

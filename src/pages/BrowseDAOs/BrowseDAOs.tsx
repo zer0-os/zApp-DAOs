@@ -16,15 +16,18 @@ export const BrowseDAOs: FC = () => {
 		<>
 			<div className={styles.Stats}>
 				<Card
-					title="Total Value"
-					value={{
+					label="Total Value"
+					primaryText={{
 						isLoading: isLoadingDaosTotal,
 						text: DOLLAR_SYMBOL + formatFiat(total)
 					}}
 				/>
 				<Card
-					title="DAOs"
-					value={{ isLoading: isLoadingZnas, text: znas?.length.toString() }}
+					label="DAOs"
+					primaryText={{
+						isLoading: isLoadingZnas,
+						text: znas?.length.toString()
+					}}
 				/>
 			</div>
 

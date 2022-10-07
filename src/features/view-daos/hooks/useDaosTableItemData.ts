@@ -3,12 +3,7 @@ import type { DAOTableDataItem } from '../DaosTable.types';
 import type { DaosTableItemData } from './useDaosTableItemData.types';
 
 // React import
-import React, { useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
-
-// Libraries import
-import { Skeleton } from '@zero-tech/zui/components';
-import { isNaN, isNil } from 'lodash';
 
 // Hooks import
 import { useDaoAssets } from '../../../lib/hooks';
@@ -30,17 +25,6 @@ export const useDaosTableItemData = (
 	const history = useHistory();
 	const { isLoading, data: daoAssetsData } = useDaoAssets(daoData.dao);
 
-	const usdValue = useMemo(() => {
-		if (isLoading) {
-			return <Skeleton width={100} />;
-		}
-		if (isNaN(daoAssetsData?.totalUsd) || isNil(daoAssetsData?.totalUsd)) {
-			return 'ERR';
-		}
-
-		return DOLLAR_SYMBOL + formatFiat(daoAssetsData?.totalUsd);
-	}, [isLoading, daoAssetsData]);
-
 	/**
 	 * Navigates to the selected DAO zNA
 	 */
@@ -53,7 +37,8 @@ export const useDaosTableItemData = (
 		imgSrc: DaoIcon,
 		title: daoData.dao.title,
 		zna: ZERO_ROOT_SYMBOL + daoData.zna,
-		usdValue,
+		totalUsd: !isLoading && DOLLAR_SYMBOL + formatFiat(daoAssetsData?.totalUsd),
+		isLoading,
 		onClick
 	};
 };

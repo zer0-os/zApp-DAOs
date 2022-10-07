@@ -1,10 +1,9 @@
-import type { ReactNode } from 'react';
-
 export type DaosTableItemData = {
 	imgAlt: string;
 	imgSrc: string;
 	title: string;
 	zna: string;
-	usdValue: ReactNode;
+	totalUsd?: string;
+	isLoading: boolean;
 	onClick: () => void;
 };

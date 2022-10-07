@@ -5,6 +5,10 @@ import type { DAOTableDataItem } from './DaosTable.types';
 // React import
 import React from 'react';
 
+// Components import
+import { TableData } from '@zero-tech/zui/components/AsyncTable/Column';
+import { SkeletonText } from '@zero-tech/zui/components/SkeletonText';
+
 // Hooks import
 import { useDaosTableItemData } from './hooks';
 
@@ -16,21 +20,21 @@ type DaosTableRowProps = {
 };
 
 export const DaosTableRow: FC<DaosTableRowProps> = ({ daoData }) => {
-	const { title, zna, imgAlt, imgSrc, usdValue, onClick } =
+	const { title, zna, imgAlt, imgSrc, totalUsd, isLoading, onClick } =
 		useDaosTableItemData(daoData);
 
 	return (
 		<tr className={styles.Row} onClick={onClick}>
-			<td>
-				<div className={styles.Dao}>
-					<img alt={imgAlt} src={imgSrc} />
-					<div className={styles.Content}>
-						<span className={styles.Title}>{title}</span>
-						<span className={styles.Domain}>{zna}</span>
-					</div>
+			<TableData alignment="left" className={styles.Dao}>
+				<img alt={imgAlt} src={imgSrc} />
+				<div className={styles.Content}>
+					<span className={styles.Title}>{title}</span>
+					<span className={styles.Domain}>{zna}</span>
 				</div>
-			</td>
-			<td className={styles.Right}>{usdValue}</td>
+			</TableData>
+			<TableData alignment="right">
+				<SkeletonText asyncText={{ text: totalUsd, isLoading }} />
+			</TableData>
 		</tr>
 	);
 };
