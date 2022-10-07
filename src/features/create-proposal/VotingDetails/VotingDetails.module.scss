@@ -1,0 +1,38 @@
+@use '../../../../node_modules/@zero-tech/zui/styles/colors';
+@use '../../../../node_modules/@zero-tech/zui/styles/typography';
+@use '../../../../node_modules/@zero-tech/zui/styles/dimensions';
+
+.Row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 0.5rem;
+    row-gap: 0.5rem;
+    padding: 1rem 0;
+
+    @media only screen and (max-width: dimensions.$breakpoint-tablet-m) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media only screen and (max-width: dimensions.$breakpoint-mobile-l) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .Col {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0.5rem 0.5rem 0.5rem 1.25rem;
+        background: colors.$purple-5;
+        border-radius: 9999px;
+
+        .Label {
+            font-size: typography.$size-tiny;
+            color: #bcbcbc; // todo - zui color value
+        }
+
+        .Value {
+            font-size: typography.$size-tiny;
+            margin-top: 0.125rem;
+        }
+    }
+}

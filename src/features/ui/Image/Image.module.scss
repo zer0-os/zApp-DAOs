@@ -1,0 +1,9 @@
+.Container {
+	.Image {
+		display: none;
+
+		&.IsLoaded {
+			display: block;
+		}
+	}
+}

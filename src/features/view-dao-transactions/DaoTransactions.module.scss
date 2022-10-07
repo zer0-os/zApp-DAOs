@@ -1,0 +1,105 @@
+@use '../../../node_modules/@zero-tech/zui/styles/colors';
+@use '../../../node_modules/@zero-tech/zui/styles/typography';
+
+.Loading {
+	justify-content: center;
+	margin-top: 2rem;
+	padding: 2rem 0;
+}
+
+.Empty {
+	margin-top: 2rem;
+	text-align: center;
+	font-style: italic;
+}
+
+.Transactions {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+
+	.TransactionsGroup {
+		.TransactionsGroupLabel {
+			margin-top: unset;
+			padding: 0.5rem;
+			font-size: typography.$size-default;
+			font-weight: bold;
+			color: colors.$grey-lighter-2;
+		}
+
+		.TransactionsGroupItems {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+
+			.TransactionItem {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: 1rem;
+	
+				.Details {
+					display: flex;
+					align-items: center;
+					flex: 1;
+	
+					> span {
+						margin-right: 0.25rem;
+					}
+	
+					.Icon {
+						position: relative;
+						width: 2rem;
+						height: 2rem;
+			
+						.Image {
+							> img {
+								width: 100%;
+								height: 100%;
+								border-radius: 50%;
+								object-fit: contain;
+							}
+						}
+	
+						> svg {
+							position: absolute;
+							right: 0;
+							bottom: 0;
+							height: 0.75rem;
+							width: 0.75rem;
+							border-radius: 50%;
+							fill: colors.$blue;
+						}
+	
+						&.Sent {
+							> svg {
+								// TODO: it should be replaced with zUI icon later
+								transform: rotate(180deg);
+							}
+						}
+					}
+	
+					.Type {
+						margin-left: 1rem;
+					}
+	
+					.Value {
+						font-weight: bold;
+						color: colors.$white;
+					}
+	
+					.EtherscanLink {
+						font-weight: bold;
+						color: colors.$white;
+					}
+				}
+	
+				.DateTime {
+					.Date {
+						margin-right: 0.5rem;
+					}
+				}
+			}
+		}
+	}		
+}

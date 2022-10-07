@@ -1,0 +1,21 @@
+@use '../../../../node_modules/@zero-tech/zui/styles/colors';
+@use '../../../../node_modules/@zero-tech/zui/styles/typography';
+
+.Link {
+	display: flex;
+	align-items: center;
+	color: colors.$text-primary;
+	font-size: typography.$size-small;
+	font-weight: bold;
+
+	&:hover {
+		color: colors.$text-primary;
+		text-shadow: colors.$text-glow-white;
+	}
+
+	svg {
+		height: 1rem;
+		width: 1rem;
+		margin-right: 0.5rem;
+	}
+}
