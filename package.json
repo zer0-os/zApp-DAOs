@@ -1,6 +1,6 @@
 {
 	"name": "@zero-tech/zapp-daos",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"main": "index.js",
 	"repository": "git@github.com:zer0-os/zApp-DAOs.git",
 	"scripts": {
@@ -61,12 +61,9 @@
 		"husky": "^4.3.8",
 		"jest": "^27.4.7",
 		"lint-staged": "^11.1.2",
-		"millify": "^4.0.0",
-		"moment": "^2.29.1",
 		"npm-run-all": "^4.1.5",
 		"onchange": "^7.1.0",
 		"prettier": "^2.2.1",
-		"react-resize-detector": "7.0.0",
 		"typescript": "^4.1.6",
 		"webpack": "^5.74.0",
 		"webpack-cli": "^4.10.0"
@@ -89,7 +86,10 @@
 		"classnames": "^2.3.1",
 		"formik": "^2.2.9",
 		"markdown-to-text": "^0.1.1",
+		"millify": "^4.0.0",
+		"moment": "^2.29.1",
 		"react-query": "^3.39.1",
+		"react-resize-detector": "7.0.0",
 		"yup": "^0.32.11"
 	},
 	"husky": {
