@@ -14,19 +14,26 @@ import styles from './Controls.module.scss';
 
 type ControlsProps = {
 	placeholder?: string;
+	searchInputValue: string;
+	onSearchInputValueChange: (value: string) => void;
 	isGridView: boolean;
 	onChangeView: (isGridView: boolean) => void;
 };
 
 export const Controls: FC<ControlsProps> = ({
 	placeholder,
+	searchInputValue,
+	onSearchInputValueChange,
 	isGridView,
 	onChangeView
 }) => (
 	<div className={styles.Controls}>
 		<div className={styles.SearchBarContainer}>
-			{/* @TODO - Handle onChange */}
-			<SearchBar placeholder={placeholder ?? 'Search'} />
+			<SearchBar
+				placeholder={placeholder ?? 'Search'}
+				value={searchInputValue}
+				onChange={onSearchInputValueChange}
+			/>
 		</div>
 		<div className={styles.IconButtons}>
 			<IconButton

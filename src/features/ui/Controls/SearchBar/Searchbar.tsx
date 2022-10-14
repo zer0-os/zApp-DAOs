@@ -13,13 +13,27 @@ import styles from './SearchBar.module.scss';
 
 type SearchBarProps = {
 	placeholder: string;
-	onChange?: () => void;
+	value?: string;
+	onChange?: (value: string) => void;
 };
 
-export const SearchBar: FC<SearchBarProps> = ({ placeholder, onChange }) => {
+export const SearchBar: FC<SearchBarProps> = ({
+	placeholder,
+	value,
+	onChange
+}) => {
+	const onChangeSearchValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+		onChange(e.target.value);
+	};
+
 	return (
 		<div className={styles.Container}>
-			<input onChange={onChange} type="text" placeholder={placeholder} />
+			<input
+				value={value}
+				onChange={onChangeSearchValue}
+				type="text"
+				placeholder={placeholder}
+			/>
 			<IconButton isTogglable={false} icon={<IconSearch />} />
 		</div>
 	);

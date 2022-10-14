@@ -9,6 +9,7 @@ import { DaoProposalsTableRow } from './DaoProposalsTableRow';
 import { DaoProposalsTableCard } from './DaoProposalsTableCard';
 import { get } from 'lodash';
 import { useDaoProposals, useCurrentDao } from '../../lib/hooks';
+import { containsSubstring } from '../../lib/util/string';
 import { sortProposals } from './DaoProposals.helpers';
 import { TABLE_COLUMNS } from './DaoProposals.constants';
 import styles from './DaoProposalsTable.module.scss';
@@ -22,17 +23,26 @@ export const DaoProposalsTable: FC<DaoProposalsTableProps> = ({
 		useDaoProposals(dao);
 	const { isLoading: isLoadingCurrentDao } = useCurrentDao();
 
+	const [searchInputValue, setSearchInputValue] = useState<string>('');
 	const [isGridView, setIsGridView] = useState<boolean>(
 		get(location.state, 'isGridView', false)
 	);
 
-	const proposals = useMemo(
-		() => sortProposals(proposalsData),
-		[proposalsData]
-	);
+	const proposals = useMemo(() => {
+		const proposals = sortProposals(proposalsData);
+
+		if (searchInputValue) {
+			return proposals.filter((p) =>
+				containsSubstring(p.title, searchInputValue)
+			);
+		}
+
+		return proposals;
+	}, [proposalsData, searchInputValue]);
 
 	const isLoading = isLoadingDao || isLoadingCurrentDao || isLoadingProposals;
-	const noProposals = !isLoading && proposals?.length === 0;
+	const noProposals =
+		!isLoading && !searchInputValue && proposals?.length === 0;
 
 	if (noProposals) {
 		return <div className={styles.Empty}>This DAO has no proposals.</div>;
@@ -42,6 +52,8 @@ export const DaoProposalsTable: FC<DaoProposalsTableProps> = ({
 		<div className={styles.Container}>
 			<Controls
 				placeholder="Search by proposal title"
+				searchInputValue={searchInputValue}
+				onSearchInputValueChange={setSearchInputValue}
 				isGridView={isGridView}
 				onChangeView={setIsGridView}
 			/>

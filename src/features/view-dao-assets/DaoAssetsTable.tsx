@@ -10,6 +10,7 @@ import { DaoAssetsTableRow } from './DaoAssetsTableRow';
 import { DaoAssetsTableCard } from './DaoAssetsTableCard';
 
 import { useDaoAssets } from '../../lib/hooks';
+import { containsSubstring } from '../../lib/util/string';
 import { convertAsset } from './DaoAssetsTable.helpers';
 
 import { TABLE_COLUMNS } from './DaoAssetsTable.constants';
@@ -25,6 +26,7 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({
 	isLoadingDao,
 	dao
 }) => {
+	const [searchInputValue, setSearchInputValue] = useState<string>('');
 	const [isGridView, setIsGridView] = useState<boolean>(false);
 
 	const { isLoading, data: assetsData } = useDaoAssets(dao);
@@ -32,8 +34,18 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({
 	const tableData: DaoAssetTableDataItem[] = useMemo(() => {
 		if (!assetsData?.assets) return [];
 
-		return assetsData.assets.map(convertAsset);
-	}, [assetsData]);
+		const tableDataItems = assetsData.assets.map(convertAsset);
+
+		if (searchInputValue) {
+			return tableDataItems.filter(
+				(dataItem) =>
+					containsSubstring(dataItem.name, searchInputValue) ||
+					containsSubstring(dataItem.subtext, searchInputValue)
+			);
+		}
+
+		return tableDataItems;
+	}, [assetsData, searchInputValue]);
 
 	const hasNoAssets = !isLoading && assetsData?.assets?.length === 0;
 
@@ -43,6 +55,8 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({
 				<>
 					<Controls
 						placeholder="Search by name"
+						searchInputValue={searchInputValue}
+						onSearchInputValueChange={setSearchInputValue}
 						isGridView={isGridView}
 						onChangeView={setIsGridView}
 					/>
