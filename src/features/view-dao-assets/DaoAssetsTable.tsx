@@ -27,15 +27,15 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({
 }) => {
 	const [isGridView, setIsGridView] = useState<boolean>(false);
 
-	const { isLoading, data: assetsData } = useDaoAssets(dao);
+	const { isLoading, data: assets } = useDaoAssets(dao);
 
 	const tableData: DaoAssetTableDataItem[] = useMemo(() => {
-		if (!assetsData?.assets) return [];
+		if (!assets) return [];
 
-		return assetsData.assets.map(convertAsset);
-	}, [assetsData]);
+		return assets.map(convertAsset);
+	}, [assets]);
 
-	const hasNoAssets = !isLoading && assetsData?.assets?.length === 0;
+	const hasNoAssets = !isLoading && assets?.length === 0;
 
 	return (
 		<div className={styles.Container}>

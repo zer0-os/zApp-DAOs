@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import type { zDAO, zNA } from '@zero-tech/zdao-sdk';
 
 import React, { useState, useMemo, useEffect, createContext } from 'react';
-import { useAllZnas, useAllDaos, useDaoAssets } from '../hooks';
+import { useAllZnas, useAllDaos, useDaoAssetsCoins } from '../hooks';
 
 type Total = {
 	total: number;
@@ -20,7 +20,7 @@ type DaoWithZna = {
 
 /**
  * Get Dao Total Price
- * Call "useDaoAssets" hooks by behaving as a functional component,
+ * Call "useDaoAssetsCoins" hooks by behaving as a functional component,
  * but it does not render anything
  */
 const GetDaoTotals = ({
@@ -32,16 +32,16 @@ const GetDaoTotals = ({
 	zna: zNA;
 	onSetDaoTotal: (zna: zNA, value: Total) => void;
 }) => {
-	const { isLoading, data: assetsData } = useDaoAssets(dao);
+	const { isLoading, data: coinsData } = useDaoAssetsCoins(dao);
 
 	useEffect(() => {
 		onSetDaoTotal(zna, {
 			isLoading,
-			total: assetsData?.totalUsd ?? 0
+			total: coinsData?.amountInUSD ?? 0
 		});
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isLoading, assetsData?.totalUsd]);
+	}, [isLoading, coinsData?.amountInUSD]);
 
 	return null;
 };

@@ -16,7 +16,7 @@ export const CreateProposal: FC<CreateProposalProps> = ({
 }) => {
 	// Hooks
 	const history = useHistory();
-	const { data: aseetsData } = useDaoAssets(dao);
+	const { data: assets } = useDaoAssets(dao);
 	const {
 		isLoading: isLoadingPaymentTokenBalance,
 		data: userPaymentTokenBalance
@@ -69,7 +69,7 @@ export const CreateProposal: FC<CreateProposalProps> = ({
 							<h1 className={styles.Title}>Create a Proposal</h1>
 
 							{/* Form */}
-							<CreateProposalForm dao={dao} assets={aseetsData?.assets} />
+							<CreateProposalForm dao={dao} assets={assets} />
 						</div>
 					))}
 			</div>

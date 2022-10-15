@@ -6,6 +6,7 @@ export * from './useCurrentDao';
 export * from './useAllZnas';
 export * from './useAllDaos';
 export * from './useDaosTotal';
+export * from './useDaoAssetsCoins';
 export * from './useDaoAssets';
 export * from './useDaoTransactions';
 export * from './useDaoProposals';
