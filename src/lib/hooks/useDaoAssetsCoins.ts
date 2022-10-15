@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 
 export const useDaoAssetsCoins = (dao?: zDAO) => {
 	return useQuery(
-		['dao', 'total', dao?.id],
+		['dao', 'assets', 'coins', dao?.id],
 		async () => {
 			return await dao.listAssetsCoins();
 		},
