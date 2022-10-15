@@ -16,7 +16,7 @@ import {
 // Hooks imports
 import {
 	useCurrentDao,
-	useDaoAssets,
+	useDaoAssetsCoins,
 	useUserPaymentTokenBalance
 } from '../../lib/hooks';
 
@@ -45,8 +45,8 @@ import styles from './DAO.module.scss';
 
 export const DAO: FC = () => {
 	const { dao, isLoading: isLoadingDao, zna } = useCurrentDao();
-	const { data: daoAssetsData, isLoading: isLoadingDaoAssets } =
-		useDaoAssets(dao);
+	const { data: coinsData, isLoading: isLoadingDaoAssetsCoins } =
+		useDaoAssetsCoins(dao);
 	const { data: userPaymentTokenBalance } = useUserPaymentTokenBalance(
 		dao?.votingToken.token
 	);
@@ -104,8 +104,8 @@ export const DAO: FC = () => {
 					<Card
 						label="Total Value"
 						primaryText={{
-							isLoading: isLoadingDao || isLoadingDaoAssets,
-							text: DOLLAR_SYMBOL + formatFiat(daoAssetsData?.totalUsd)
+							isLoading: isLoadingDao || isLoadingDaoAssetsCoins,
+							text: DOLLAR_SYMBOL + formatFiat(coinsData?.amountInUSD)
 						}}
 					/>
 				</div>

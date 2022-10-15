@@ -6,7 +6,7 @@ import type { DaosTableItemData } from './useDaosTableItemData.types';
 import { useHistory } from 'react-router-dom';
 
 // Hooks import
-import { useDaoAssets } from '../../../lib/hooks';
+import { useDaoAssetsCoins } from '../../../lib/hooks';
 
 // Utils import
 import { formatFiat } from '../../../lib/util/format';
@@ -23,7 +23,7 @@ export const useDaosTableItemData = (
 	daoData: DAOTableDataItem
 ): DaosTableItemData => {
 	const history = useHistory();
-	const { isLoading, data: daoAssetsData } = useDaoAssets(daoData.dao);
+	const { isLoading, data: coinsData } = useDaoAssetsCoins(daoData.dao);
 
 	/**
 	 * Navigates to the selected DAO zNA
@@ -37,7 +37,7 @@ export const useDaosTableItemData = (
 		imgSrc: DaoIcon,
 		title: daoData.dao.title,
 		zna: ZERO_ROOT_SYMBOL + daoData.zna,
-		totalUsd: !isLoading && DOLLAR_SYMBOL + formatFiat(daoAssetsData?.totalUsd),
+		totalUsd: !isLoading && DOLLAR_SYMBOL + formatFiat(coinsData?.amountInUSD),
 		isLoading,
 		onClick
 	};
