@@ -1,0 +1,7 @@
+# Global owners
+# They will be requested for review when someone opens a pull
+# request unless a later match takes precedence,
+@colbr 
+
+# src owners
+/src/ @eric-low-dev @colbr
