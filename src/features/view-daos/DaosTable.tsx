@@ -2,18 +2,15 @@ import type { FC } from 'react';
 import type { zDAO } from '@zero-tech/zdao-sdk';
 import type { DAOTableDataItem } from './DaosTable.types';
 
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { AsyncTable } from '@zero-tech/zui/components';
 import { useAllZnas, useAllDaos } from '../../lib/hooks';
-import { Controls } from '../ui';
 import { DaosTableRow } from './DaosTableRow';
 import { DaosTableCard } from './DaosTableCard';
 import { TABLE_KEYS, TABLE_COLUMNS } from './DaosTable.constants';
 import styles from './DaosTable.module.scss';
 
 export const DaosTable: FC = () => {
-	const [isGridView, setIsGridView] = useState<boolean>(false);
-
 	const { isLoading: isLoadingZnas, data: znas } = useAllZnas();
 	const { isLoading: isLoadingDaos, data: daos } = useAllDaos(znas);
 
@@ -38,24 +35,17 @@ export const DaosTable: FC = () => {
 	return (
 		<div className={styles.Container}>
 			{!hasNoDaos ? (
-				<>
-					<Controls
-						placeholder="Search by ZNA"
-						isGridView={isGridView}
-						onChangeView={setIsGridView}
-					/>
-					<AsyncTable
-						className={styles.Table}
-						data={tableData}
-						itemKey={TABLE_KEYS.ZNA}
-						columns={TABLE_COLUMNS}
-						rowComponent={(daoData) => <DaosTableRow daoData={daoData} />}
-						gridComponent={(daoData) => <DaosTableCard daoData={daoData} />}
-						searchKey={{ key: TABLE_KEYS.ZNA, name: TABLE_KEYS.TITLE }}
-						isLoading={isLoading}
-						isGridView={isGridView}
-					/>
-				</>
+				<AsyncTable
+					className={styles.Table}
+					data={tableData}
+					itemKey={TABLE_KEYS.ZNA}
+					columns={TABLE_COLUMNS}
+					rowComponent={(daoData) => <DaosTableRow daoData={daoData} />}
+					gridComponent={(daoData) => <DaosTableCard daoData={daoData} />}
+					searchKey={{ key: TABLE_KEYS.ZNA, name: 'ZNA' }}
+					isLoading={isLoading}
+					isGridViewByDefault={false}
+				/>
 			) : (
 				<p className={styles.Empty}>No DAOs here.</p>
 			)}
