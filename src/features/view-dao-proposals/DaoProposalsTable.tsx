@@ -1,10 +1,9 @@
 import type { FC } from 'react';
 import type { DaoProposalsTableProps } from './DaoProposals.types';
 
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AsyncTable } from '@zero-tech/zui/components';
-import { Controls } from '../ui';
 import { DaoProposalsTableRow } from './DaoProposalsTableRow';
 import { DaoProposalsTableCard } from './DaoProposalsTableCard';
 import { get } from 'lodash';
@@ -22,10 +21,6 @@ export const DaoProposalsTable: FC<DaoProposalsTableProps> = ({
 		useDaoProposals(dao);
 	const { isLoading: isLoadingCurrentDao } = useCurrentDao();
 
-	const [isGridView, setIsGridView] = useState<boolean>(
-		get(location.state, 'isGridView', false)
-	);
-
 	const proposals = useMemo(
 		() => sortProposals(proposalsData),
 		[proposalsData]
@@ -38,13 +33,10 @@ export const DaoProposalsTable: FC<DaoProposalsTableProps> = ({
 		return <div className={styles.Empty}>This DAO has no proposals.</div>;
 	}
 
+	const isGridViewByDefault = get(location.state, 'isGridView', false);
+
 	return (
 		<div className={styles.Container}>
-			<Controls
-				placeholder="Search by proposal title"
-				isGridView={isGridView}
-				onChangeView={setIsGridView}
-			/>
 			<AsyncTable
 				className={styles.Table}
 				data={proposals}
@@ -56,9 +48,9 @@ export const DaoProposalsTable: FC<DaoProposalsTableProps> = ({
 				gridComponent={(proposal) => (
 					<DaoProposalsTableCard proposal={proposal} />
 				)}
-				searchKey={null}
+				searchKey={{ key: 'title', name: 'proposal title' }}
 				isLoading={isLoading}
-				isGridView={isGridView}
+				isGridViewByDefault={isGridViewByDefault}
 			/>
 		</div>
 	);

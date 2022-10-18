@@ -2,10 +2,9 @@ import type { FC } from 'react';
 import type { zDAO } from '@zero-tech/zdao-sdk';
 import type { DaoAssetTableDataItem } from './DaoAssetsTable.types';
 
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import { AsyncTable } from '@zero-tech/zui/components';
-import { Controls } from '../ui';
 import { DaoAssetsTableRow } from './DaoAssetsTableRow';
 import { DaoAssetsTableCard } from './DaoAssetsTableCard';
 
@@ -25,8 +24,6 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({
 	isLoadingDao,
 	dao
 }) => {
-	const [isGridView, setIsGridView] = useState<boolean>(false);
-
 	const { isLoading, data: assets } = useDaoAssets(dao);
 
 	const tableData: DaoAssetTableDataItem[] = useMemo(() => {
@@ -40,24 +37,17 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({
 	return (
 		<div className={styles.Container}>
 			{!hasNoAssets ? (
-				<>
-					<Controls
-						placeholder="Search by name"
-						isGridView={isGridView}
-						onChangeView={setIsGridView}
-					/>
-					<AsyncTable
-						className={styles.Table}
-						data={tableData}
-						itemKey={'name'}
-						columns={TABLE_COLUMNS}
-						rowComponent={(data) => <DaoAssetsTableRow data={data} />}
-						gridComponent={(data) => <DaoAssetsTableCard data={data} />}
-						searchKey={null}
-						isLoading={isLoadingDao || isLoading}
-						isGridView={isGridView}
-					/>
-				</>
+				<AsyncTable
+					className={styles.Table}
+					data={tableData}
+					itemKey={'name'}
+					columns={TABLE_COLUMNS}
+					rowComponent={(data) => <DaoAssetsTableRow data={data} />}
+					gridComponent={(data) => <DaoAssetsTableCard data={data} />}
+					searchKey={{ key: 'name', name: 'name' }}
+					isLoading={isLoadingDao || isLoading}
+					isGridViewByDefault={false}
+				/>
 			) : (
 				<p className={styles.Empty}>This DAO has no assets.</p>
 			)}
