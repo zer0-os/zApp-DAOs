@@ -61,14 +61,14 @@
 							}
 						}
 	
-						> svg {
+						.ArrowIcon > svg {
 							position: absolute;
 							right: 0;
 							bottom: 0;
 							height: 0.75rem;
 							width: 0.75rem;
 							border-radius: 50%;
-							fill: colors.$blue;
+							color: colors.$blue;
 						}
 	
 						&.Sent {
