@@ -34,7 +34,7 @@ export const useDaosTableItemData = (
 
 	return {
 		imgAlt: daoData.dao.title + ' icon',
-		imgSrc: DaoIcon,
+		imgSrc: location.origin + DaoIcon,
 		title: daoData.dao.title,
 		zna: ZERO_ROOT_SYMBOL + daoData.zna,
 		totalUsd: !isLoading && DOLLAR_SYMBOL + formatFiat(coinsData?.amountInUSD),

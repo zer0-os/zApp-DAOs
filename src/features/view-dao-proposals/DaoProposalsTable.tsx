@@ -27,12 +27,6 @@ export const DaoProposalsTable: FC<DaoProposalsTableProps> = ({
 	);
 
 	const isLoading = isLoadingDao || isLoadingCurrentDao || isLoadingProposals;
-	const noProposals = !isLoading && proposals?.length === 0;
-
-	if (noProposals) {
-		return <div className={styles.Empty}>This DAO has no proposals.</div>;
-	}
-
 	const isGridViewByDefault = get(location.state, 'isGridView', false);
 
 	return (
@@ -51,6 +45,7 @@ export const DaoProposalsTable: FC<DaoProposalsTableProps> = ({
 				searchKey={{ key: 'title', name: 'proposal title' }}
 				isLoading={isLoading}
 				isGridViewByDefault={isGridViewByDefault}
+				emptyText={'This DAO has no proposals.'}
 			/>
 		</div>
 	);

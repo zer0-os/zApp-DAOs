@@ -32,25 +32,20 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({
 		return assets.map(convertAsset);
 	}, [assets]);
 
-	const hasNoAssets = !isLoading && assets?.length === 0;
-
 	return (
 		<div className={styles.Container}>
-			{!hasNoAssets ? (
-				<AsyncTable
-					className={styles.Table}
-					data={tableData}
-					itemKey={'name'}
-					columns={TABLE_COLUMNS}
-					rowComponent={(data) => <DaoAssetsTableRow data={data} />}
-					gridComponent={(data) => <DaoAssetsTableCard data={data} />}
-					searchKey={{ key: 'name', name: 'name' }}
-					isLoading={isLoadingDao || isLoading}
-					isGridViewByDefault={false}
-				/>
-			) : (
-				<p className={styles.Empty}>This DAO has no assets.</p>
-			)}
+			<AsyncTable
+				className={styles.Table}
+				data={tableData}
+				itemKey={'name'}
+				columns={TABLE_COLUMNS}
+				rowComponent={(data) => <DaoAssetsTableRow data={data} />}
+				gridComponent={(data) => <DaoAssetsTableCard data={data} />}
+				searchKey={{ key: 'name', name: 'name' }}
+				isLoading={isLoadingDao || isLoading}
+				isGridViewByDefault={false}
+				emptyText={'This DAO has no assets'}
+			/>
 		</div>
 	);
 };
