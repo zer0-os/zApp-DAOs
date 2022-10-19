@@ -28,5 +28,3 @@ export const NETWORK_ETHERSCAN: Record<Network, string> = {
 	[Network.MAINNET]: '',
 	[Network.RINKEBY]: 'rinkeby.'
 };
-
-export const ZERO_ROOT_SYMBOL = '0://';

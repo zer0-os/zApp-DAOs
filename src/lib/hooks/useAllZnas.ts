@@ -1,6 +1,7 @@
 import { useQuery } from 'react-query';
 import { useWeb3 } from './useWeb3';
 import { useZdaoSdk } from './useZdaoSdk';
+import { DEFAULT_ZNS_DOMAIN } from '../../lib/constants/routes';
 
 export const useAllZnas = () => {
 	const sdk = useZdaoSdk();
@@ -9,7 +10,9 @@ export const useAllZnas = () => {
 	return useQuery(
 		['daos-znas-all', chainId],
 		async () => {
-			return await sdk.listZNAs();
+			const znas = await sdk.listZNAs();
+
+			return znas?.filter((zna) => zna !== DEFAULT_ZNS_DOMAIN);
 		},
 		{
 			retry: false,

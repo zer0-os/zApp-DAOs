@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 import React, { useEffect } from 'react';
 import { useCurrentDao, useRedirect } from '../lib/hooks';
-import { ROOT_PATH, ROUTES } from '../lib/constants/routes';
+import { DEFAULT_ZNS_DOMAIN, ROOT_PATH, ROUTES } from '../lib/constants/routes';
 import { BrowseDAOs, DAO } from './index';
 
 export const DAOs: FC = () => {
@@ -22,5 +22,5 @@ export const DAOs: FC = () => {
 		}
 	}, [isLoading, dao, zna, redirect]);
 
-	return zna === '' ? <BrowseDAOs /> : <DAO />;
+	return zna === DEFAULT_ZNS_DOMAIN ? <BrowseDAOs /> : <DAO />;
 };
