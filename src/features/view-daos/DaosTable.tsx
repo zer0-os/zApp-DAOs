@@ -15,7 +15,6 @@ export const DaosTable: FC = () => {
 	const { isLoading: isLoadingDaos, data: daos } = useAllDaos(znas);
 
 	const isLoading = isLoadingZnas || isLoadingDaos;
-	const hasNoDaos = !isLoading && daos.length === 0;
 
 	const tableData: DAOTableDataItem[] = useMemo(() => {
 		if (!znas?.length || !daos?.length || znas?.length !== daos?.length)
@@ -34,21 +33,18 @@ export const DaosTable: FC = () => {
 
 	return (
 		<div className={styles.Container}>
-			{!hasNoDaos ? (
-				<AsyncTable
-					className={styles.Table}
-					data={tableData}
-					itemKey={TABLE_KEYS.ZNA}
-					columns={TABLE_COLUMNS}
-					rowComponent={(daoData) => <DaosTableRow daoData={daoData} />}
-					gridComponent={(daoData) => <DaosTableCard daoData={daoData} />}
-					searchKey={{ key: TABLE_KEYS.ZNA, name: 'ZNA' }}
-					isLoading={isLoading}
-					isGridViewByDefault={false}
-				/>
-			) : (
-				<p className={styles.Empty}>No DAOs here.</p>
-			)}
+			<AsyncTable
+				className={styles.Table}
+				data={tableData}
+				itemKey={TABLE_KEYS.ZNA}
+				columns={TABLE_COLUMNS}
+				rowComponent={(daoData) => <DaosTableRow daoData={daoData} />}
+				gridComponent={(daoData) => <DaosTableCard daoData={daoData} />}
+				searchKey={{ key: TABLE_KEYS.ZNA, name: 'ZNA' }}
+				isLoading={isLoading}
+				isGridViewByDefault={false}
+				emptyText={'No DAOs here.'}
+			/>
 		</div>
 	);
 };

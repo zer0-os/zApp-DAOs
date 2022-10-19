@@ -4,10 +4,11 @@ import type { Transaction } from '@zero-tech/zdao-sdk';
 import React, { useMemo } from 'react';
 import classNames from 'classnames/bind';
 import { TransactionType } from '@zero-tech/zdao-sdk';
+import { Image } from '@zero-tech/zui/components';
 import { IconArrowDownLeft } from '@zero-tech/zui/icons';
 import { useWeb3 } from '../../lib/hooks';
 import { getEtherscanUri } from '../../lib/util/network';
-import { Image, EtherscanLink } from '../ui';
+import { EtherscanLink } from '../ui';
 import {
 	TRANSACTION_IMAGE,
 	TRANSACTION_TYPE,
@@ -44,10 +45,10 @@ export const DaoTransactionItem: FC<DaoTransactionItemProps> = ({
 				>
 					<Image
 						alt="transaction icon"
-						url={TRANSACTION_IMAGE[transaction.asset.type]}
-						classNames={{ container: styles.Image }}
+						src={location.origin + TRANSACTION_IMAGE[transaction.asset.type]}
+						className={styles.Image}
 					/>
-					<IconArrowDownLeft />
+					<IconArrowDownLeft className={styles.ArrowIcon} isFilled />
 				</span>
 				<span className={styles.Type}>
 					{TRANSACTION_TYPE[transaction.type]}
