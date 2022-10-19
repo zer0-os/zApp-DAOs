@@ -3,8 +3,7 @@ import type { DaoAssetTableDataItem } from './DaoAssetsTable.types';
 
 import React from 'react';
 import { GridCard } from '@zero-tech/zui/components/GridCard';
-import { TextStack } from '@zero-tech/zui/components/TextStack';
-import styles from './DaoAssetsTableCard.module.scss';
+import { NFT } from '@zero-tech/zui/components/GridCard/templates/NFT';
 
 type DaoAssetsTableCardProps = {
 	data: DaoAssetTableDataItem;
@@ -15,18 +14,14 @@ export const DaoAssetsTableCard: FC<DaoAssetsTableCardProps> = ({ data }) => {
 
 	return (
 		<GridCard
-			className={styles.Card}
 			aspectRatio={1}
-			imageAlt={name}
+			imageAlt={`${name ?? 'loading'} dao asset image`}
 			imageSrc={image}
 		>
-			<div className={styles.Content}>
-				<span className={styles.Name}>{name}</span>
-				<span className={styles.Subtext}>{subtext}</span>
-			</div>
-			<TextStack
-				className={styles.Value}
-				label="Value (USD)"
+			<NFT
+				title={name}
+				zna={subtext}
+				label={'Value (USD)'}
 				primaryText={amountInUSD}
 				secondaryText={null}
 			/>

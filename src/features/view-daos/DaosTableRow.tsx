@@ -33,7 +33,10 @@ export const DaosTableRow: FC<DaosTableRowProps> = ({ daoData }) => {
 				</div>
 			</TableData>
 			<TableData alignment="right">
-				<SkeletonText asyncText={{ text: totalUsd, isLoading }} />
+				<SkeletonText
+					asyncText={{ text: totalUsd, isLoading }}
+					skeletonOptions={{ width: '150px' }}
+				/>
 			</TableData>
 		</tr>
 	);

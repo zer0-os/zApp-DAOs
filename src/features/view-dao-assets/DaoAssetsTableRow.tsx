@@ -14,10 +14,12 @@ type DaoAssetsTableRowProps = {
 export const DaoAssetsTableRow: FC<DaoAssetsTableRowProps> = ({ data }) => {
 	const { image, name, subtext, amountInUSD, amount, decimals } = data;
 
+	const src = image && image.startsWith('/') ? location.origin + image : image;
+
 	return (
 		<tr className={styles.Row}>
 			<TableData alignment="left" className={styles.Dao}>
-				<Image alt={name} src={image} className={styles.Image} />
+				<Image alt={name} src={src} className={styles.Image} />
 
 				<div className={styles.Content}>
 					<span className={styles.Title}>{name}</span>
@@ -27,7 +29,9 @@ export const DaoAssetsTableRow: FC<DaoAssetsTableRowProps> = ({ data }) => {
 			<TableData alignment="right">
 				{formatTotalAmountOfTokens(amount, decimals)}
 			</TableData>
-			<TableData alignment="right">{amountInUSD}</TableData>
+			<TableData alignment="right" className={styles.USD}>
+				{amountInUSD}
+			</TableData>
 		</tr>
 	);
 };
