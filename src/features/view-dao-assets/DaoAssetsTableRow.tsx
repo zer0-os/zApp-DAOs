@@ -2,6 +2,9 @@ import type { FC } from 'react';
 import type { DaoAssetTableDataItem } from './DaoAssetsTable.types';
 
 import React from 'react';
+import { IpfsMedia } from '@zero-tech/zapp-utils/components';
+import { getHashFromIpfsUrl } from '@zero-tech/zapp-utils/utils/ipfs';
+
 import { TableData } from '@zero-tech/zui/components/AsyncTable/Column';
 import { Image } from '@zero-tech/zui/components';
 import { formatTotalAmountOfTokens } from './DaoAssetsTable.helpers';
@@ -14,12 +17,22 @@ type DaoAssetsTableRowProps = {
 export const DaoAssetsTableRow: FC<DaoAssetsTableRowProps> = ({ data }) => {
 	const { image, name, subtext, amountInUSD, amount, decimals } = data;
 
+	const isIpfsUrl = Boolean(getHashFromIpfsUrl(image));
 	const src = image && image.startsWith('/') ? location.origin + image : image;
 
 	return (
 		<tr className={styles.Row}>
 			<TableData alignment="left" className={styles.Dao}>
-				<Image alt={name} src={src} className={styles.Image} />
+				{isIpfsUrl ? (
+					<IpfsMedia
+						alt={name}
+						src={src}
+						className={styles.Image}
+						options={{ size: 'thumbnail' }}
+					/>
+				) : (
+					<Image alt={name} className={styles.Image} src={src} />
+				)}
 
 				<div className={styles.Content}>
 					<span className={styles.Title}>{name}</span>
