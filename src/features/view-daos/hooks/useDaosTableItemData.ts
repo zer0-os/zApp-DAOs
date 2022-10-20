@@ -13,8 +13,7 @@ import { formatFiat } from '../../../lib/util/format';
 
 // Constants import
 import { DOLLAR_SYMBOL } from '../../../lib/constants/currency';
-import { ZERO_ROOT_SYMBOL } from '../../../lib/constants/networks';
-import { ROOT_PATH, ROUTES } from '../../../lib/constants/routes';
+import { ROUTES } from '../../../lib/constants/routes';
 
 // Assets import
 import DaoIcon from '../../../assets/default_dao.svg';
@@ -29,14 +28,14 @@ export const useDaosTableItemData = (
 	 * Navigates to the selected DAO zNA
 	 */
 	const onClick = () => {
-		history.push(ROOT_PATH + ROUTES.ZDAOS + '/' + daoData.zna);
+		history.push('/0.' + daoData.zna + ROUTES.ZDAOS);
 	};
 
 	return {
 		imgAlt: daoData.dao.title + ' icon',
 		imgSrc: location.origin + DaoIcon,
 		title: daoData.dao.title,
-		zna: ZERO_ROOT_SYMBOL + daoData.zna,
+		zna: '0://' + daoData.zna,
 		totalUsd: !isLoading && DOLLAR_SYMBOL + formatFiat(coinsData?.amountInUSD),
 		isLoading,
 		onClick

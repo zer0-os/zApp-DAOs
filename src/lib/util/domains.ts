@@ -1,5 +1,3 @@
-import { ROOT_PATH } from '../constants/routes';
-
 // Truncate wallet address
 export const truncateWalletAddress = (
 	address: string,
@@ -12,16 +10,11 @@ export const truncateWalletAddress = (
 };
 
 /**
- * Extracts a zNA from a full pathname
- * e.g. /market/test.name/hello => test.name
- * @param pathname from react-router-dom::useLocation
- * @returns zNA from pathname, or empty string
+ * Extracts a zNA from a znsRoute
+ * e.g. 0.wilder.wheels => wilder.wheels
+ * @param znsRoute from react-router-dom::useRouteMatch
+ * @returns zNA from znsRoute, or empty string
  */
-export const zNAFromPathname = (pathname: string): string => {
-	return (
-		pathname
-			.replace(ROOT_PATH, '')
-			.replace(/^\/[a-zA-Z]*\//, '')
-			.split('/')[0] ?? ''
-	);
+export const extractZnaFromZnsRoute = (znsRoute: string): string => {
+	return znsRoute.replace(/^0\./, '');
 };

@@ -44,7 +44,7 @@ import DaoIcon from '../../assets/default_dao.svg';
 import styles from './DAO.module.scss';
 
 export const DAO: FC = () => {
-	const { dao, isLoading: isLoadingDao, zna } = useCurrentDao();
+	const { dao, isLoading: isLoadingDao } = useCurrentDao();
 	const { data: coinsData, isLoading: isLoadingDaoAssetsCoins } =
 		useDaoAssetsCoins(dao);
 	const { data: userPaymentTokenBalance } = useUserPaymentTokenBalance(
@@ -53,9 +53,7 @@ export const DAO: FC = () => {
 
 	const history = useHistory();
 	const { pathname } = useLocation();
-	const { url: matchUrl } = useRouteMatch();
-
-	const daoBaseUrl = matchUrl + '/' + zna;
+	const { url: daoBaseUrl } = useRouteMatch();
 
 	const showCreateProposalButton =
 		pathname === daoBaseUrl + ROUTES.ZDAO_PROPOSALS &&

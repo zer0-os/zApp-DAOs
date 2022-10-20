@@ -2,9 +2,9 @@ import type { FC, ReactNode } from 'react';
 import type { zDAO } from '@zero-tech/zdao-sdk';
 
 import React, { createContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { useDao } from '../hooks';
-import { zNAFromPathname } from '../util/domains';
+import { extractZnaFromZnsRoute } from '../util/domains';
 
 export const CurrentDaoContext = createContext({
 	dao: undefined as zDAO | undefined,
@@ -22,9 +22,11 @@ type CurrentDaoProviderProps = {
 export const CurrentDaoProvider: FC<CurrentDaoProviderProps> = ({
 	children
 }) => {
-	// Get zNA from browser location
-	const { pathname } = useLocation();
-	const zna = zNAFromPathname(pathname);
+	// Get zNA from route match
+	const {
+		params: { znsRoute }
+	} = useRouteMatch();
+	const zna = extractZnaFromZnsRoute(znsRoute);
 
 	const { isLoading, data: dao } = useDao(zna);
 

@@ -9,6 +9,7 @@
 		"build:scripts": "NODE_ENV=production babel --extensions \".ts,.tsx,.js,.jsx\" ./src --out-dir ./dist",
 		"build:styles": "sass src:dist",
 		"build:assets": "copyfiles -u 1 src/assets/* dist",
+		"lint": "eslint --ext .ts,.tsx,.js,.jsx ./src --fix --max-warnings 0",
 		"watch": "npm-run-all clean watch:all",
 		"watch:all": "concurrently --kill-others --names \"babel,sass,assets,config\" -c \"bgBlue.bold,bgGreen.bold,bgRed.bold,bgMagenta.bold\" \"npm run watch:scripts\" \"npm run watch:styles\" \"npm run watch:assets\" \"npm run watch:config\"",
 		"watch:scripts": "npm run build:scripts -- --watch",
