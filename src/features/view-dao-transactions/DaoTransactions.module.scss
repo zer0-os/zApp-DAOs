@@ -37,16 +37,16 @@
 				justify-content: space-between;
 				align-items: center;
 				gap: 1rem;
-	
+
 				.Details {
 					display: flex;
 					align-items: center;
 					flex: 1;
-	
+
 					> span {
 						margin-right: 0.25rem;
 					}
-	
+
 					.Icon {
 						position: relative;
 						width: 2rem;
@@ -67,7 +67,7 @@
 							border-radius: 50%;
 							color: colors.$blue;
 						}
-	
+
 						&.Sent {
 							> svg {
 								// TODO: it should be replaced with zUI icon later
@@ -75,22 +75,22 @@
 							}
 						}
 					}
-	
+
 					.Type {
 						margin-left: 1rem;
 					}
-	
+
 					.Value {
 						font-weight: bold;
 						color: colors.$white;
 					}
-	
+
 					.EtherscanLink {
 						font-weight: bold;
 						color: colors.$white;
 					}
 				}
-	
+
 				.DateTime {
 					.Date {
 						margin-right: 0.5rem;
@@ -98,5 +98,5 @@
 				}
 			}
 		}
-	}		
+	}
 }
