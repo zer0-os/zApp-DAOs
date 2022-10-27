@@ -1,9 +1,9 @@
-import type { FC } from 'react';
+import React, { createContext, useMemo, FC } from 'react';
 
-import React, { createContext, useMemo } from 'react';
 import * as zns from '@zero-tech/zns-sdk';
-import { DEFAULT_NETWORK, Network } from '../../lib/constants/networks';
+
 import { useWeb3 } from '../hooks';
+import { DEFAULT_NETWORK, Network } from '../constants/networks';
 
 export const ZnsSdkContext = createContext({} as zns.Instance);
 
@@ -24,12 +24,6 @@ export const ZnsSdkProvider: FC = ({ children }) => {
 			case Network.MAINNET: {
 				return zns.createInstance(
 					zns.configuration.mainnetConfiguration(provider)
-				);
-			}
-
-			case Network.RINKEBY: {
-				return zns.createInstance(
-					zns.configuration.rinkebyConfiguration(provider)
 				);
 			}
 
