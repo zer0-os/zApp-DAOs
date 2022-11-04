@@ -17,20 +17,26 @@ export const EtherscanLink: FC<EtherscanLinkProps> = ({
 	address = '',
 	shouldTruncated = true,
 	truncatingStartCharactersCount = 4,
-	className = ''
+	className = '',
+	type = 'address',
+	label
 }) => {
 	const linkPresentation = useMemo(() => {
-		if (!address || !shouldTruncated) return address;
+		if (type === 'address') {
+			if (!address || !shouldTruncated) return address;
 
-		return truncateWalletAddress(address, truncatingStartCharactersCount);
-	}, [shouldTruncated, address, truncatingStartCharactersCount]);
+			return truncateWalletAddress(address, truncatingStartCharactersCount);
+		} else {
+			return label;
+		}
+	}, [shouldTruncated, address, truncatingStartCharactersCount, type, label]);
 
 	if (!linkPresentation) return null;
 
 	return (
 		<a
 			className={classNames(styles.Link, className)}
-			href={`${etherscanUri}address/${address}`}
+			href={`${etherscanUri}${type}/${address}`}
 			target="_blank"
 			rel="noreferrer"
 		>
