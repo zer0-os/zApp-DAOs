@@ -18,7 +18,10 @@ export const DAOs: FC = () => {
 		}
 
 		if (!dao) {
-			redirect(ROOT_PATH + ROUTES.ZDAOS, 'Could not find a DAO for ' + zna);
+			if (zna !== DEFAULT_ZNS_DOMAIN) {
+				redirect(ROOT_PATH + ROUTES.ZDAOS, 'Could not find a DAO for ' + zna);
+				// ^ This causes a redirect loop, so checking that the root path isn't the current path before redirect.
+			}
 		}
 	}, [isLoading, dao, zna, redirect]);
 

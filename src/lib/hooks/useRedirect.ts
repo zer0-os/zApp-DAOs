@@ -16,8 +16,8 @@ export const useRedirect = (): UseRedirectReturn => {
 	const redirect = (to: LinkProps, message?: string) => {
 		if (message) {
 			// TODO - Implement Toast. If toast is not used hooks, then move to util
-			// Use window.alert for now
-			alert(message);
+			// Use console.warn for now (alert blocks thread.)
+			console.warn(message);
 		}
 		replace(to);
 	};

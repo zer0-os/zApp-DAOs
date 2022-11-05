@@ -27,6 +27,12 @@ export const ZnsSdkProvider: FC = ({ children }) => {
 				);
 			}
 
+			case Network.GOERLI: {
+				return zns.createInstance(
+					zns.configuration.goerliConfiguration(provider)
+				);
+			}
+
 			default: {
 				throw new Error('SDK isn´t available for this chainId');
 			}
