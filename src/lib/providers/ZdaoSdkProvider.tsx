@@ -1,11 +1,12 @@
 import React, { createContext, useMemo } from 'react';
 import type { FC, ReactNode } from 'react';
 
-import { providers } from 'ethers';
-import type { Config } from '@zero-tech/zdao-sdk';
+// import { providers } from 'ethers';
 import {
 	createSDKInstance,
-	productionConfiguration
+	productionConfiguration,
+	developmentConfiguration,
+	SDKInstance
 } from '@zero-tech/zdao-sdk';
 
 import { useWeb3 } from '../hooks';
@@ -19,14 +20,7 @@ type ZdaoSdkProviderProps = {
 	children: ReactNode;
 };
 
-export const ZdaoSdkContext = createContext(
-	createSDKInstance(
-		productionConfiguration(
-			new providers.JsonRpcProvider(NETWORK_CONFIGS[DEFAULT_NETWORK].rpcUrl),
-			NETWORK_CONFIGS[DEFAULT_NETWORK].ipfsGateway
-		)
-	)
-);
+export const ZdaoSdkContext = createContext<SDKInstance>(null);
 
 export const ZdaoSdkProvider: FC<ZdaoSdkProviderProps> = ({ children }) => {
 	const { provider, chainId } = useWeb3();
@@ -34,12 +28,29 @@ export const ZdaoSdkProvider: FC<ZdaoSdkProviderProps> = ({ children }) => {
 	const sdk = useMemo(() => {
 		const network: Network = chainId ?? DEFAULT_NETWORK;
 
-		const config: Config = productionConfiguration(
-			provider,
-			NETWORK_CONFIGS[network].ipfsGateway
-		);
+		switch (network) {
+			case Network.MAINNET: {
+				return createSDKInstance(
+					productionConfiguration(
+						provider,
+						NETWORK_CONFIGS[network].ipfsGateway
+					)
+				);
+			}
 
-		return createSDKInstance(config);
+			case Network.GOERLI: {
+				return createSDKInstance(
+					developmentConfiguration(
+						provider,
+						NETWORK_CONFIGS[network].ipfsGateway
+					)
+				);
+			}
+
+			default: {
+				throw new Error('unsupported chainId');
+			}
+		}
 	}, [provider, chainId]);
 
 	return (
