@@ -19,4 +19,13 @@ export type EtherscanLinkProps = {
 	 * Custon class name
 	 */
 	className?: string;
+	/**
+	 * Etherscan link type: can be address or tx
+	 */
+	type?: 'address' | 'tx';
+
+	/**
+	 * label to be displayed if it is of type tx
+	 */
+	label?: string;
 };

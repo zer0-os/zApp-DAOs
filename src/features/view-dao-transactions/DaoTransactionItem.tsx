@@ -53,7 +53,13 @@ export const DaoTransactionItem: FC<DaoTransactionItemProps> = ({
 				<span className={styles.Type}>
 					{TRANSACTION_TYPE[transaction.type]}
 				</span>
-				<span className={styles.Value}>{transactionValue}</span>
+				<EtherscanLink
+					className={styles.EtherscanLink}
+					etherscanUri={etherscanUri}
+					address={transaction.txHash}
+					type={'tx'}
+					label={transactionValue}
+				/>
 				<span className={styles.Direction}>
 					{TRANSACTION_DIRECTION[transaction.type]}
 				</span>
