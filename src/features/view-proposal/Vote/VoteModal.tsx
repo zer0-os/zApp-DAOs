@@ -4,7 +4,7 @@ import type { Proposal, Choice } from '@zero-tech/zdao-sdk';
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import { Modal, Wizard } from '@zero-tech/zui/components';
-import { truncateWalletAddress } from '../../../lib/util/domains';
+import { truncateAddress } from '@zero-tech/zui/utils/formatting/addresses';
 import {
 	useCurrentDao,
 	useWeb3,
@@ -74,7 +74,7 @@ export const VoteModal: FC<VoteModalProps> = ({
 				<ul className={styles.Details}>
 					<li>
 						<span>Your Address</span>
-						<span>{truncateWalletAddress(account, 4)}</span>
+						<span>{truncateAddress(account)}</span>
 					</li>
 					<li>
 						<span>Your Vote</span>
