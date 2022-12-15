@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import React, { useMemo } from 'react';
 
 // - Library
-import { truncateWalletAddress } from '../../../lib/util/domains';
+import { truncateAddress } from '@zero-tech/zui/utils/formatting/addresses';
 
 // Styles
 import classNames from 'classnames';
@@ -16,7 +16,6 @@ export const EtherscanLink: FC<EtherscanLinkProps> = ({
 	etherscanUri,
 	address = '',
 	shouldTruncated = true,
-	truncatingStartCharactersCount = 4,
 	className = '',
 	type = 'address',
 	label
@@ -25,11 +24,11 @@ export const EtherscanLink: FC<EtherscanLinkProps> = ({
 		if (type === 'address') {
 			if (!address || !shouldTruncated) return address;
 
-			return truncateWalletAddress(address, truncatingStartCharactersCount);
+			return truncateAddress(address);
 		} else {
 			return label;
 		}
-	}, [shouldTruncated, address, truncatingStartCharactersCount, type, label]);
+	}, [shouldTruncated, address, type, label]);
 
 	if (!linkPresentation) return null;
 
