@@ -43,7 +43,7 @@ export const DaosTable: FC = () => {
 				searchKey={{ key: TABLE_KEYS.ZNA, name: 'ZNA' }}
 				isLoading={isLoading}
 				isGridViewByDefault={false}
-				emptyText={'No DAOs here.'}
+				emptyText={'No DAOs here or the zNA does not exist'}
 			/>
 		</div>
 	);

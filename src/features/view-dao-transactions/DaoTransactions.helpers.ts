@@ -6,7 +6,7 @@ import type {
 
 import { AssetType } from '@zero-tech/zdao-sdk';
 import { formatWei } from '../../lib/util/format';
-import { truncateWalletAddress } from '../../lib/util/domains';
+import { truncateAddress } from '@zero-tech/zui/utils/formatting/addresses';
 import {
 	TRANSACTION_GROUPS,
 	WEEK_IN_MILLISECONDS,
@@ -69,14 +69,14 @@ export const formatTransactionValue = (transaction: Transaction): string => {
 			transactionValue =
 				(typedAsset.tokenSymbol ??
 					typedAsset.tokenName ??
-					truncateWalletAddress(typedAsset.tokenAddress)) + ' (NFT)';
+					truncateAddress(typedAsset.tokenAddress)) + ' (NFT)';
 		} else if (assetType === AssetType.ERC20) {
 			const typedAsset = transaction.asset as ERC20Transfer;
 			transactionValue +=
 				' ' +
 				(typedAsset.tokenSymbol ??
 					typedAsset.tokenName ??
-					truncateWalletAddress(typedAsset.tokenAddress));
+					truncateAddress(typedAsset.tokenAddress));
 		}
 	}
 

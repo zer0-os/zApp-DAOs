@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import React, { useMemo } from 'react';
 
 // - Library
-import { truncateWalletAddress } from '../../../lib/util/domains';
+import { truncateAddress } from '@zero-tech/zui/utils/formatting/addresses';
 
 // Styles
 import classNames from 'classnames';
@@ -16,21 +16,26 @@ export const EtherscanLink: FC<EtherscanLinkProps> = ({
 	etherscanUri,
 	address = '',
 	shouldTruncated = true,
-	truncatingStartCharactersCount = 4,
-	className = ''
+	className = '',
+	type = 'address',
+	label
 }) => {
 	const linkPresentation = useMemo(() => {
-		if (!address || !shouldTruncated) return address;
+		if (type === 'address') {
+			if (!address || !shouldTruncated) return address;
 
-		return truncateWalletAddress(address, truncatingStartCharactersCount);
-	}, [shouldTruncated, address, truncatingStartCharactersCount]);
+			return truncateAddress(address);
+		} else {
+			return label;
+		}
+	}, [shouldTruncated, address, type, label]);
 
 	if (!linkPresentation) return null;
 
 	return (
 		<a
 			className={classNames(styles.Link, className)}
-			href={`${etherscanUri}address/${address}`}
+			href={`${etherscanUri}${type}/${address}`}
 			target="_blank"
 			rel="noreferrer"
 		>
