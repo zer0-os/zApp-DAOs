@@ -37,10 +37,16 @@ export const DaoProposalsTable: FC<DaoProposalsTableProps> = ({
 				itemKey={'title'}
 				columns={TABLE_COLUMNS}
 				rowComponent={(proposal) => (
-					<DaoProposalsTableRow proposal={proposal} />
+					<DaoProposalsTableRow
+						proposal={proposal}
+						key={`dao-proposal-row-${proposal.title}`}
+					/>
 				)}
 				gridComponent={(proposal) => (
-					<DaoProposalsTableCard proposal={proposal} />
+					<DaoProposalsTableCard
+						proposal={proposal}
+						key={`dao-proposal-card-${proposal.title}`}
+					/>
 				)}
 				searchKey={{ key: 'title', name: 'proposal title' }}
 				isLoading={isLoading}
