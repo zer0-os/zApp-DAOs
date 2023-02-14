@@ -38,8 +38,18 @@ export const DaosTable: FC = () => {
 				data={tableData}
 				itemKey={TABLE_KEYS.ZNA}
 				columns={TABLE_COLUMNS}
-				rowComponent={(daoData) => <DaosTableRow daoData={daoData} />}
-				gridComponent={(daoData) => <DaosTableCard daoData={daoData} />}
+				rowComponent={(daoData) => (
+					<DaosTableRow
+						daoData={daoData}
+						key={`dao-table-row-${daoData.zna}`}
+					/>
+				)}
+				gridComponent={(daoData) => (
+					<DaosTableCard
+						daoData={daoData}
+						key={`dao-table-card-${daoData.zna}`}
+					/>
+				)}
 				searchKey={{ key: TABLE_KEYS.ZNA, name: 'ZNA' }}
 				isLoading={isLoading}
 				isGridViewByDefault={false}
