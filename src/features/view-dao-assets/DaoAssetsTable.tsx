@@ -39,8 +39,12 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({
 				data={tableData}
 				itemKey={'name'}
 				columns={TABLE_COLUMNS}
-				rowComponent={(data) => <DaoAssetsTableRow data={data} />}
-				gridComponent={(data) => <DaoAssetsTableCard data={data} />}
+				rowComponent={(data) => (
+					<DaoAssetsTableRow data={data} key={`dao-asset-row-${data.name}`} />
+				)}
+				gridComponent={(data) => (
+					<DaoAssetsTableCard data={data} key={`dao-asset-card-${data.name}`} />
+				)}
 				searchKey={{ key: 'name', name: 'name' }}
 				isLoading={isLoadingDao || isLoading}
 				isGridViewByDefault={false}
