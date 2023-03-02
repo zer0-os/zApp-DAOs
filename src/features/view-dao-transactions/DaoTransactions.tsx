@@ -21,6 +21,8 @@ export const DaoTransactions: FC<DaoTransactionsProps> = ({
 	const { isLoading: isLoadingTransactions, data: transactions } =
 		useDaoTransactions(dao);
 
+	console.log(transactions);
+
 	const isLoading = isLoadingDao || isLoadingTransactions;
 
 	const groupedTransactions = useMemo(() => {
@@ -42,7 +44,7 @@ export const DaoTransactions: FC<DaoTransactionsProps> = ({
 	if (!isLoading && !transactions?.length) {
 		return <div className={styles.Empty}>This DAO has no transactions.</div>;
 	}
-
+	console.log(groupedTransactions);
 	return (
 		<div className={styles.Transactions}>
 			{Object.entries(groupedTransactions)
@@ -58,7 +60,7 @@ export const DaoTransactions: FC<DaoTransactionsProps> = ({
 						<div className={styles.TransactionsGroupItems}>
 							{transactions.map((transaction) => (
 								<DaoTransactionItem
-									key={`dao-transaction-${transaction.created}`}
+									key={`dao-transaction-${transaction.id}`}
 									transaction={transaction}
 								/>
 							))}
