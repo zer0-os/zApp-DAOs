@@ -88,6 +88,7 @@ const TextContent = ({
 	daoVotingToken,
 	isUserHoldingVotingToken
 }: TextContentProps) => {
+	// this could be tidier
 	const userTokenWarning: TextProps['text'] = `To create a proposal, you need to be holding the ${daoTitle} voting token ${daoVotingToken} (${daoVotingToken}).`;
 	const daoTokenWarning: TextProps['text'] =
 		'You cannot create a funding proposal as this DAO treasury does not hold any tokens to request.';
