@@ -1,37 +1,56 @@
-@use '../../../node_modules/@zero-tech/zui/styles/colors';
-@use '../../../node_modules/@zero-tech/zui/styles/typography';
-@use '../../../node_modules/@zero-tech/zui/styles/dimensions';
-
-.Loading {
-	justify-content: center;
-	margin-top: 2rem;
-	padding: 2rem 0;
-}
+@import '../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+@import '../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../node_modules/@zero-tech/zui/styles/_dimensions.scss';
 
 .Container {
+	display: flex;
+	flex-direction: column;
 	padding: 1rem 0;
+	gap: 2rem;
 
-	.Wrapper {
-		.Title {
-			padding: 0.5rem 0;
-			font-size: 2.25rem;
-			font-weight: typography.$font-weight-bold;
-			line-height: 2.75rem;
+	.Header {
+		padding: 0;
+		margin: 0;
+		font-size: 2.25rem;
+		font-weight: $font-weight-bold;
+		line-height: 2.72rem;
 
-			@media only screen and (max-width: dimensions.$breakpoint-mobile-xl) {
-				font-size: typography.$size-large;
-				line-height: 1.875rem;
+		@media only screen and (max-width: $breakpoint-mobile-xl) {
+			font-size: $size-large;
+			line-height: 1.875rem;
+		}
+	}
+
+	.Content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-top: 1.5rem;
+
+		gap: 1.5rem;
+
+		.Loading {
+			justify-content: center;
+		}
+
+		.TextContent {
+			text-align: center;
+			line-height: 1.5rem;
+			max-width: 31.75rem;
+
+			&[data-variant='warning'] {
+				color: $red-100;
+				margin-bottom: 0;
+				max-width: 100%;
 			}
 		}
 
 		.Section {
-			margin-top: 3rem;
-
 			&Title {
 				display: flex;
 				align-items: center;
-				font-size: #{typography.$size-medium}rem; // todo- fix variable in zui
-				font-weight: typography.$font-weight-bold;
+				font-size: $size-medium; // todo- fix variable in zui
+				font-weight: $font-weight-bold;
 				line-height: 1.375rem;
 
 				> span {
@@ -46,21 +65,15 @@
 				row-gap: 1.5rem;
 				padding: 1.5rem 0;
 
-				@media only screen and (max-width: #{dimensions.$breakpoint-mobile-l}) {
+				@media only screen and (max-width: $breakpoint-mobile-l) {
 					grid-template-columns: repeat(1, 1fr);
 				}
 			}
 		}
 	}
-
-	.TokenError {
-		margin-top: 3rem;
-		font-weight: typography.$font-weight-bold;
-		text-align: center;
-	}
 }
 
 :global(.zui-tooltip__content) {
-	font-size: typography.$size-default;
-	font-weight: typography.$font-weight-regular;
+	font-size: $size-default;
+	font-weight: $font-weight-regular;
 }
