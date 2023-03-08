@@ -33,10 +33,11 @@
 			justify-content: center;
 		}
 
-		.TextContent {
+		.Text {
 			text-align: center;
 			line-height: 1.5rem;
 			max-width: 31.75rem;
+			white-space: pre-line;
 
 			&[data-variant='warning'] {
 				color: $red-100;
