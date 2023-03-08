@@ -36,14 +36,14 @@ export const useCreateProposalContainerData = (
 
 	const isUserHoldingVotingToken = userPaymentTokenBalance?.gt(0);
 
-	const handleGoToDao = useCallback(() => {
+	const onBack = useCallback(() => {
 		history.replace(toAllProposals);
 	}, [history, toAllProposals]);
 
 	return {
 		assets,
+		onBack,
 		isLoading,
-		handleGoToDao,
 		toAllProposals,
 		isDaoHoldingERC20Asset,
 		isUserHoldingVotingToken,

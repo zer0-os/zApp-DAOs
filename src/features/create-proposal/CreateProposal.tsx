@@ -15,8 +15,8 @@ export const CreateProposal: FC<CreateProposalProps> = ({
 }) => {
 	const {
 		assets,
+		onBack,
 		isLoading,
-		handleGoToDao,
 		toAllProposals,
 		isWalletConnected,
 		isDaoHoldingERC20Asset,
@@ -56,13 +56,15 @@ export const CreateProposal: FC<CreateProposalProps> = ({
 
 				{!isLoading && (
 					<>
-						<TextContent
+						<LabelText
 							daoTitle={dao?.title}
-							daoVotingToken={dao?.votingToken.symbol}
+							daoVotingTokenSymbol={dao?.votingToken.symbol}
 							isUserHoldingVotingToken={isUserHoldingVotingToken}
+							isDaoHoldingERC20Asset={isDaoHoldingERC20Asset}
 						/>
+
 						{(!isUserHoldingVotingToken || !isDaoHoldingERC20Asset) && (
-							<Button onPress={handleGoToDao}>Back To Dao</Button>
+							<Button onPress={onBack}>Back To Dao</Button>
 						)}
 					</>
 				)}
@@ -74,50 +76,44 @@ export const CreateProposal: FC<CreateProposalProps> = ({
 	);
 };
 
-/*************
- * TextContent
- *************/
-interface TextContentProps {
+/************
+ * LabelText
+ ************/
+interface LabelTextProps {
 	daoTitle: string;
-	daoVotingToken: string;
+	daoVotingTokenSymbol: string;
 	isUserHoldingVotingToken: boolean;
+	isDaoHoldingERC20Asset: boolean;
 }
 
-const TextContent = ({
+const LabelText = ({
 	daoTitle,
-	daoVotingToken,
-	isUserHoldingVotingToken
-}: TextContentProps) => {
-	// this could be tidier
-	const userTokenWarning: TextProps['text'] = `To create a proposal, you need to be holding the ${daoTitle} voting token ${daoVotingToken} (${daoVotingToken}).`;
-	const daoTokenWarning: TextProps['text'] =
-		'You cannot create a funding proposal as this DAO treasury does not hold any tokens to request.';
-	const fundingProposalWarning: TextProps['text'] =
-		'Proposals are currently limited to funding proposals (where DAO ERC20 tokens are sent to a recipient, if the proposal is approved). Please check the assets tab of the DAO.';
-
-	// should include check for dao asset here to show both warnings when user goes directly to path
-	return !isUserHoldingVotingToken ? (
-		<Text text={userTokenWarning} variant={'warning'} />
-	) : (
-		<>
-			<Text text={daoTokenWarning} variant={'warning'} />
-			<Text text={fundingProposalWarning} />
-		</>
-	);
-};
-
-/********
- * Text
- ********/
-interface TextProps {
-	text: string;
-	variant?: 'warning';
-}
-
-const Text = ({ text, variant }: TextProps) => {
+	daoVotingTokenSymbol,
+	isUserHoldingVotingToken,
+	isDaoHoldingERC20Asset
+}: LabelTextProps) => {
 	return (
-		<div className={styles.Text} data-variant={variant}>
-			{text}
+		<div className={styles.LabelText}>
+			{!isUserHoldingVotingToken && (
+				<span data-variant={'warning'}>
+					To create a proposal, you need to be holding the {daoTitle} voting
+					token {daoVotingTokenSymbol} ({daoVotingTokenSymbol}).
+				</span>
+			)}
+
+			{!isDaoHoldingERC20Asset && (
+				<>
+					<span data-variant={'warning'}>
+						You cannot create a funding proposal as this DAO treasury does not
+						hold any tokens to request.
+					</span>
+					<span>
+						Proposals are currently limited to funding proposals (where DAO
+						ERC20 tokens are sent to a recipient, if the proposal is approved).
+						Please check the assets tab of the DAO.
+					</span>
+				</>
+			)}
 		</div>
 	);
 };
