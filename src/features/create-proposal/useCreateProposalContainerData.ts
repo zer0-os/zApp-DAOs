@@ -22,9 +22,6 @@ export const useCreateProposalContainerData = (
 		data: userPaymentTokenBalance
 	} = useUserPaymentTokenBalance(dao?.votingToken.token);
 
-	const isLoading =
-		isLoadingDao || isLoadingPaymentTokenBalance || isLoadingAssets;
-
 	const toAllProposals = history.location.pathname.replace(
 		`/${DAO_CREATE_PROPOSAL}`,
 		''
@@ -34,11 +31,16 @@ export const useCreateProposalContainerData = (
 		Boolean(assets) &&
 		assets.filter((asset) => asset.type === AssetType.ERC20).length > 0;
 
-	const isUserHoldingVotingToken = userPaymentTokenBalance?.gt(0);
+	const isUserHoldingVotingToken =
+		userPaymentTokenBalance?.gt(0) &&
+		Number(userPaymentTokenBalance) >= dao?.votingThreshold;
 
 	const onBack = useCallback(() => {
 		history.replace(toAllProposals);
 	}, [history, toAllProposals]);
+
+	const isLoading =
+		isLoadingDao || isLoadingPaymentTokenBalance || isLoadingAssets;
 
 	return {
 		assets,
