@@ -1,34 +1,27 @@
-import type { FC } from 'react';
-import type { CreateProposalProps } from './CreateProposal.types';
+import React, { FC, useLayoutEffect } from 'react';
 
-import React, { useLayoutEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { LoadingIndicator } from '@zero-tech/zui/components';
-import { useUserPaymentTokenBalance, useDaoAssets } from '../../lib/hooks';
-import { DAO_CREATE_PROPOSAL } from '../../pages/DAO/DAO.constants';
-import { BackLinkButton } from '../ui';
+import type { CreateProposalProps } from './CreateProposal.types';
+import { useCreateProposalContainerData } from './useCreateProposalContainerData';
+
+import { BackLinkButton, ConnectWallet } from '../ui';
 import { CreateProposalForm } from './CreateProposalForm';
+import { Button, LoadingIndicator } from '@zero-tech/zui/components';
+
 import styles from './CreateProposal.module.scss';
 
 export const CreateProposal: FC<CreateProposalProps> = ({
 	isLoadingDao,
 	dao
 }) => {
-	// Hooks
-	const history = useHistory();
-	const { data: assets } = useDaoAssets(dao);
 	const {
-		isLoading: isLoadingPaymentTokenBalance,
-		data: userPaymentTokenBalance
-	} = useUserPaymentTokenBalance(dao?.votingToken.token);
-
-	// Data
-	const isLoading = isLoadingDao || isLoadingPaymentTokenBalance;
-	const isHoldingVotingToken = !userPaymentTokenBalance?.gt(0);
-	const toAllProposals = history.location.pathname.replace(
-		`/${DAO_CREATE_PROPOSAL}`,
-		''
-	);
+		assets,
+		onBack,
+		isLoading,
+		toAllProposals,
+		isWalletConnected,
+		isDaoHoldingERC20Asset,
+		isUserHoldingVotingToken
+	} = useCreateProposalContainerData(isLoadingDao, dao);
 
 	useLayoutEffect(() => {
 		const nav = document.getElementById('dao-page-nav-tabs');
@@ -40,39 +33,87 @@ export const CreateProposal: FC<CreateProposalProps> = ({
 		};
 	}, []);
 
-	// Render
+	if (!isWalletConnected) {
+		return (
+			<ConnectWallet message={'Connect your wallet to create a proposal.'} />
+		);
+	}
+
 	return (
 		<div className={styles.Container}>
-			{/* Back to All Proposals */}
 			<BackLinkButton label="All Proposals" to={toAllProposals} />
 
-			{/* Content */}
+			<h1 className={styles.Header}>Create a Proposal</h1>
+
 			<div className={styles.Content}>
 				{isLoading && (
 					<LoadingIndicator
 						className={styles.Loading}
-						text="Loading dao"
+						text="Loading DAO"
 						spinnerPosition="left"
 					/>
 				)}
 
-				{!isLoading &&
-					(isHoldingVotingToken ? (
-						<div className={styles.TokenError}>
-							To create a proposal, you need to be holding the {dao.title}{' '}
-							voting token
-							{dao.votingToken.symbol && ` (${dao.votingToken.symbol})`}.
-						</div>
-					) : (
-						<div className={styles.Wrapper}>
-							{/* Title */}
-							<h1 className={styles.Title}>Create a Proposal</h1>
+				{!isLoading && (
+					<>
+						<LabelText
+							daoTitle={dao?.title}
+							daoVotingTokenSymbol={dao?.votingToken.symbol}
+							isUserHoldingVotingToken={isUserHoldingVotingToken}
+							isDaoHoldingERC20Asset={isDaoHoldingERC20Asset}
+						/>
 
-							{/* Form */}
-							<CreateProposalForm dao={dao} assets={assets} />
-						</div>
-					))}
+						{(!isUserHoldingVotingToken || !isDaoHoldingERC20Asset) && (
+							<Button onPress={onBack}>Back To Dao</Button>
+						)}
+					</>
+				)}
+				{isUserHoldingVotingToken && isDaoHoldingERC20Asset && (
+					<CreateProposalForm dao={dao} assets={assets} />
+				)}
 			</div>
+		</div>
+	);
+};
+
+/************
+ * LabelText
+ ************/
+interface LabelTextProps {
+	daoTitle: string;
+	daoVotingTokenSymbol: string;
+	isUserHoldingVotingToken: boolean;
+	isDaoHoldingERC20Asset: boolean;
+}
+
+const LabelText = ({
+	daoTitle,
+	daoVotingTokenSymbol,
+	isUserHoldingVotingToken,
+	isDaoHoldingERC20Asset
+}: LabelTextProps) => {
+	return (
+		<div className={styles.LabelText}>
+			{!isUserHoldingVotingToken && (
+				<span data-variant={'warning'}>
+					To create a proposal, you need to be holding the {daoTitle} voting
+					token {daoVotingTokenSymbol} ({daoVotingTokenSymbol}).
+				</span>
+			)}
+
+			{!isDaoHoldingERC20Asset && (
+				<>
+					<span data-variant={'warning'}>
+						You cannot create a funding proposal as this DAO treasury does not
+						hold any tokens to request.
+					</span>
+					<span>
+						Proposals are currently limited to funding proposals (where DAO
+						ERC20 tokens are sent to a recipient, if the proposal is approved).
+						Please check the assets tab of the DAO.
+					</span>
+				</>
+			)}
 		</div>
 	);
 };
