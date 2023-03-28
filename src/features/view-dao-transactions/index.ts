@@ -1,1 +1,1 @@
-export * from './DaoTransactions';
+export * from './DaoTransactionsList';
