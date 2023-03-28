@@ -27,7 +27,7 @@ import { formatFiat } from '../../lib/util/format';
 // Components imports
 import { BackLinkButton } from '../../features/ui';
 import { DaoAssetsTable } from '../../features/view-dao-assets';
-import { DaoTransactions } from '../../features/view-dao-transactions';
+import { DaoTransactionsList } from '../../features/view-dao-transactions';
 import { DaoProposalsTable } from '../../features/view-dao-proposals';
 import { ProposalDetail } from '../../features/view-proposal';
 import { CreateProposal } from '../../features/create-proposal';
@@ -130,7 +130,7 @@ export const DAO: FC = () => {
 					<Route
 						path={daoBaseUrl + ROUTES.ZDAO_TRANSACTIONS}
 						render={() => (
-							<DaoTransactions isLoadingDao={isLoadingDao} dao={dao} />
+							<DaoTransactionsList isLoadingDao={isLoadingDao} dao={dao} />
 						)}
 					/>
 					<Route

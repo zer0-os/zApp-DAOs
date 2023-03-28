@@ -1,29 +1,30 @@
-import type { FC } from 'react';
-import type { Transaction } from '@zero-tech/zdao-sdk';
+import React, { FC, useMemo } from 'react';
 
-import React, { useMemo } from 'react';
-import classNames from 'classnames/bind';
-import { TransactionType } from '@zero-tech/zdao-sdk';
-import { Image } from '@zero-tech/zui/components';
-import { IconArrowDownLeft } from '@zero-tech/zui/icons';
-import { useWeb3 } from '../../lib/hooks';
-import { getEtherscanUri } from '../../lib/util/network';
-import { EtherscanLink } from '../ui';
+import { Transaction, TransactionType } from '@zero-tech/zdao-sdk';
+import { useWeb3 } from '../../../lib/hooks';
+import { getEtherscanUri } from '../../../lib/util/network';
+import { EtherscanLink } from '../../ui';
 import {
+	formatTransactionValue,
 	TRANSACTION_IMAGE,
 	TRANSACTION_TYPE,
 	TRANSACTION_DIRECTION
-} from './DaoTransactions.constants';
-import { formatTransactionValue } from './DaoTransactions.helpers';
-import styles from './DaoTransactions.module.scss';
+} from './lib';
 
-const cx = classNames.bind(styles);
+import { Image } from '@zero-tech/zui/components';
+import { IconArrowDownLeft } from '@zero-tech/zui/icons';
+
+import styles from './DaoTransactionsList.module.scss';
+
+/////////////////////////////
+// DaoTransactionsListItem //
+/////////////////////////////
 
 type DaoTransactionItemProps = {
 	transaction: Transaction;
 };
 
-export const DaoTransactionItem: FC<DaoTransactionItemProps> = ({
+export const DaoTransactionsListItem: FC<DaoTransactionItemProps> = ({
 	transaction
 }) => {
 	const { chainId } = useWeb3();
@@ -39,9 +40,10 @@ export const DaoTransactionItem: FC<DaoTransactionItemProps> = ({
 		<div className={styles.TransactionItem}>
 			<div className={styles.Details}>
 				<span
-					className={cx(styles.Icon, {
-						Sent: transaction.type === TransactionType.SENT
-					})}
+					className={styles.Icon}
+					data-type={
+						transaction.type === TransactionType.SENT ? 'sent' : 'received'
+					}
 				>
 					<Image
 						alt="transaction icon"

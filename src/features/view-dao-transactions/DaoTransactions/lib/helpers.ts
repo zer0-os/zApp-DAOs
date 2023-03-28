@@ -5,13 +5,13 @@ import type {
 } from '@zero-tech/zdao-sdk';
 
 import { AssetType } from '@zero-tech/zdao-sdk';
-import { formatWei } from '../../lib/util/format';
+import { formatWei } from '../../../../lib/util/format';
 import { truncateAddress } from '@zero-tech/zui/utils/formatting/addresses';
 import {
 	TRANSACTION_GROUPS,
 	WEEK_IN_MILLISECONDS,
 	MONTH_IN_MILLISECONDS
-} from './DaoTransactions.constants';
+} from './constants';
 
 export const getTransactionGroup = (
 	transaction: Transaction

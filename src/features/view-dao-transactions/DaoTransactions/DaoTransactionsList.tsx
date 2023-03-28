@@ -1,20 +1,25 @@
-import type { FC } from 'react';
+import React, { FC, useMemo } from 'react';
+
 import type { zDAO } from '@zero-tech/zdao-sdk';
 
-import React, { useMemo } from 'react';
+import { useDaoTransactions } from '../../../lib/hooks';
+import { DaoTransactionsListItem } from './DaoTransactionsListItem';
+import { groupTransactionsByDate, TRANSACTION_GROUP_LABELS } from './lib';
+
 import { LoadingIndicator } from '@zero-tech/zui/components';
-import { useDaoTransactions } from '../../lib/hooks';
-import { DaoTransactionItem } from './DaoTransactionItem';
-import { groupTransactionsByDate } from './DaoTransactions.helpers';
-import { TRANSACTION_GROUP_LABELS } from './DaoTransactions.constants';
-import styles from './DaoTransactions.module.scss';
+
+import styles from './DaoTransactionsList.module.scss';
+
+/////////////////////////
+// DaoTransactionsList //
+/////////////////////////
 
 type DaoTransactionsProps = {
 	isLoadingDao: boolean;
 	dao?: zDAO;
 };
 
-export const DaoTransactions: FC<DaoTransactionsProps> = ({
+export const DaoTransactionsList: FC<DaoTransactionsProps> = ({
 	isLoadingDao,
 	dao
 }) => {
@@ -57,7 +62,7 @@ export const DaoTransactions: FC<DaoTransactionsProps> = ({
 						</h2>
 						<div className={styles.TransactionsGroupItems}>
 							{transactions.map((transaction) => (
-								<DaoTransactionItem
+								<DaoTransactionsListItem
 									key={`dao-transaction-${transaction.id}`}
 									transaction={transaction}
 								/>

@@ -1,7 +1,7 @@
 import { AssetType, TransactionType } from '@zero-tech/zdao-sdk';
-import ethIcon from '../../assets/gnosis-eth.png';
-import erc721Icon from '../../assets/erc721-default.svg';
-import erc20Icon from '../../assets/erc20-default.svg';
+import ethIcon from '../../../../assets/gnosis-eth.png';
+import erc721Icon from '../../../../assets/erc721-default.svg';
+import erc20Icon from '../../../../assets/erc20-default.svg';
 
 export enum TRANSACTION_GROUPS {
 	TODAY,
