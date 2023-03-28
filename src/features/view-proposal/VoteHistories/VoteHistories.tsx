@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 // - Library
 import type { zDAO, Proposal, Vote } from '@zero-tech/zdao-sdk';
 import { useWeb3 } from '../../../lib/hooks';
-import { formatVotingPowerAmount } from '../../view-dao-proposals/DaoProposals.helpers';
+import { formatVotingPowerAmount } from '../../view-dao-proposals/DaoProposalsTable/lib';
 import { getEtherscanUri } from '../../../lib/util/network';
 
 // - Component

@@ -1,17 +1,8 @@
-import type { Column } from '@zero-tech/zui/components/AsyncTable';
-
 export enum ProposalClosingStatus {
 	NORMAL = 'normal',
 	WARNING = 'warning',
 	ERROR = 'error',
 }
-
-export const TABLE_COLUMNS: Column[] = [
-	{ id: 'title', header: 'Title', alignment: 'left' },
-	{ id: 'status', header: 'Status', alignment: 'left' },
-	{ id: 'closes', header: 'Closes', alignment: 'left' },
-	{ id: 'votes', header: 'Votes', alignment: 'right' }
-];
 
 export const DEFAULT_TIMER_INTERVAL = 60 * 1000; // milliseconds
 export const DEFAULT_TIMER_EXPIRED_LABEL = 'Concluded';

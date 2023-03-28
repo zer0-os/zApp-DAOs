@@ -5,15 +5,15 @@ import { isEmpty } from 'lodash';
 import millify from 'millify';
 import { formatUnits } from 'ethers/lib/utils';
 import { ProposalState } from '@zero-tech/zdao-sdk';
-import { formatFiat } from '../../lib/util/format';
-import { secondsToDhms } from '../../lib/util/datetime';
+import { formatFiat } from '../../../../lib/util/format';
+import { secondsToDhms } from '../../../../lib/util/datetime';
 import {
 	PROPOSAL_FILTER_START_DATE,
 	DEFAULT_TIMER_EXPIRED_LABEL,
 	HOUR_IN_MILLISECONDS,
 	DAY_IN_MILLISECONDS,
 	ProposalClosingStatus
-} from './DaoProposals.constants';
+} from './constants';
 
 const MILLIFY_THRESHOLD = 1000000;
 const MILLIFY_PRECISION = 3;

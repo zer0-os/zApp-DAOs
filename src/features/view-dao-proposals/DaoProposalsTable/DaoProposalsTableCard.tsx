@@ -1,13 +1,9 @@
-import type { FC } from 'react';
+import React, { FC } from 'react';
+
 import type { Proposal } from '@zero-tech/zdao-sdk';
+import { useDaoProposalsTableItemData } from './lib';
 
-import React from 'react';
-import classNames from 'classnames/bind';
-import { useDaoProposalsTableItemData } from './hooks';
-import { ProposalClosingStatus } from './DaoProposals.constants';
 import styles from './DaoProposalsTableCard.module.scss';
-
-const cx = classNames.bind(styles);
 
 type DaoProposalsTableCardProps = {
 	proposal: Proposal;
@@ -29,12 +25,7 @@ export const DaoProposalsTableCard: FC<DaoProposalsTableCardProps> = ({
 
 			{/* Closing Message with humanized format (Chiclet) */}
 			<div className={styles.Buttons}>
-				<span
-					className={cx(styles.Closing, {
-						Warning: closingStatus === ProposalClosingStatus.WARNING,
-						Error: closingStatus === ProposalClosingStatus.ERROR
-					})}
-				>
+				<span className={styles.Closing} data-status={closingStatus}>
 					{closingMessage}
 				</span>
 

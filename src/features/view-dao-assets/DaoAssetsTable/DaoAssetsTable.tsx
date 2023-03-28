@@ -8,8 +8,8 @@ import type { Column } from '@zero-tech/zui/components/AsyncTable';
 import { DaoAssetsTableRow } from './DaoAssetsTableRow';
 import { DaoAssetsTableCard } from './DaoAssetsTableCard';
 
-import { useDaoAssets } from '../../lib/hooks';
-import { convertAsset } from './DaoAssetsTable.helpers';
+import { useDaoAssets } from '../../../lib/hooks';
+import { convertAsset } from './lib/helpers';
 
 import styles from './DaoAssetsTable.module.scss';
 
@@ -17,7 +17,7 @@ import styles from './DaoAssetsTable.module.scss';
 // DaoAssetsTable //
 ////////////////////
 
-type DaoAssetTableDataItem = {
+export type DaoAssetTableDataItem = {
 	amount: string | number;
 	decimals?: number;
 	image: string;

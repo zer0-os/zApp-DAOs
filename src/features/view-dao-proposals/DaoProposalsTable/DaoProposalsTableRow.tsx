@@ -1,11 +1,11 @@
-import type { FC } from 'react';
-import type { Proposal } from '@zero-tech/zdao-sdk';
+import React, { FC } from 'react';
 
-import React from 'react';
-import classNames from 'classnames/bind';
+import type { Proposal } from '@zero-tech/zdao-sdk';
+import { useDaoProposalsTableItemData, ProposalClosingStatus } from './lib';
+
 import { TableData } from '@zero-tech/zui/components/AsyncTable/Column';
-import { ProposalClosingStatus } from './DaoProposals.constants';
-import { useDaoProposalsTableItemData } from './hooks';
+
+import classNames from 'classnames/bind';
 import styles from './DaoProposalsTableRow.module.scss';
 
 const cx = classNames.bind(styles);

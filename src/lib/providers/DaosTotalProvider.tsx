@@ -20,7 +20,7 @@ type DaoWithZna = {
 
 /**
  * Get Dao Total Price
- * Call "useDaoAssetsCoins" hooks by behaving as a functional component,
+ * Call "useDaoAssetsCoins" lib by behaving as a functional component,
  * but it does not render anything
  */
 const GetDaoTotals = ({

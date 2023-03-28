@@ -1,13 +1,13 @@
 import millify from 'millify';
 import { formatUnits } from 'ethers/lib/utils';
-import { formatFiat } from '../../lib/util/format';
-import { DOLLAR_SYMBOL } from '../../lib/constants/currency';
-import type { Asset } from '../../lib/types/dao';
+import { formatFiat } from '../../../../lib/util/format';
+import { DOLLAR_SYMBOL } from '../../../../lib/constants/currency';
+import type { Asset } from '../../../../lib/types/dao';
 
-import type { DaoAssetTableDataItem } from './DaoAssetsTable';
+import type { DaoAssetTableDataItem } from '../DaoAssetsTable';
 
-import defaultAssetIcon from '../../assets/default_asset.png';
-import wildIcon from '../../assets/WWLogo-Padded.svg';
+import defaultAssetIcon from '../../../../assets/default_asset.png';
+import wildIcon from '../../../../assets/WWLogo-Padded.svg';
 import { getHashFromIpfsUrl } from '@zero-tech/zapp-utils/utils/ipfs';
 import { getCloudinaryImageUrlFromIpfsUrl } from '@zero-tech/zapp-utils/utils/cloudinary';
 

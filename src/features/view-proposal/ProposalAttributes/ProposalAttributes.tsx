@@ -9,8 +9,9 @@ import { getEtherscanUri } from '../../../lib/util/network';
 import {
 	isFromSnapshotWithMultipleChoices,
 	formatProposalStatus,
-	formatTotalAmountOfTokenMetadata
-} from '../../view-dao-proposals/DaoProposals.helpers';
+	formatTotalAmountOfTokenMetadata,
+	DEFAULT_TIMER_INTERVAL
+} from '../../view-dao-proposals/DaoProposalsTable/lib';
 
 // - Types
 import type { zDAO, Proposal } from '@zero-tech/zdao-sdk';
@@ -18,7 +19,6 @@ import type { ProposalAttribute } from './ProposalAttributes.types';
 
 // - Constants
 import { PROPOSAL_ATTRIBUTES_VISIBLE_COUNTS_BY_VIEWPORT } from './ProposalAttributes.constants';
-import { DEFAULT_TIMER_INTERVAL } from '../../view-dao-proposals/DaoProposals.constants';
 
 // - Components
 import { EtherscanLink } from '../../ui';

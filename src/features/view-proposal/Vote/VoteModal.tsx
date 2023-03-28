@@ -10,7 +10,7 @@ import {
 	useWeb3,
 	useUserProposalVoteData
 } from '../../../lib/hooks';
-import { formatVotingPowerAmount } from '../../view-dao-proposals/DaoProposals.helpers';
+import { formatVotingPowerAmount } from '../../view-dao-proposals/DaoProposalsTable/lib';
 import { Approve, Deny } from './VoteButtons';
 import { VoteModalStep } from './Vote.constants';
 import styles from './Vote.module.scss';

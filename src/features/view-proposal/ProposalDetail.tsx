@@ -14,7 +14,7 @@ import {
 import {
 	isFromSnapshotWithMultipleChoices,
 	formatProposalBody
-} from '../view-dao-proposals/DaoProposals.helpers';
+} from '../view-dao-proposals/DaoProposalsTable/lib';
 import { BackLinkButton } from '../ui';
 import { Vote } from './Vote';
 import { VoteBar } from './VoteBar';

@@ -4,7 +4,7 @@ import type { Choice, Proposal } from '@zero-tech/zdao-sdk';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { isNil } from 'lodash';
-import classNames from 'classnames/bind';
+import classNames from 'classnames';
 import { ProposalState } from '@zero-tech/zdao-sdk';
 //TODO:: replace Tooltip to InfoTooltip after zui version up
 import { LoadingIndicator, Tooltip } from '@zero-tech/zui/components';
@@ -19,7 +19,7 @@ import { VoteStatus } from './Vote.constants';
 import {
 	isFromSnapshotWithMultipleChoices,
 	getSnapshotProposalLink
-} from '../../view-dao-proposals/DaoProposals.helpers';
+} from '../../view-dao-proposals/DaoProposalsTable/lib';
 import externalIcon from '../../../assets/external-link.svg';
 import styles from './Vote.module.scss';
 

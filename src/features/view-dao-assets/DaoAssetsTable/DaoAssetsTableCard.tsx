@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import { GridCard } from '@zero-tech/zui/components/GridCard';
 import { NFT } from '@zero-tech/zui/components/GridCard/templates/NFT';
-import { convertAssetImage } from './DaoAssetsTable.helpers';
+import { convertAssetImage } from './lib/helpers';
 import type { DaoAssetTableDataItem } from './DaoAssetsTable';
 
 export interface DaoAssetsTableCardProps {

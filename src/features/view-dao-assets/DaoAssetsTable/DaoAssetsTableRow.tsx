@@ -2,10 +2,7 @@ import React from 'react';
 import type { FC } from 'react';
 
 import type { DaoAssetTableDataItem } from './DaoAssetsTable';
-import {
-	convertAssetImage,
-	formatTotalAmountOfTokens
-} from './DaoAssetsTable.helpers';
+import { convertAssetImage, formatTotalAmountOfTokens } from './lib/helpers';
 
 import { Image, TableData } from '@zero-tech/zui/components';
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';

@@ -1,29 +1,36 @@
 // Types import
 import type { Proposal } from '@zero-tech/zdao-sdk';
-import type { DaoProposalsTableItemData } from './useDaoProposalsTableItemData.types';
 
 // React import
 import { useHistory, useLocation } from 'react-router-dom';
 
 // Hooks import
-import { useTimer } from '../../../lib/hooks';
+import { useTimer } from '../../../../lib/hooks';
 
 // Library import
 import moment, { duration } from 'moment';
 import removeMarkdown from 'markdown-to-text';
-import { truncateString } from '../../../lib/util/string';
+import { truncateString } from '../../../../lib/util/string';
 import {
 	getProposalClosingStatus,
 	formatProposalStatus,
-	formatProposalEndTime
-} from '../DaoProposals.helpers';
-
-// Constant import
-import {
+	formatProposalEndTime,
 	DEFAULT_TIMER_INTERVAL,
 	DEFAULT_TIMER_EXPIRED_LABEL,
-	PROPOSAL_TITLE_MAX_CHARACTERS
-} from '../DaoProposals.constants';
+	PROPOSAL_TITLE_MAX_CHARACTERS,
+	ProposalClosingStatus
+} from './';
+
+export type DaoProposalsTableItemData = {
+	title: string;
+	description: string;
+	status: string;
+	endTime: string;
+	isConcluded: boolean;
+	closingStatus: ProposalClosingStatus;
+	closingMessage: string;
+	onClick: () => void;
+};
 
 export const useDaoProposalsTableItemData = (
 	proposal: Proposal,
