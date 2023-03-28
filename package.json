@@ -84,7 +84,7 @@
 		"@zero-tech/zapp-utils": "0.5.5",
 		"@zero-tech/zdao-sdk": "0.14.1",
 		"@zero-tech/zns-sdk": "0.10.2",
-		"@zero-tech/zui": "0.15.0",
+		"@zero-tech/zui": "0.18.1",
 		"classnames": "^2.3.1",
 		"formik": "^2.2.9",
 		"markdown-to-text": "^0.1.1",
