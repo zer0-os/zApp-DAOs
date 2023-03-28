@@ -1,36 +1,48 @@
 import type { FC } from 'react';
 import type { zDAO } from '@zero-tech/zdao-sdk';
-import type { DaoAssetTableDataItem } from './DaoAssetsTable.types';
 
 import React, { useMemo } from 'react';
 
 import { AsyncTable } from '@zero-tech/zui/components';
+import type { Column } from '@zero-tech/zui/components/AsyncTable';
 import { DaoAssetsTableRow } from './DaoAssetsTableRow';
 import { DaoAssetsTableCard } from './DaoAssetsTableCard';
 
 import { useDaoAssets } from '../../lib/hooks';
 import { convertAsset } from './DaoAssetsTable.helpers';
 
-import { TABLE_COLUMNS } from './DaoAssetsTable.constants';
-
 import styles from './DaoAssetsTable.module.scss';
+
+////////////////////
+// DaoAssetsTable //
+////////////////////
+
+type DaoAssetTableDataItem = {
+	amount: string | number;
+	decimals?: number;
+	image: string;
+	key: string;
+	name: string;
+	subtext: string;
+	amountInUSD: string;
+};
 
 type DaoAssetsTableProps = {
 	isLoadingDao: boolean;
 	dao?: zDAO;
 };
 
+const TABLE_COLUMNS: Column[] = [
+	{ id: 'title', header: 'Asset', alignment: 'left' },
+	{ id: 'qty', header: 'Quantity', alignment: 'right' },
+	{ id: 'amount', header: 'Value (USD)', alignment: 'right' }
+];
+
 export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({
 	isLoadingDao,
 	dao
 }) => {
-	const { isLoading, data: assets } = useDaoAssets(dao);
-
-	const tableData: DaoAssetTableDataItem[] = useMemo(() => {
-		if (!assets) return [];
-
-		return assets.map(convertAsset);
-	}, [assets]);
+	const { isLoading, tableData } = useDaoAssetsTableData(dao);
 
 	return (
 		<div className={styles.Container}>
@@ -52,4 +64,20 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({
 			/>
 		</div>
 	);
+};
+
+///////////////////////////
+// useDaoAssetsTableData //
+///////////////////////////
+
+const useDaoAssetsTableData = (dao?: zDAO) => {
+	const { isLoading, data: assets } = useDaoAssets(dao);
+
+	const tableData: DaoAssetTableDataItem[] = useMemo(() => {
+		if (!assets) return [];
+
+		return assets.map(convertAsset);
+	}, [assets]);
+
+	return { isLoading, tableData };
 };

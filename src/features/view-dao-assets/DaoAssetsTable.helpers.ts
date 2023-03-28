@@ -1,13 +1,20 @@
-import type { Asset } from '../../lib/types/dao';
-import type { DaoAssetTableDataItem } from './DaoAssetsTable.types';
-
 import millify from 'millify';
 import { formatUnits } from 'ethers/lib/utils';
 import { formatFiat } from '../../lib/util/format';
 import { DOLLAR_SYMBOL } from '../../lib/constants/currency';
-import { DAO_ASSET_MILIFY_OPTIONS } from './DaoAssetsTable.constants';
+import type { Asset } from '../../lib/types/dao';
+
+import type { DaoAssetTableDataItem } from './DaoAssetsTable';
+
 import defaultAssetIcon from '../../assets/default_asset.png';
 import wildIcon from '../../assets/WWLogo-Padded.svg';
+import { getHashFromIpfsUrl } from '@zero-tech/zapp-utils/utils/ipfs';
+import { getCloudinaryImageUrlFromIpfsUrl } from '@zero-tech/zapp-utils/utils/cloudinary';
+
+const DAO_ASSET_MILIFY_OPTIONS = {
+	precision: 5,
+	lowercase: false
+};
 
 /**
  * Converts an Asset to AssetTableDataItem
@@ -37,10 +44,6 @@ export const convertAsset = (asset: Asset): DaoAssetTableDataItem => {
 	};
 };
 
-export const isZnsToken = (label: string): boolean => {
-	return label.toLowerCase() === 'zns';
-};
-
 /**
  * Format a total amount of asset tokens
  * @param amount - string or number
@@ -55,4 +58,20 @@ export const formatTotalAmountOfTokens = (
 		Number(formatUnits(amount, decimals)),
 		DAO_ASSET_MILIFY_OPTIONS
 	);
+};
+
+export const convertAssetImage = (image: string) => {
+	const isIpfsUrl = Boolean(getHashFromIpfsUrl(image));
+
+	if (isIpfsUrl) {
+		return {
+			isIpfsUrl,
+			src: getCloudinaryImageUrlFromIpfsUrl(image, { size: 'medium' })
+		};
+	} else {
+		return {
+			isIpfsUrl,
+			src: image && image.startsWith('/') ? location.origin + image : image
+		};
+	}
 };
