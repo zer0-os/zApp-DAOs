@@ -1,14 +1,34 @@
-import type { FC } from 'react';
-import type { zDAO } from '@zero-tech/zdao-sdk';
-import type { DAOTableDataItem } from './DaosTable.types';
+import React, { FC, useMemo } from 'react';
 
-import React, { useMemo } from 'react';
-import { AsyncTable } from '@zero-tech/zui/components';
-import { useAllZnas, useAllDaos } from '../../lib/hooks';
+import type { zDAO } from '@zero-tech/zdao-sdk';
+import { useAllZnas, useAllDaos } from '../../../lib/hooks';
+
+import { AsyncTable, Column } from '@zero-tech/zui/components';
 import { DaosTableRow } from './DaosTableRow';
 import { DaosTableCard } from './DaosTableCard';
-import { TABLE_KEYS, TABLE_COLUMNS } from './DaosTable.constants';
+
 import styles from './DaosTable.module.scss';
+
+///////////////
+// DaosTable //
+///////////////
+
+enum TABLE_KEYS {
+	TITLE = 'title',
+	ZNA = 'zna',
+	DAO = 'dao',
+}
+
+const TABLE_COLUMNS: Column[] = [
+	{ id: 'title', header: 'DAO', alignment: 'left' },
+	{ id: 'amount', header: 'Value (USD)', alignment: 'right' }
+];
+
+export type DAOTableDataItem = {
+	[TABLE_KEYS.TITLE]: string;
+	[TABLE_KEYS.ZNA]: string;
+	[TABLE_KEYS.DAO]: zDAO;
+};
 
 export const DaosTable: FC = () => {
 	const { isLoading: isLoadingZnas, data: znas } = useAllZnas();

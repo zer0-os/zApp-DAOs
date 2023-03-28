@@ -1,19 +1,16 @@
-// Types import
-import type { FC } from 'react';
-import type { DAOTableDataItem } from './DaosTable.types';
+import React, { FC } from 'react';
 
-// React import
-import React from 'react';
+import { useDaosTableItemData } from './lib';
+import type { DAOTableDataItem } from './';
 
-// Hooks import
-import { useDaosTableItemData } from './hooks';
-
-// Components import
 import { GridCard } from '@zero-tech/zui/components/GridCard';
 import { TextStack } from '@zero-tech/zui/components/TextStack';
 
-// Styles import
 import styles from './DaosTableCard.module.scss';
+
+///////////////////
+// DaosTableCard //
+///////////////////
 
 type DaosTableCardProps = {
 	daoData: DAOTableDataItem;

@@ -1,20 +1,17 @@
-// Types import
-import type { FC } from 'react';
-import type { DAOTableDataItem } from './DaosTable.types';
+import React, { FC } from 'react';
 
-// React import
-import React from 'react';
+import { useDaosTableItemData } from './lib';
+import type { DAOTableDataItem } from './';
 
-// Components import
 import { TableData } from '@zero-tech/zui/components/AsyncTable/Column';
 import { SkeletonText } from '@zero-tech/zui/components/SkeletonText';
 import { Image } from '@zero-tech/zui/components';
 
-// Hooks import
-import { useDaosTableItemData } from './hooks';
-
-// Styles import
 import styles from './DaosTableRow.module.scss';
+
+//////////////////
+// DaosTableRow //
+//////////////////
 
 type DaosTableRowProps = {
 	daoData: DAOTableDataItem;

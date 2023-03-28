@@ -1,22 +1,26 @@
-// Types import
-import type { DAOTableDataItem } from '../DaosTable.types';
-import type { DaosTableItemData } from './useDaosTableItemData.types';
-
-// React import
 import { useHistory } from 'react-router-dom';
 
-// Hooks import
-import { useDaoAssetsCoins } from '../../../lib/hooks';
+import { useDaoAssetsCoins } from '../../../../lib/hooks';
+import { formatFiat } from '../../../../lib/util/format';
+import { DOLLAR_SYMBOL } from '../../../../lib/constants/currency';
+import { ROUTES } from '../../../../lib/constants/routes';
+import type { DAOTableDataItem } from '../';
 
-// Utils import
-import { formatFiat } from '../../../lib/util/format';
+import DaoIcon from '../../../../assets/default_dao.svg';
 
-// Constants import
-import { DOLLAR_SYMBOL } from '../../../lib/constants/currency';
-import { ROUTES } from '../../../lib/constants/routes';
+//////////////////////////
+// useDaosTableItemData //
+//////////////////////////
 
-// Assets import
-import DaoIcon from '../../../assets/default_dao.svg';
+export type DaosTableItemData = {
+	imgAlt: string;
+	imgSrc: string;
+	title: string;
+	zna: string;
+	totalUsd?: string;
+	isLoading: boolean;
+	onClick: () => void;
+};
 
 export const useDaosTableItemData = (
 	daoData: DAOTableDataItem
