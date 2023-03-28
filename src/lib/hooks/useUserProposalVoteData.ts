@@ -9,7 +9,7 @@ export const useUserProposalVoteData = (proposal?: Proposal) => {
 	const { isLoading: isLoadingVotes, data: votes } = useProposalVotes(proposal);
 
 	const userVote = votes?.find(
-		(vote) => vote.voter.toLowerCase() === account.toLowerCase()
+		(vote) => vote.voter?.toLowerCase() === account?.toLowerCase()
 	)?.choice;
 
 	const { isLoading, ...rest } = useQuery(

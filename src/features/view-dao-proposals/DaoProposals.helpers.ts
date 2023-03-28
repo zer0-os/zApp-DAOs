@@ -122,12 +122,38 @@ export const formatProposalStatus = (proposal?: Proposal): string => {
 
 		const isClosed = proposal.state === ProposalState.CLOSED;
 
-		if (!proposal.votes) return isClosed ? 'No Votes' : 'No Votes Yet';
+		if (!proposal.votes) {
+			if (isClosed) {
+				return 'No Votes';
+			} else {
+				return 'No Votes Yet';
+			}
+		}
 
-		if (isEmpty(proposal.scores))
-			return isClosed ? 'Expired' : 'More Votes Needed';
+		if (isEmpty(proposal.scores)) {
+			if (isClosed) {
+				return 'Expired';
+			} else {
+				return 'More Votes Needed';
+			}
+		}
+
+		if (isClosed) {
+			if (proposal.canExecute()) {
+				return 'Approved';
+			} else {
+				return 'Denied';
+			}
+		}
 
 		if (proposal.scores[0] > proposal.scores[1]) {
+			if (isClosed) {
+				if (proposal.canExecute()) {
+					return 'Approved';
+				} else {
+					return 'Denied';
+				}
+			}
 			return isClosed ? 'Approved' : 'Approval Favoured';
 		} else if (proposal.scores[0] < proposal.scores[1]) {
 			return isClosed ? 'Denied' : 'Denial Favoured';
