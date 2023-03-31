@@ -1,0 +1,70 @@
+@use '../../../../../node_modules/@zero-tech/zui/styles/colors';
+
+.TransactionItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    .Details {
+        display: flex;
+        align-items: center;
+        flex: 1;
+
+        > span {
+            margin-right: 0.25rem;
+        }
+
+        .Icon {
+            position: relative;
+            width: 2rem;
+            height: 2rem;
+
+            .Image {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+            }
+
+            .ArrowIcon {
+                position: absolute;
+                z-index: 2;
+                bottom: 0;
+                right: 0;
+
+                > svg {
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
+                    height: 0.75rem;
+                    width: 0.75rem;
+                    border-radius: 50%;
+                    color: colors.$blue;
+                }
+            }
+
+            &[data-type="sent"] {
+                > svg {
+                    // TODO: it should be replaced with zUI icon later
+                    transform: rotate(180deg);
+                }
+            }
+        }
+
+        .Type {
+            margin-left: 1rem;
+        }
+
+        .EtherscanLink {
+            font-weight: bold;
+            color: colors.$white;
+            margin-right: 0.25rem;
+        }
+    }
+
+    .DateTime {
+        .Date {
+            margin-right: 0.5rem;
+        }
+    }
+}

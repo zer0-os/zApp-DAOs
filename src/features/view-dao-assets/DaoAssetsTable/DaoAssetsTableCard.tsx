@@ -6,6 +6,10 @@ import { NFT } from '@zero-tech/zui/components/GridCard/templates/NFT';
 import { convertAssetImage } from './lib/helpers';
 import type { DaoAssetTableDataItem } from './DaoAssetsTable';
 
+///////////////////////////
+// DAO Assets Table Card //
+///////////////////////////
+
 export interface DaoAssetsTableCardProps {
 	data: DaoAssetTableDataItem;
 }

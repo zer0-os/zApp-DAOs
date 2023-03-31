@@ -1,1 +1,1 @@
-export * from './DAO';
+export * from './ViewDAO';

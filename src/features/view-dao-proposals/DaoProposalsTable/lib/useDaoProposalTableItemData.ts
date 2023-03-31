@@ -1,25 +1,23 @@
-// Types import
-import type { Proposal } from '@zero-tech/zdao-sdk';
-
-// React import
 import { useHistory, useLocation } from 'react-router-dom';
 
-// Hooks import
-import { useTimer } from '../../../../lib/hooks';
-
-// Library import
 import moment, { duration } from 'moment';
 import removeMarkdown from 'markdown-to-text';
+import type { Proposal } from '@zero-tech/zdao-sdk';
+import { useTimer } from '../../../../lib/hooks';
 import { truncateString } from '../../../../lib/util/string';
 import {
-	getProposalClosingStatus,
-	formatProposalStatus,
-	formatProposalEndTime,
-	DEFAULT_TIMER_INTERVAL,
 	DEFAULT_TIMER_EXPIRED_LABEL,
+	DEFAULT_TIMER_INTERVAL,
+	formatProposalEndTime,
+	formatProposalStatus,
+	getProposalClosingStatus,
 	PROPOSAL_TITLE_MAX_CHARACTERS,
 	ProposalClosingStatus
 } from './';
+
+//////////////////////////////////
+// useDaoProposalsTableItemData //
+//////////////////////////////////
 
 export type DaoProposalsTableItemData = {
 	title: string;
@@ -53,7 +51,7 @@ export const useDaoProposalsTableItemData = (
 		: 'Closing in ' + duration(moment(proposal.end).diff(moment())).humanize();
 
 	const onClick = () => {
-		history.push(`${location.pathname}/${proposal.id}`, {
+		history.push(formatUrl(location.pathname, proposal.id), {
 			isGridView
 		});
 	};
@@ -68,4 +66,19 @@ export const useDaoProposalsTableItemData = (
 		closingMessage,
 		onClick
 	};
+};
+
+////////////////
+// Format URL //
+////////////////
+
+/**
+ * Formats the URL to include the proposal ID, and chops any duplicate slashes
+ */
+const formatUrl = (pathname: string, proposalId: string) => {
+	if (pathname.endsWith('/')) {
+		return pathname + proposalId;
+	} else {
+		return pathname + '/' + proposalId;
+	}
 };

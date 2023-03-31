@@ -31,25 +31,7 @@ export type DAOTableDataItem = {
 };
 
 export const DaosTable: FC = () => {
-	const { isLoading: isLoadingZnas, data: znas } = useAllZnas();
-	const { isLoading: isLoadingDaos, data: daos } = useAllDaos(znas);
-
-	const isLoading = isLoadingZnas || isLoadingDaos;
-
-	const tableData: DAOTableDataItem[] = useMemo(() => {
-		if (!znas?.length || !daos?.length || znas?.length !== daos?.length)
-			return [];
-
-		return znas.map((zna, index) => {
-			const dao: zDAO = daos[index];
-
-			return {
-				[TABLE_KEYS.TITLE]: dao.title,
-				[TABLE_KEYS.ZNA]: zna,
-				[TABLE_KEYS.DAO]: dao
-			};
-		});
-	}, [znas, daos]);
+	const { tableData, isLoading } = useFormattedTableData();
 
 	return (
 		<div className={styles.Container}>
@@ -77,4 +59,33 @@ export const DaosTable: FC = () => {
 			/>
 		</div>
 	);
+};
+
+///////////////////////////
+// useFormattedTableData //
+///////////////////////////
+
+const useFormattedTableData = () => {
+	const { isLoading: isLoadingZnas, data: znas } = useAllZnas();
+	const { isLoading: isLoadingDaos, data: daos } = useAllDaos();
+
+	const tableData: DAOTableDataItem[] = useMemo(() => {
+		if (!znas?.length || !daos?.length || znas?.length !== daos?.length)
+			return [];
+
+		return znas.map((zna, index) => {
+			const dao: zDAO = daos[index];
+
+			return {
+				[TABLE_KEYS.TITLE]: dao.title,
+				[TABLE_KEYS.ZNA]: zna,
+				[TABLE_KEYS.DAO]: dao
+			};
+		});
+	}, [znas, daos]);
+
+	return {
+		isLoading: isLoadingZnas || isLoadingDaos,
+		tableData
+	};
 };

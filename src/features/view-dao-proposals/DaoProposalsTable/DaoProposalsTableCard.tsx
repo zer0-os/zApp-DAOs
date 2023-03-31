@@ -1,9 +1,13 @@
 import React, { FC } from 'react';
 
 import type { Proposal } from '@zero-tech/zdao-sdk';
-import { useDaoProposalsTableItemData } from './lib';
+import { ProposalClosingStatus, useDaoProposalsTableItemData } from './lib';
 
 import styles from './DaoProposalsTableCard.module.scss';
+
+/////////////////////////////
+// DAO Proposal Table Card //
+/////////////////////////////
 
 type DaoProposalsTableCardProps = {
 	proposal: Proposal;
@@ -17,21 +21,38 @@ export const DaoProposalsTableCard: FC<DaoProposalsTableCardProps> = ({
 
 	return (
 		<div className={styles.Card} onClick={onClick}>
-			{/* Title */}
 			<h2 className={styles.Title}>{title}</h2>
-
-			{/* Description */}
 			<p className={styles.Description}>{description}</p>
+			<StatusMessage
+				closingMessage={closingMessage}
+				closingStatus={closingStatus}
+				status={status}
+			/>
+		</div>
+	);
+};
 
-			{/* Closing Message with humanized format (Chiclet) */}
-			<div className={styles.Buttons}>
-				<span className={styles.Closing} data-status={closingStatus}>
-					{closingMessage}
-				</span>
+////////////////////
+// Status Message //
+////////////////////
 
-				{/* Status */}
-				{status !== '-' && <span className={styles.Status}>{status}</span>}
-			</div>
+interface StatusMessageProps {
+	closingStatus: ProposalClosingStatus;
+	closingMessage: string;
+	status: string;
+}
+
+const StatusMessage = ({
+	closingStatus,
+	closingMessage,
+	status
+}: StatusMessageProps) => {
+	return (
+		<div className={styles.Buttons}>
+			<span className={styles.Closing} data-status={closingStatus}>
+				{closingMessage}
+			</span>
+			{status !== '-' && <span className={styles.Status}>{status}</span>}
 		</div>
 	);
 };

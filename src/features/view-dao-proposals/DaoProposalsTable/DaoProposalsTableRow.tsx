@@ -10,6 +10,10 @@ import styles from './DaoProposalsTableRow.module.scss';
 
 const cx = classNames.bind(styles);
 
+/////////////////////////////
+// DAO Proposals Table Row //
+/////////////////////////////
+
 type DaoProposalsTableRowProps = {
 	proposal: Proposal;
 };
@@ -22,17 +26,12 @@ export const DaoProposalsTableRow: FC<DaoProposalsTableRowProps> = ({
 
 	return (
 		<tr className={styles.Row} onClick={onClick}>
-			{/* Title */}
 			<TableData alignment="left" className={styles.Title}>
 				{title}
 			</TableData>
-
-			{/* Status */}
 			<TableData alignment="left" className={styles.Status}>
 				{status}
 			</TableData>
-
-			{/* Closes with humanized format */}
 			<TableData
 				alignment="left"
 				className={cx(styles.Timer, {
@@ -43,8 +42,6 @@ export const DaoProposalsTableRow: FC<DaoProposalsTableRowProps> = ({
 			>
 				{endTime}
 			</TableData>
-
-			{/* Total votes count of proposal */}
 			<TableData alignment="right" className={styles.Votes}>
 				<p>{proposal.votes}</p>
 			</TableData>

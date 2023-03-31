@@ -2,25 +2,15 @@ import React, { FC, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { get } from 'lodash';
-import { useDaoProposals, useCurrentDao } from '../../../lib/hooks';
 import { sortProposals } from './lib';
+import { useDaoProposals } from '../../../lib/hooks';
 
 import { AsyncTable } from '@zero-tech/zui/components';
+import { Column } from '@zero-tech/zui/components/AsyncTable';
 import { DaoProposalsTableRow } from './DaoProposalsTableRow';
 import { DaoProposalsTableCard } from './DaoProposalsTableCard';
 
 import styles from './DaoProposalsTable.module.scss';
-import { zDAO } from '@zero-tech/zdao-sdk';
-import { Column } from '@zero-tech/zui/components/AsyncTable';
-
-///////////////////////
-// DaoProposalsTable //
-///////////////////////
-
-export type DaoProposalsTableProps = {
-	isLoadingDao: boolean;
-	dao?: zDAO;
-};
 
 const TABLE_COLUMNS: Column[] = [
 	{ id: 'title', header: 'Title', alignment: 'left' },
@@ -29,32 +19,37 @@ const TABLE_COLUMNS: Column[] = [
 	{ id: 'votes', header: 'Votes', alignment: 'right' }
 ];
 
-export const DaoProposalsTable: FC<DaoProposalsTableProps> = ({
-	isLoadingDao,
-	dao
-}) => {
+///////////////////////
+// DaoProposalsTable //
+///////////////////////
+
+export type DaoProposalsTableProps = {
+	zna: string;
+};
+
+export const DaoProposalsTable: FC<DaoProposalsTableProps> = ({ zna }) => {
 	const location = useLocation();
 	const isGridViewByDefault = get(location.state, 'isGridView', false);
 
-	const { isLoading, proposals } = useProposalsTableData(dao, isLoadingDao);
+	const { isLoading, sortedProposals } = useProposalsTableData(zna);
 
 	return (
 		<div className={styles.Container}>
 			<AsyncTable
 				className={styles.Table}
-				data={proposals}
+				data={sortedProposals}
 				itemKey={'title'}
 				columns={TABLE_COLUMNS}
 				rowComponent={(proposal) => (
 					<DaoProposalsTableRow
 						proposal={proposal}
-						key={`dao-proposal-row-${proposal.title}`}
+						key={`dao-proposal-row-${proposal.id}`}
 					/>
 				)}
 				gridComponent={(proposal) => (
 					<DaoProposalsTableCard
 						proposal={proposal}
-						key={`dao-proposal-card-${proposal.title}`}
+						key={`dao-proposal-card-${proposal.id}`}
 					/>
 				)}
 				searchKey={{ key: 'title', name: 'proposal title' }}
@@ -70,18 +65,17 @@ export const DaoProposalsTable: FC<DaoProposalsTableProps> = ({
 // useProposalsTableData //
 ///////////////////////////
 
-const useProposalsTableData = (dao, isLoadingDao) => {
+const useProposalsTableData = (zna: string) => {
 	const { isLoading: isLoadingProposals, data: proposalsData } =
-		useDaoProposals(dao);
-	const { isLoading: isLoadingCurrentDao } = useCurrentDao();
+		useDaoProposals(zna);
 
-	const proposals = useMemo(
+	const sortedProposals = useMemo(
 		() => sortProposals(proposalsData),
 		[proposalsData]
 	);
 
 	return {
-		proposals,
-		isLoading: isLoadingDao || isLoadingCurrentDao || isLoadingProposals
+		sortedProposals,
+		isLoading: isLoadingProposals
 	};
 };

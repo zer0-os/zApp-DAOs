@@ -26,13 +26,13 @@ export const useDaosTableItemData = (
 	daoData: DAOTableDataItem
 ): DaosTableItemData => {
 	const history = useHistory();
-	const { isLoading, data: coinsData } = useDaoAssetsCoins(daoData.dao);
+	const { isLoading, data: coinsData } = useDaoAssetsCoins(daoData.zna);
 
 	/**
 	 * Navigates to the selected DAO zNA
 	 */
 	const onClick = () => {
-		history.push('/0.' + daoData.zna + ROUTES.ZDAOS);
+		history.push('/0.' + daoData.zna + ROUTES.ZDAOS + '/assets');
 	};
 
 	return {

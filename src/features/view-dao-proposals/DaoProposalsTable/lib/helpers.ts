@@ -1,17 +1,16 @@
-import type { zDAO, Proposal, TokenMetaData, Token } from '@zero-tech/zdao-sdk';
-
 import moment from 'moment';
 import { isEmpty } from 'lodash';
 import millify from 'millify';
-import { formatUnits } from 'ethers/lib/utils';
+import type { Proposal, Token, TokenMetaData, zDAO } from '@zero-tech/zdao-sdk';
 import { ProposalState } from '@zero-tech/zdao-sdk';
+import { formatUnits } from 'ethers/lib/utils';
 import { formatFiat } from '../../../../lib/util/format';
 import { secondsToDhms } from '../../../../lib/util/datetime';
 import {
-	PROPOSAL_FILTER_START_DATE,
+	DAY_IN_MILLISECONDS,
 	DEFAULT_TIMER_EXPIRED_LABEL,
 	HOUR_IN_MILLISECONDS,
-	DAY_IN_MILLISECONDS,
+	PROPOSAL_FILTER_START_DATE,
 	ProposalClosingStatus
 } from './constants';
 

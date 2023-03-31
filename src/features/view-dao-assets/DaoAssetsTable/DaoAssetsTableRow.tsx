@@ -9,6 +9,10 @@ import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 
 import styles from './DaoAssetsTableRow.module.scss';
 
+//////////////////////////
+// DAO Assets Table Row //
+//////////////////////////
+
 type DaoAssetsTableRowProps = {
 	data: DaoAssetTableDataItem;
 };

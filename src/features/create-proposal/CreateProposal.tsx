@@ -1,4 +1,4 @@
-import React, { FC, useLayoutEffect } from 'react';
+import React, { FC } from 'react';
 
 import type { CreateProposalProps } from './CreateProposal.types';
 import { useCreateProposalContainerData } from './useCreateProposalContainerData';
@@ -9,10 +9,7 @@ import { Button, LoadingIndicator } from '@zero-tech/zui/components';
 
 import styles from './CreateProposal.module.scss';
 
-export const CreateProposal: FC<CreateProposalProps> = ({
-	isLoadingDao,
-	dao
-}) => {
+export const CreateProposal: FC<CreateProposalProps> = ({ dao, zna }) => {
 	const {
 		assets,
 		onBack,
@@ -21,17 +18,7 @@ export const CreateProposal: FC<CreateProposalProps> = ({
 		isWalletConnected,
 		isDaoHoldingERC20Asset,
 		isUserHoldingVotingToken
-	} = useCreateProposalContainerData(isLoadingDao, dao);
-
-	useLayoutEffect(() => {
-		const nav = document.getElementById('dao-page-nav-tabs');
-
-		nav.style.display = 'none';
-
-		return () => {
-			nav.style.display = 'block';
-		};
-	}, []);
+	} = useCreateProposalContainerData(zna);
 
 	if (!isWalletConnected) {
 		return (
@@ -69,7 +56,7 @@ export const CreateProposal: FC<CreateProposalProps> = ({
 					</>
 				)}
 				{isUserHoldingVotingToken && isDaoHoldingERC20Asset && (
-					<CreateProposalForm dao={dao} assets={assets} />
+					<CreateProposalForm dao={dao} assets={assets} zna={zna} />
 				)}
 			</div>
 		</div>

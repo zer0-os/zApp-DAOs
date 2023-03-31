@@ -1,29 +1,20 @@
-//- Type Imports
-import type { FC } from 'react';
-import type { CreateProposalFormProps } from './CreateProposalForm.types';
+import React, { FC } from 'react';
 
-//- React Imports
-import React from 'react';
-
-//- Library Imports
+import { ethers } from 'ethers';
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
-import { ethers } from 'ethers';
-import classNames from 'classnames/bind';
 import { getEtherscanUri } from '../../../lib/util/network';
-
-//- Hooks Imports
-import { useWeb3, useRouteChangeDialog } from '../../../lib/hooks';
+import { useRouteChangeDialog, useWeb3 } from '../../../lib/hooks';
 import { useCreateProposalFormData } from './hooks';
+import type { CreateProposalFormProps } from './CreateProposalForm.types';
 
-//- Component Imports
-import { Input, Button, MarkdownEditor } from '@zero-tech/zui/components';
+import { Button, Input, MarkdownEditor } from '@zero-tech/zui/components';
 import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
 import { EtherscanLink, Select } from '../../ui';
 import { VotingDetails } from '../VotingDetails';
 import { ProposalPublishModal } from '../ProposalPublishModal';
 
-//- Style Imports
+import classNames from 'classnames';
 import parentStyles from '../CreateProposal.module.scss';
 import styles from './CreateProposalForm.module.scss';
 
@@ -44,7 +35,8 @@ const validationSchema = Yup.object().shape({
 
 export const CreateProposalForm: FC<CreateProposalFormProps> = ({
 	dao,
-	assets
+	assets,
+	zna
 }) => {
 	const { chainId } = useWeb3();
 	const {
@@ -143,7 +135,7 @@ export const CreateProposalForm: FC<CreateProposalFormProps> = ({
 													<InfoTooltip content="Proposals are currently limited to transferring tokens from the DAO treasury to a recipient" />
 												</div>
 												<div className={styles.DaoAddressContent}>
-													DAO Wallet:{' '}
+													ViewDAO Wallet:{' '}
 													<EtherscanLink
 														etherscanUri={getEtherscanUri(chainId)}
 														address={dao?.safeAddress}
@@ -211,6 +203,7 @@ export const CreateProposalForm: FC<CreateProposalFormProps> = ({
 					token={formValues.tokenOption?.value}
 					recipient={formValues.recipient}
 					body={formValues.body}
+					zna={zna}
 				/>
 			)}
 		</>
