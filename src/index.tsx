@@ -17,9 +17,10 @@ import {
 	ZdaoSdkProvider,
 	ZnsSdkProvider,
 	RouterBlockerProvider,
-	CurrentDaoProvider,
-	DaosTotalProvider
+	CurrentDaoProvider
 } from './lib/providers';
+
+import { DaosTotalProvider } from './pages/DAOs/lib/DaosTotalProvider';
 
 const queryClient = new QueryClient();
 
