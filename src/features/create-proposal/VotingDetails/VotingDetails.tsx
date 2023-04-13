@@ -12,7 +12,7 @@ export const VotingDetails: FC = () => {
 
 	return (
 		<div className={parentStyles.Section}>
-			{/* Title */}
+			{/* Body */}
 			<h2 className={parentStyles.SectionTitle}>
 				Vote Details
 				<InfoTooltip content="These settings are defined by the DAO" />

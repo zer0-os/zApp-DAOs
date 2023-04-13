@@ -54,7 +54,7 @@ export const VoteAction: FC<VoteActionProps> = ({
 	const { dao, zna } = useCurrentDao();
 	const { account } = useWeb3();
 	const { isLoading, data: { userVote, userVotingPower } = {} } =
-		useUserProposalVoteData({ zna, proposalId });
+		useUserProposalVoteData({ zna, proposalId: proposal.id });
 
 	const vote = userChoice ?? userVote;
 

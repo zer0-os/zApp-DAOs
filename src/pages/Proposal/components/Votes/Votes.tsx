@@ -1,15 +1,16 @@
-import React, { useMemo } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 
 import type { zDAO, Proposal, Vote } from '@zero-tech/zdao-sdk';
 import { useWeb3 } from '../../../../lib/hooks';
 import { formatVotingPowerAmount } from '../../../../features/view-dao-proposals/DaoProposalsTable/lib';
 import { getEtherscanUri } from '../../../../lib/util/network';
 
-import { LoadingIndicator } from '@zero-tech/zui/components';
+import { Skeleton } from '@zero-tech/zui/components';
 import { EtherscanLink } from '../../../../features/ui';
 import { Approve, Deny } from '../Vote';
 
 import styles from './Votes.module.scss';
+import classNames from 'classnames';
 
 ///////////
 // Votes //
@@ -47,7 +48,16 @@ const VoteList = ({ dao, proposal, isLoading, votes }: VotesProps) => {
 	});
 
 	if (isLoading) {
-		return <LoadingIndicator text="" />;
+		return (
+			<HistoryWrapper>
+				<li className={classNames(styles.HistoryRow, styles.Placeholder)}>
+					<Skeleton width={'100%'} />
+				</li>
+				<li className={classNames(styles.HistoryRow, styles.Placeholder)}>
+					<Skeleton width={'100%'} />
+				</li>
+			</HistoryWrapper>
+		);
 	}
 
 	if (!proposal) {
@@ -55,26 +65,40 @@ const VoteList = ({ dao, proposal, isLoading, votes }: VotesProps) => {
 	}
 
 	if (!hasVotes) {
-		return <div className={styles.Empty}>No votes yet...</div>;
+		return <div className={styles.Empty}>No votes recorded</div>;
 	}
 
 	return (
-		<>
+		<HistoryWrapper>
+			{histories.map((history, i: number) => (
+				<li className={styles.HistoryRow} key={i}>
+					<VoterAddress address={history.address} />
+					<VoteDirection
+						isSnapshotProposal={isSnapshotProposal}
+						voteOptions={proposal.choices}
+						voteDirection={history.direction}
+					/>
+					<VotingPower votingPower={history.power} />
+				</li>
+			))}
+		</HistoryWrapper>
+	);
+};
+
+/////////////////////
+// History Wrapper //
+/////////////////////
+
+interface HistoryWrapperProps {
+	children: ReactNode;
+}
+
+const HistoryWrapper = ({ children }: HistoryWrapperProps) => {
+	return (
+		<div>
 			<HistoryHeader />
-			<div className={styles.Histories}>
-				{histories.map((history, i: number) => (
-					<div className={styles.HistoryRow} key={i}>
-						<VoterAddress address={history.address} />
-						<VoteDirection
-							isSnapshotProposal={isSnapshotProposal}
-							voteOptions={proposal.choices}
-							voteDirection={history.direction}
-						/>
-						<VotingPower votingPower={history.power} />
-					</div>
-				))}
-			</div>
-		</>
+			<ul className={styles.Histories}>{children}</ul>
+		</div>
 	);
 };
 

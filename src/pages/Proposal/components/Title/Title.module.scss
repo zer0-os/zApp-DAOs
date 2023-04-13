@@ -1,0 +1,15 @@
+@use '../../../../../node_modules/@zero-tech/zui/styles/theme';
+@use '../../../../../node_modules/@zero-tech/zui/styles/typography';
+@use '../../../../../node_modules/@zero-tech/zui/styles/dimensions';
+
+.Title {
+    margin-bottom: 1.5rem;
+    font-size: 2.25rem;
+    font-weight: typography.$font-weight-bold;
+    line-height: 2.75rem;
+
+    @media only screen and (max-width: dimensions.$breakpoint-mobile-xl) {
+        font-size: typography.$size-large;
+        line-height: 1.875rem;
+    }
+}

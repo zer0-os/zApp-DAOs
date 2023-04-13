@@ -77,11 +77,11 @@ export const CreateProposalForm: FC<CreateProposalFormProps> = ({
 					return (
 						<Form>
 							<div className={styles.Form}>
-								{/* Proposal Title Input */}
+								{/* Proposal Body Input */}
 								<div className={parentStyles.Section}>
 									<Input
-										label="Proposal Title"
-										placeholder="Proposal Title"
+										label="Proposal Body"
+										placeholder="Proposal Body"
 										value={values.title}
 										onChange={(value) => setFieldValue('title', value)}
 										error={touched.title && !!errors.title}
@@ -91,7 +91,7 @@ export const CreateProposalForm: FC<CreateProposalFormProps> = ({
 
 								{/* Fund Details Section */}
 								<div className={parentStyles.Section}>
-									{/* Title */}
+									{/* Body */}
 									<h2 className={parentStyles.SectionTitle}>
 										Fund Details
 										<InfoTooltip content="Proposals are currently limited to transferring tokens from the DAO treasury to a recipient" />

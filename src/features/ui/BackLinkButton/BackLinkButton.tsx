@@ -3,7 +3,7 @@ import type { LinkProps } from 'react-router-dom';
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import classNames from 'classnames/bind';
+import classNames from 'classnames';
 import { IconArrowLeft } from '../Icons';
 import styles from './BackLinkButton.module.scss';
 

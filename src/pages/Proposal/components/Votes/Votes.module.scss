@@ -11,10 +11,6 @@
 }
 
 .Container {
-	margin: 1rem 0;
-	padding: 1rem 0;
-	border-top: 1px solid colors.$mine-shaft;
-
 	.Title {
 		font-size: typography.$size-medium;
 		font-weight: typography.$font-weight-bold;
@@ -53,11 +49,22 @@
 		.Histories {
 			margin: 16px 0;
 
+			padding: 0;
+
+			.Placeholder {
+				span {
+					width: 100% !important;
+					flex: 1 !important;
+				}
+			}
+
 			.HistoryRow {
 				display: flex;
 				align-items: center;
 				gap: 1.5rem;
 				padding: 0.75rem 0;
+
+				width: 100%;
 
 				> span {
 					display: flex;

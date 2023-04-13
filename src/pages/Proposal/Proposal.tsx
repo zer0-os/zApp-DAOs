@@ -1,101 +1,53 @@
-import React, { FC, useCallback, useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
-import type { ProposalId } from '@zero-tech/zdao-sdk';
 import { cloneDeep } from 'lodash';
-import {
-	useCurrentDao,
-	useDao,
-	useDaoProposal,
-	useProposalVotes
-} from '../../lib/hooks';
-import {
-	formatProposalBody,
-	isFromSnapshotWithMultipleChoices
-} from '../../features/view-dao-proposals/DaoProposalsTable/lib';
-import { BackLinkButton } from '../../features/ui';
+import type { ProposalId } from '@zero-tech/zdao-sdk';
+import { isFromSnapshotWithMultipleChoices } from '../../features/view-dao-proposals/DaoProposalsTable/lib';
+import { useCurrentDao } from '../../lib/hooks';
+import { useProposalPageData } from './lib';
 
-import { LoadingIndicator, MarkdownViewer } from '@zero-tech/zui/components';
-import { Attributes, Vote, VoteBar, Votes } from './components';
+import { BackLinkButton } from '../../features/ui';
+import { Attributes, Body, Title, Vote, VoteBar, Votes } from './components';
 
 import styles from './Proposal.module.scss';
+import moment from 'moment';
+
+//////////////
+// Proposal //
+//////////////
 
 export const Proposal: FC = () => {
 	const { proposalId } = useParams<{ proposalId: ProposalId }>();
 	const { zna } = useCurrentDao();
 
-	const { data: dao } = useDao(zna);
+	const { isLoadingProposal, isLoadingVotes, proposal, votes, refetch, dao } =
+		useProposalPageData({ proposalId, zna });
 
-	const {
-		isLoading: isLoadingProposal,
-		data: proposal,
-		refetch: refetchProposal
-	} = useDaoProposal({
-		proposalId,
-		zna
-	});
-
-	const {
-		isLoading: isLoadingVotes,
-		data: votes,
-		refetch: refetchProposalVotes
-	} = useProposalVotes({
-		proposalId,
-		zna
-	});
-
-	const isLoading = isLoadingProposal;
-
-	const refetch = useCallback(() => {
-		refetchProposal();
-		refetchProposalVotes();
-		// refetchUserProposalVoteData();
-	}, [refetchProposal, refetchProposalVotes]);
+	const shouldShowVoteBar =
+		proposal &&
+		!isFromSnapshotWithMultipleChoices(proposal) &&
+		votes?.length > 0;
 
 	return (
 		<div className={styles.Container}>
-			{/* Back to All Proposals */}
 			<AllProposalsButton />
 
-			{/* Content */}
 			<div className={styles.Content}>
-				{isLoading && (
-					<LoadingIndicator
-						className={styles.Loading}
-						text="Loading DAO Proposals"
-						spinnerPosition="left"
-					/>
-				)}
-
-				{!isLoading && (
-					<div className={styles.Wrapper}>
-						{/* Title */}
-						<h1 className={styles.Title}>{proposal?.title}</h1>
-
-						{/* Vote bar */}
-						{proposal &&
-							!isFromSnapshotWithMultipleChoices(proposal) &&
-							votes?.length > 0 && <VoteBar votes={votes} />}
-
-						{/* Proposal attributes */}
-						{dao && proposal && <Attributes dao={dao} proposal={proposal} />}
-
-						{/* Proposal body (Markdown content) */}
-						<MarkdownViewer text={formatProposalBody(proposal?.body)} />
-
-						{/* Vote histories */}
-						<Votes
-							dao={dao}
-							proposal={proposal}
-							isLoading={isLoading || isLoadingVotes}
-							votes={votes}
-						/>
-					</div>
-				)}
+				<Title title={proposal?.title} />
+				{shouldShowVoteBar && <VoteBar votes={votes} />}
+				<Attributes proposalId={proposalId} zna={zna} />
+				<hr />
+				<Body bodyMarkdown={proposal?.body} />
+				<hr />
+				<Votes
+					dao={dao}
+					proposal={proposal}
+					isLoading={isLoadingProposal || isLoadingVotes}
+					votes={votes}
+				/>
 			</div>
-
-			{/* Footer */}
-			{!isLoading && proposal && (
+			{!isLoadingProposal && moment(proposal.end).isAfter(moment()) && (
 				<Vote proposal={proposal} onCompleteVoting={refetch} />
 			)}
 		</div>

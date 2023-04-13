@@ -1,27 +1,14 @@
-@use '../../../node_modules/@zero-tech/zui/styles/colors';
+@use '../../../node_modules/@zero-tech/zui/styles/theme';
 @use '../../../node_modules/@zero-tech/zui/styles/typography';
 @use '../../../node_modules/@zero-tech/zui/styles/dimensions';
 
-.Loading {
-	justify-content: center;
-	margin-top: 2rem;
-	padding: 2rem 0;
-}
-
 .Container {
-	padding: 1rem 0;
+	.Content {
+		margin-top: 2rem;
 
-	.Wrapper {
-		.Title {
-			padding: 0.5rem 0;
-			font-size: 2.25rem;
-			font-weight: typography.$font-weight-bold;
-			line-height: 2.75rem;
-
-			@media only screen and (max-width: dimensions.$breakpoint-mobile-xl) {
-				font-size: typography.$size-large;
-				line-height: 1.875rem;
-			}
+		hr {
+			margin: 1.5rem 0;
+			color: theme.$color-greyscale-6;
 		}
 	}
 }
