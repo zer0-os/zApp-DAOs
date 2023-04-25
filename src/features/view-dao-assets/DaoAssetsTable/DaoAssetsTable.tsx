@@ -1,13 +1,23 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import type { FC } from 'react';
 
-import { AsyncTable } from '@zero-tech/zui/components';
-import type { Column } from '@zero-tech/zui/components/AsyncTable';
+import { convertAsset } from './lib/helpers';
+import { useDaoAssets } from '../../../lib/hooks';
+
+import { TableControls } from '../../ui';
 import { DaoAssetsTableRow } from './DaoAssetsTableRow';
 import { DaoAssetsTableCard } from './DaoAssetsTableCard';
-
-import { useDaoAssets } from '../../../lib/hooks';
-import { convertAsset } from './lib/helpers';
+import {
+	Body,
+	Grid,
+	Header,
+	HeaderGroup,
+	Table,
+	TableStatus,
+	TableStatusMessage,
+	View
+} from '@zero-tech/zui/components';
+import type { Column } from '@zero-tech/zui/components/AsyncTable';
 
 import styles from './DaoAssetsTable.module.scss';
 
@@ -35,27 +45,49 @@ const TABLE_COLUMNS: Column[] = [
 	{ id: 'amount', header: 'Value (USD)', alignment: 'right' }
 ];
 
+// @note: this value is being used in TableControls.module.scss - change in both places
+const GRID_WIDTH_TOGGLE = 450;
+
 export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({ zna }) => {
-	const { isLoading, tableData } = useDaoAssetsTableData(zna);
+	const containerRef = useRef<HTMLDivElement>(null);
+	const [view, setView] = useState<View>(View.TABLE);
+
+	const { isLoading, isEmpty, tableData } = useDaoAssetsTableData(zna);
+
+	useEffect(() => {
+		const resizeObserver = new ResizeObserver(() => {
+			if (containerRef.current) {
+				if (containerRef.current.offsetWidth <= GRID_WIDTH_TOGGLE) {
+					setView(View.GRID);
+				}
+			}
+		});
+		resizeObserver.observe(containerRef.current);
+		return () => resizeObserver.disconnect();
+	}, [containerRef]);
 
 	return (
-		<div className={styles.Container}>
-			<AsyncTable
-				className={styles.Table}
-				data={tableData}
-				itemKey={'name'}
-				columns={TABLE_COLUMNS}
-				rowComponent={(data) => (
-					<DaoAssetsTableRow data={data} key={`dao-asset-row-${data.name}`} />
-				)}
-				gridComponent={(data) => (
-					<DaoAssetsTableCard data={data} key={`dao-asset-card-${data.name}`} />
-				)}
-				searchKey={{ key: 'name', name: 'name' }}
-				isLoading={isLoading}
-				isGridViewByDefault={false}
-				emptyText={'This DAO has no assets'}
-			/>
+		<div className={styles.DaoAssetsTable} ref={containerRef}>
+			{!isLoading && (
+				<div className={styles.ControlsWrapper}>
+					<TableControls view={view} onChangeView={setView} />
+				</div>
+			)}
+			<DaosAssetsView isGridView={view === View.GRID} tableData={tableData} />
+			{isLoading && (
+				<TableStatusMessage
+					className={styles.Message}
+					status={TableStatus.LOADING}
+					message={'Loading Assets...'}
+				/>
+			)}
+			{isEmpty && (
+				<TableStatusMessage
+					className={styles.Message}
+					status={TableStatus.EMPTY}
+					message={'This DAO has no assets'}
+				/>
+			)}
 		</div>
 	);
 };
@@ -67,11 +99,65 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({ zna }) => {
 const useDaoAssetsTableData = (zna?: string) => {
 	const { isLoading, data: assets } = useDaoAssets(zna);
 
+	const isEmpty = !isLoading && assets.length === 0;
+
 	const tableData: DaoAssetTableDataItem[] = useMemo(() => {
 		if (!assets) return [];
 
 		return assets.map(convertAsset);
 	}, [assets]);
 
-	return { isLoading, tableData };
+	return { isLoading, isEmpty, tableData };
+};
+
+/****************************
+ * DaosAssetsView Row/Card  *
+ ***************************/
+interface DaoAssetsViewProps {
+	isGridView: boolean;
+	tableData: DaoAssetTableDataItem[];
+}
+
+const DaosAssetsView = ({ isGridView, tableData }: DaoAssetsViewProps) => {
+	if (tableData.length === 0) {
+		return <></>;
+	}
+	if (isGridView) {
+		return (
+			<div className={styles.DaosAssetsView}>
+				<Grid className={styles.Grid}>
+					{tableData?.map((asset) => (
+						<DaoAssetsTableCard
+							key={`dao-asset-card-${asset.name}`}
+							data={asset}
+						/>
+					))}
+				</Grid>
+			</div>
+		);
+	} else {
+		return (
+			<div className={styles.DaosAssetsView}>
+				<div className={styles.Table}>
+					<Table>
+						<HeaderGroup>
+							{TABLE_COLUMNS.map((column) => (
+								<Header key={column.id} alignment={column.alignment}>
+									{column.header}
+								</Header>
+							))}
+						</HeaderGroup>
+						<Body>
+							{tableData?.map((asset) => (
+								<DaoAssetsTableRow
+									key={`dao-asset-row-${asset.name}`}
+									data={asset}
+								/>
+							))}
+						</Body>
+					</Table>
+				</div>
+			</div>
+		);
+	}
 };

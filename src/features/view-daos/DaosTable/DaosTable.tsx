@@ -114,7 +114,6 @@ const useFormattedTableData = () => {
 	return {
 		isLoading: isLoadingZnas || isLoadingDaos,
 		isEmpty: !isLoadingZnas && !isLoadingDaos && daos.length === 0,
-
 		tableData
 	};
 };
