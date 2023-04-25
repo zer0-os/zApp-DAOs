@@ -65,11 +65,13 @@ export const DaosTable: FC = () => {
 	return (
 		<div className={styles.DaosTable} ref={containerRef}>
 			{!isLoading && (
-				<div className={styles.ControlsWrapper}>
-					<TableControls view={view} onChangeView={setView} />
-				</div>
+				<>
+					<div className={styles.ControlsWrapper}>
+						<TableControls view={view} onChangeView={setView} />
+					</div>
+					<DaosView isGridView={view === View.GRID} tableData={tableData} />
+				</>
 			)}
-			<DaosView isGridView={view === View.GRID} tableData={tableData} />
 			{isLoading && (
 				<TableStatusMessage
 					className={styles.Message}
@@ -113,7 +115,7 @@ const useFormattedTableData = () => {
 
 	return {
 		isLoading: isLoadingZnas || isLoadingDaos,
-		isEmpty: !isLoadingZnas && !isLoadingDaos && daos.length === 0,
+		isEmpty: !isLoadingZnas && !isLoadingDaos && !daos,
 		tableData
 	};
 };
@@ -127,7 +129,7 @@ interface DaosViewProps {
 }
 
 const DaosView = ({ isGridView, tableData }: DaosViewProps) => {
-	if (tableData.length === 0) {
+	if (!tableData) {
 		return <></>;
 	}
 	if (isGridView) {

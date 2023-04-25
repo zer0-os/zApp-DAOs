@@ -69,11 +69,17 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({ zna }) => {
 	return (
 		<div className={styles.DaoAssetsTable} ref={containerRef}>
 			{!isLoading && (
-				<div className={styles.ControlsWrapper}>
-					<TableControls view={view} onChangeView={setView} />
-				</div>
+				<>
+					<div className={styles.ControlsWrapper}>
+						<TableControls view={view} onChangeView={setView} />
+					</div>
+
+					<DaosAssetsView
+						isGridView={view === View.GRID}
+						tableData={tableData}
+					/>
+				</>
 			)}
-			<DaosAssetsView isGridView={view === View.GRID} tableData={tableData} />
 			{isLoading && (
 				<TableStatusMessage
 					className={styles.Message}
@@ -99,7 +105,7 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({ zna }) => {
 const useDaoAssetsTableData = (zna?: string) => {
 	const { isLoading, data: assets } = useDaoAssets(zna);
 
-	const isEmpty = !isLoading && assets.length === 0;
+	const isEmpty = !isLoading && !assets;
 
 	const tableData: DaoAssetTableDataItem[] = useMemo(() => {
 		if (!assets) return [];
@@ -119,7 +125,7 @@ interface DaoAssetsViewProps {
 }
 
 const DaosAssetsView = ({ isGridView, tableData }: DaoAssetsViewProps) => {
-	if (tableData.length === 0) {
+	if (!tableData) {
 		return <></>;
 	}
 	if (isGridView) {
