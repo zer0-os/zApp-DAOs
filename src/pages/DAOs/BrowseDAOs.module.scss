@@ -1,8 +1,15 @@
+@import '../../styles/breakpoints';
+
 .Stats {
 	display: flex;
+	flex-direction: column;
 	gap: 1rem;
 
-	> * {
-		flex: 1;
+	@include container-breakpoint(500) {
+		flex-direction: row;
+
+		> * {
+			flex: 1;
+		}
 	}
 }

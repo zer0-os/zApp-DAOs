@@ -1,11 +1,22 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 
-import type { zDAO } from '@zero-tech/zdao-sdk';
 import { useAllZnas, useAllDaos } from '../../../lib/hooks';
+import type { zDAO } from '@zero-tech/zdao-sdk';
 
-import { AsyncTable, Column } from '@zero-tech/zui/components';
+import { TableControls } from '../../ui';
 import { DaosTableRow } from './DaosTableRow';
 import { DaosTableCard } from './DaosTableCard';
+import {
+	Body,
+	Column,
+	Grid,
+	Header,
+	HeaderGroup,
+	Table,
+	TableStatus,
+	TableStatusMessage,
+	View
+} from '@zero-tech/zui/components';
 
 import styles from './DaosTable.module.scss';
 
@@ -30,33 +41,49 @@ export type DAOTableDataItem = {
 	[TABLE_KEYS.DAO]: zDAO;
 };
 
+// @note: this value is being used in TableControls.module.scss - change in both places
+const GRID_WIDTH_TOGGLE = 450;
+
 export const DaosTable: FC = () => {
-	const { tableData, isLoading } = useFormattedTableData();
+	const containerRef = useRef<HTMLDivElement>(null);
+	const [view, setView] = useState<View>(View.TABLE);
+
+	const { tableData, isLoading, isEmpty } = useFormattedTableData();
+
+	useEffect(() => {
+		const resizeObserver = new ResizeObserver(() => {
+			if (containerRef.current) {
+				if (containerRef.current.offsetWidth <= GRID_WIDTH_TOGGLE) {
+					setView(View.GRID);
+				}
+			}
+		});
+		resizeObserver.observe(containerRef.current);
+		return () => resizeObserver.disconnect();
+	}, [containerRef]);
 
 	return (
-		<div className={styles.Container}>
-			<AsyncTable
-				className={styles.Table}
-				data={tableData}
-				itemKey={TABLE_KEYS.ZNA}
-				columns={TABLE_COLUMNS}
-				rowComponent={(daoData) => (
-					<DaosTableRow
-						daoData={daoData}
-						key={`dao-table-row-${daoData.zna}`}
-					/>
-				)}
-				gridComponent={(daoData) => (
-					<DaosTableCard
-						daoData={daoData}
-						key={`dao-table-card-${daoData.zna}`}
-					/>
-				)}
-				searchKey={{ key: TABLE_KEYS.ZNA, name: 'ZNA' }}
-				isLoading={isLoading}
-				isGridViewByDefault={false}
-				emptyText={'No DAOs here or the zNA does not exist'}
-			/>
+		<div className={styles.DaosTable} ref={containerRef}>
+			{!isLoading && (
+				<div className={styles.ControlsWrapper}>
+					<TableControls view={view} onChangeView={setView} />
+				</div>
+			)}
+			<DaosView isGridView={view === View.GRID} tableData={tableData} />
+			{isLoading && (
+				<TableStatusMessage
+					className={styles.Message}
+					status={TableStatus.LOADING}
+					message={'Loading DAOs...'}
+				/>
+			)}
+			{isEmpty && (
+				<TableStatusMessage
+					className={styles.Message}
+					status={TableStatus.EMPTY}
+					message={'No DAOs here or the zNA does not exist'}
+				/>
+			)}
 		</div>
 	);
 };
@@ -86,6 +113,54 @@ const useFormattedTableData = () => {
 
 	return {
 		isLoading: isLoadingZnas || isLoadingDaos,
+		isEmpty: !isLoadingZnas && !isLoadingDaos && daos.length === 0,
+
 		tableData
 	};
+};
+
+/**********************
+ * DaosView Row/Card  *
+ *********************/
+interface DaosViewProps {
+	isGridView: boolean;
+	tableData: DAOTableDataItem[];
+}
+
+const DaosView = ({ isGridView, tableData }: DaosViewProps) => {
+	if (tableData.length === 0) {
+		return <></>;
+	}
+	if (isGridView) {
+		return (
+			<div className={styles.DaoView}>
+				<Grid className={styles.Grid}>
+					{tableData?.map((dao) => (
+						<DaosTableCard key={`dao-table-row-${dao.zna}`} daoData={dao} />
+					))}
+				</Grid>
+			</div>
+		);
+	} else {
+		return (
+			<div className={styles.DaoView}>
+				<div className={styles.Table}>
+					<Table>
+						<HeaderGroup>
+							{TABLE_COLUMNS.map((column) => (
+								<Header key={column.id} alignment={column.alignment}>
+									{column.header}
+								</Header>
+							))}
+						</HeaderGroup>
+						<Body>
+							{tableData?.map((dao) => (
+								<DaosTableRow key={`dao-table-row-${dao.zna}`} daoData={dao} />
+							))}
+						</Body>
+					</Table>
+				</div>
+			</div>
+		);
+	}
 };
