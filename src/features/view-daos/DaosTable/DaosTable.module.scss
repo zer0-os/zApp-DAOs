@@ -9,6 +9,7 @@
 		@include container-breakpoint(500) {
 			display: flex;
 			justify-content: flex-end;
+			margin-bottom: 1rem;
 		}
 	}
 
