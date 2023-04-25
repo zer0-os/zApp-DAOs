@@ -1,15 +1,20 @@
-import React, { useMemo } from 'react';
 import type { FC } from 'react';
+import React, { useMemo } from 'react';
 
-import { AsyncTable } from '@zero-tech/zui/components';
+import {
+	AsyncTable,
+	TableStatus,
+	TableStatusMessage
+} from '@zero-tech/zui/components';
 import type { Column } from '@zero-tech/zui/components/AsyncTable';
 import { DaoAssetsTableRow } from './DaoAssetsTableRow';
 import { DaoAssetsTableCard } from './DaoAssetsTableCard';
 
-import { useDaoAssets } from '../../../lib/hooks';
+import { useDao, useDaoAssets, useEtherscanUrl } from '../../../lib/hooks';
 import { convertAsset } from './lib/helpers';
 
 import styles from './DaoAssetsTable.module.scss';
+import { IconArrowUpRight } from '@zero-tech/zui/icons';
 
 ////////////////////
 // DaoAssetsTable //
@@ -36,7 +41,8 @@ const TABLE_COLUMNS: Column[] = [
 ];
 
 export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({ zna }) => {
-	const { isLoading, tableData } = useDaoAssetsTableData(zna);
+	const { isLoading, tableData, safeAddress } = useDaoAssetsTableData(zna);
+	const { etherscanUrl } = useEtherscanUrl();
 
 	return (
 		<div className={styles.Container}>
@@ -56,6 +62,21 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({ zna }) => {
 				isGridViewByDefault={false}
 				emptyText={'This DAO has no assets'}
 			/>
+			<TableStatusMessage
+				status={TableStatus.ERROR}
+				message={
+					<div className={styles.Warning}>
+						<span>Not all DAO collectibles may show in the list above</span>
+						<a
+							target={'_blank'}
+							rel={'noreferrer'}
+							href={etherscanUrl + 'tokenholdings?a=' + safeAddress}
+						>
+							Full full asset collection <IconArrowUpRight size={16} />
+						</a>
+					</div>
+				}
+			/>
 		</div>
 	);
 };
@@ -66,6 +87,7 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({ zna }) => {
 
 const useDaoAssetsTableData = (zna?: string) => {
 	const { isLoading, data: assets } = useDaoAssets(zna);
+	const { data: dao } = useDao(zna);
 
 	const tableData: DaoAssetTableDataItem[] = useMemo(() => {
 		if (!assets) return [];
@@ -73,5 +95,5 @@ const useDaoAssetsTableData = (zna?: string) => {
 		return assets.map(convertAsset);
 	}, [assets]);
 
-	return { isLoading, tableData };
+	return { isLoading, tableData, safeAddress: dao?.safeAddress };
 };

@@ -16,7 +16,7 @@ export const Body = ({ bodyMarkdown }: BodyProps) => {
 					text={formatProposalBody(bodyMarkdown)}
 				/>
 			) : (
-				<Skeleton count={8} />
+				<Skeleton count={6} />
 			)}
 		</div>
 	);

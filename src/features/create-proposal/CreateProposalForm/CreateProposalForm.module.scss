@@ -2,6 +2,13 @@
 @use '../../../../node_modules/@zero-tech/zui/styles/typography';
 @use '../../../../node_modules/@zero-tech/zui/styles/dimensions';
 
+.Form {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	width: 100%;
+}
+
 .DaoAddress {
 	display: flex;
 	flex-direction: column;
@@ -38,7 +45,6 @@
 }
 
 .MarkdownEditorCol {
-	margin-top: 1.5rem;
 	grid-column: 1 / -1;
 }
 
@@ -46,4 +52,40 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.Section {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+
+	.Title {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+
+		h2 {
+			font-size: 1.125rem; // 18px
+			margin: 0;
+		}
+
+		span {
+			display: block;
+			font-size: 0.75rem; // 12px
+			color: colors.$grey-lighter-2;
+		}
+	}
+
+
+	&Content {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		column-gap: 1.5rem;
+		row-gap: 1.5rem;
+
+		> * {
+			padding: 0;
+			margin: 0;
+		}
+	}
 }
