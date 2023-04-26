@@ -64,7 +64,7 @@ export const DaosTable: FC = () => {
 
 	return (
 		<div className={styles.DaosTable} ref={containerRef}>
-			{!isLoading && (
+			{!isLoading && !isEmpty && (
 				<>
 					<div className={styles.ControlsWrapper}>
 						<TableControls view={view} onChangeView={setView} />

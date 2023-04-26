@@ -68,7 +68,7 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({ zna }) => {
 
 	return (
 		<div className={styles.DaoAssetsTable} ref={containerRef}>
-			{!isLoading && (
+			{!isLoading && !isEmpty && (
 				<>
 					<div className={styles.ControlsWrapper}>
 						<TableControls view={view} onChangeView={setView} />

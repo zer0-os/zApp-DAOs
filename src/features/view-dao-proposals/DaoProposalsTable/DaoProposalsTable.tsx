@@ -59,7 +59,7 @@ export const DaoProposalsTable: FC<DaoProposalsTableProps> = ({ zna }) => {
 
 	return (
 		<div className={styles.DaoProposalsTable} ref={containerRef}>
-			{!isLoading && (
+			{!isLoading && !isEmpty && (
 				<>
 					<div className={styles.ControlsWrapper}>
 						<TableControls view={view} onChangeView={setView} />
@@ -97,7 +97,7 @@ const useProposalsTableData = (zna: string) => {
 	const { isLoading: isLoadingProposals, data: proposalsData } =
 		useDaoProposals(zna);
 
-	const isEmpty = !isLoadingProposals && !proposalsData;
+	const isEmpty = !isLoadingProposals && proposalsData?.length === 0;
 
 	const sortedProposals = useMemo(
 		() => sortProposals(proposalsData),
