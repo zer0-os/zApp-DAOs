@@ -75,117 +75,114 @@ export const CreateProposalForm: FC<CreateProposalFormProps> = ({
 					setIsFormChanged(dirty);
 
 					return (
-						<Form>
-							<div className={styles.Form}>
-								{/* Proposal Body Input */}
-								<div className={parentStyles.Section}>
-									<Input
-										label="Proposal Body"
-										placeholder="Proposal Body"
-										value={values.title}
-										onChange={(value) => setFieldValue('title', value)}
-										error={touched.title && !!errors.title}
-										helperText={touched.title && errors.title}
-									/>
-								</div>
+						<Form className={styles.Form}>
+							{/* Proposal Body Input */}
+							<div className={parentStyles.Section}>
+								<Input
+									label="Proposal Body"
+									placeholder="Proposal Body"
+									value={values.title}
+									onChange={(value) => setFieldValue('title', value)}
+									error={touched.title && !!errors.title}
+									helperText={touched.title && errors.title}
+								/>
+							</div>
 
-								{/* Fund Details Section */}
-								<div className={parentStyles.Section}>
-									{/* Body */}
-									<h2 className={parentStyles.SectionTitle}>
-										Fund Details
-										<InfoTooltip content="Proposals are currently limited to transferring tokens from the DAO treasury to a recipient" />
-									</h2>
+							{/* Fund Details Section */}
+							<div className={parentStyles.Section}>
+								{/* Body */}
+								<h2 className={parentStyles.SectionTitle}>Fund Details</h2>
+								<span className={parentStyles.InfoText}>
+									Proposals are currently limited to transferring tokens from
+									the DAO treasury to a recipient
+								</span>
 
-									<div className={parentStyles.SectionContent}>
-										{/* Token */}
-										<div className={parentStyles.SectionContentCol}>
-											<Select
-												label="Token"
-												options={tokenOptions}
-												selected={values.tokenOption}
-												onSelect={(value) =>
-													setFieldValue('tokenOption', value)
-												}
-												classNames={{
-													selected: styles.SelectedToken
-												}}
-											/>
-										</div>
-										{/* Amount */}
-										<div className={parentStyles.SectionContentCol}>
-											<Input
-												type="number"
-												label="Amount"
-												placeholder="Amount"
-												value={values.amount}
-												onChange={(value) => setFieldValue('amount', value)}
-												error={touched.amount && !!errors.amount}
-												helperText={touched.amount && errors.amount}
-											/>
-										</div>
+								<div className={parentStyles.SectionContent}>
+									{/* Token */}
+									<div className={parentStyles.SectionContentCol}>
+										<Select
+											label="Token"
+											options={tokenOptions}
+											selected={values.tokenOption}
+											onSelect={(value) => setFieldValue('tokenOption', value)}
+											classNames={{
+												selected: styles.SelectedToken
+											}}
+										/>
 									</div>
-
-									<div className={parentStyles.SectionContent}>
-										{/* From */}
-										<div className={styles.SectionContentCol}>
-											<div className={styles.DaoAddress}>
-												<div className={styles.DaoAddressHeader}>
-													From
-													<InfoTooltip content="Proposals are currently limited to transferring tokens from the DAO treasury to a recipient" />
-												</div>
-												<div className={styles.DaoAddressContent}>
-													ViewDAO Wallet:{' '}
-													<EtherscanLink
-														etherscanUri={getEtherscanUri(chainId)}
-														address={dao?.safeAddress}
-													/>
-												</div>
-											</div>
-										</div>
-
-										{/* Recipient Address */}
-										<div className={parentStyles.SectionContentCol}>
-											<Input
-												label="Recipient (ERC20 Address)"
-												placeholder="Recipient Address"
-												value={values.recipient}
-												onChange={(value) => setFieldValue('recipient', value)}
-												error={touched.recipient && !!errors.recipient}
-												helperText={touched.recipient && errors.recipient}
-											/>
-										</div>
-									</div>
-
-									{/* Body (Markdown Editor) */}
-									<div
-										className={classNames(
-											styles.SectionContentCol,
-											styles.MarkdownEditorCol
-										)}
-									>
-										<MarkdownEditor
-											text={values.body}
-											placeholder="Proposal Content"
-											onChange={(value) => setFieldValue('body', value)}
-											error={touched.body && !!errors.body}
-											errorText={touched.body && errors.body}
+									{/* Amount */}
+									<div className={parentStyles.SectionContentCol}>
+										<Input
+											type="number"
+											label="Amount"
+											placeholder="Amount"
+											value={values.amount}
+											onChange={(value) => setFieldValue('amount', value)}
+											error={touched.amount && !!errors.amount}
+											helperText={touched.amount && errors.amount}
 										/>
 									</div>
 								</div>
 
-								{/* Voting Details Section */}
-								<VotingDetails />
+								<div className={parentStyles.SectionContent}>
+									{/* From */}
+									<div className={styles.SectionContentCol}>
+										<div className={styles.DaoAddress}>
+											<div className={styles.DaoAddressHeader}>
+												From
+												<InfoTooltip content="Proposals are currently limited to transferring tokens from the DAO treasury to a recipient" />
+											</div>
+											<div className={styles.DaoAddressContent}>
+												ViewDAO Wallet:{' '}
+												<EtherscanLink
+													etherscanUri={getEtherscanUri(chainId)}
+													address={dao?.safeAddress}
+												/>
+											</div>
+										</div>
+									</div>
 
-								{/* Publish Button */}
+									{/* Recipient Address */}
+									<div className={parentStyles.SectionContentCol}>
+										<Input
+											label="Recipient (ERC20 Address)"
+											placeholder="Recipient Address"
+											value={values.recipient}
+											onChange={(value) => setFieldValue('recipient', value)}
+											error={touched.recipient && !!errors.recipient}
+											helperText={touched.recipient && errors.recipient}
+										/>
+									</div>
+								</div>
+
+								{/* Body (Markdown Editor) */}
 								<div
 									className={classNames(
-										parentStyles.Section,
-										styles.SubmitSection
+										styles.SectionContentCol,
+										styles.MarkdownEditorCol
 									)}
 								>
-									<Button onPress={submitForm}>Publish Proposal</Button>
+									<MarkdownEditor
+										text={values.body}
+										placeholder="Proposal Content"
+										onChange={(value) => setFieldValue('body', value)}
+										error={touched.body && !!errors.body}
+										errorText={touched.body && errors.body}
+									/>
 								</div>
+							</div>
+							<hr />
+							{/* Voting Details Section */}
+							<VotingDetails />
+
+							{/* Publish Button */}
+							<div
+								className={classNames(
+									parentStyles.Section,
+									styles.SubmitSection
+								)}
+							>
+								<Button onPress={submitForm}>Publish Proposal</Button>
 							</div>
 						</Form>
 					);

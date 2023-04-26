@@ -1,49 +1,71 @@
-@use '../../../../node_modules/@zero-tech/zui/styles/colors';
-@use '../../../../node_modules/@zero-tech/zui/styles/typography';
-@use '../../../../node_modules/@zero-tech/zui/styles/dimensions';
+@import '../../../styles/breakpoints';
+@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
 
-.DaoAddress {
+.Form {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	height: 3rem;
-	padding: 0 1.5rem;
-	color: colors.$text-primary;
-	background: colors.$ocean-10;
-	border-radius: 1.5rem;
+	gap: 1.5rem;
+	width: 100%;
 
-	&Header {
+	hr {
+		margin: 1.5rem 0 0.5rem 0;
+		border: 0.05rem solid var(--color-greyscale-7);
+	}
+
+	.DaoAddress {
 		display: flex;
-		font-size: 0.75rem;
-		font-weight: typography.$font-weight-regular;
-		line-height: 1rem;
-		color: colors.$grey-lighter-2;
+		flex-direction: column;
+		justify-content: center;
+		height: 3rem;
+		padding: 0 1.5rem;
+		color: $text-primary;
+		background: $ocean-10;
+		border-radius: 1.5rem;
 
-		> span {
-			margin-left: 0.25rem;
+		&Header {
+			display: flex;
+			font-size: 0.75rem;
+			font-weight: $font-weight-regular;
+			line-height: 1rem;
+			color: $grey-lighter-2;
+
+			> span {
+				margin-left: 0.25rem;
+			}
+		}
+
+		&Content {
+			margin-top: 0.25rem;
+			font-size: $size-tiny;
+			font-weight: $font-weight-regular;
+			line-height: 1rem;
 		}
 	}
 
-	&Content {
-		margin-top: 0.25rem;
-		font-size: typography.$size-tiny;
-		font-weight: typography.$font-weight-regular;
-		line-height: 1rem;
+	.SelectedToken {
+		font-weight: $font-weight-bold;
+		border-bottom: 1px solid $grey-lighter-2;
 	}
-}
 
-.SelectedToken {
-	font-weight: typography.$font-weight-bold;
-	border-bottom: 1px solid colors.$grey-lighter-2;
-}
+	.MarkdownEditorCol {
+		margin-top: 1.5rem;
+		grid-column: 1 / -1;
 
-.MarkdownEditorCol {
-	margin-top: 1.5rem;
-	grid-column: 1 / -1;
-}
+		[class*='w-md-editor-toolbar '] {
+			height: 7.5rem;
+		}
 
-.SubmitSection {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+		@include container-breakpoint(600) {
+			[class*='w-md-editor-toolbar '] {
+				height: fit-content;
+			}
+		}
+	}
+
+	.SubmitSection {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 }
