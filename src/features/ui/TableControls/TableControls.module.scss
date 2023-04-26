@@ -3,7 +3,7 @@
 .Toggle {
 	display: none;
 
-	// @note: this has to match GRID_WIDTH_TOGGLE in .....
+	// @note: this has to match GRID_WIDTH_TOGGLE in DaoAssetsTable.tsx, DaoTable.tsx and DaoProposalsTable.tsx
 	@include container-breakpoint(450) {
 		display: flex;
 	}
