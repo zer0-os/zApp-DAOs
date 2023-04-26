@@ -1,3 +1,11 @@
+@import '../../../../styles/breakpoints';
+@import '../../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
 .Markdown {
-    padding: 0;
+	padding: 0;
+	font-size: $size-small;
+
+	@include container-breakpoint(500) {
+		font-size: $size-default;
+	}
 }
