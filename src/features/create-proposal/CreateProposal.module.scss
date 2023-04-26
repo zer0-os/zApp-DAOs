@@ -44,6 +44,11 @@
 			flex-direction: column;
 			align-items: center;
 			gap: 1.5rem;
+			margin-bottom: 2rem;
+
+			@include container-breakpoint(500) {
+				margin-bottom: 0;
+			}
 
 			span {
 				font-size: $size-small;
@@ -96,8 +101,6 @@
 				line-height: 0.938rem;
 				color: $grey-lighter-2;
 			}
-
-			
 		}
 	}
 }
