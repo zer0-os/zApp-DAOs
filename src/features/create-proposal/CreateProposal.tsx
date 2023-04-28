@@ -14,7 +14,7 @@ export const CreateProposal: FC<CreateProposalProps> = ({ dao, zna }) => {
 	const { toAllProposals, isWalletConnected } =
 		useCreateProposalContainerData(zna);
 
-	if (isWalletConnected) {
+	if (!isWalletConnected) {
 		return (
 			<ConnectWallet message={'Connect your wallet to create a proposal.'} />
 		);
