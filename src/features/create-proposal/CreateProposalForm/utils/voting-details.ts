@@ -1,8 +1,11 @@
-import type { VotingDetailItem } from './VotingDetails.types';
-
 import moment from 'moment';
-import { formatDateTime } from '../../../lib/util/datetime';
-import { DEFAULT_VOTE_DURATION_DAYS } from '../CreateProposal.constants';
+import { formatDateTime } from '../../../../lib/util/datetime';
+import { DEFAULT_VOTE_DURATION_DAYS } from '../../CreateProposal.constants';
+
+export type VotingDetailItem = {
+	label: string;
+	value: string;
+};
 
 export const getVotingDetails = (): VotingDetailItem[] => {
 	const voteDuration: VotingDetailItem = {

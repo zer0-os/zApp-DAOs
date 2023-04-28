@@ -1,44 +1,47 @@
+/*
+ * @note 25/04/2023 tonnes of refactoring to do here still
+ */
+
 import React, { FC } from 'react';
 
-import { ethers } from 'ethers';
-import * as Yup from 'yup';
-import { Form, Formik } from 'formik';
-import { getEtherscanUri } from '../../../lib/util/network';
-import { useRouteChangeDialog, useWeb3 } from '../../../lib/hooks';
-import { useCreateProposalFormData } from './hooks';
-import type { CreateProposalFormProps } from './CreateProposalForm.types';
+import { Form, Formik, useFormikContext } from 'formik';
 
-import { Button, Input, MarkdownEditor } from '@zero-tech/zui/components';
-import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
-import { EtherscanLink, Select } from '../../ui';
-import { VotingDetails } from '../VotingDetails';
+import { useRouteChangeDialog } from '../../../lib/hooks';
+import { CreateProposalFormValues, useCreateProposalFormData , TokenOption } from './hooks';
+
+import {
+	Button,
+	Input,
+	MarkdownEditor,
+	SelectInput
+} from '@zero-tech/zui/components';
 import { ProposalPublishModal } from '../ProposalPublishModal';
+import { Attribute, Attributes } from '../../ui/Attributes/Attributes';
+
+import { truncateAddress } from '@zero-tech/zui/utils/formatting/addresses';
+import { getVotingDetails, validationSchema } from './utils';
+
+import { zDAO } from '@zero-tech/zdao-sdk';
+import { CreateProposalProps } from '../CreateProposal.types';
+import { Asset } from '../../../lib/types/dao';
 
 import classNames from 'classnames';
-import parentStyles from '../CreateProposal.module.scss';
 import styles from './CreateProposalForm.module.scss';
 
-const validationSchema = Yup.object().shape({
-	title: Yup.string().required('Please enter a title for your proposal'),
-	amount: Yup.string().required('Please enter an amount you wish to send'),
-	recipient: Yup.string()
-		.required('Please enter a recipient wallet address')
-		.test(
-			'isValidERC20Address',
-			'Please enter a valid ethereum wallet address',
-			ethers.utils.isAddress
-		),
-	body: Yup.string().required(
-		'Please add a description to your funding proposal'
-	)
-});
+//////////////////////////
+// Create Proposal Form //
+//////////////////////////
+
+export type CreateProposalFormProps = Pick<CreateProposalProps, 'dao'> & {
+	assets: Asset[];
+	zna: string;
+};
 
 export const CreateProposalForm: FC<CreateProposalFormProps> = ({
 	dao,
 	assets,
 	zna
 }) => {
-	const { chainId } = useWeb3();
 	const {
 		isFormChanged,
 		setIsFormChanged,
@@ -76,11 +79,9 @@ export const CreateProposalForm: FC<CreateProposalFormProps> = ({
 
 					return (
 						<Form className={styles.Form}>
-							{/* Proposal Body Input */}
-							<div className={parentStyles.Section}>
+							<div className={styles.Section}>
 								<Input
-									label="Proposal Body"
-									placeholder="Proposal Body"
+									label="Proposal Title"
 									value={values.title}
 									onChange={(value) => setFieldValue('title', value)}
 									error={touched.title && !!errors.title}
@@ -88,88 +89,12 @@ export const CreateProposalForm: FC<CreateProposalFormProps> = ({
 								/>
 							</div>
 
-							{/* Fund Details Section */}
-							<div className={parentStyles.Section}>
-								{/* Body */}
-								<h2 className={parentStyles.SectionTitle}>Fund Details</h2>
-								<span className={parentStyles.InfoText}>
-									Proposals are currently limited to transferring tokens from
-									the DAO treasury to a recipient
-								</span>
+							<FundDetails dao={dao} tokenOptions={tokenOptions} />
 
-								<div className={parentStyles.SectionContent}>
-									{/* Token */}
-									<div className={parentStyles.SectionContentCol}>
-										<Select
-											label="Token"
-											options={tokenOptions}
-											selected={values.tokenOption}
-											onSelect={(value) => setFieldValue('tokenOption', value)}
-											classNames={{
-												selected: styles.SelectedToken
-											}}
-										/>
-									</div>
-									{/* Amount */}
-									<div className={parentStyles.SectionContentCol}>
-										<Input
-											type="number"
-											label="Amount"
-											placeholder="Amount"
-											value={values.amount}
-											onChange={(value) => setFieldValue('amount', value)}
-											error={touched.amount && !!errors.amount}
-											helperText={touched.amount && errors.amount}
-										/>
-									</div>
-								</div>
+							<VotingDetails />
 
-								<div className={parentStyles.SectionContent}>
-									{/* From */}
-									<div className={styles.SectionContentCol}>
-										<div className={styles.DaoAddress}>
-											<div className={styles.DaoAddressHeader}>
-												From
-												<InfoTooltip content="Proposals are currently limited to transferring tokens from the DAO treasury to a recipient" />
-											</div>
-											<div className={styles.DaoAddressContent}>
-												ViewDAO Wallet:{' '}
-												<EtherscanLink
-													etherscanUri={getEtherscanUri(chainId)}
-													address={dao?.safeAddress}
-												/>
-											</div>
-										</div>
-									</div>
-
-									{/* Recipient Address */}
-									<div className={parentStyles.SectionContentCol}>
-										<Input
-											label="Recipient (ERC20 Address)"
-											placeholder="Recipient Address"
-											value={values.recipient}
-											onChange={(value) => setFieldValue('recipient', value)}
-											error={touched.recipient && !!errors.recipient}
-											helperText={touched.recipient && errors.recipient}
-										/>
-									</div>
-								</div>
-
-								{/* Body (Markdown Editor) */}
-								<div
-									className={classNames(
-										styles.SectionContentCol,
-										styles.MarkdownEditorCol
-									)}
-								>
-									<MarkdownEditor
-										text={values.body}
-										placeholder="Proposal Content"
-										onChange={(value) => setFieldValue('body', value)}
-										error={touched.body && !!errors.body}
-										errorText={touched.body && errors.body}
-									/>
-								</div>
+							<div className={classNames(styles.Section, styles.SubmitSection)}>
+								<Button onPress={submitForm}>Publish Proposal</Button>
 							</div>
 							<hr />
 							{/* Voting Details Section */}
@@ -204,5 +129,125 @@ export const CreateProposalForm: FC<CreateProposalFormProps> = ({
 				/>
 			)}
 		</>
+	);
+};
+
+////////////////////
+// Section Header //
+////////////////////
+
+interface SectionHeaderProps {
+	header: string;
+	subheader?: string;
+}
+
+export const SectionHeader = ({ header, subheader }: SectionHeaderProps) => {
+	return (
+		<div className={styles.Title}>
+			<h2>{header}</h2>
+			<span>{subheader}</span>
+		</div>
+	);
+};
+
+////////////////////
+// Voting Details //
+////////////////////
+
+const VotingDetails: FC = () => {
+	return (
+		<div className={styles.Section}>
+			<SectionHeader
+				header={'Vote Details'}
+				subheader={'These settings are defined by the DAO'}
+			/>
+
+			<Attributes>
+				{getVotingDetails().map((votingDetail) => (
+					<Attribute
+						key={votingDetail.value}
+						label={votingDetail.label}
+						value={votingDetail.value}
+					/>
+				))}
+			</Attributes>
+		</div>
+	);
+};
+
+//////////////////
+// Fund Details //
+//////////////////
+
+interface FundDetailsProps {
+	dao?: zDAO;
+	tokenOptions?: TokenOption[];
+}
+
+const FundDetails = ({ tokenOptions, dao }: FundDetailsProps) => {
+	const { values, errors, touched, setFieldValue } =
+		useFormikContext<CreateProposalFormValues>();
+
+	return (
+		<div className={styles.Section}>
+			<SectionHeader
+				header={'Fund Details'}
+				subheader={
+					'Proposals are currently limited to transferring tokens from the DAO treasury to a recipient.'
+				}
+			/>
+
+			<div className={styles.SectionContent}>
+				<SelectInput
+					className={styles.Token}
+					label="Token"
+					items={tokenOptions.map((token) => ({
+						id: token.value,
+						label: token.title,
+						onSelect: () => setFieldValue('tokenOption', token)
+					}))}
+					value={values.tokenOption.title}
+					placeholder={'Select a token'}
+				/>
+				<Input
+					type="number"
+					label="Amount"
+					placeholder="Amount"
+					value={values.amount}
+					onChange={(value) => setFieldValue('amount', value)}
+					error={touched.amount && !!errors.amount}
+					helperText={touched.amount && errors.amount}
+				/>
+				<Input
+					isDisabled={true}
+					label={'From'}
+					value={'DAO Wallet: ' + truncateAddress(dao?.safeAddress ?? '')}
+					onChange={() => {}}
+				/>
+				<Input
+					label="Recipient (ERC20 Address)"
+					placeholder="Recipient Address"
+					value={values.recipient}
+					onChange={(value) => setFieldValue('recipient', value)}
+					error={touched.recipient && !!errors.recipient}
+					helperText={touched.recipient && errors.recipient}
+				/>
+			</div>
+
+			<div
+				className={classNames(
+					styles.SectionContentCol,
+					styles.MarkdownEditorCol
+				)}
+			>
+				<MarkdownEditor
+					text={values.body}
+					placeholder="Proposal Content"
+					onChange={(value) => setFieldValue('body', value)}
+					error={touched.body && !!errors.body}
+					errorText={touched.body && errors.body}
+				/>
+			</div>
+		</div>
 	);
 };

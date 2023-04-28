@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 import moment from 'moment';
 import { useWeb3, useDaoProposal } from '../../../../lib/hooks';
@@ -7,9 +7,11 @@ import { getEtherscanUri } from '../../../../lib/util/network';
 import { formatProposalStatus } from '../../../../features/view-dao-proposals/DaoProposalsTable/lib';
 
 import { EtherscanLink } from '../../../../features/ui';
-import { Skeleton } from '@zero-tech/zui/components';
 
-import styles from './Attributes.module.scss';
+import {
+	Attribute,
+	Attributes as AttributeWrapper
+} from '../../../../features/ui/Attributes/Attributes';
 
 type AttributesProps = {
 	proposalId: string;
@@ -18,95 +20,75 @@ type AttributesProps = {
 
 export const Attributes = ({ proposalId, zna }: AttributesProps) => {
 	const { chainId } = useWeb3();
-	const { data: proposal, isLoading: isLoadingProposal } = useDaoProposal({
+	const { data: proposal } = useDaoProposal({
 		zna,
 		proposalId
 	});
 
-	if (isLoadingProposal || !proposal) {
-		return <AttributeSkeleton />;
-	}
-
-	const isConcluded = checkIsConcluded(proposal.end);
-	const timeRemaining = moment(proposal.end).diff(moment());
 	const etherscanUri = getEtherscanUri(chainId ?? 1);
+
+	const isConcluded = proposal ? checkIsConcluded(proposal.end) : undefined;
+	const timeRemaining = proposal
+		? moment(proposal.end).diff(moment())
+		: undefined;
+
+	const isLoadingProposal = true;
 
 	return (
 		<AttributeWrapper>
-			<Attribute label={'Status'} value={formatProposalStatus(proposal)} />
 			<Attribute
+				isLoading={isLoadingProposal}
+				label={'Status'}
+				value={proposal && formatProposalStatus(proposal)}
+			/>
+			<Attribute
+				isLoading={isLoadingProposal}
 				label={'Time Remaining'}
-				value={secondsToDhms(timeRemaining / 1000) || '-'}
+				value={(proposal && secondsToDhms(timeRemaining / 1000)) || '-'}
 			/>
 			<Attribute
+				isLoading={isLoadingProposal}
 				label={'Voting Started'}
-				value={formatDateTime(proposal.start, 'M/D/YYYY h:mm A Z') || '-'}
+				value={
+					(proposal && formatDateTime(proposal.start, 'M/D/YYYY h:mm A Z')) ||
+					'-'
+				}
 			/>
 			<Attribute
+				isLoading={isLoadingProposal}
 				label={isConcluded ? 'Voting Ended' : 'Voting Ends'}
-				value={formatDateTime(proposal.end, 'M/D/YYYY h:mm A Z') || '-'}
+				value={
+					(proposal && formatDateTime(proposal.end, 'M/D/YYYY h:mm A Z')) || '-'
+				}
 			/>
-			<Attribute label={'Voting System'} value={'Single Choice'} />
-			<Attribute label={'Execution Criteria'} value={'Absolute Majority'} />
-			<Attribute label={'Votes Submitted'} value={proposal.votes.toString()} />
 			<Attribute
+				isLoading={isLoadingProposal}
+				label={'Voting System'}
+				value={'Single Choice'}
+			/>
+			<Attribute
+				isLoading={isLoadingProposal}
+				label={'Execution Criteria'}
+				value={'Absolute Majority'}
+			/>
+			<Attribute
+				isLoading={isLoadingProposal}
+				label={'Votes Submitted'}
+				value={proposal && proposal.votes.toString()}
+			/>
+			<Attribute
+				isLoading={isLoadingProposal}
 				label={'Creator'}
 				value={
-					<EtherscanLink
-						etherscanUri={etherscanUri}
-						address={proposal.author}
-					/>
+					proposal && (
+						<EtherscanLink
+							etherscanUri={etherscanUri}
+							address={proposal.author}
+						/>
+					)
 				}
 			/>
 		</AttributeWrapper>
-	);
-};
-
-const AttributeSkeleton = () => {
-	return (
-		<AttributeWrapper>
-			<Skeleton className={styles.AttributeHeight} />
-			<Skeleton className={styles.AttributeHeight} />
-			<Skeleton className={styles.AttributeHeight} />
-			<Skeleton className={styles.AttributeHeight} />
-			<Skeleton className={styles.AttributeHeight} />
-			<Skeleton className={styles.AttributeHeight} />
-			<Skeleton className={styles.AttributeHeight} />
-		</AttributeWrapper>
-	);
-};
-
-///////////////////////
-// Attribute Wrapper //
-///////////////////////
-
-interface AttributeWrapperProps {
-	children: ReactNode;
-}
-
-const AttributeWrapper = ({ children }: AttributeWrapperProps) => {
-	return (
-		<div className={styles.Container}>
-			<ul className={styles.Wrapper}>{children}</ul>
-		</div>
-	);
-};
-
-///////////////
-// Attribute //
-///////////////
-
-interface AttributeProps {
-	label: string;
-	value: ReactNode;
-}
-
-const Attribute = ({ label, value }: AttributeProps) => {
-	return (
-		<li className={styles.Attribute} key={label + value}>
-			<span className={styles.Traits}>{label}</span>
-			<span className={styles.Properties}>{value} </span>
-		</li>
 	);
 };
 

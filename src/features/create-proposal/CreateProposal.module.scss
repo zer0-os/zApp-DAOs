@@ -67,41 +67,6 @@
 				}
 			}
 		}
-
-		.Section {
-			&Title {
-				display: flex;
-				align-items: center;
-				font-size: $size-medium; // todo- fix variable in zui
-				font-weight: $font-weight-bold;
-				line-height: 1.375rem;
-				margin: 0 0 0.5rem 0;
-				padding: 0;
-
-				> span {
-					margin-left: 0.3125rem;
-				}
-			}
-
-			&Content {
-				display: grid;
-
-				column-gap: 1.5rem;
-				row-gap: 1.5rem;
-				padding: 1.5rem 0 0 0;
-				grid-template-columns: repeat(1, 1fr);
-
-				@include container-breakpoint(500) {
-					grid-template-columns: repeat(2, 1fr);
-				}
-			}
-
-			.InfoText {
-				font-size: $size-small;
-				line-height: 0.938rem;
-				color: $grey-lighter-2;
-			}
-		}
 	}
 }
 

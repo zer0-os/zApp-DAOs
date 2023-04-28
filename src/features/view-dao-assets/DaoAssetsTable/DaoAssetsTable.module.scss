@@ -28,4 +28,17 @@
 	.Message {
 		margin-top: 3rem;
 	}
+
+.Warning {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+
+		a {
+			display: flex;
+			gap: 0.25rem;
+			align-items: center;
+			color: var(--color-secondary-11);
+		}
+	}
 }

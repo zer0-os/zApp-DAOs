@@ -22,6 +22,8 @@ import {
 
 import { DaosTotalProvider } from './pages/DAOs/lib/DaosTotalProvider';
 
+import './styles/global.scss';
+
 const queryClient = new QueryClient();
 
 export const DaosApp: FC<AppProps> = ({ provider, web3 }) => (

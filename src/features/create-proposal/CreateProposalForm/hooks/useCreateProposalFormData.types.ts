@@ -1,8 +1,11 @@
-import type { Option } from '../../../ui';
+export interface TokenOption {
+	title: string;
+	value: string;
+}
 
 export type CreateProposalFormValues = {
 	title: string;
-	tokenOption: Option;
+	tokenOption: TokenOption;
 	amount: string;
 	recipient: string;
 	body: string;
@@ -13,7 +16,7 @@ export type CreateProposalFormData = {
 	setIsFormChanged: (value: boolean) => void;
 	isOpenPublishModal: boolean;
 	setIsOpenPublishModal: (value: boolean) => void;
-	tokenOptions: Option[];
+	tokenOptions: TokenOption[];
 	formValues: CreateProposalFormValues;
 	onSubmit: (values: CreateProposalFormValues) => void;
 };

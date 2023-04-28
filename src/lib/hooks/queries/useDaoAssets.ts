@@ -1,8 +1,6 @@
-import type { zDAOCollectibles } from '@zero-tech/zdao-sdk';
-import type { WrappedCollectible, Asset } from '../../types/dao';
+import type { Asset } from '../../types/dao';
 
 import { useQuery } from 'react-query';
-import { AssetType } from '@zero-tech/zdao-sdk';
 import { useDaoAssetsCoins } from './useDaoAssetsCoins';
 import { useDao } from './useDao';
 
@@ -13,17 +11,18 @@ export const useDaoAssets = (zna?: string) => {
 	const queryData = useQuery(
 		['dao', 'assets', { zna }],
 		async () => {
-			const collectibles: zDAOCollectibles = await dao.listAssetsCollectibles();
-			const wrappedCollectibles: WrappedCollectible[] = collectibles.map(
-				(c) => ({
-					...c,
-					type: AssetType.ERC721
-				})
-			);
-
+			// @note 25/04/2023 commented this out as collectible query is failing
+			// const collectibles: zDAOCollectibles = await dao.listAssetsCollectibles();
+			// const wrappedCollectibles: WrappedCollectible[] = collectibles.map(
+			// 	(c) => ({
+			// 		...c,
+			// 		type: AssetType.ERC721
+			// 	})
+			// );
+			//
 			const allAssets: Asset[] = [
-				...assets?.coins.filter((d) => d.amount !== '0'),
-				...wrappedCollectibles
+				...assets?.coins.filter((d) => d.amount !== '0')
+				// ...wrappedCollectibles
 			];
 
 			return allAssets;

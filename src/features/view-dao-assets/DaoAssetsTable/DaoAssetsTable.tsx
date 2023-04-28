@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import type { FC } from 'react';
+import React, { useMemo } from 'react';
 
 import { convertAsset } from './lib/helpers';
 import { useDaoAssets } from '../../../lib/hooks';
@@ -18,8 +19,8 @@ import {
 	View
 } from '@zero-tech/zui/components';
 import type { Column } from '@zero-tech/zui/components/AsyncTable';
-
 import styles from './DaoAssetsTable.module.scss';
+import { IconArrowUpRight } from '@zero-tech/zui/icons';
 
 ////////////////////
 // DaoAssetsTable //
@@ -94,6 +95,21 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({ zna }) => {
 					message={'This DAO has no assets'}
 				/>
 			)}
+      <TableStatusMessage
+				status={TableStatus.ERROR}
+				message={
+					<div className={styles.Warning}>
+						<span>Not all DAO collectibles may show in the list above</span>
+						<a
+							target={'_blank'}
+							rel={'noreferrer'}
+							href={etherscanUrl + 'tokenholdings?a=' + safeAddress}
+						>
+							Full full asset collection <IconArrowUpRight size={16} />
+						</a>
+					</div>
+				}
+			/>
 		</div>
 	);
 };
@@ -104,6 +120,7 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({ zna }) => {
 
 const useDaoAssetsTableData = (zna?: string) => {
 	const { isLoading, data: assets } = useDaoAssets(zna);
+	const { data: dao } = useDao(zna);
 
 	const isEmpty = !isLoading && !assets;
 
@@ -113,7 +130,7 @@ const useDaoAssetsTableData = (zna?: string) => {
 		return assets.map(convertAsset);
 	}, [assets]);
 
-	return { isLoading, isEmpty, tableData };
+	return { isLoading, tableData, safeAddress: dao?.safeAddress };
 };
 
 /****************************
