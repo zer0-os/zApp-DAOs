@@ -109,7 +109,7 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({ zna }) => {
 								rel={'noreferrer'}
 								href={etherscanUrl + 'tokenholdings?a=' + safeAddress}
 							>
-								Full full asset collection <IconArrowUpRight size={16} />
+								Full asset collection <IconArrowUpRight size={16} />
 							</a>
 						</div>
 					}
