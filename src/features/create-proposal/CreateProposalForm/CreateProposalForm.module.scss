@@ -7,52 +7,55 @@
 	flex-direction: column;
 	gap: 1.5rem;
 	width: 100%;
-}
-
-.DaoAddress {
-	display: flex;
-	flex-direction: column;
-	gap: 1.5rem;
-	width: 100%;
 
 	hr {
 		margin: 1.5rem 0 0.5rem 0;
 		border: 0.05rem solid var(--color-greyscale-7);
 	}
 
-	.DaoAddress {
+	.Section {
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
-		height: 3rem;
-		padding: 0 1.5rem;
-		color: $text-primary;
-		background: $ocean-10;
-		border-radius: 1.5rem;
+		gap: 1.5rem;
 
-		&Header {
+		.Title {
 			display: flex;
-			font-size: 0.75rem;
-			font-weight: $font-weight-regular;
-			line-height: 1rem;
-			color: $grey-lighter-2;
+			flex-direction: column;
+			gap: 0.5rem;
 
-			> span {
-				margin-left: 0.25rem;
+			h2 {
+				font-size: 1.125rem; // 18px
+				margin: 0;
+			}
+
+			span {
+				display: block;
+				font-size: 0.75rem; // 12px
+				color: $grey-lighter-2;
 			}
 		}
 
 		&Content {
-			margin-top: 0.25rem;
-			font-size: $size-tiny;
-			font-weight: $font-weight-regular;
-			line-height: 1rem;
-		}
-	}
+			display: grid;
+			grid-template-columns: repeat(1, 1fr);
+			column-gap: 1.5rem;
+			row-gap: 1.5rem;
 
-	.SelectedToken {
-		font-weight: $font-weight-bold;
-		border-bottom: 1px solid $grey-lighter-2;
+			@include container-breakpoint(600) {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+			> * {
+				padding: 0;
+				margin: 0;
+			}
+		}
+
+		.SubmitSection {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
 	}
 
 	.MarkdownEditorCol {
@@ -68,47 +71,11 @@
 				height: fit-content;
 			}
 		}
-	}
 
-	.SubmitSection {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-}
-
-.Section {
-	display: flex;
-	flex-direction: column;
-	gap: 1.5rem;
-
-	.Title {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-
-		h2 {
-			font-size: 1.125rem; // 18px
-			margin: 0;
-		}
-
-		span {
-			display: block;
-			font-size: 0.75rem; // 12px
-			color: colors.$grey-lighter-2;
-		}
-	}
-
-
-	&Content {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		column-gap: 1.5rem;
-		row-gap: 1.5rem;
-
-		> * {
-			padding: 0;
-			margin: 0;
+		> *:first-child {
+			> *:last-child {
+				width: unset;
+			}
 		}
 	}
 }

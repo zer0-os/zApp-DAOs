@@ -7,7 +7,11 @@ import React, { FC } from 'react';
 import { Form, Formik, useFormikContext } from 'formik';
 
 import { useRouteChangeDialog } from '../../../lib/hooks';
-import { CreateProposalFormValues, useCreateProposalFormData , TokenOption } from './hooks';
+import {
+	CreateProposalFormValues,
+	useCreateProposalFormData,
+	TokenOption
+} from './hooks';
 
 import {
 	Button,
@@ -90,23 +94,10 @@ export const CreateProposalForm: FC<CreateProposalFormProps> = ({
 							</div>
 
 							<FundDetails dao={dao} tokenOptions={tokenOptions} />
-
+							<hr />
 							<VotingDetails />
 
 							<div className={classNames(styles.Section, styles.SubmitSection)}>
-								<Button onPress={submitForm}>Publish Proposal</Button>
-							</div>
-							<hr />
-							{/* Voting Details Section */}
-							<VotingDetails />
-
-							{/* Publish Button */}
-							<div
-								className={classNames(
-									parentStyles.Section,
-									styles.SubmitSection
-								)}
-							>
 								<Button onPress={submitForm}>Publish Proposal</Button>
 							</div>
 						</Form>
@@ -199,7 +190,6 @@ const FundDetails = ({ tokenOptions, dao }: FundDetailsProps) => {
 
 			<div className={styles.SectionContent}>
 				<SelectInput
-					className={styles.Token}
 					label="Token"
 					items={tokenOptions.map((token) => ({
 						id: token.value,
@@ -234,12 +224,7 @@ const FundDetails = ({ tokenOptions, dao }: FundDetailsProps) => {
 				/>
 			</div>
 
-			<div
-				className={classNames(
-					styles.SectionContentCol,
-					styles.MarkdownEditorCol
-				)}
-			>
+			<div className={styles.MarkdownEditorCol}>
 				<MarkdownEditor
 					text={values.body}
 					placeholder="Proposal Content"

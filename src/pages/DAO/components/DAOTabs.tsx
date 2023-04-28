@@ -58,7 +58,7 @@ export const DAOTabs = ({
 			<TabsNav tabs={tabs} location={pathname} />
 
 			{/* New Proposal Button */}
-			{showCreateProposalButton && (
+			{!showCreateProposalButton && (
 				<Button onPress={handleOnPressNewProposal}>New Proposal</Button>
 			)}
 		</div>
