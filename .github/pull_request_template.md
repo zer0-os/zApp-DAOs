@@ -15,8 +15,8 @@
 
 ## 2. PR type
 
-<!-- 
-  Please try to limit your pull request to one type, submit multiple pull requests if needed. 
+<!--
+  Please try to limit your pull request to one type, submit multiple pull requests if needed.
   One of:
     - Bugfix
     - Feature

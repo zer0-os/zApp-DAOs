@@ -1,23 +1,28 @@
-@import '../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+@import '../../styles/breakpoints';
 @import '../../../node_modules/@zero-tech/zui/styles/_colors.scss';
-@import '../../../node_modules/@zero-tech/zui/styles/_dimensions.scss';
+@import '../../../node_modules/@zero-tech/zui/styles/_typography.scss';
 
 .Container {
 	display: flex;
 	flex-direction: column;
 	padding: 1rem 0;
-	gap: 2rem;
+	gap: 1.5rem;
+
+	@include container-breakpoint(500) {
+		gap: 2rem;
+	}
 
 	.Header {
 		padding: 0;
 		margin: 0;
-		font-size: 2.25rem;
+		font-size: $size-large;
 		font-weight: $font-weight-bold;
-		line-height: 2.72rem;
+		line-height: 1.875rem;
 
-		@media only screen and (max-width: $breakpoint-mobile-xl) {
-			font-size: $size-large;
-			line-height: 1.875rem;
+		@include container-breakpoint(500) {
+			font-size: 2.25rem;
+			font-weight: $font-weight-bold;
+			line-height: 2.72rem;
 		}
 	}
 
@@ -25,9 +30,10 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		margin-top: 1.5rem;
 
-		gap: 1.5rem;
+		@include container-breakpoint(500) {
+			gap: 1.5rem;
+		}
 
 		.Loading {
 			justify-content: center;
@@ -38,11 +44,21 @@
 			flex-direction: column;
 			align-items: center;
 			gap: 1.5rem;
+			margin-bottom: 2rem;
+
+			@include container-breakpoint(500) {
+				margin-bottom: 0;
+			}
 
 			span {
+				font-size: $size-small;
 				text-align: center;
 				line-height: 1.5rem;
 				max-width: 31.75rem;
+
+				@include container-breakpoint(500) {
+					font-size: $size-default;
+				}
 
 				&[data-variant='warning'] {
 					color: $red-100;
@@ -50,36 +66,6 @@
 					max-width: 100%;
 				}
 			}
-		}
-
-		.Section {
-			&Title {
-				display: flex;
-				align-items: center;
-				font-size: $size-medium; // todo- fix variable in zui
-				font-weight: $font-weight-bold;
-				line-height: 1.375rem;
-
-				> span {
-					margin-left: 0.3125rem;
-				}
-			}
-
-			&Content {
-				display: grid;
-				grid-template-columns: repeat(2, 1fr);
-				column-gap: 1.5rem;
-				row-gap: 1.5rem;
-				padding: 1.5rem 0;
-
-				@media only screen and (max-width: $breakpoint-mobile-l) {
-					grid-template-columns: repeat(1, 1fr);
-				}
-			}
-		}
-
-		@media only screen and (max-width: $breakpoint-mobile-xl) {
-			margin-top: 0;
 		}
 	}
 }

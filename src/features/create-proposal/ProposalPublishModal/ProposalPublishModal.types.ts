@@ -8,4 +8,5 @@ export type ProposalPublishModalProps = Pick<CreateProposalProps, 'dao'> & {
 	amount: string;
 	recipient: string;
 	body: string;
+	zna: string;
 };

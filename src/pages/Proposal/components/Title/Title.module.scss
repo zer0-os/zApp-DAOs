@@ -1,0 +1,15 @@
+@import '../../../../styles/breakpoints';
+@import '../../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
+.Title {
+	margin-bottom: 1rem;
+	font-size: $size-large;
+	font-weight: $font-weight-bold;
+	line-height: 2.75rem;
+
+	@include container-breakpoint(500) {
+		margin-bottom: 1.5rem;
+		font-size: 2rem;
+		line-height: 1.875rem;
+	}
+}

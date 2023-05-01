@@ -2,21 +2,21 @@ import { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import {
+	useDao,
 	useDaoAssets,
 	useUserPaymentTokenBalance,
 	useWeb3
 } from '../../lib/hooks';
-import { DAO_CREATE_PROPOSAL } from '../../pages/DAO/DAO.constants';
-import { AssetType, zDAO } from '@zero-tech/zdao-sdk';
+import { DAO_CREATE_PROPOSAL } from '../../pages/DAO';
+import { AssetType } from '@zero-tech/zdao-sdk';
 
-export const useCreateProposalContainerData = (
-	isLoadingDao: boolean,
-	dao: zDAO
-) => {
+export const useCreateProposalContainerData = (zna: string) => {
 	const history = useHistory();
-
 	const { account } = useWeb3();
-	const { data: assets, isLoading: isLoadingAssets } = useDaoAssets(dao);
+
+	const { data: dao } = useDao(zna);
+	const { data: assets, isLoading: isLoadingAssets } = useDaoAssets(zna);
+
 	const {
 		isLoading: isLoadingPaymentTokenBalance,
 		data: userPaymentTokenBalance
@@ -39,8 +39,7 @@ export const useCreateProposalContainerData = (
 		history.replace(toAllProposals);
 	}, [history, toAllProposals]);
 
-	const isLoading =
-		isLoadingDao || isLoadingPaymentTokenBalance || isLoadingAssets;
+	const isLoading = isLoadingPaymentTokenBalance || isLoadingAssets;
 
 	return {
 		assets,

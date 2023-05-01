@@ -1,24 +1,25 @@
-import type { FC } from 'react';
+import React, { FC, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import type { Proposal } from '@zero-tech/zdao-sdk';
 import type { ProposalPublishModalProps } from './ProposalPublishModal.types';
-
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import classNames from 'classnames/bind';
 import { parseUnits } from 'ethers/lib/utils';
-import { Wizard, Modal } from '@zero-tech/zui/components';
-import { useWeb3, useDaoProposals } from '../../../lib/hooks';
+import { useDaoProposals, useWeb3 } from '../../../lib/hooks';
 import {
-	Step,
+	PUBLISH_MODAL_BODY,
 	PUBLISH_MODAL_HEADER,
-	PUBLISH_MODAL_BODY
+	Step
 } from './ProposalPublishModal.constants';
-import { DAO_CREATE_PROPOSAL } from '../../../pages/DAO/DAO.constants';
 import {
 	DEFAULT_VOTE_CHOICES,
 	DEFAULT_VOTE_DURATION_SECONDS,
 	NEW_PROPOSAL_TWEET_OPTION
 } from '../CreateProposal.constants';
+
+import { DAO_CREATE_PROPOSAL } from '../../../pages';
+import { Modal, Wizard } from '@zero-tech/zui/components';
+
+import classNames from 'classnames/bind';
 import styles from './ProposalPublishModal.module.scss';
 
 const cx = classNames.bind(styles);
@@ -31,12 +32,13 @@ export const ProposalPublishModal: FC<ProposalPublishModalProps> = ({
 	token,
 	amount,
 	recipient,
-	body
+	body,
+	zna
 }) => {
 	// Hooks
 	const history = useHistory();
 	const { account, provider } = useWeb3();
-	const { refetch: refetchProposals } = useDaoProposals(dao);
+	const { refetch: refetchProposals } = useDaoProposals(zna);
 
 	// States
 	const [step, setStep] = useState<Step>(Step.Confirm);

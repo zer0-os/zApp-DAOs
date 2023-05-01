@@ -1,0 +1,19 @@
+@import '../../../styles/breakpoints';
+
+.DaoProposalsTable {
+	margin-top: 1rem;
+
+	.ControlsWrapper {
+		display: none;
+
+		@include container-breakpoint(500) {
+			display: flex;
+			justify-content: flex-end;
+			margin-bottom: 1rem;
+		}
+	}
+
+	.Message {
+		margin-top: 3rem;
+	}
+}

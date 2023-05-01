@@ -1,0 +1,57 @@
+@import '../../../styles/breakpoints';
+
+.DaoAssetsTable {
+	margin-top: 1rem;
+
+	.ControlsWrapper {
+		display: none;
+
+		@include container-breakpoint(500) {
+			display: flex;
+			justify-content: flex-end;
+			margin-bottom: 1rem;
+		}
+	}
+
+	.DaosAssetsView {
+		position: relative;
+
+		.Grid {
+			grid-template-columns: 1fr;
+
+			@include container-breakpoint(300) {
+				grid-template-columns: repeat(auto-fit, minmax(32%, 0.5fr));
+			}
+		}
+	}
+
+	.Message {
+		margin-top: 3rem;
+	}
+
+	.FlexWrapper {
+		margin-top: 0.5rem;
+
+		@include container-breakpoint(500) {
+			margin-top: 1.5rem;
+		}
+
+		.WarningContainer {
+			display: flex;
+			justify-content: flex-start;
+
+			.Warning {
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem;
+
+				a {
+					display: flex;
+					gap: 0.25rem;
+					align-items: center;
+					color: var(--color-secondary-11);
+				}
+			}
+		}
+	}
+}
