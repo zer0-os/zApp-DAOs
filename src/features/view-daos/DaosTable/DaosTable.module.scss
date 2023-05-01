@@ -1,12 +1,31 @@
-.Container {
-	margin-top: 2rem;
+@import '../../../styles/breakpoints';
 
-	.Table {
-		margin-top: 1rem;
+.DaosTable {
+	margin-top: 1rem;
 
-		> table {
-			border-collapse: collapse;
-			border-spacing: 0;
+	.ControlsWrapper {
+		display: none;
+
+		@include container-breakpoint(500) {
+			display: flex;
+			justify-content: flex-end;
+			margin-bottom: 1rem;
 		}
+	}
+
+	.DaoView {
+		position: relative;
+
+		.Grid {
+			grid-template-columns: 1fr;
+
+			@include container-breakpoint(300) {
+				grid-template-columns: repeat(auto-fit, minmax(32%, 0.5fr));
+			}
+		}
+	}
+
+	.Message {
+		margin-top: 3rem;
 	}
 }

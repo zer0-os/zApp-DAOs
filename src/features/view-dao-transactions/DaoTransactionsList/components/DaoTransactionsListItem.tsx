@@ -52,33 +52,33 @@ export const DaoTransactionsListItem: FC<DaoTransactionItemProps> = ({
 					/>
 					<IconArrowDownLeft className={styles.ArrowIcon} isFilled />
 				</span>
-				<span className={styles.Type}>
-					{TRANSACTION_TYPE[transaction.type]}
-				</span>
-				<EtherscanLink
-					className={styles.EtherscanLink}
-					etherscanUri={etherscanUri}
-					address={transaction.txHash}
-					type={'tx'}
-					label={transactionValue}
-				/>
-				<span className={styles.Direction}>
-					{TRANSACTION_DIRECTION[transaction.type]}
-				</span>
-				<EtherscanLink
-					className={styles.EtherscanLink}
-					etherscanUri={etherscanUri}
-					address={transaction.to}
-					truncatingStartCharactersCount={0}
-				/>
-			</div>
-			<div className={styles.DateTime}>
-				<span className={styles.Date}>
-					{transaction.created.toLocaleDateString()}
-				</span>
-				<span className={styles.Time}>
-					{transaction.created.toLocaleTimeString()}
-				</span>
+				<div className={styles.OuterTextWrapper}>
+					<div className={styles.InnerTextWrapper}>
+						<span className={styles.Type}>
+							{TRANSACTION_TYPE[transaction.type]}
+						</span>
+						<EtherscanLink
+							className={styles.EtherscanLink}
+							etherscanUri={etherscanUri}
+							address={transaction.txHash}
+							type={'tx'}
+							label={transactionValue}
+						/>
+						<span className={styles.Direction}>
+							{TRANSACTION_DIRECTION[transaction.type]}
+						</span>
+						<EtherscanLink
+							className={styles.EtherscanLink}
+							etherscanUri={etherscanUri}
+							address={transaction.to}
+							truncatingStartCharactersCount={0}
+						/>
+					</div>
+					<div className={styles.DateTime}>
+						<span>{transaction.created.toLocaleDateString()}</span>
+						<span>{transaction.created.toLocaleTimeString()}</span>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

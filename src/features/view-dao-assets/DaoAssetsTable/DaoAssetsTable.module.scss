@@ -1,23 +1,57 @@
-.Container {
-	.Table {
-		margin-top: 1rem;
+@import '../../../styles/breakpoints';
 
-		> table {
-			border-collapse: collapse;
-			border-spacing: 0;
+.DaoAssetsTable {
+	margin-top: 1rem;
+
+	.ControlsWrapper {
+		display: none;
+
+		@include container-breakpoint(500) {
+			display: flex;
+			justify-content: flex-end;
+			margin-bottom: 1rem;
 		}
 	}
 
-	.Warning {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
+	.DaosAssetsView {
+		position: relative;
 
-		a {
+		.Grid {
+			grid-template-columns: 1fr;
+
+			@include container-breakpoint(300) {
+				grid-template-columns: repeat(auto-fit, minmax(32%, 0.5fr));
+			}
+		}
+	}
+
+	.Message {
+		margin-top: 3rem;
+	}
+
+	.FlexWrapper {
+		margin-top: 0.5rem;
+
+		@include container-breakpoint(500) {
+			margin-top: 1.5rem;
+		}
+
+		.WarningContainer {
 			display: flex;
-			gap: 0.25rem;
-			align-items: center;
-			color: var(--color-secondary-11);
+			justify-content: flex-start;
+
+			.Warning {
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem;
+
+				a {
+					display: flex;
+					gap: 0.25rem;
+					align-items: center;
+					color: var(--color-secondary-11);
+				}
+			}
 		}
 	}
 }
