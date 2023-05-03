@@ -20,7 +20,7 @@ type AttributesProps = {
 
 export const Attributes = ({ proposalId, zna }: AttributesProps) => {
 	const { chainId } = useWeb3();
-	const { data: proposal } = useDaoProposal({
+	const { data: proposal, isLoading: isLoadingProposal } = useDaoProposal({
 		zna,
 		proposalId
 	});
@@ -31,8 +31,6 @@ export const Attributes = ({ proposalId, zna }: AttributesProps) => {
 	const timeRemaining = proposal
 		? moment(proposal.end).diff(moment())
 		: undefined;
-
-	const isLoadingProposal = true;
 
 	return (
 		<AttributeWrapper>

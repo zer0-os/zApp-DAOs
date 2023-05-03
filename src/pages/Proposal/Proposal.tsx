@@ -21,11 +21,8 @@ export const Proposal: FC = () => {
 	const { proposalId } = useParams<{ proposalId: ProposalId }>();
 	const { zna } = useCurrentDao();
 
-	const { isLoadingVotes, proposal, votes, refetch, dao } = useProposalPageData(
-		{ proposalId, zna }
-	);
-
-	const isLoadingProposal = true;
+	const { isLoadingProposal, isLoadingVotes, proposal, votes, refetch, dao } =
+		useProposalPageData({ proposalId, zna });
 
 	const shouldShowVoteBar =
 		proposal &&
