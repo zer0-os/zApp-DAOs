@@ -1,6 +1,6 @@
 import { useHistory, useLocation } from 'react-router-dom';
 
-import moment, { duration } from 'moment';
+import { formatDuration, isBefore, intervalToDuration } from 'date-fns/fp';
 import removeMarkdown from 'markdown-to-text';
 import type { Proposal } from '@zero-tech/zdao-sdk';
 import { useTimer } from '../../../../lib/hooks';
@@ -37,7 +37,7 @@ export const useDaoProposalsTableItemData = (
 	const history = useHistory();
 	const location = useLocation();
 
-	const isConcluded = moment(proposal.end).isBefore(moment());
+	const isConcluded = isBefore(new Date(proposal.end), new Date());
 
 	const { time } = useTimer(
 		proposal.end,
@@ -48,7 +48,9 @@ export const useDaoProposalsTableItemData = (
 	const closingStatus = getProposalClosingStatus(time, isConcluded);
 	const closingMessage = isConcluded
 		? DEFAULT_TIMER_EXPIRED_LABEL
-		: 'Closing in ' + duration(moment(proposal.end).diff(moment())).humanize();
+		: `Closing in ${formatDuration(
+				intervalToDuration({ start: new Date(), end: new Date(proposal.end) }),
+		  )}`;
 
 	const onClick = () => {
 		history.push(formatUrl(location.pathname, proposal.id), {
