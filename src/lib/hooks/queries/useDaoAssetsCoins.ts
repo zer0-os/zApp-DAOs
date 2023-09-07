@@ -13,7 +13,7 @@ export const useDaoAssetsCoins = (zna?: string) => {
 			retry: false,
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
-			enabled: Boolean(dao)
-		}
+			enabled: Boolean(dao),
+		},
 	);
 };

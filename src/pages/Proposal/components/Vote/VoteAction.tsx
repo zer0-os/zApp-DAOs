@@ -7,11 +7,11 @@ import { ProposalState } from '@zero-tech/zdao-sdk';
 import {
 	useCurrentDao,
 	useWeb3,
-	useUserProposalVoteData
+	useUserProposalVoteData,
 } from '../../../../lib/hooks';
 import {
 	isFromSnapshotWithMultipleChoices,
-	getSnapshotProposalLink
+	getSnapshotProposalLink,
 } from '../../../../features/view-dao-proposals/DaoProposalsTable/lib';
 
 import { LoadingIndicator, Tooltip } from '@zero-tech/zui/components';
@@ -49,7 +49,7 @@ export const VoteAction: FC<VoteActionProps> = ({
 	userChoice,
 	voteStatus,
 	onClickApprove,
-	onClickDeny
+	onClickDeny,
 }) => {
 	const { dao, zna } = useCurrentDao();
 	const { account } = useWeb3();
@@ -145,7 +145,7 @@ const VoteSummaryMessage = ({ vote }: { vote: number }) => {
 //////////////////
 
 const SnapshotLink = ({
-	snapshotProposalLink
+	snapshotProposalLink,
 }: {
 	snapshotProposalLink: string;
 }) => {

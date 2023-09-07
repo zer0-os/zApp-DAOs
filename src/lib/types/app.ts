@@ -9,6 +9,7 @@ enum Chains {
 }
 
 export type AppProps = {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	provider: any;
 	route: string;
 	web3: {

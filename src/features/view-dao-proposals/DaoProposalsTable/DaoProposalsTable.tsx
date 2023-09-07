@@ -16,7 +16,7 @@ import {
 	Table,
 	TableStatus,
 	TableStatusMessage,
-	View
+	View,
 } from '@zero-tech/zui/components';
 
 import styles from './DaoProposalsTable.module.scss';
@@ -29,7 +29,7 @@ const TABLE_COLUMNS: Column[] = [
 	{ id: 'title', header: 'Title', alignment: 'left' },
 	{ id: 'status', header: 'Status', alignment: 'left' },
 	{ id: 'closes', header: 'Closes', alignment: 'left' },
-	{ id: 'votes', header: 'Votes', alignment: 'right' }
+	{ id: 'votes', header: 'Votes', alignment: 'right' },
 ];
 
 // @note: this value is being used in TableControls.module.scss - change in both places
@@ -101,13 +101,13 @@ const useProposalsTableData = (zna: string) => {
 
 	const sortedProposals = useMemo(
 		() => sortProposals(proposalsData),
-		[proposalsData]
+		[proposalsData],
 	);
 
 	return {
 		sortedProposals,
 		isEmpty,
-		isLoading: isLoadingProposals
+		isLoading: isLoadingProposals,
 	};
 };
 
@@ -121,7 +121,7 @@ interface DaosProposalsViewProps {
 
 const DaosProposalsView = ({
 	isGridView,
-	tableData
+	tableData,
 }: DaosProposalsViewProps) => {
 	if (!tableData) {
 		return <></>;

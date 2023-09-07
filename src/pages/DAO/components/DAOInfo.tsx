@@ -25,7 +25,7 @@ export const DAOInfo = ({
 	title,
 	isLoadingDao,
 	isLoadingAssets,
-	assetsInUsd
+	assetsInUsd,
 }: DAOInfoProps) => {
 	return (
 		<div className={styles.Stats}>
@@ -41,7 +41,7 @@ export const DAOInfo = ({
 				label="Total Value"
 				primaryText={{
 					isLoading: isLoadingAssets,
-					text: DOLLAR_SYMBOL + formatFiat(assetsInUsd)
+					text: DOLLAR_SYMBOL + formatFiat(assetsInUsd),
 				}}
 			/>
 		</div>

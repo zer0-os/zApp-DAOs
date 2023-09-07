@@ -53,11 +53,11 @@
 			border-radius: 9999px;
 
 			&.Closing {
-				&[status="warning"] {
+				&[status='warning'] {
 					color: colors.$red-100;
 				}
 
-				&[status="error"] {
+				&[status='error'] {
 					color: colors.$red-300;
 				}
 			}

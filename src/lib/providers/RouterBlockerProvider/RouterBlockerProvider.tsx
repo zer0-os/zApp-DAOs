@@ -9,11 +9,11 @@ import { INITIAL_DIALOG_CONFIG } from './RouterBlockerProvider.constants';
 import styles from './RouterBlockerProvider.module.scss';
 
 export const RouterBlockerProvider: FC<RouterBlockerProviderProps> = ({
-	children
+	children,
 }) => {
 	const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 	const [config, setConfig] = useState<contextTypes.RouterBlockerDialogConfig>(
-		INITIAL_DIALOG_CONFIG
+		INITIAL_DIALOG_CONFIG,
 	);
 
 	const handleDialogOpen: contextTypes.RouterBlockerContext['showDialog'] =
@@ -22,7 +22,7 @@ export const RouterBlockerProvider: FC<RouterBlockerProviderProps> = ({
 				setConfig(config);
 				setIsDialogOpen(true);
 			},
-			[setConfig, setIsDialogOpen]
+			[setConfig, setIsDialogOpen],
 		);
 
 	const handleDialogClose = useCallback(() => {
@@ -38,7 +38,7 @@ export const RouterBlockerProvider: FC<RouterBlockerProviderProps> = ({
 	return (
 		<RouterBlockerContext.Provider
 			value={{
-				showDialog: handleDialogOpen
+				showDialog: handleDialogOpen,
 			}}
 		>
 			<Modal

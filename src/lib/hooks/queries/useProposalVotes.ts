@@ -9,7 +9,7 @@ interface UseDaoProposalParams {
 export const useProposalVotes = ({ zna, proposalId }: UseDaoProposalParams) => {
 	const { data: proposal, isLoading: isLoadingProposal } = useDaoProposal({
 		zna,
-		proposalId
+		proposalId,
 	});
 
 	const query = useQuery(
@@ -18,12 +18,12 @@ export const useProposalVotes = ({ zna, proposalId }: UseDaoProposalParams) => {
 			return await proposal.listVotes();
 		},
 		{
-			enabled: Boolean(proposal)
-		}
+			enabled: Boolean(proposal),
+		},
 	);
 
 	return {
 		...query,
-		isLoading: isLoadingProposal || query.isLoading
+		isLoading: isLoadingProposal || query.isLoading,
 	};
 };

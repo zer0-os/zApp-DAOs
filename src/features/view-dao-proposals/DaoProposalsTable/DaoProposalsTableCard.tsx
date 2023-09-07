@@ -14,7 +14,7 @@ type DaoProposalsTableCardProps = {
 };
 
 export const DaoProposalsTableCard: FC<DaoProposalsTableCardProps> = ({
-	proposal
+	proposal,
 }) => {
 	const { title, description, status, closingStatus, closingMessage, onClick } =
 		useDaoProposalsTableItemData(proposal, true);
@@ -45,7 +45,7 @@ interface StatusMessageProps {
 const StatusMessage = ({
 	closingStatus,
 	closingMessage,
-	status
+	status,
 }: StatusMessageProps) => {
 	return (
 		<div className={styles.Buttons}>

@@ -10,12 +10,12 @@ export const useDaoProposals = (zna: string) => {
 			return await dao.listProposals();
 		},
 		{
-			enabled: Boolean(dao) && Boolean(zna)
-		}
+			enabled: Boolean(dao) && Boolean(zna),
+		},
 	);
 
 	return {
 		...query,
-		isLoading: query.isLoading || isLoadingDao
+		isLoading: query.isLoading || isLoadingDao,
 	};
 };

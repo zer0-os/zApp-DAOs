@@ -20,12 +20,12 @@ export const useAllDaos = () => {
 			retry: false,
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
-			enabled: Boolean(znas) && Boolean(znas.length)
-		}
+			enabled: Boolean(znas) && Boolean(znas.length),
+		},
 	);
 
 	return {
 		...query,
-		isLoading: isLoadingZnas || query.isLoading
+		isLoading: isLoadingZnas || query.isLoading,
 	};
 };

@@ -94,7 +94,7 @@ const WarningMessage = ({
 	daoTitle,
 	daoVotingTokenSymbol,
 	isUserHoldingVotingToken,
-	isDaoHoldingERC20Asset
+	isDaoHoldingERC20Asset,
 }: WarningMessageProps) => {
 	let content;
 

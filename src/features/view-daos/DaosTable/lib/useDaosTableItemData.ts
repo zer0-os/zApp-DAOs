@@ -23,7 +23,7 @@ export type DaosTableItemData = {
 };
 
 export const useDaosTableItemData = (
-	daoData: DAOTableDataItem
+	daoData: DAOTableDataItem,
 ): DaosTableItemData => {
 	const history = useHistory();
 	const { isLoading, data: coinsData } = useDaoAssetsCoins(daoData.zna);
@@ -42,6 +42,6 @@ export const useDaosTableItemData = (
 		zna: '0://' + daoData.zna,
 		totalUsd: !isLoading && DOLLAR_SYMBOL + formatFiat(coinsData?.amountInUSD),
 		isLoading,
-		onClick
+		onClick,
 	};
 };

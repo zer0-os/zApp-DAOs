@@ -9,9 +9,9 @@ export const validationSchema = Yup.object().shape({
 		.test(
 			'isValidERC20Address',
 			'Please enter a valid ethereum wallet address',
-			ethers.utils.isAddress
+			ethers.utils.isAddress,
 		),
 	body: Yup.string().required(
-		'Please add a description to your funding proposal'
-	)
+		'Please add a description to your funding proposal',
+	),
 });

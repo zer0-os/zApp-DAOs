@@ -11,7 +11,7 @@ interface TableControlsProps {
 
 export const TableControls = ({
 	view,
-	onChangeView
+	onChangeView,
 }: TableControlsProps): JSX.Element => {
 	return (
 		<Controls>

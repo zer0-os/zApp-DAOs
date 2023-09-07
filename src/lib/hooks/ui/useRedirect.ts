@@ -23,6 +23,6 @@ export const useRedirect = (): UseRedirectReturn => {
 	};
 
 	return {
-		redirect
+		redirect,
 	};
 };

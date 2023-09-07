@@ -13,12 +13,12 @@ export const useDaoTransactions = (zna?: string) => {
 			retry: false,
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
-			enabled: Boolean(dao) && Boolean(zna)
-		}
+			enabled: Boolean(dao) && Boolean(zna),
+		},
 	);
 
 	return {
 		...query,
-		isLoading: isLoading || query.isLoading
+		isLoading: isLoading || query.isLoading,
 	};
 };

@@ -8,12 +8,12 @@ import { useDaoProposals, useWeb3 } from '../../../lib/hooks';
 import {
 	PUBLISH_MODAL_BODY,
 	PUBLISH_MODAL_HEADER,
-	Step
+	Step,
 } from './ProposalPublishModal.constants';
 import {
 	DEFAULT_VOTE_CHOICES,
 	DEFAULT_VOTE_DURATION_SECONDS,
-	NEW_PROPOSAL_TWEET_OPTION
+	NEW_PROPOSAL_TWEET_OPTION,
 } from '../CreateProposal.constants';
 
 import { DAO_CREATE_PROPOSAL } from '../../../pages';
@@ -33,7 +33,7 @@ export const ProposalPublishModal: FC<ProposalPublishModalProps> = ({
 	amount,
 	recipient,
 	body,
-	zna
+	zna,
 }) => {
 	// Hooks
 	const history = useHistory();
@@ -69,14 +69,15 @@ export const ProposalPublishModal: FC<ProposalPublishModalProps> = ({
 					recipient,
 					amount: parseUnits(amount).toString(),
 					...dao.votingToken,
-					token
-				}
+					token,
+				},
 			});
 
 			refetchProposals();
 
 			setCreatedProposalId(newProposalId);
 			setStep(Step.Success);
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (e: any) {
 			console.error(e);
 			if (e.code === 4001) {
@@ -92,7 +93,7 @@ export const ProposalPublishModal: FC<ProposalPublishModalProps> = ({
 		if (createdProposalId) {
 			const pathname = history.location.pathname.replace(
 				`/${DAO_CREATE_PROPOSAL}`,
-				`/${createdProposalId}`
+				`/${createdProposalId}`,
 			);
 
 			history.push(pathname);
@@ -103,19 +104,19 @@ export const ProposalPublishModal: FC<ProposalPublishModalProps> = ({
 		if (createdProposalId) {
 			const pathname = history.location.pathname.replace(
 				`/${DAO_CREATE_PROPOSAL}`,
-				`/${createdProposalId}`
+				`/${createdProposalId}`,
 			);
 			const newProposalUrl = encodeURIComponent(
-				`${location.origin}/${pathname}`
+				`${location.origin}/${pathname}`,
 			);
 
 			window.open(
 				NEW_PROPOSAL_TWEET_OPTION.URL.replace(
 					/NEW_PROPOSAL_TWEET_URL/g,
-					newProposalUrl
+					newProposalUrl,
 				),
 				'',
-				NEW_PROPOSAL_TWEET_OPTION.OPTIONS
+				NEW_PROPOSAL_TWEET_OPTION.OPTIONS,
 			);
 		}
 	};
@@ -131,7 +132,7 @@ export const ProposalPublishModal: FC<ProposalPublishModalProps> = ({
 			>
 				<div
 					className={cx(styles.Message, {
-						Success: step === Step.Success
+						Success: step === Step.Success,
 					})}
 				>
 					{PUBLISH_MODAL_BODY[step]}

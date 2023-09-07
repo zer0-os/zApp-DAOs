@@ -9,7 +9,7 @@ type VoteButtonsProps = {
 
 export const VoteButtons: FC<VoteButtonsProps> = ({
 	onClickApprove,
-	onClickDeny
+	onClickDeny,
 }) => {
 	return (
 		<ul className={styles.Choices}>

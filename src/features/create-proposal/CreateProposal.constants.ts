@@ -7,5 +7,5 @@ export const DEFAULT_VOTE_CHOICES = ['Approve', 'Deny'];
 export const NEW_PROPOSAL_TWEET_OPTION = {
 	URL: 'https://twitter.com/share?url=NEW_PROPOSAL_TWEET_URL',
 	OPTIONS:
-		'menubar=no,toolbar=no,resizable=no,scrollbars=no,personalbar=no,height=575,width=500'
+		'menubar=no,toolbar=no,resizable=no,scrollbars=no,personalbar=no,height=575,width=500',
 };

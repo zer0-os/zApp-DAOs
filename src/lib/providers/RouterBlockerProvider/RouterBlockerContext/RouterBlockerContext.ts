@@ -3,7 +3,7 @@ import type * as contextTypes from './RouterBlockerContext.types';
 import { createContext } from 'react';
 
 const INITIAL_STATE: contextTypes.RouterBlockerContext = {
-	showDialog: () => undefined
+	showDialog: () => undefined,
 };
 
 export const RouterBlockerContext =

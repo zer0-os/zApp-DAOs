@@ -10,7 +10,7 @@ import { EtherscanLink } from '../../../../features/ui';
 
 import {
 	Attribute,
-	Attributes as AttributeWrapper
+	Attributes as AttributeWrapper,
 } from '../../../../features/ui/Attributes/Attributes';
 
 type AttributesProps = {
@@ -22,7 +22,7 @@ export const Attributes = ({ proposalId, zna }: AttributesProps) => {
 	const { chainId } = useWeb3();
 	const { data: proposal, isLoading: isLoadingProposal } = useDaoProposal({
 		zna,
-		proposalId
+		proposalId,
 	});
 
 	const etherscanUri = getEtherscanUri(chainId ?? 1);

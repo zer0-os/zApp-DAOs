@@ -12,7 +12,7 @@ type ConnectWalletProps = {
 
 export const ConnectWallet: FC<ConnectWalletProps> = ({
 	buttonText,
-	message
+	message,
 }) => {
 	const { connectWallet } = useWeb3();
 

@@ -33,10 +33,10 @@ export const Vote: FC<VoteProps> = ({ proposal, onCompleteVoting }) => {
 		handleVote,
 		handleClose,
 		handleComplete,
-		handleChooseOption
+		handleChooseOption,
 	} = useVote({
 		proposal,
-		onCompleteVoting
+		onCompleteVoting,
 	});
 
 	return (
@@ -118,7 +118,7 @@ const useVote = ({ proposal, onCompleteVoting }: UseVoteParams) => {
 			}
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[account]
+		[account],
 	);
 
 	return {
@@ -129,6 +129,6 @@ const useVote = ({ proposal, onCompleteVoting }: UseVoteParams) => {
 		handleClose,
 		handleChooseOption,
 		handleComplete,
-		isUserConnected: Boolean(account)
+		isUserConnected: Boolean(account),
 	};
 };

@@ -6,7 +6,7 @@ import { RouterBlockerContext } from '../../providers/RouterBlockerProvider/Rout
 
 export function useRouteChangeDialog(
 	config: RouterBlockerDialogConfig,
-	isDisabled = true
+	isDisabled = true,
 ) {
 	const history = useHistory();
 
@@ -23,7 +23,7 @@ export function useRouteChangeDialog(
 							unblock();
 							// proceed with the blocked navigation
 							history.push(pathname);
-						}
+						},
 					};
 				}
 
@@ -42,6 +42,6 @@ export function useRouteChangeDialog(
 	useEffect(
 		blocker,
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[history, isDisabled]
+		[history, isDisabled],
 	);
 }

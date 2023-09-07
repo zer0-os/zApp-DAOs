@@ -8,7 +8,7 @@ import {
 	formatTransactionValue,
 	TRANSACTION_IMAGE,
 	TRANSACTION_TYPE,
-	TRANSACTION_DIRECTION
+	TRANSACTION_DIRECTION,
 } from './../lib';
 
 import { Image } from '@zero-tech/zui/components';
@@ -25,7 +25,7 @@ type DaoTransactionItemProps = {
 };
 
 export const DaoTransactionsListItem: FC<DaoTransactionItemProps> = ({
-	transaction
+	transaction,
 }) => {
 	const { chainId } = useWeb3();
 
@@ -33,7 +33,7 @@ export const DaoTransactionsListItem: FC<DaoTransactionItemProps> = ({
 
 	const transactionValue = useMemo(
 		() => formatTransactionValue(transaction),
-		[transaction]
+		[transaction],
 	);
 
 	return (

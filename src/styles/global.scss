@@ -1,7 +1,7 @@
 @use '../../node_modules/@zero-tech/zui/styles/theme';
 
 hr {
-    height: 0;
-    border: 0;
-    border-bottom: 0.0625rem solid theme.$color-greyscale-6; // 1px
+	height: 0;
+	border: 0;
+	border-bottom: 0.0625rem solid theme.$color-greyscale-6; // 1px
 }

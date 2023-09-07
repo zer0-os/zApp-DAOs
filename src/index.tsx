@@ -17,7 +17,7 @@ import {
 	ZdaoSdkProvider,
 	ZnsSdkProvider,
 	RouterBlockerProvider,
-	CurrentDaoProvider
+	CurrentDaoProvider,
 } from './lib/providers';
 
 import { DaosTotalProvider } from './pages/DAOs/lib/DaosTotalProvider';

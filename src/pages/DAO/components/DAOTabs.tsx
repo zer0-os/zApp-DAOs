@@ -25,7 +25,7 @@ export interface DAOTabsProps {
 
 export const DAOTabs = ({
 	showCreateProposalButton,
-	baseUrl
+	baseUrl,
 }: DAOTabsProps) => {
 	const history = useHistory();
 	const { pathname } = useLocation();
@@ -34,18 +34,18 @@ export const DAOTabs = ({
 		() => [
 			{
 				text: DaoTab.Assets,
-				to: baseUrl + ROUTES.ZDAO_ASSETS
+				to: baseUrl + ROUTES.ZDAO_ASSETS,
 			},
 			{
 				text: DaoTab.Transactions,
-				to: baseUrl + ROUTES.ZDAO_TRANSACTIONS
+				to: baseUrl + ROUTES.ZDAO_TRANSACTIONS,
 			},
 			{
 				text: DaoTab.Proposals,
-				to: baseUrl + ROUTES.ZDAO_PROPOSALS
-			}
+				to: baseUrl + ROUTES.ZDAO_PROPOSALS,
+			},
 		],
-		[baseUrl]
+		[baseUrl],
 	);
 
 	const handleOnPressNewProposal = () => {

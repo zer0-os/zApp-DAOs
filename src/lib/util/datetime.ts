@@ -7,15 +7,15 @@ import moment from 'moment';
  * @returns formatted humanized string
  */
 export const secondsToDhms = (seconds: number, showSeconds = false): string => {
-	let d = Math.floor(seconds / (3600 * 24));
-	let h = Math.floor((seconds % (3600 * 24)) / 3600);
-	let m = Math.floor((seconds % 3600) / 60);
-	let s = Math.floor(seconds % 60);
+	const d = Math.floor(seconds / (3600 * 24));
+	const h = Math.floor((seconds % (3600 * 24)) / 3600);
+	const m = Math.floor((seconds % 3600) / 60);
+	const s = Math.floor(seconds % 60);
 
-	let dDisplay = d > 0 ? d + 'd ' : '';
-	let hDisplay = h >= 0 ? h + 'h ' : '';
-	let mDisplay = m >= 0 ? m + 'm ' : '';
-	let sDisplay = showSeconds ? (s > 0 ? s + 's' : '') : '';
+	const dDisplay = d > 0 ? d + 'd ' : '';
+	const hDisplay = h >= 0 ? h + 'h ' : '';
+	const mDisplay = m >= 0 ? m + 'm ' : '';
+	const sDisplay = showSeconds ? (s > 0 ? s + 's' : '') : '';
 
 	return dDisplay + hDisplay + mDisplay + sDisplay;
 };

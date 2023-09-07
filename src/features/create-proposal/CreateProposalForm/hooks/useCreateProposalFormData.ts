@@ -6,18 +6,18 @@ import { AssetType } from '@zero-tech/zdao-sdk';
 import { usePropsState } from '../../../../lib/hooks';
 
 export const useCreateProposalFormData = (
-	assets?: Asset[]
+	assets?: Asset[],
 ): CreateProposalFormData => {
 	const tokenDropdownOptions = useMemo(() => {
 		if (!assets) return [];
 
 		return assets
 			.filter((asset) =>
-				[AssetType.NATIVE_TOKEN || AssetType.ERC20].includes(asset.type)
+				[AssetType.NATIVE_TOKEN || AssetType.ERC20].includes(asset.type),
 			)
 			.map((asset) => ({
 				title: asset.name,
-				value: asset.address
+				value: asset.address,
 			}));
 	}, [assets]);
 
@@ -28,7 +28,7 @@ export const useCreateProposalFormData = (
 		tokenOption: tokenDropdownOptions?.[0],
 		amount: '',
 		recipient: '',
-		body: ''
+		body: '',
 	});
 	const [isOpenPublishModal, setIsOpenPublishModal] =
 		useState<CreateProposalFormData['isOpenPublishModal']>(false);
@@ -48,6 +48,6 @@ export const useCreateProposalFormData = (
 		setIsFormChanged,
 		tokenOptions: tokenDropdownOptions,
 		formValues,
-		onSubmit
+		onSubmit,
 	};
 };

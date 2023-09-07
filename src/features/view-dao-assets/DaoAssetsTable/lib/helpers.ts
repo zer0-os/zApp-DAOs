@@ -13,7 +13,7 @@ import wildIcon from '../../../../assets/WWLogo-Padded.svg';
 
 const DAO_ASSETS_MILLIFY_OPTIONS = {
 	precision: 5,
-	lowercase: false
+	lowercase: false,
 };
 
 /**
@@ -22,6 +22,7 @@ const DAO_ASSETS_MILLIFY_OPTIONS = {
  * @returns asset as AssetTableDataItem
  */
 export const convertAsset = (asset: Asset): DaoAssetTableDataItem => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const a = asset as any;
 
 	const amount = a.amount ?? 1;
@@ -40,7 +41,7 @@ export const convertAsset = (asset: Asset): DaoAssetTableDataItem => {
 		subtext: a.symbol ?? a.tokenSymbol,
 		amountInUSD: a.amountInUSD
 			? DOLLAR_SYMBOL + formatFiat(a.amountInUSD)
-			: '-'
+			: '-',
 	};
 };
 
@@ -52,11 +53,11 @@ export const convertAsset = (asset: Asset): DaoAssetTableDataItem => {
  */
 export const formatTotalAmountOfTokens = (
 	amount: string | number,
-	decimals?: number
+	decimals?: number,
 ): string => {
 	return millify(
 		Number(formatUnits(amount, decimals)),
-		DAO_ASSETS_MILLIFY_OPTIONS
+		DAO_ASSETS_MILLIFY_OPTIONS,
 	);
 };
 
@@ -66,12 +67,12 @@ export const convertAssetImage = (image: string) => {
 	if (isIpfsUrl) {
 		return {
 			isIpfsUrl,
-			src: getCloudinaryImageUrlFromIpfsUrl(image, { size: 'medium' })
+			src: getCloudinaryImageUrlFromIpfsUrl(image, { size: 'medium' }),
 		};
 	} else {
 		return {
 			isIpfsUrl,
-			src: image && image.startsWith('/') ? location.origin + image : image
+			src: image && image.startsWith('/') ? location.origin + image : image,
 		};
 	}
 };

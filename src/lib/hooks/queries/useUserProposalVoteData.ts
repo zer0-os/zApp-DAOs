@@ -9,18 +9,18 @@ interface UseUserProposalVoteDataParams {
 
 export const useUserProposalVoteData = ({
 	zna,
-	proposalId
+	proposalId,
 }: UseUserProposalVoteDataParams) => {
 	const { account } = useWeb3();
 
 	const { data: proposal } = useDaoProposal({ zna, proposalId });
 	const { isLoading: isLoadingVotes, data: votes } = useProposalVotes({
 		zna,
-		proposalId
+		proposalId,
 	});
 
 	const userVote = votes?.find(
-		(vote) => vote.voter?.toLowerCase() === account?.toLowerCase()
+		(vote) => vote.voter?.toLowerCase() === account?.toLowerCase(),
 	)?.choice;
 
 	const { isLoading, ...rest } = useQuery(
@@ -30,8 +30,8 @@ export const useUserProposalVoteData = ({
 			return { userVote, userVotingPower };
 		},
 		{
-			enabled: Boolean(proposal) && Boolean(account) && !isLoadingVotes
-		}
+			enabled: Boolean(proposal) && Boolean(account) && !isLoadingVotes,
+		},
 	);
 
 	return { isLoading: isLoading || isLoadingVotes, ...rest };

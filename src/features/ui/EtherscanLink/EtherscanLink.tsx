@@ -18,7 +18,7 @@ export const EtherscanLink: FC<EtherscanLinkProps> = ({
 	shouldTruncated = true,
 	className = '',
 	type = 'address',
-	label
+	label,
 }) => {
 	const linkPresentation = useMemo(() => {
 		if (type === 'address') {

@@ -25,7 +25,7 @@ export const VoteBar: React.FC<VoteBarProps> = ({ votes = [] }) => {
 			</span>
 			<div
 				className={cx(styles.Progressbar, {
-					Empty: optionOne === 0 && optionTwo === 0
+					Empty: optionOne === 0 && optionTwo === 0,
 				})}
 			>
 				<div

@@ -13,13 +13,13 @@ export const useAllZnas = () => {
 		['daos', 'znas', { chainId }],
 		async () => {
 			return (await sdk.listZNAs())?.filter(
-				(zna) => zna !== DEFAULT_ZNS_DOMAIN && zna !== 'degen'
+				(zna) => zna !== DEFAULT_ZNS_DOMAIN && zna !== 'degen',
 			);
 		},
 		{
 			retry: false,
 			refetchOnMount: false,
-			refetchOnWindowFocus: false
-		}
+			refetchOnWindowFocus: false,
+		},
 	);
 };

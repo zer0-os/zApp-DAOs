@@ -15,7 +15,7 @@ import {
 	Table,
 	TableStatus,
 	TableStatusMessage,
-	View
+	View,
 } from '@zero-tech/zui/components';
 
 import styles from './DaosTable.module.scss';
@@ -32,7 +32,7 @@ enum TABLE_KEYS {
 
 const TABLE_COLUMNS: Column[] = [
 	{ id: 'title', header: 'DAO', alignment: 'left' },
-	{ id: 'amount', header: 'Value (USD)', alignment: 'right' }
+	{ id: 'amount', header: 'Value (USD)', alignment: 'right' },
 ];
 
 export type DAOTableDataItem = {
@@ -108,7 +108,7 @@ const useFormattedTableData = () => {
 			return {
 				[TABLE_KEYS.TITLE]: dao.title,
 				[TABLE_KEYS.ZNA]: zna,
-				[TABLE_KEYS.DAO]: dao
+				[TABLE_KEYS.DAO]: dao,
 			};
 		});
 	}, [znas, daos]);
@@ -116,7 +116,7 @@ const useFormattedTableData = () => {
 	return {
 		isLoading: isLoadingZnas || isLoadingDaos,
 		isEmpty: !isLoadingZnas && !isLoadingDaos && !daos,
-		tableData
+		tableData,
 	};
 };
 

@@ -8,7 +8,7 @@ import { ROOT_PATH, ROUTES } from '../../lib/constants/routes';
 import {
 	useCurrentDao,
 	useDaoAssetsCoins,
-	useUserPaymentTokenBalance
+	useUserPaymentTokenBalance,
 } from '../../lib/hooks';
 
 import styles from './ViewDAO.module.scss';
@@ -26,7 +26,7 @@ export const ViewDAO: FC = () => {
 		isLoadingDao,
 		isLoadingAssets,
 		assets,
-		isUserHoldingVotingToken
+		isUserHoldingVotingToken,
 	} = useDaoPageData();
 
 	const { pathname } = useLocation();
@@ -67,7 +67,7 @@ const useDaoPageData = () => {
 	const { dao, isLoading: isLoadingDao, zna } = useCurrentDao();
 	const { data: assets, isLoading: isLoadingAssets } = useDaoAssetsCoins(zna);
 	const { data: userPaymentTokenBalance } = useUserPaymentTokenBalance(
-		dao?.votingToken.token
+		dao?.votingToken.token,
 	);
 
 	return {
@@ -76,6 +76,6 @@ const useDaoPageData = () => {
 		isLoadingDao,
 		isLoadingAssets: isLoadingAssets || isLoadingDao,
 		assets,
-		isUserHoldingVotingToken: userPaymentTokenBalance?.gt(0)
+		isUserHoldingVotingToken: userPaymentTokenBalance?.gt(0),
 	};
 };

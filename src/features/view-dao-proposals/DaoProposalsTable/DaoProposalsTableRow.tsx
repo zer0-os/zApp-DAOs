@@ -19,7 +19,7 @@ type DaoProposalsTableRowProps = {
 };
 
 export const DaoProposalsTableRow: FC<DaoProposalsTableRowProps> = ({
-	proposal
+	proposal,
 }) => {
 	const { title, status, endTime, isConcluded, closingStatus, onClick } =
 		useDaoProposalsTableItemData(proposal);
@@ -37,7 +37,7 @@ export const DaoProposalsTableRow: FC<DaoProposalsTableRowProps> = ({
 				className={cx(styles.Timer, {
 					Concluded: isConcluded,
 					Warning: closingStatus === ProposalClosingStatus.WARNING,
-					Error: closingStatus === ProposalClosingStatus.ERROR
+					Error: closingStatus === ProposalClosingStatus.ERROR,
 				})}
 			>
 				{endTime}

@@ -1,7 +1,7 @@
 import type {
 	Transaction,
 	ERC721Transfer,
-	ERC20Transfer
+	ERC20Transfer,
 } from '@zero-tech/zdao-sdk';
 
 import { AssetType } from '@zero-tech/zdao-sdk';
@@ -10,11 +10,11 @@ import { truncateAddress } from '@zero-tech/zui/utils/formatting/addresses';
 import {
 	TRANSACTION_GROUPS,
 	WEEK_IN_MILLISECONDS,
-	MONTH_IN_MILLISECONDS
+	MONTH_IN_MILLISECONDS,
 } from './constants';
 
 export const getTransactionGroup = (
-	transaction: Transaction
+	transaction: Transaction,
 ): TRANSACTION_GROUPS => {
 	const isToday =
 		transaction.created.toDateString() === new Date().toDateString();
@@ -35,7 +35,7 @@ export const getTransactionGroup = (
 };
 
 export const groupTransactionsByDate = (
-	transactions: Transaction[]
+	transactions: Transaction[],
 ): Record<TRANSACTION_GROUPS, Transaction[]> => {
 	const groupTransactions = transactions.reduce(
 		(groups, transaction) => {
@@ -47,8 +47,8 @@ export const groupTransactionsByDate = (
 			[TRANSACTION_GROUPS.TODAY]: [],
 			[TRANSACTION_GROUPS.LAST_WEEK]: [],
 			[TRANSACTION_GROUPS.LAST_MONTH]: [],
-			[TRANSACTION_GROUPS.EARLIER]: []
-		}
+			[TRANSACTION_GROUPS.EARLIER]: [],
+		},
 	);
 
 	return groupTransactions;
@@ -56,6 +56,7 @@ export const groupTransactionsByDate = (
 
 export const formatTransactionValue = (transaction: Transaction): string => {
 	let transactionValue = '';
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const asset = transaction.asset as any;
 	const assetType = transaction.asset.type;
 

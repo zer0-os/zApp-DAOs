@@ -25,7 +25,7 @@ type DaoWithZna = {
  */
 const GetDaoTotals = ({
 	zna,
-	onSetDaoTotal
+	onSetDaoTotal,
 }: {
 	dao: zDAO;
 	zna: zNA;
@@ -36,7 +36,7 @@ const GetDaoTotals = ({
 	useEffect(() => {
 		onSetDaoTotal(zna, {
 			isLoading,
-			total: coinsData?.amountInUSD ?? 0
+			total: coinsData?.amountInUSD ?? 0,
 		});
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -50,7 +50,7 @@ const GetDaoTotals = ({
  */
 export const DaosTotalProviderContext = createContext({
 	isLoading: false,
-	total: 0
+	total: 0,
 });
 
 /**
@@ -65,7 +65,7 @@ export const DaosTotalProvider: FC = ({ children }) => {
 	const onSetDaoTotal = (zna: zNA, total: Total) => {
 		setTotals((totals) => ({
 			...totals,
-			[zna]: total
+			[zna]: total,
 		}));
 	};
 
@@ -79,7 +79,7 @@ export const DaosTotalProvider: FC = ({ children }) => {
 
 			return {
 				dao,
-				zna
+				zna,
 			};
 		});
 	}, [znas, daos]);
@@ -92,7 +92,7 @@ export const DaosTotalProvider: FC = ({ children }) => {
 
 		return {
 			isLoading: isLoadingZnas || isLoadingDaos || isTotalsLoading,
-			total
+			total,
 		};
 	}, [isLoadingZnas, isLoadingDaos, totals]);
 
