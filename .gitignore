@@ -15,10 +15,8 @@ meta.json
 # misc
 .DS_Store
 .env.local
-.env.development.local
 .env
 .env.production.local
-.env
 .eslintcache
 .vscode
 .idea
@@ -34,3 +32,6 @@ yarn-error.log*
 /test-results/
 /playwright-report/
 /playwright/.cache/
+
+# Local Netlify folder
+.netlify

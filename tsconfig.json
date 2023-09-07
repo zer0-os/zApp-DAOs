@@ -26,5 +26,10 @@
 	"include": [
 		"src",
 		"dev-environment"
+	],
+	"exclude": [
+		"node_modules",
+		"dist",
+		"vite-setup.ts"
 	]
 }

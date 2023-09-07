@@ -8,10 +8,11 @@ import { useEthersProvider } from '../lib/useEthersProvider';
 import { injectedConnector } from '../lib/connectors';
 
 import { DevControls } from './DevControls';
+import { Route } from 'react-router-dom';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-const RPC_URL = import.meta.env.VITE_RPC_URL_1 ?? process.env.VITE_RPC_URL_1;
+const RPC_URL = import.meta.env.VITE_RPC_URL_1 ?? process.env.RPC_URL;
 
 export const DevApp = () => {
 	const { address } = useAccount();
@@ -24,14 +25,19 @@ export const DevApp = () => {
 	return (
 		<>
 			<DevControls />
-			<DaosApp
-				provider={provider ?? new ethers.providers.JsonRpcProvider(RPC_URL)}
-				route={'wilder'}
-				web3={{
-					chainId: provider?.network.chainId ?? 1,
-					address: address,
-					connectWallet: connect,
-				}}
+			<Route
+				path="/:znsRoute/:app"
+				component={() => (
+					<DaosApp
+						provider={provider ?? new ethers.providers.JsonRpcProvider(RPC_URL)}
+						route={'wilder'}
+						web3={{
+							chainId: provider?.network.chainId ?? 1,
+							address: address,
+							connectWallet: connect,
+						}}
+					/>
+				)}
 			/>
 		</>
 	);

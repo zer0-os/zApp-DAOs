@@ -29,5 +29,5 @@ module.exports = {
 		semi: ['error', 'always'],
 		'react/react-in-jsx-scope': 'off',
 	},
-	ignorePatterns: ['*.config.js'],
+	ignorePatterns: ['*.config.js', 'vite-setup.ts'],
 };
