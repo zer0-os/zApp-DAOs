@@ -1,4 +1,4 @@
 export * from './CreateProposal';
-export * from './DAOs';
+export * from './daos';
 export * from './DAO';
 export * from './Proposal';

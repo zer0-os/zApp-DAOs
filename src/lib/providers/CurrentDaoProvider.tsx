@@ -24,6 +24,8 @@ export const CurrentDaoProvider: FC<CurrentDaoProviderProps> = ({
 }) => {
 	// Get zNA from route match
 	const {
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
 		params: { znsRoute },
 	} = useRouteMatch();
 	const zna = extractZnaFromZnsRoute(znsRoute);

@@ -1,18 +1,18 @@
 import React from 'react';
-import type { FC } from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
+
+import { ROOT_PATH, ROUTES } from './lib/constants/routes';
 
 import {
 	DynamicSizeWrapper,
 	ZAppContent,
 } from '@zero-tech/zapp-utils/components';
-import { ROOT_PATH, ROUTES } from './lib/constants/routes';
 
-import { BrowseDAOs, ViewDAO, Proposal, CreateProposal } from './pages';
+import { DAOsPage, ViewDAO, Proposal, CreateProposal } from './pages';
 
 import styles from './App.module.scss';
 
-export const App: FC = () => {
+export const App = () => {
 	const { url } = useRouteMatch();
 
 	return (
@@ -20,9 +20,7 @@ export const App: FC = () => {
 			<ZAppContent>
 				<main className={styles.Main}>
 					<Switch>
-						<Route path={ROOT_PATH + ROUTES.ZDAOS} exact>
-							<BrowseDAOs />
-						</Route>
+						<Route path={ROOT_PATH + ROUTES.ZDAOS} exact component={DAOsPage} />
 						<Route path={url + ROUTES.ZDAO_PROPOSALS + '/create'} exact>
 							<CreateProposal />
 						</Route>
