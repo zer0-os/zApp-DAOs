@@ -12,14 +12,14 @@ export const useUserPaymentTokenBalance = (tokenId?: Token['token']) => {
 		async () => {
 			return await znsSdk.zauction.getUserBalanceForPaymentToken(
 				account,
-				tokenId
+				tokenId,
 			);
 		},
 		{
 			retry: false,
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
-			enabled: Boolean(account) && Boolean(tokenId)
-		}
+			enabled: Boolean(account) && Boolean(tokenId),
+		},
 	);
 };

@@ -7,7 +7,7 @@ import { useEffect, useRef, EffectCallback, DependencyList } from 'react';
  */
 export const useDidUpdate = (
 	callback: EffectCallback | (() => void | Promise<void>),
-	dependencies: DependencyList = []
+	dependencies: DependencyList = [],
 ): void => {
 	const isInitialMount = useRef(true);
 

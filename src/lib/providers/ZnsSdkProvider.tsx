@@ -23,13 +23,13 @@ export const ZnsSdkProvider: FC = ({ children }) => {
 		switch (network) {
 			case Network.MAINNET: {
 				return zns.createInstance(
-					zns.configuration.mainnetConfiguration(provider)
+					zns.configuration.mainnetConfiguration(provider),
 				);
 			}
 
 			case Network.GOERLI: {
 				return zns.createInstance(
-					zns.configuration.goerliConfiguration(provider)
+					zns.configuration.goerliConfiguration(provider),
 				);
 			}
 

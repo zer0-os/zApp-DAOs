@@ -9,7 +9,7 @@ import { extractZnaFromZnsRoute } from '../util/domains';
 export const CurrentDaoContext = createContext({
 	dao: undefined as zDAO | undefined,
 	isLoading: true,
-	zna: ''
+	zna: '',
 });
 
 type CurrentDaoProviderProps = {
@@ -20,11 +20,11 @@ type CurrentDaoProviderProps = {
  * Loads DAO at current zNA
  */
 export const CurrentDaoProvider: FC<CurrentDaoProviderProps> = ({
-	children
+	children,
 }) => {
 	// Get zNA from route match
 	const {
-		params: { znsRoute }
+		params: { znsRoute },
 	} = useRouteMatch();
 	const zna = extractZnaFromZnsRoute(znsRoute);
 
@@ -33,7 +33,7 @@ export const CurrentDaoProvider: FC<CurrentDaoProviderProps> = ({
 	const context = {
 		dao,
 		isLoading,
-		zna
+		zna,
 	};
 
 	return (

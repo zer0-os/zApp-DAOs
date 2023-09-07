@@ -11,7 +11,7 @@ import {
 	DEFAULT_TIMER_EXPIRED_LABEL,
 	HOUR_IN_MILLISECONDS,
 	PROPOSAL_FILTER_START_DATE,
-	ProposalClosingStatus
+	ProposalClosingStatus,
 } from './constants';
 
 const MILLIFY_THRESHOLD = 1000000;
@@ -25,7 +25,7 @@ const MILLIFY_PRECISION = 3;
  */
 export const sortProposals = (
 	proposals?: Proposal[],
-	fromDate: string = PROPOSAL_FILTER_START_DATE
+	fromDate: string = PROPOSAL_FILTER_START_DATE,
 ): Proposal[] => {
 	if (!proposals?.length) {
 		return [];
@@ -33,23 +33,23 @@ export const sortProposals = (
 
 	// 1. Filter by date first
 	const filteredProposals = proposals.filter(
-		(p) => p.created.getTime() > new Date(fromDate).getTime()
+		(p) => p.created.getTime() > new Date(fromDate).getTime(),
 	);
 
 	// 2. Sorts an array of proposals by status, then by closing time (soonest to latest)
 	const inactiveProposals = filteredProposals.filter(
-		(p) => p.state === ProposalState.CLOSED || moment(p.end).isBefore(moment())
+		(p) => p.state === ProposalState.CLOSED || moment(p.end).isBefore(moment()),
 	);
 	const activeProposals = filteredProposals.filter(
-		(p) => !inactiveProposals.includes(p)
+		(p) => !inactiveProposals.includes(p),
 	);
 
 	activeProposals.sort((a, b) =>
-		moment(a.end).isAfter(moment(b.end)) ? 1 : -1
+		moment(a.end).isAfter(moment(b.end)) ? 1 : -1,
 	);
 
 	inactiveProposals.sort((a, b) =>
-		moment(a.end).isBefore(moment(b.end)) ? 1 : -1
+		moment(a.end).isBefore(moment(b.end)) ? 1 : -1,
 	);
 
 	return [...activeProposals, ...inactiveProposals];
@@ -65,7 +65,7 @@ export const sortProposals = (
  */
 export const getProposalClosingStatus = (
 	time: number,
-	isConcluded: boolean
+	isConcluded: boolean,
 ): ProposalClosingStatus => {
 	if (!isConcluded && time < HOUR_IN_MILLISECONDS) {
 		return ProposalClosingStatus.ERROR;
@@ -91,7 +91,7 @@ export const formatProposalBody = (body: string): string => {
  * @returns true if the proposal is from snapshot with multiple choices
  */
 export const isFromSnapshotWithMultipleChoices = (
-	proposal: Proposal
+	proposal: Proposal,
 ): boolean => {
 	return !proposal.metadata;
 };
@@ -103,7 +103,7 @@ export const isFromSnapshotWithMultipleChoices = (
  */
 export const getSnapshotProposalLink = (
 	dao: zDAO,
-	proposal: Proposal
+	proposal: Proposal,
 ): string => {
 	return `https://snapshot.org/#/${dao.ens}/proposal/${proposal.id}`;
 };
@@ -186,7 +186,7 @@ export const formatProposalEndTime = (timeDiff: number): string => {
 export const formatVotingPowerAmount = (
 	amount: number,
 	token?: Token,
-	showSymbol?: boolean
+	showSymbol?: boolean,
 ): string | null => {
 	if (!amount || !token) return null;
 
@@ -207,7 +207,7 @@ export const formatVotingPowerAmount = (
  * @returns formatted total ammount of proposal metadata
  */
 export const formatTotalAmountOfTokenMetadata = (
-	tokenMetaData?: TokenMetaData
+	tokenMetaData?: TokenMetaData,
 ): string => {
 	if (!tokenMetaData) return null;
 
@@ -217,7 +217,7 @@ export const formatTotalAmountOfTokenMetadata = (
 
 	const calculatedAmount = Math.min(
 		Number(formatUnits(amount, decimals)),
-		Number.MAX_SAFE_INTEGER
+		Number.MAX_SAFE_INTEGER,
 	);
 
 	if (!calculatedAmount) return '-';

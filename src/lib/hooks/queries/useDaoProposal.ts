@@ -18,12 +18,12 @@ export const useDaoProposal = ({ zna, proposalId }: UseDaoProposalParams) => {
 			retry: false,
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
-			enabled: Boolean(dao) && Boolean(proposalId)
-		}
+			enabled: Boolean(dao) && Boolean(proposalId),
+		},
 	);
 
 	return {
 		...query,
-		isLoading: query.isLoading || isLoadingDao
+		isLoading: query.isLoading || isLoadingDao,
 	};
 };

@@ -15,7 +15,7 @@ export const Web3Context = createContext({
 	account: undefined as string | undefined,
 	provider: undefined as providers.Web3Provider | undefined,
 	chainId: undefined as number | undefined,
-	connectWallet: () => {}
+	connectWallet: () => {},
 });
 
 /**
@@ -26,7 +26,7 @@ export const Web3Provider: FC<Web3ProviderProps> = ({
 	chainId,
 	connectWallet,
 	provider,
-	children
+	children,
 }: Web3ProviderProps) => {
 	return (
 		<Web3Context.Provider
@@ -34,7 +34,7 @@ export const Web3Provider: FC<Web3ProviderProps> = ({
 				account,
 				chainId,
 				provider,
-				connectWallet
+				connectWallet,
 			}}
 		>
 			{children}

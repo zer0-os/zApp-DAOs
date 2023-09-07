@@ -6,7 +6,7 @@ const DEFAULT_INTERVAL = 1000; // mmilliseconds
 
 export const useTimer = (
 	startDate: Date,
-	interval: number | null = DEFAULT_INTERVAL
+	interval: number | null = DEFAULT_INTERVAL,
 ) => {
 	const [time, setTime] = useState<number>(moment(startDate).diff(moment()));
 
@@ -15,6 +15,6 @@ export const useTimer = (
 	}, interval);
 
 	return {
-		time
+		time,
 	};
 };

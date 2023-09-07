@@ -4,7 +4,7 @@ import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
 import {
 	DynamicSizeWrapper,
-	ZAppContent
+	ZAppContent,
 } from '@zero-tech/zapp-utils/components';
 import { ROOT_PATH, ROUTES } from './lib/constants/routes';
 

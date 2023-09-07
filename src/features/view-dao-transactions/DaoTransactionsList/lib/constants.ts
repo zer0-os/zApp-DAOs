@@ -14,7 +14,7 @@ export const TRANSACTION_GROUP_LABELS: Record<TRANSACTION_GROUPS, string> = {
 	[TRANSACTION_GROUPS.TODAY]: 'Today',
 	[TRANSACTION_GROUPS.LAST_WEEK]: 'Last Week',
 	[TRANSACTION_GROUPS.LAST_MONTH]: 'Last Month',
-	[TRANSACTION_GROUPS.EARLIER]: 'Earlier'
+	[TRANSACTION_GROUPS.EARLIER]: 'Earlier',
 };
 
 export const DAY_IN_MILLISECONDS = 1000 * 60 * 60 * 24;
@@ -24,15 +24,15 @@ export const MONTH_IN_MILLISECONDS = DAY_IN_MILLISECONDS * 30;
 export const TRANSACTION_IMAGE: Record<AssetType, string> = {
 	[AssetType.NATIVE_TOKEN]: ethIcon,
 	[AssetType.ERC721]: erc721Icon,
-	[AssetType.ERC20]: erc20Icon
+	[AssetType.ERC20]: erc20Icon,
 };
 
 export const TRANSACTION_TYPE: Record<TransactionType, string> = {
 	[TransactionType.SENT]: 'Sent',
-	[TransactionType.RECEIVED]: 'Received'
+	[TransactionType.RECEIVED]: 'Received',
 };
 
 export const TRANSACTION_DIRECTION: Record<TransactionType, string> = {
 	[TransactionType.SENT]: 'to',
-	[TransactionType.RECEIVED]: 'from'
+	[TransactionType.RECEIVED]: 'from',
 };

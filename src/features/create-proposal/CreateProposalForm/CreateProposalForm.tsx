@@ -10,14 +10,14 @@ import { useRouteChangeDialog } from '../../../lib/hooks';
 import {
 	CreateProposalFormValues,
 	useCreateProposalFormData,
-	TokenOption
+	TokenOption,
 } from './hooks';
 
 import {
 	Button,
 	Input,
 	MarkdownEditor,
-	SelectInput
+	SelectInput,
 } from '@zero-tech/zui/components';
 import { ProposalPublishModal } from '../ProposalPublishModal';
 import { Attribute, Attributes } from '../../ui/Attributes/Attributes';
@@ -44,7 +44,7 @@ export type CreateProposalFormProps = Pick<CreateProposalProps, 'dao'> & {
 export const CreateProposalForm: FC<CreateProposalFormProps> = ({
 	dao,
 	assets,
-	zna
+	zna,
 }) => {
 	const {
 		isFormChanged,
@@ -53,7 +53,7 @@ export const CreateProposalForm: FC<CreateProposalFormProps> = ({
 		setIsOpenPublishModal,
 		tokenOptions,
 		formValues,
-		onSubmit
+		onSubmit,
 	} = useCreateProposalFormData(assets);
 
 	useRouteChangeDialog(
@@ -61,13 +61,13 @@ export const CreateProposalForm: FC<CreateProposalFormProps> = ({
 			title: 'Discard Proposal?',
 			message: 'If you leave now you will lose your progress on this proposal',
 			confirmButtonConfig: {
-				text: 'Discard Proposal'
+				text: 'Discard Proposal',
 			},
 			cancelButtonConfig: {
-				text: 'Keep Editing'
-			}
+				text: 'Keep Editing',
+			},
 		},
-		isFormChanged
+		isFormChanged,
 	);
 
 	return (
@@ -194,7 +194,7 @@ const FundDetails = ({ tokenOptions, dao }: FundDetailsProps) => {
 					items={tokenOptions.map((token) => ({
 						id: token.value,
 						label: token.title,
-						onSelect: () => setFieldValue('tokenOption', token)
+						onSelect: () => setFieldValue('tokenOption', token),
 					}))}
 					value={values.tokenOption.title}
 					placeholder={'Select a token'}

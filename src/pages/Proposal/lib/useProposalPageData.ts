@@ -10,18 +10,18 @@ interface UseProposalPageDataParams {
 
 export const useProposalPageData = ({
 	proposalId,
-	zna
+	zna,
 }: UseProposalPageDataParams) => {
 	const { data: dao } = useDao(zna);
 
 	const proposalQuery = useDaoProposal({
 		proposalId,
-		zna
+		zna,
 	});
 
 	const votesQuery = useProposalVotes({
 		proposalId,
-		zna
+		zna,
 	});
 
 	const refetchProposal = proposalQuery.refetch;
@@ -44,6 +44,6 @@ export const useProposalPageData = ({
 		votes: votesQuery.data,
 		refetch,
 		dao,
-		shouldShowVoteBar
+		shouldShowVoteBar,
 	};
 };

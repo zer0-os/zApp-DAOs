@@ -13,7 +13,7 @@ export const useDao = (zna: string) => {
 			retry: false,
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
-			enabled: zna && zna.trim().length > 0
-		}
+			enabled: zna && zna.trim().length > 0,
+		},
 	);
 };

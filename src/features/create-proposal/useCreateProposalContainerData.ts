@@ -5,7 +5,7 @@ import {
 	useDao,
 	useDaoAssets,
 	useUserPaymentTokenBalance,
-	useWeb3
+	useWeb3,
 } from '../../lib/hooks';
 import { DAO_CREATE_PROPOSAL } from '../../pages/DAO';
 import { AssetType } from '@zero-tech/zdao-sdk';
@@ -19,12 +19,12 @@ export const useCreateProposalContainerData = (zna: string) => {
 
 	const {
 		isLoading: isLoadingPaymentTokenBalance,
-		data: userPaymentTokenBalance
+		data: userPaymentTokenBalance,
 	} = useUserPaymentTokenBalance(dao?.votingToken.token);
 
 	const toAllProposals = history.location.pathname.replace(
 		`/${DAO_CREATE_PROPOSAL}`,
-		''
+		'',
 	);
 
 	const isDaoHoldingERC20Asset =
@@ -48,6 +48,6 @@ export const useCreateProposalContainerData = (zna: string) => {
 		toAllProposals,
 		isDaoHoldingERC20Asset,
 		isUserHoldingVotingToken,
-		isWalletConnected: account
+		isWalletConnected: account,
 	};
 };

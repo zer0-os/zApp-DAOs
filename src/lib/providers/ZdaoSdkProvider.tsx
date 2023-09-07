@@ -6,14 +6,14 @@ import {
 	createSDKInstance,
 	productionConfiguration,
 	developmentConfiguration,
-	SDKInstance
+	SDKInstance,
 } from '@zero-tech/zdao-sdk';
 
 import { useWeb3 } from '../hooks';
 import {
 	DEFAULT_NETWORK,
 	Network,
-	NETWORK_CONFIGS
+	NETWORK_CONFIGS,
 } from '../constants/networks';
 
 type ZdaoSdkProviderProps = {
@@ -33,8 +33,8 @@ export const ZdaoSdkProvider: FC<ZdaoSdkProviderProps> = ({ children }) => {
 				return createSDKInstance(
 					productionConfiguration(
 						provider,
-						NETWORK_CONFIGS[network].ipfsGateway
-					)
+						NETWORK_CONFIGS[network].ipfsGateway,
+					),
 				);
 			}
 
@@ -42,8 +42,8 @@ export const ZdaoSdkProvider: FC<ZdaoSdkProviderProps> = ({ children }) => {
 				return createSDKInstance(
 					developmentConfiguration(
 						provider,
-						NETWORK_CONFIGS[network].ipfsGateway
-					)
+						NETWORK_CONFIGS[network].ipfsGateway,
+					),
 				);
 			}
 

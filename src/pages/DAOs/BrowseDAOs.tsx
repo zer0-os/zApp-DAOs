@@ -11,7 +11,7 @@ import styles from './BrowseDAOs.module.scss';
 import {
 	DEFAULT_ZNS_DOMAIN,
 	ROOT_PATH,
-	ROUTES
+	ROUTES,
 } from '../../lib/constants/routes';
 
 export const BrowseDAOs: FC = () => {
@@ -45,14 +45,14 @@ export const BrowseDAOs: FC = () => {
 					label="Total Value"
 					primaryText={{
 						isLoading: isLoadingDaosTotal,
-						text: DOLLAR_SYMBOL + formatFiat(total)
+						text: DOLLAR_SYMBOL + formatFiat(total),
 					}}
 				/>
 				<Card
 					label="DAOs"
 					primaryText={{
 						isLoading: isLoadingZnas,
-						text: znas?.length.toString()
+						text: znas?.length.toString(),
 					}}
 				/>
 			</div>

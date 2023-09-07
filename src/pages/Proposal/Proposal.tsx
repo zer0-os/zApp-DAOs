@@ -64,13 +64,13 @@ const AllProposalsButton = () => {
 	const toAllProposals = useMemo(() => {
 		const pathname = history.location.pathname.replace(
 			/\/proposals\/.*/,
-			'/proposals/'
+			'/proposals/',
 		);
 		const state = cloneDeep(history.location.state);
 
 		return {
 			pathname,
-			state
+			state,
 		};
 	}, [history]);
 

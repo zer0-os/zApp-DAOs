@@ -12,7 +12,7 @@ import {
 	formatProposalStatus,
 	getProposalClosingStatus,
 	PROPOSAL_TITLE_MAX_CHARACTERS,
-	ProposalClosingStatus
+	ProposalClosingStatus,
 } from './';
 
 //////////////////////////////////
@@ -32,7 +32,7 @@ export type DaoProposalsTableItemData = {
 
 export const useDaoProposalsTableItemData = (
 	proposal: Proposal,
-	isGridView = false
+	isGridView = false,
 ): DaoProposalsTableItemData => {
 	const history = useHistory();
 	const location = useLocation();
@@ -41,7 +41,7 @@ export const useDaoProposalsTableItemData = (
 
 	const { time } = useTimer(
 		proposal.end,
-		isConcluded ? null : DEFAULT_TIMER_INTERVAL
+		isConcluded ? null : DEFAULT_TIMER_INTERVAL,
 	);
 	const status = formatProposalStatus(proposal);
 	const endTime = formatProposalEndTime(time);
@@ -52,7 +52,7 @@ export const useDaoProposalsTableItemData = (
 
 	const onClick = () => {
 		history.push(formatUrl(location.pathname, proposal.id), {
-			isGridView
+			isGridView,
 		});
 	};
 
@@ -64,7 +64,7 @@ export const useDaoProposalsTableItemData = (
 		isConcluded,
 		closingStatus,
 		closingMessage,
-		onClick
+		onClick,
 	};
 };
 

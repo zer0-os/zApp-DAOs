@@ -16,7 +16,7 @@ type BackLinkButtonProps = {
 export const BackLinkButton: FC<BackLinkButtonProps> = ({
 	to,
 	label,
-	className
+	className,
 }) => {
 	return (
 		<Link className={classNames(styles.Link, className)} to={to}>

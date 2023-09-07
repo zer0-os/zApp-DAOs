@@ -44,7 +44,7 @@ const VoteList = ({ dao, proposal, isLoading, votes }: VotesProps) => {
 	const { voteHistory: histories, hasVotes } = useVoteHistory({
 		dao,
 		proposal,
-		votes
+		votes,
 	});
 
 	if (isLoading) {
@@ -166,7 +166,7 @@ interface VoteDirectionProps {
 const VoteDirection = ({
 	isSnapshotProposal,
 	voteOptions,
-	voteDirection
+	voteDirection,
 }: VoteDirectionProps) => {
 	return (
 		<span className={styles.Direction}>
@@ -207,13 +207,13 @@ const useVoteHistory = ({ dao, proposal, votes }: UseVoteHistoryParams) => {
 				id: index,
 				address: vote.voter,
 				direction: vote.choice,
-				power: formatVotingPowerAmount(vote.power, dao?.votingToken)
+				power: formatVotingPowerAmount(vote.power, dao?.votingToken),
 			};
 		});
 	}, [dao, proposal, votes]);
 
 	return {
 		voteHistory,
-		hasVotes: voteHistory && Boolean(voteHistory.length)
+		hasVotes: voteHistory && Boolean(voteHistory.length),
 	};
 };

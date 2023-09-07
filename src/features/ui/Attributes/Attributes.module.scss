@@ -3,80 +3,80 @@
 @use '../../../../node_modules/@zero-tech/zui/styles/dimensions';
 
 .Container {
-    $attribute-height: 3rem;
-    $attribute-border-radius: 0.5rem;
-    $grid-gutter: 0.5rem;
+	$attribute-height: 3rem;
+	$attribute-border-radius: 0.5rem;
+	$grid-gutter: 0.5rem;
 
-    .Wrapper {
-        position: relative;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-        grid-row-start: 1;
-        column-gap: $grid-gutter;
-        row-gap: $grid-gutter;
-        padding: 0;
-        margin: 0;
+	.Wrapper {
+		position: relative;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+		grid-row-start: 1;
+		column-gap: $grid-gutter;
+		row-gap: $grid-gutter;
+		padding: 0;
+		margin: 0;
 
-        > * {
-            height: $attribute-height;
-            max-height: $attribute-height;
-            border-radius: $attribute-border-radius
-        }
+		> * {
+			height: $attribute-height;
+			max-height: $attribute-height;
+			border-radius: $attribute-border-radius;
+		}
 
-        .Loading {
-            border: 1px solid blue;
-        }
+		.Loading {
+			border: 1px solid blue;
+		}
 
-        .Attribute {
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            width: 100%;
-            background: theme.$color-primary-2;
+		.Attribute {
+			box-sizing: border-box;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			width: 100%;
+			background: theme.$color-primary-2;
 
-            padding: 1rem;
+			padding: 1rem;
 
-            > span {
-                &.Traits {
-                    font-size: typography.$size-tiny;
-                    color: #bcbcbc; // todo - should be colors variable
-                }
+			> span {
+				&.Traits {
+					font-size: typography.$size-tiny;
+					color: #bcbcbc; // todo - should be colors variable
+				}
 
-                &.Properties {
-                    font-size: typography.$size-tiny;
-                    margin-top: 0.25rem;
-                }
-            }
-        }
+				&.Properties {
+					font-size: typography.$size-tiny;
+					margin-top: 0.25rem;
+				}
+			}
+		}
 
-        .ButtonContainer {
-            grid-column-start: -2;
+		.ButtonContainer {
+			grid-column-start: -2;
 
-            .ToggleAttributes {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                width: 100%;
-                height: $attribute-height;
-                margin: 0.25rem 0;
-                color: theme.$color-secondary-11;
-                background: none;
-                border: none;
-                cursor: pointer;
-            }
+			.ToggleAttributes {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				width: 100%;
+				height: $attribute-height;
+				margin: 0.25rem 0;
+				color: theme.$color-secondary-11;
+				background: none;
+				border: none;
+				cursor: pointer;
+			}
 
-            .SetOpacityAnimation {
-                animation: animatedOpacity 0.3s ease-in-out;
-            }
-        }
-    }
+			.SetOpacityAnimation {
+				animation: animatedOpacity 0.3s ease-in-out;
+			}
+		}
+	}
 
-    @media only screen and (max-width: #{dimensions.$breakpoint-mobile-s}) {
-        .Wrapper {
-            grid-template-columns: 1fr;
-            column-gap: $grid-gutter;
-        }
-    }
+	@media only screen and (max-width: #{dimensions.$breakpoint-mobile-s}) {
+		.Wrapper {
+			grid-template-columns: 1fr;
+			column-gap: $grid-gutter;
+		}
+	}
 }

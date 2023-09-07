@@ -17,7 +17,7 @@ import {
 	Table,
 	TableStatus,
 	TableStatusMessage,
-	View
+	View,
 } from '@zero-tech/zui/components';
 
 import styles from './DaoAssetsTable.module.scss';
@@ -43,7 +43,7 @@ type DaoAssetsTableProps = {
 const TABLE_COLUMNS: Column[] = [
 	{ id: 'title', header: 'Asset', alignment: 'left' },
 	{ id: 'qty', header: 'Quantity', alignment: 'right' },
-	{ id: 'amount', header: 'Value (USD)', alignment: 'right' }
+	{ id: 'amount', header: 'Value (USD)', alignment: 'right' },
 ];
 
 // @note: this value is being used in TableControls.module.scss - change in both places

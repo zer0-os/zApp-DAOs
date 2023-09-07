@@ -17,6 +17,6 @@ export type RouterBlockerContext = {
 		title,
 		message,
 		confirmButtonConfig,
-		cancelButtonConfig
+		cancelButtonConfig,
 	}: RouterBlockerDialogConfig) => void;
 };
