@@ -5,7 +5,7 @@ import type { Proposal, Choice } from '@zero-tech/zdao-sdk';
 import {
 	useCurrentDao,
 	useWeb3,
-	useUserProposalVoteData
+	useUserProposalVoteData,
 } from '../../../../lib/hooks';
 import { formatVotingPowerAmount } from '../../../../features/view-dao-proposals/DaoProposalsTable/lib';
 
@@ -39,13 +39,13 @@ export const VoteModal: FC<VoteModalProps> = ({
 	choice,
 	onVote,
 	onClose,
-	onComplete
+	onComplete,
 }) => {
 	const { dao, zna } = useCurrentDao();
 	const { account } = useWeb3();
 	const { data: { userVotingPower } = {} } = useUserProposalVoteData({
 		zna,
-		proposalId: proposal.id
+		proposalId: proposal.id,
 	});
 
 	const [step, setStep] = useState<VoteModalStep>(VoteModalStep.CONFIRM);
@@ -66,6 +66,7 @@ export const VoteModal: FC<VoteModalProps> = ({
 		try {
 			await onVote();
 			onComplete();
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (e: any) {
 			console.error(e);
 			setStep(e.code === 4001 ? VoteModalStep.DECLINED : VoteModalStep.ERROR);

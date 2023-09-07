@@ -21,7 +21,7 @@ export const useDaoAssets = (zna?: string) => {
 			// );
 			//
 			const allAssets: Asset[] = [
-				...assets?.coins.filter((d) => d.amount !== '0')
+				...(assets?.coins.filter((d) => d.amount !== '0') ?? []),
 				// ...wrappedCollectibles
 			];
 
@@ -31,12 +31,12 @@ export const useDaoAssets = (zna?: string) => {
 			retry: false,
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
-			enabled: Boolean(dao) && Boolean(assets)
-		}
+			enabled: Boolean(dao) && Boolean(assets),
+		},
 	);
 
 	return {
 		...queryData,
-		isLoading: queryData.isLoading || isLoadingCoins || isLoadingDao
+		isLoading: queryData.isLoading || isLoadingCoins || isLoadingDao,
 	};
 };
