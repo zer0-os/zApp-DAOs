@@ -8,7 +8,7 @@ import {
 	ZAppContent,
 } from '@zero-tech/zapp-utils/components';
 
-import { DAOsPage, ViewDAO, Proposal, CreateProposal } from './pages';
+import { DAOsPage, DAOPage, Proposal, CreateProposal } from './pages';
 
 import styles from './App.module.scss';
 
@@ -28,7 +28,7 @@ export const App = () => {
 							<Proposal />
 						</Route>
 						<Route>
-							<ViewDAO />
+							<DAOPage />
 						</Route>
 					</Switch>
 				</main>

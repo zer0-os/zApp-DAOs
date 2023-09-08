@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { zDAO } from '@zero-tech/zdao-sdk';
 import { ROUTES } from '../../../lib/constants/routes';
-import { DAO_CREATE_PROPOSAL } from '../ViewDAO';
+import { DAO_CREATE_PROPOSAL } from './Page';
 
 import { DaoAssetsTable } from '../../../features/view-dao-assets';
 import { DaoTransactionsList } from '../../../features/view-dao-transactions';

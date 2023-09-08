@@ -7,7 +7,7 @@ import { Card, SkeletonText } from '@zero-tech/zui/components';
 
 import DaoIcon from '../../../assets/default_dao.svg';
 
-import styles from '../ViewDAO.module.scss';
+import styles from './Page.module.scss';
 
 //////////////
 // DAO Info //
