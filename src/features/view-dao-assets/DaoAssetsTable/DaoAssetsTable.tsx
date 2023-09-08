@@ -30,6 +30,7 @@ export type DaoAssetTableDataItem = {
 	amount: string | number;
 	decimals?: number;
 	image: string;
+	id: string;
 	key: string;
 	name: string;
 	subtext: string;
@@ -156,7 +157,7 @@ const DaosAssetsView = ({ isGridView, tableData }: DaoAssetsViewProps) => {
 				<Grid className={styles.Grid}>
 					{tableData?.map((asset) => (
 						<DaoAssetsTableCard
-							key={`dao-asset-card-${asset.name}`}
+							key={`dao-asset-card-${asset.id}`}
 							data={asset}
 						/>
 					))}
@@ -178,7 +179,7 @@ const DaosAssetsView = ({ isGridView, tableData }: DaoAssetsViewProps) => {
 						<Body>
 							{tableData?.map((asset) => (
 								<DaoAssetsTableRow
-									key={`dao-asset-row-${asset.name}`}
+									key={`dao-asset-row-${asset.id}`}
 									data={asset}
 								/>
 							))}

@@ -36,6 +36,7 @@ export const convertAsset = (asset: Asset): DaoAssetTableDataItem => {
 		amount,
 		decimals: a.decimals ?? 0,
 		image: image,
+		id: a.metadata?.image ?? a.logoUri,
 		key: amount + a.address,
 		name: a.metadata?.name ?? a.metadata?.title ?? a.name ?? a.tokenName,
 		subtext: a.symbol ?? a.tokenSymbol,
