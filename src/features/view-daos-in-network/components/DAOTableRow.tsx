@@ -1,38 +1,55 @@
 import React, { FC } from 'react';
 
-import { useDaosTableItemData } from './lib';
-import type { DAOTableDataItem } from './';
+import { useDAOTableRowData } from '../lib';
 
 import { TableData } from '@zero-tech/zui/components/AsyncTable/Column';
 import { SkeletonText } from '@zero-tech/zui/components/SkeletonText';
 import { Image } from '@zero-tech/zui/components';
 
-import styles from './DaosTableRow.module.scss';
+import styles from './DAOTableRow.module.scss';
 
 //////////////////
 // DaosTableRow //
 //////////////////
 
-type DaosTableRowProps = {
-	daoData: DAOTableDataItem;
+type DAOTableRowProps = {
+	zna: string;
 };
 
-export const DaosTableRow: FC<DaosTableRowProps> = ({ daoData }) => {
-	const { title, zna, imgAlt, imgSrc, totalUsd, isLoading, onClick } =
-		useDaosTableItemData(daoData);
+export const DAOTableRow: FC<DAOTableRowProps> = ({ zna: znaProp }) => {
+	const {
+		imgAlt,
+		imgSrc,
+		isLoadingAssetData,
+		isLoadingDAOData,
+		onClick,
+		title,
+		totalUsd,
+		zna,
+	} = useDAOTableRowData(znaProp);
 
 	return (
 		<tr className={styles.Row} onClick={onClick}>
 			<TableData alignment="left" className={styles.Dao}>
 				<Image alt={imgAlt} src={imgSrc} className={styles.Image} />
 				<div className={styles.Content}>
-					<span className={styles.Title}>{title}</span>
+					<SkeletonText
+						asyncText={{
+							text: title,
+							isLoading: isLoadingDAOData,
+						}}
+						className={styles.Title}
+					/>
 					<span className={styles.Domain}>{zna}</span>
 				</div>
 			</TableData>
 			<TableData alignment="right">
 				<SkeletonText
-					asyncText={{ text: totalUsd, isLoading }}
+					asyncText={{
+						text: totalUsd,
+						isLoading: isLoadingAssetData,
+						errorText: 'Failed to load',
+					}}
 					skeletonOptions={{ width: '150px' }}
 				/>
 			</TableData>

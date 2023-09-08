@@ -1,20 +1,25 @@
-import type { FC } from 'react';
-
 import React, { useEffect } from 'react';
-import { Card } from '@zero-tech/zui/components';
-import { useAllZnas, useCurrentDao, useRedirect } from '../../lib/hooks';
-import { useDaosTotal } from './lib/useDaosTotal';
-import { DOLLAR_SYMBOL } from '../../lib/constants/currency';
-import { formatFiat } from '../../lib/util/format';
-import { DaosTable } from '../../features/view-daos';
-import styles from './BrowseDAOs.module.scss';
+
+import { useAllZnas, useCurrentDao, useRedirect } from '../../../lib/hooks';
+import { DOLLAR_SYMBOL } from '../../../lib/constants/currency';
+import { formatFiat } from '../../../lib/util/format';
+import { useDaosTotal } from '../lib';
 import {
 	DEFAULT_ZNS_DOMAIN,
 	ROOT_PATH,
 	ROUTES,
-} from '../../lib/constants/routes';
+} from '../../../lib/constants/routes';
 
-export const BrowseDAOs: FC = () => {
+import { DAOTable } from '../../../features/view-daos-in-network';
+import { Card } from '@zero-tech/zui/components';
+
+import styles from './Page.module.scss';
+
+///////////////
+// DAOs Page //
+///////////////
+
+export const DAOsPage = () => {
 	const { isLoading: isLoadingZnas, data: znas } = useAllZnas();
 	const { isLoading: isLoadingDaosTotal, total } = useDaosTotal();
 
@@ -57,7 +62,7 @@ export const BrowseDAOs: FC = () => {
 				/>
 			</div>
 
-			<DaosTable />
+			<DAOTable />
 		</>
 	);
 };

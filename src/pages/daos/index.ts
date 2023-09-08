@@ -1,0 +1,1 @@
+export { DAOsPage } from './components';

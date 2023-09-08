@@ -20,7 +20,7 @@ import {
 	CurrentDaoProvider,
 } from './lib/providers';
 
-import { DaosTotalProvider } from './pages/DAOs/lib/DaosTotalProvider';
+import { DaosTotalProvider } from './pages/daos/lib/DaosTotalProvider';
 
 import './styles/global.scss';
 

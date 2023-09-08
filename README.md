@@ -1,24 +1,19 @@
-# zDaos dApp
+# zApp DAOs
 
-## Running Locally
+## Running locally
 
-This zApp is designed to run in the context of [zOS](https://github.com/zer0-os/zOS).
+This app is designed to be hosted in an app container (such as [zOS](https://github.com/zer0-os/zOS)). However, it can be run locally for better DX.
 
-You will need to run `npm run watch`, and link the output folder (`dist`) to your local instance of [zOS](https://github.com/zer0-os/zOS).
+`npm run dev`
 
-1. `nvm use`
-2. `npm i`
-3. `npm run watch`
+## Building for production (JS bundle)
 
-At this point, you should see a `dist` folder. This is the compiled version of your app. If you wish to import this into [zOS](https://github.com/zer0-os/zOS), you will need to do the following:
+This will give you the final bundle to be used in the app container, e.g. `<DaosApp />`.
 
-4. `npm run link [location of zOS, e.g. ../zOS]`
+`npm run build`
 
-or, if the above script doesn't work for you:
+## Building for isolated hosting (HTML bundle)
 
-4. `cd dist`
-5. `npm link`
-6. `cd [location of zOS]`
-7. `npm link [package name of this zApp from package.json]`
+This is a hosted version of the isolated development environment.
 
-Check `node_modules` in [zOS](https://github.com/zer0-os/zOS) - your package folder should be symlinked in there.
+`vite build --config ./dev-environment/vite.config.ts`
