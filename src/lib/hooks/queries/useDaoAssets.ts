@@ -1,8 +1,9 @@
-import type { Asset } from '../../types/dao';
+import type { Asset, WrappedCollectible } from '../../types/dao';
 
 import { useQuery } from 'react-query';
 import { useDaoAssetsCoins } from './useDaoAssetsCoins';
 import { useDao } from './useDao';
+import { AssetType } from '@zero-tech/zdao-sdk';
 
 export const useDaoAssets = (zna?: string) => {
 	const { data: dao, isLoading: isLoadingDao } = useDao(zna);
@@ -11,18 +12,30 @@ export const useDaoAssets = (zna?: string) => {
 	const queryData = useQuery(
 		['dao', 'assets', { zna }],
 		async () => {
-			// @note 25/04/2023 commented this out as collectible query is failing
-			// const collectibles: zDAOCollectibles = await dao.listAssetsCollectibles();
-			// const wrappedCollectibles: WrappedCollectible[] = collectibles.map(
-			// 	(c) => ({
-			// 		...c,
-			// 		type: AssetType.ERC721
-			// 	})
-			// );
-			//
+			const response = await fetch(
+				`https://safe-transaction-mainnet.safe.global/api/v2/safes/${dao.safeAddress}/collectibles/?trusted=false&exclude_spam=true`,
+			);
+			const data = await response.json();
+
+			const collectibles: WrappedCollectible[] = data.results.map(
+				(collectible) => ({
+					address: collectible.address,
+					tokenName: collectible.tokenName,
+					tokenSymbol: collectible.tokenSymbol,
+					id: collectible.id,
+					uri: collectible.uri,
+					logoUri: collectible.logoUri,
+					name: collectible.name,
+					description: collectible.description,
+					imageUri: collectible.imageUri,
+					metadata: collectible.metadata,
+					type: AssetType.ERC721,
+				}),
+			);
+
 			const allAssets: Asset[] = [
 				...(assets?.coins.filter((d) => d.amount !== '0') ?? []),
-				// ...wrappedCollectibles
+				...collectibles,
 			];
 
 			return allAssets;
