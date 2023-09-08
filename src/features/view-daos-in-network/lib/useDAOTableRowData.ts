@@ -26,8 +26,11 @@ export const useDAOTableRowData = (zna: string): DaosTableItemData => {
 	const history = useHistory();
 
 	const { isLoading: isLoadingDAOData, data: DAOData } = useDao(zna);
-	const { isLoading: isLoadingAssetData, data: coinsData } =
-		useDaoAssetsCoins(zna);
+	const {
+		isLoading: isLoadingAssetData,
+		data: coinsData,
+		isIdle: isAssetDataIdle,
+	} = useDaoAssetsCoins(zna);
 
 	const totalUsd =
 		!isLoadingAssetData && coinsData?.amountInUSD
@@ -47,7 +50,7 @@ export const useDAOTableRowData = (zna: string): DaosTableItemData => {
 		title: DAOData?.title,
 		zna: '0://' + zna,
 		totalUsd,
-		isLoadingAssetData,
+		isLoadingAssetData: isLoadingAssetData || isAssetDataIdle,
 		isLoadingDAOData,
 		onClick,
 	};
