@@ -8,6 +8,6 @@ export class DaosPage {
 	}
 
 	async goto() {
-		await this.page.goto('/wilder/dao/');
+		await this.page.goto('/0.wilder/daos');
 	}
 }

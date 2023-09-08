@@ -15,11 +15,13 @@ export const TableControls = ({
 }: TableControlsProps): JSX.Element => {
 	return (
 		<Controls>
-			<ViewToggle
-				className={styles.Toggle}
-				view={view}
-				onChange={onChangeView}
-			/>
+			<div data-testid={'zapp-daos-view-toggle'}>
+				<ViewToggle
+					className={styles.Toggle}
+					view={view}
+					onChange={onChangeView}
+				/>
+			</div>
 		</Controls>
 	);
 };
