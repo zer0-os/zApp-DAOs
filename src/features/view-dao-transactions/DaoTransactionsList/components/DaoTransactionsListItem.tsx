@@ -6,12 +6,10 @@ import { getEtherscanUri } from '../../../../lib/util/network';
 import { EtherscanLink } from '../../../ui';
 import {
 	formatTransactionValue,
-	TRANSACTION_IMAGE,
 	TRANSACTION_TYPE,
 	TRANSACTION_DIRECTION,
 } from './../lib';
 
-import { Image } from '@zero-tech/zui/components';
 import { IconArrowDownLeft } from '@zero-tech/zui/icons';
 
 import styles from './DaoTransactionsListItem.module.scss';
@@ -45,11 +43,11 @@ export const DaoTransactionsListItem: FC<DaoTransactionItemProps> = ({
 						transaction.type === TransactionType.SENT ? 'sent' : 'received'
 					}
 				>
-					<Image
-						alt="transaction icon"
-						src={location.origin + TRANSACTION_IMAGE[transaction.asset.type]}
-						className={styles.Image}
-					/>
+					{/*<Image*/}
+					{/*	alt="transaction icon"*/}
+					{/*	src={location.origin + TRANSACTION_IMAGE[transaction.asset.type]}*/}
+					{/*	className={styles.Image}*/}
+					{/*/>*/}
 					<IconArrowDownLeft className={styles.ArrowIcon} isFilled />
 				</span>
 				<div className={styles.OuterTextWrapper}>
