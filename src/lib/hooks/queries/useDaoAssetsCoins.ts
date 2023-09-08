@@ -8,19 +8,19 @@ export const useDaoAssetsCoins = (zna?: string) => {
 	return useQuery(
 		['dao', 'assets', 'coins', zna],
 		async () => {
-			const yep = await fetch(
+			const data = await fetch(
 				`https://safe-transaction-mainnet.safe.global/api/v1/safes/${dao.safeAddress}/balances/usd/?trusted=false&exclude_spam=true`,
 			);
 
-			const data = await yep.json();
+			const safeCoins = await data.json();
 
-			const amountInUSD = data.reduce(
+			const amountInUSD = safeCoins.reduce(
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				(acc: number, item: any) => acc + Number(item.fiatBalance),
 				0,
 			);
 
-			const coins = data.map((d) => ({
+			const coins = safeCoins.map((d) => ({
 				type: d.token ? AssetType.ERC20 : AssetType.NATIVE_TOKEN,
 				address: d.tokenAddress,
 				name: d.token ? d.token.name : 'Ether',
