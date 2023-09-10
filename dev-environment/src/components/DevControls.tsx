@@ -34,6 +34,7 @@ export const DevControls = () => {
 				height: '2rem',
 				alignItems: 'center',
 				color: 'black',
+				zIndex: 1000,
 			}}
 			data-testid="zapp-dev-controls"
 		>
