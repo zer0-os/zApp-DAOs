@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import type { zDAO, zNA } from '@zero-tech/zdao-sdk';
 
 import React, { useState, useMemo, useEffect, createContext } from 'react';
-import { useAllZnas, useAllDaos, useDaoAssetsCoins } from '../../../lib/hooks';
+import { useAllZnas, useAllDaos, useDaoAssetsCoins } from 'lib/hooks';
 
 type Total = {
 	total: number;

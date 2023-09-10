@@ -1,7 +1,7 @@
 import React, { FC, useMemo } from 'react';
 
 import type { Transaction } from '@zero-tech/zdao-sdk';
-import { useDaoTransactions } from '../../../lib/hooks';
+import { useDaoTransactions } from 'lib/hooks';
 import { groupTransactionsByDate, TRANSACTION_GROUP_LABELS } from './lib';
 
 import { LoadingIndicator } from '@zero-tech/zui/components';

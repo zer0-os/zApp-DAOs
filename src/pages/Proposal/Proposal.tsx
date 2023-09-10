@@ -4,10 +4,10 @@ import { useHistory, useParams } from 'react-router-dom';
 import { cloneDeep } from 'lodash';
 import type { ProposalId } from '@zero-tech/zdao-sdk';
 import { isFromSnapshotWithMultipleChoices } from 'features/view-dao-proposals/lib';
-import { useCurrentDao } from '../../lib/hooks';
+import { useCurrentDao } from 'lib/hooks';
 import { useProposalPageData } from './lib';
 
-import { BackLinkButton } from '../../features/ui';
+import { BackLinkButton } from 'features/ui';
 import { Attributes, Body, Title, Vote, VoteBar, Votes } from './components';
 
 import styles from './Proposal.module.scss';

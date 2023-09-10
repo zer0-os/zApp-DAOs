@@ -1,7 +1,7 @@
 import React, { useState, FC, useCallback } from 'react';
 import type { Choice, Proposal } from '@zero-tech/zdao-sdk';
 
-import { useWeb3 } from '../../../../lib/hooks';
+import { useWeb3 } from 'lib/hooks';
 import { VoteModal } from './VoteModal';
 import { VoteAction } from './VoteAction';
 

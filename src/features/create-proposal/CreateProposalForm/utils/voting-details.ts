@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { formatDateTime } from '../../../../lib/util/datetime';
+import { formatDateTime } from 'lib/util/datetime';
 import { DEFAULT_VOTE_DURATION_DAYS } from '../../CreateProposal.constants';
 
 export type VotingDetailItem = {

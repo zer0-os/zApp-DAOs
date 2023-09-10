@@ -1,16 +1,12 @@
 import React, { useEffect } from 'react';
 
-import { useAllZnas, useCurrentDao, useRedirect } from '../../../lib/hooks';
-import { DOLLAR_SYMBOL } from '../../../lib/constants/currency';
-import { formatFiat } from '../../../lib/util/format';
+import { useAllZnas, useCurrentDao, useRedirect } from 'lib/hooks';
+import { DOLLAR_SYMBOL } from 'lib/constants/currency';
+import { formatFiat } from 'lib/util/format';
 import { useDaosTotal } from '../lib';
-import {
-	DEFAULT_ZNS_DOMAIN,
-	ROOT_PATH,
-	ROUTES,
-} from '../../../lib/constants/routes';
+import { DEFAULT_ZNS_DOMAIN, ROOT_PATH, ROUTES } from 'lib/constants/routes';
 
-import { DAOTable } from '../../../features/view-daos-in-network';
+import { DAOTable } from 'features/view-daos-in-network';
 import { Card } from '@zero-tech/zui/components';
 
 import styles from './Page.module.scss';
@@ -37,6 +33,8 @@ export const DAOsPage = () => {
 
 		if (!dao) {
 			if (zna !== DEFAULT_ZNS_DOMAIN) {
+				// eslint-disable-next-line
+				// @ts-ignore
 				redirect(ROOT_PATH + ROUTES.ZDAOS, 'Could not find a DAO for ' + zna);
 				// ^ This causes a redirect loop, so checking that the root path isn't the current path before redirect.
 			}

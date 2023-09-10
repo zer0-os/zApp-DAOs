@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import { sortProposals } from '../lib';
-import { useDaoProposals } from '../../../lib/hooks';
+import { useDaoProposals } from 'lib/hooks';
 import { Proposal } from '@zero-tech/zdao-sdk';
 
-import { TableControls } from '../../ui';
+import { TableControls } from 'features/ui';
 import { DaoProposalsTableRow } from './DaoProposalsTableRow';
 import { DaoProposalsTableCard } from './DaoProposalsTableCard';
 import { Column } from '@zero-tech/zui/components/AsyncTable';

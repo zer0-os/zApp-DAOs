@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { DAO_CREATE_PROPOSAL } from './Page';
-import { ROUTES } from '../../../lib/constants/routes';
+import { ROUTES } from 'lib/constants/routes';
 
 import { Button, TabNav, TabsNav } from '@zero-tech/zui/components';
 

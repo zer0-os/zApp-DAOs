@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import type { Proposal } from '@zero-tech/zdao-sdk';
 import type { ProposalPublishModalProps } from './ProposalPublishModal.types';
 import { parseUnits } from 'ethers/lib/utils';
-import { useDaoProposals, useWeb3 } from '../../../lib/hooks';
+import { useDaoProposals, useWeb3 } from 'lib/hooks';
 import {
 	PUBLISH_MODAL_BODY,
 	PUBLISH_MODAL_HEADER,
@@ -16,7 +16,7 @@ import {
 	NEW_PROPOSAL_TWEET_OPTION,
 } from '../CreateProposal.constants';
 
-import { DAO_CREATE_PROPOSAL } from '../../../pages';
+import { DAO_CREATE_PROPOSAL } from 'pages';
 import { Modal, Wizard } from '@zero-tech/zui/components';
 
 import classNames from 'classnames/bind';

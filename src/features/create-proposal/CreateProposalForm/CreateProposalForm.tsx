@@ -5,7 +5,7 @@
 import React, { FC } from 'react';
 
 import { CreateProposalProps } from '../CreateProposal.types';
-import { Asset } from '../../../lib/types/dao';
+import { Asset } from 'lib/types/dao';
 
 //////////////////////////
 // Create Proposal Form //

@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import { useWeb3, useZdaoSdk } from '../';
-import { DEFAULT_ZNS_DOMAIN } from '../../../lib/constants/routes';
+import { DEFAULT_ZNS_DOMAIN } from 'lib/constants/routes';
 
 /**
  * Returns a list of all zNA on the current chain

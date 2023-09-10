@@ -2,13 +2,13 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { zDAO } from '@zero-tech/zdao-sdk';
-import { ROUTES } from '../../../lib/constants/routes';
+import { ROUTES } from 'lib/constants/routes';
 import { DAO_CREATE_PROPOSAL } from './Page';
 
-import { DaoAssetsTable } from '../../../features/view-dao-assets';
-import { DaoTransactionsList } from '../../../features/view-dao-transactions';
-import { CreateProposal } from '../../../features/create-proposal';
-import { DaoProposalsTable } from '../../../features/view-dao-proposals';
+import { DaoAssetsTable } from 'features/view-dao-assets';
+import { DaoTransactionsList } from 'features/view-dao-transactions';
+import { CreateProposal } from 'features/create-proposal';
+import { DaoProposalsTable } from 'features/view-dao-proposals';
 
 /////////////
 // DAO Nav //

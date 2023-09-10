@@ -1,11 +1,11 @@
 import { useHistory } from 'react-router-dom';
 
-import { useDao, useDaoAssetsCoins } from '../../../lib/hooks';
-import { formatFiat } from '../../../lib/util/format';
-import { DOLLAR_SYMBOL } from '../../../lib/constants/currency';
-import { ROUTES } from '../../../lib/constants/routes';
+import { useDao, useDaoAssetsCoins } from 'lib/hooks';
+import { formatFiat } from 'lib/util/format';
+import { DOLLAR_SYMBOL } from 'lib/constants/currency';
+import { ROUTES } from 'lib/constants/routes';
 
-import DaoIcon from '../../../assets/default_dao.svg';
+import DaoIcon from 'assets/default_dao.svg';
 
 //////////////////////////
 // useDaosTableItemData //

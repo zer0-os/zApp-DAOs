@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
 import { useLocation, useRouteMatch } from 'react-router-dom';
 
-import { BackLinkButton } from '../../../features/ui';
+import { BackLinkButton } from 'features/ui';
 import { DAOInfo, DAOTabs, DAONav } from './';
 
-import { ROOT_PATH, ROUTES } from '../../../lib/constants/routes';
+import { ROOT_PATH, ROUTES } from 'lib/constants/routes';
 import {
 	useCurrentDao,
 	useDaoAssetsCoins,
 	useUserPaymentTokenBalance,
-} from '../../../lib/hooks';
+} from 'lib/hooks';
 
 import styles from './Page.module.scss';
 
