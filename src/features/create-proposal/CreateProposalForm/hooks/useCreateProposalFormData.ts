@@ -1,9 +1,9 @@
-import type { Asset } from '../../../../lib/types/dao';
+import type { Asset } from 'lib/types/dao';
 import type { CreateProposalFormData } from './useCreateProposalFormData.types';
 
 import { useMemo, useState } from 'react';
 import { AssetType } from '@zero-tech/zdao-sdk';
-import { usePropsState } from '../../../../lib/hooks';
+import { usePropsState } from 'lib/hooks';
 
 export const useCreateProposalFormData = (
 	assets?: Asset[],

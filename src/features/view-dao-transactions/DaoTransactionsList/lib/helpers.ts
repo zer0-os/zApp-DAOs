@@ -5,7 +5,7 @@ import type {
 } from '@zero-tech/zdao-sdk';
 
 import { AssetType } from '@zero-tech/zdao-sdk';
-import { formatWei } from '../../../../lib/util/format';
+import { formatWei } from 'lib/util/format';
 import { truncateAddress } from '@zero-tech/zui/utils/formatting/addresses';
 import {
 	TRANSACTION_GROUPS,

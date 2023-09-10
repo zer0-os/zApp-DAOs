@@ -4,18 +4,14 @@ import { Link } from 'react-router-dom';
 import { isNil } from 'lodash';
 import type { Choice, Proposal } from '@zero-tech/zdao-sdk';
 import { ProposalState } from '@zero-tech/zdao-sdk';
-import {
-	useCurrentDao,
-	useWeb3,
-	useUserProposalVoteData,
-} from '../../../../lib/hooks';
+import { useCurrentDao, useWeb3, useUserProposalVoteData } from 'lib/hooks';
 import {
 	isFromSnapshotWithMultipleChoices,
 	getSnapshotProposalLink,
-} from '../../../../features/view-dao-proposals/DaoProposalsTable/lib';
+} from 'features/view-dao-proposals/lib';
 
 import { LoadingIndicator, Tooltip } from '@zero-tech/zui/components';
-import { ConnectWallet } from '../../../../features/ui';
+import { ConnectWallet } from 'features/ui';
 import { VoteButtons, Approve, Deny } from './VoteButtons';
 import { VoteStatus } from './Vote';
 

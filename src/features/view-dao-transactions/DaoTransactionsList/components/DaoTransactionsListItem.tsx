@@ -1,14 +1,14 @@
 import React, { FC, useMemo } from 'react';
 
 import { Transaction, TransactionType } from '@zero-tech/zdao-sdk';
-import { useWeb3 } from '../../../../lib/hooks';
-import { getEtherscanUri } from '../../../../lib/util/network';
-import { EtherscanLink } from '../../../ui';
+import { useWeb3 } from 'lib/hooks';
+import { getEtherscanUri } from 'lib/util/network';
+import { EtherscanLink } from 'features/ui';
 import {
 	formatTransactionValue,
 	TRANSACTION_TYPE,
 	TRANSACTION_DIRECTION,
-} from './../lib';
+} from '../lib';
 
 import { IconArrowDownLeft } from '@zero-tech/zui/icons';
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { useAllZnas } from '../../../lib/hooks';
+import { useAllZnas } from 'lib/hooks';
 
-import { TableControls } from '../../ui';
+import { TableControls } from 'features/ui';
 import { DAOTableRow } from './DAOTableRow';
 import { DAOTableCard } from './DAOTableCard';
 import {

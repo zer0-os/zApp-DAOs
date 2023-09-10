@@ -6,8 +6,8 @@ import {
 	useDaoAssets,
 	useUserPaymentTokenBalance,
 	useWeb3,
-} from '../../lib/hooks';
-import { DAO_CREATE_PROPOSAL } from '../../pages/dao';
+} from 'lib/hooks';
+import { DAO_CREATE_PROPOSAL } from 'pages/dao';
 import { AssetType } from '@zero-tech/zdao-sdk';
 
 export const useCreateProposalContainerData = (zna: string) => {

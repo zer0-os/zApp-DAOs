@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import type { FC } from 'react';
 
 import { convertAsset } from './lib/helpers';
-import { useDao, useDaoAssets, useEtherscanUrl } from '../../../lib/hooks';
+import { useDao, useDaoAssets, useEtherscanUrl } from 'lib/hooks';
 
 import { TableControls } from '../../ui';
 import { DaoAssetsTableRow } from './DaoAssetsTableRow';

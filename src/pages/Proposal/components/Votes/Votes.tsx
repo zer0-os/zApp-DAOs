@@ -1,12 +1,12 @@
 import React, { ReactNode, useMemo } from 'react';
 
 import type { zDAO, Proposal, Vote } from '@zero-tech/zdao-sdk';
-import { useWeb3 } from '../../../../lib/hooks';
-import { formatVotingPowerAmount } from '../../../../features/view-dao-proposals/DaoProposalsTable/lib';
-import { getEtherscanUri } from '../../../../lib/util/network';
+import { useWeb3 } from 'lib/hooks';
+import { formatVotingPowerAmount } from 'features/view-dao-proposals/lib';
+import { getEtherscanUri } from 'lib/util/network';
 
 import { Skeleton } from '@zero-tech/zui/components';
-import { EtherscanLink } from '../../../../features/ui';
+import { EtherscanLink } from 'features/ui';
 import { Approve, Deny } from '../Vote';
 
 import styles from './Votes.module.scss';

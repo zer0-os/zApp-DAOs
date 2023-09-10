@@ -4,8 +4,8 @@ import millify from 'millify';
 import type { Proposal, Token, TokenMetaData, zDAO } from '@zero-tech/zdao-sdk';
 import { ProposalState } from '@zero-tech/zdao-sdk';
 import { formatUnits } from 'ethers/lib/utils';
-import { formatFiat } from '../../../../lib/util/format';
-import { secondsToDhms } from '../../../../lib/util/datetime';
+import { formatFiat } from 'lib/util/format';
+import { secondsToDhms } from 'lib/util/datetime';
 import {
 	DAY_IN_MILLISECONDS,
 	DEFAULT_TIMER_EXPIRED_LABEL,

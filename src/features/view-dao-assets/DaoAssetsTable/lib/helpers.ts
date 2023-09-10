@@ -2,9 +2,9 @@ import millify from 'millify';
 import { formatUnits } from 'ethers/lib/utils';
 import { getHashFromIpfsUrl } from '@zero-tech/zapp-utils/utils/ipfs';
 import { getCloudinaryImageUrlFromIpfsUrl } from '@zero-tech/zapp-utils/utils/cloudinary';
-import { formatFiat } from '../../../../lib/util/format';
-import { DOLLAR_SYMBOL } from '../../../../lib/constants/currency';
-import type { Asset } from '../../../../lib/types/dao';
+import { formatFiat } from 'lib/util/format';
+import { DOLLAR_SYMBOL } from 'lib/constants/currency';
+import type { Asset } from 'lib/types/dao';
 
 import type { DaoAssetTableDataItem } from '../DaoAssetsTable';
 

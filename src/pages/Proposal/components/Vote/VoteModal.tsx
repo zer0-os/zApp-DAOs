@@ -2,12 +2,8 @@ import React, { FC, useState } from 'react';
 
 import { truncateAddress } from '@zero-tech/zui/utils/formatting/addresses';
 import type { Proposal, Choice } from '@zero-tech/zdao-sdk';
-import {
-	useCurrentDao,
-	useWeb3,
-	useUserProposalVoteData,
-} from '../../../../lib/hooks';
-import { formatVotingPowerAmount } from '../../../../features/view-dao-proposals/DaoProposalsTable/lib';
+import { useCurrentDao, useWeb3, useUserProposalVoteData } from 'lib/hooks';
+import { formatVotingPowerAmount } from 'features/view-dao-proposals/lib';
 
 import { Modal, Wizard } from '@zero-tech/zui/components';
 import { Approve, Deny } from './VoteButtons';

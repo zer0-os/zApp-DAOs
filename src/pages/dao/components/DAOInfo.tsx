@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { DOLLAR_SYMBOL } from '../../../lib/constants/currency';
-import { formatFiat } from '../../../lib/util/format';
+import { DOLLAR_SYMBOL } from 'lib/constants/currency';
+import { formatFiat } from 'lib/util/format';
 
 import { Card, SkeletonText } from '@zero-tech/zui/components';
 
-import DaoIcon from '../../../assets/default_dao.svg';
+import DaoIcon from 'assets/default_dao.svg';
 
 import styles from './Page.module.scss';
 
