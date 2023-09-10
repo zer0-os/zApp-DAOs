@@ -75,7 +75,7 @@ export const DaoProposalsTable = ({ zna }: DaoProposalsTableProps) => {
 				<TableStatusMessage
 					className={styles.Message}
 					status={TableStatus.LOADING}
-					message={'Loading Proposals...'}
+					message={'Loading Proposals'}
 				/>
 			)}
 			{isEmpty && (

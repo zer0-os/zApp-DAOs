@@ -6,29 +6,23 @@ test.beforeEach(async ({ page }) => {
 	await daos.goto();
 });
 
+// @note: this is a fragile test, but it will do for now
 test('can view a list of all DAOs in the network in list and grid view', async ({
 	page,
 }) => {
-	// Should see "Loading DAOs" message
 	await expect(page.getByText('Loading all DAOs')).toBeVisible();
-
+	await page.waitForSelector('[data-testid="zapp-daos-view-toggle"]');
 	const viewToggle = page.getByTestId('zapp-daos-view-toggle');
 
-	// Click first toggle option
+	// list view
 	await viewToggle.getByRole('radio').first().click();
-
-	// Should see all Wilder DAOs
-	// @note: this is a fragile test, but it will do for now
 	await expect(page.getByText('Wilder Beasts')).toBeVisible();
 	await expect(page.getByText('Wilder Moto')).toBeVisible();
 	await expect(page.getByText('Wilder Wheels')).toBeVisible();
 	await expect(page.getByText('Wilder Kicks')).toBeVisible();
 
-	// Click first toggle option
+	// grid view
 	await viewToggle.getByRole('radio').last().click();
-
-	// Should see all Wilder DAOs
-	// @note: this is a fragile test, but it will do for now
 	await expect(page.getByText('Wilder Beasts')).toBeVisible();
 	await expect(page.getByText('Wilder Moto')).toBeVisible();
 	await expect(page.getByText('Wilder Wheels')).toBeVisible();
