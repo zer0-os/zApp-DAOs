@@ -3,8 +3,8 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { formatDuration, isBefore, intervalToDuration } from 'date-fns/fp';
 import removeMarkdown from 'markdown-to-text';
 import type { Proposal } from '@zero-tech/zdao-sdk';
-import { useTimer } from '../../../../lib/hooks';
-import { truncateString } from '../../../../lib/util/string';
+import { useTimer } from 'lib/hooks';
+import { truncateString } from 'lib/util/string';
 import {
 	DEFAULT_TIMER_EXPIRED_LABEL,
 	DEFAULT_TIMER_INTERVAL,

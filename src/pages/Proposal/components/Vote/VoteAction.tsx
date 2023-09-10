@@ -12,7 +12,7 @@ import {
 import {
 	isFromSnapshotWithMultipleChoices,
 	getSnapshotProposalLink,
-} from '../../../../features/view-dao-proposals/DaoProposalsTable/lib';
+} from '../../../../features/view-dao-proposals/lib';
 
 import { LoadingIndicator, Tooltip } from '@zero-tech/zui/components';
 import { ConnectWallet } from '../../../../features/ui';

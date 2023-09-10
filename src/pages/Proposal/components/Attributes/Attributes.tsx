@@ -4,7 +4,7 @@ import moment from 'moment';
 import { useWeb3, useDaoProposal } from '../../../../lib/hooks';
 import { secondsToDhms, formatDateTime } from '../../../../lib/util/datetime';
 import { getEtherscanUri } from '../../../../lib/util/network';
-import { formatProposalStatus } from '../../../../features/view-dao-proposals/DaoProposalsTable/lib';
+import { formatProposalStatus } from 'features/view-dao-proposals/lib';
 
 import { EtherscanLink } from '../../../../features/ui';
 

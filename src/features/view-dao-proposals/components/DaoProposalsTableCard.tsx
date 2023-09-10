@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import type { Proposal } from '@zero-tech/zdao-sdk';
-import { ProposalClosingStatus, useDaoProposalsTableItemData } from './lib';
+import { ProposalClosingStatus, useDaoProposalsTableItemData } from '../lib';
 
 import styles from './DaoProposalsTableCard.module.scss';
 

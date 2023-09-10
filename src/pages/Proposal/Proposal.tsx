@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import { cloneDeep } from 'lodash';
 import type { ProposalId } from '@zero-tech/zdao-sdk';
-import { isFromSnapshotWithMultipleChoices } from '../../features/view-dao-proposals/DaoProposalsTable/lib';
+import { isFromSnapshotWithMultipleChoices } from 'features/view-dao-proposals/lib';
 import { useCurrentDao } from '../../lib/hooks';
 import { useProposalPageData } from './lib';
 

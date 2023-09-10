@@ -1,7 +1,7 @@
 import { ProposalId } from '@zero-tech/zdao-sdk';
 import { useDao, useDaoProposal, useProposalVotes } from '../../../lib/hooks';
 import { useCallback } from 'react';
-import { isFromSnapshotWithMultipleChoices } from '../../../features/view-dao-proposals/DaoProposalsTable/lib';
+import { isFromSnapshotWithMultipleChoices } from '../../../features/view-dao-proposals/lib';
 
 interface UseProposalPageDataParams {
 	proposalId: ProposalId;

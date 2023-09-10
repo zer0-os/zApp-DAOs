@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
-import { sortProposals } from './lib';
+import { sortProposals } from '../lib';
 import { useDaoProposals } from '../../../lib/hooks';
 import { Proposal } from '@zero-tech/zdao-sdk';
 
@@ -35,11 +35,11 @@ const TABLE_COLUMNS: Column[] = [
 // @note: this value is being used in TableControls.module.scss - change in both places
 const GRID_WIDTH_TOGGLE = 450;
 
-export type DaoProposalsTableProps = {
+export interface DaoProposalsTableProps {
 	zna: string;
-};
+}
 
-export const DaoProposalsTable: FC<DaoProposalsTableProps> = ({ zna }) => {
+export const DaoProposalsTable = ({ zna }: DaoProposalsTableProps) => {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [view, setView] = useState<View>(View.TABLE);
 
