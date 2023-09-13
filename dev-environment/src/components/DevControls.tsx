@@ -38,7 +38,7 @@ export const DevControls = () => {
 			}}
 			data-testid="zapp-dev-controls"
 		>
-			<b>zApp Staking {version}</b>
+			<b>zApp DAOs {version}</b>
 			<span>{content}</span>
 		</footer>
 	);
