@@ -35,8 +35,12 @@ export const Proposal = () => {
 					text={formatProposalBody(proposal.body)}
 				/>
 			)}
-			<hr />
-			{proposal && <ProposalVoteList />}
+			{proposal && (
+				<>
+					<hr />
+					<ProposalVoteList />
+				</>
+			)}
 		</div>
 	);
 };
