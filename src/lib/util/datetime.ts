@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { format } from 'date-fns';
 
 /**
  * Format seconds as humanized string
@@ -26,8 +26,6 @@ export const secondsToDhms = (seconds: number, showSeconds = false): string => {
  * @param formatter formatter string
  * @returns formatted humanized string
  */
-export const formatDateTime = (date: Date, formatter?: string): string => {
-	if (!moment(date).isValid()) return '';
-
-	return moment(date).format(formatter);
+export const formatDateTime = (date: Date): string => {
+	return format(date, 'do MMM yy (h:mm a)');
 };

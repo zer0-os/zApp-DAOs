@@ -1,0 +1,24 @@
+.Votes {
+	h2 {
+		font-size: 1.125rem;
+		margin: 0;
+	}
+
+	thead {
+		position: sticky;
+		top: 0;
+		background-color: var(--color-primary-1);
+	}
+
+	th,
+	td {
+		&:first-child {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+
+	.LoadMoreButton {
+		margin: 0 auto;
+	}
+}

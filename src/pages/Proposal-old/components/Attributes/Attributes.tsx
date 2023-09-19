@@ -47,17 +47,12 @@ export const Attributes = ({ proposalId, zna }: AttributesProps) => {
 			<Attribute
 				isLoading={isLoadingProposal}
 				label={'Voting Started'}
-				value={
-					(proposal && formatDateTime(proposal.start, 'M/D/YYYY h:mm A Z')) ||
-					'-'
-				}
+				value={(proposal && formatDateTime(proposal.start)) || '-'}
 			/>
 			<Attribute
 				isLoading={isLoadingProposal}
 				label={isConcluded ? 'Voting Ended' : 'Voting Ends'}
-				value={
-					(proposal && formatDateTime(proposal.end, 'M/D/YYYY h:mm A Z')) || '-'
-				}
+				value={(proposal && formatDateTime(proposal.end)) || '-'}
 			/>
 			<Attribute
 				isLoading={isLoadingProposal}

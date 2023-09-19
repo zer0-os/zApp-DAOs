@@ -1,0 +1,48 @@
+.Container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	gap: 0.5rem;
+
+	> span {
+		display: flex;
+		font-size: 0.75rem;
+		font-weight: bold;
+
+		&:first-of-type {
+			color: var(--color-secondary-11);
+		}
+
+		&:last-of-type {
+			color: var(--color-failure-11);
+		}
+	}
+
+	.Options {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+
+		.Option {
+			height: 0.5rem;
+
+			&:first-child {
+				border-radius: 0.5rem 0 0 0.5rem;
+			}
+
+			&:last-child {
+				border-radius: 0 0.5rem 0.5rem 0;
+			}
+
+			&:nth-child(1n) {
+				background: linear-gradient(90deg, #52ffea 0%, #52cbff 100%);
+			}
+
+			&:nth-child(2n) {
+				background: linear-gradient(90deg, #f763b0 0%, #e73a14 100%);
+			}
+		}
+	}
+}
