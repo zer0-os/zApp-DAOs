@@ -43,7 +43,7 @@ export const DevApp = () => {
 					)}
 				/>
 				<Route>
-					<Redirect to={'/0.wilder/dao'} />
+					<Redirect to={'/0.wilder/daos'} />
 				</Route>
 			</Switch>
 		</>
