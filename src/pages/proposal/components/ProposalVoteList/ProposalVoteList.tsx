@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useInfiniteQuery } from 'react-query';
+import ProposalClient from '@zero-tech/zdao-sdk/lib/client/ProposalClient';
 import { truncateAddress } from '@zero-tech/zui/utils';
 import { useCurrentProposal } from '../../lib/useCurrentProposal';
 
@@ -14,7 +15,6 @@ import { TableData } from '@zero-tech/zui/components/AsyncTable/Column';
 import { Button } from '@zero-tech/zui/components';
 
 import styles from './ProposalVoteList.module.scss';
-import ProposalClient from '@zero-tech/zdao-sdk/lib/client/ProposalClient';
 
 const PAGE_SIZE = 10;
 
@@ -91,7 +91,7 @@ export const ProposalVoteList = () => {
 			<div className={styles.LoadMoreButton}>
 				{Boolean(voteHistory?.pages.length) && hasNextPage && (
 					<Button
-						isDisabled={isFetchingNextPage}
+						isLoading={isFetchingNextPage}
 						variant={'text'}
 						onPress={handleOnClickLoadMore}
 					>

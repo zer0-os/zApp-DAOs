@@ -36,7 +36,7 @@ export const Proposal = () => {
 				/>
 			)}
 			<hr />
-			<ProposalVoteList />
+			{proposal && <ProposalVoteList />}
 		</div>
 	);
 };

@@ -1,14 +1,15 @@
+import React from 'react';
 import { Proposal, ProposalState } from '@zero-tech/zdao-sdk';
 
-import { Attribute, Attributes } from 'features/ui/Attributes/Attributes';
-import { useWeb3 } from '../../../lib/hooks';
-import { getEtherscanUri } from '../../../lib/util/network';
-import { formatProposalStatus } from '../../view-dao-proposals/lib';
-import React from 'react';
-import { EtherscanLink } from '../../ui';
-import { formatDateTime } from '../../../lib/util/datetime';
 import { formatDistance } from 'date-fns/fp';
-import ProposalClient from '@zero-tech/zdao-sdk/lib/client/ProposalClient';
+import { formatDateTime } from 'lib/util/datetime';
+import { useWeb3 } from 'lib/hooks';
+import { getEtherscanUri } from 'lib/util/network';
+import { formatProposalStatus } from 'features/view-dao-proposals/lib';
+import { kebabCaseToTitleCase } from '../lib/format';
+
+import { Attribute, Attributes } from 'features/ui/Attributes/Attributes';
+import { EtherscanLink } from 'features/ui';
 
 export interface ProposalAttributesProps {
 	proposal?: Proposal;
@@ -24,10 +25,6 @@ export const ProposalAttributes = ({
 
 	const etherscanUri = getEtherscanUri(chainId ?? 1);
 	const isClosed = proposal?.state === ProposalState.CLOSED;
-
-	// Return type of getProposal is weird
-	const tokenSymbol = (proposal as ProposalClient)?.['options']?.strategies?.[0]
-		?.params?.symbol;
 
 	return (
 		<Attributes>
@@ -56,7 +53,7 @@ export const ProposalAttributes = ({
 			<Attribute
 				isLoading={isLoading}
 				label={'Voting System'}
-				value={proposal?.type}
+				value={proposal?.type ? kebabCaseToTitleCase(proposal.type) : undefined}
 			/>
 			<Attribute
 				isLoading={isLoading}
@@ -65,8 +62,8 @@ export const ProposalAttributes = ({
 			/>
 			<Attribute
 				isLoading={isLoading}
-				label={'Votes Submitted'}
-				value={`${proposal?.votes.toString()} ${tokenSymbol}`}
+				label={'Voters'}
+				value={proposal?.votes.toString()}
 			/>
 			<Attribute
 				isLoading={isLoading}
