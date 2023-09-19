@@ -108,60 +108,72 @@ export const getSnapshotProposalLink = (
 	return `https://snapshot.org/#/${dao.ens}/proposal/${proposal.id}`;
 };
 
-/**
- * Format proposal status
- * @param proposal to format
- * @returns formatted proposal status string
- */
-export const formatProposalStatus = (proposal?: Proposal): string => {
-	if (proposal) {
-		if (isFromSnapshotWithMultipleChoices(proposal)) {
-			return '-';
-		}
+export const getProposalStatus = (
+	canExecute: boolean,
+	hasVotes: boolean,
+	isCompatible: boolean,
+	scores: number[],
+	state: ProposalState,
+): string => {
+	if (!isCompatible) {
+		return '-';
+	}
 
-		const isClosed = proposal.state === ProposalState.CLOSED;
+	const isClosed = state === ProposalState.CLOSED;
 
-		if (!proposal.votes) {
-			if (isClosed) {
-				return 'No Votes';
-			} else {
-				return 'No Votes Yet';
-			}
-		}
-
-		if (isEmpty(proposal.scores)) {
-			if (isClosed) {
-				return 'Expired';
-			} else {
-				return 'More Votes Needed';
-			}
-		}
-
+	if (!hasVotes) {
 		if (isClosed) {
-			if (proposal.canExecute()) {
-				return 'Approved';
-			} else {
-				return 'Denied';
-			}
+			return 'No Votes';
+		} else {
+			return 'No Votes Yet';
 		}
+	}
 
-		if (proposal.scores[0] > proposal.scores[1]) {
-			if (isClosed) {
-				if (proposal.canExecute()) {
-					return 'Approved';
-				} else {
-					return 'Denied';
-				}
-			}
-			return isClosed ? 'Approved' : 'Approval Favoured';
-		} else if (proposal.scores[0] < proposal.scores[1]) {
-			return isClosed ? 'Denied' : 'Denial Favoured';
+	if (isEmpty(scores)) {
+		if (isClosed) {
+			return 'Expired';
 		} else {
 			return 'More Votes Needed';
 		}
 	}
 
-	return '';
+	if (isClosed) {
+		if (canExecute) {
+			return 'Approved';
+		} else {
+			return 'Denied';
+		}
+	}
+
+	if (scores[0] > scores[1]) {
+		if (isClosed) {
+			if (canExecute) {
+				return 'Approved';
+			} else {
+				return 'Denied';
+			}
+		}
+		return isClosed ? 'Approved' : 'Approval Favoured';
+	} else if (scores[0] < scores[1]) {
+		return isClosed ? 'Denied' : 'Denial Favoured';
+	} else {
+		return 'More Votes Needed';
+	}
+};
+
+/**
+ * Format proposal status
+ * @param proposal to format
+ * @returns formatted proposal status string
+ */
+export const formatProposalStatus = (proposal: Proposal): string => {
+	return getProposalStatus(
+		proposal.canExecute(),
+		Boolean(proposal.votes),
+		Boolean(proposal.metadata),
+		proposal.scores,
+		proposal.state,
+	);
 };
 
 /**

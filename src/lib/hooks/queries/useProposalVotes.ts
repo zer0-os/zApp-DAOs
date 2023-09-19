@@ -15,7 +15,7 @@ export const useProposalVotes = ({ zna, proposalId }: UseDaoProposalParams) => {
 	const query = useQuery(
 		['dao', 'proposal', 'votes', { zna, proposalId }],
 		async () => {
-			return await proposal.listVotes();
+			return await proposal.listVotes({ from: 0, count: 2 });
 		},
 		{
 			enabled: Boolean(proposal),

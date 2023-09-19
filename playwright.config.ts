@@ -9,6 +9,7 @@ config();
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+	testDir: 'tests/e2e',
 	timeout: 30 * 1000,
 	expect: {
 		timeout: 5000,
