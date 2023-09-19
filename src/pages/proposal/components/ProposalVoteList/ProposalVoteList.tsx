@@ -53,6 +53,9 @@ export const ProposalVoteList = () => {
 		}
 	};
 
+	const hasNoVotes =
+		voteHistory?.pages.length && voteHistory?.pages[0].length === 0;
+
 	const sumOfScores = proposal?.scores.reduce((a, b) => a + b, 0);
 
 	return (
@@ -68,27 +71,31 @@ export const ProposalVoteList = () => {
 					<Header alignment={'right'}>Voting Power</Header>
 				</HeaderGroup>
 				<Body>
-					{voteHistory?.pages.map((page) => (
-						<React.Fragment key={page[0].voter}>
-							{page.map((vote) => (
-								<tr key={vote.voter + vote.choice + vote.power}>
-									<TableData alignment={'left'}>
-										{truncateAddress(vote.voter)}
-									</TableData>
-									<TableData alignment={'right'}>
-										{proposal?.choices[vote.choice - 1]}
-									</TableData>
-									<TableData alignment={'right'}>{vote.power}</TableData>
-									<TableData alignment={'right'}>
-										{Math.round((vote.power / sumOfScores) * 100) + '%'}
-									</TableData>
-								</tr>
-							))}
-						</React.Fragment>
-					))}
+					{!hasNoVotes &&
+						voteHistory?.pages.map((page) => {
+							return (
+								<React.Fragment key={page?.[0]?.voter}>
+									{page?.map((vote) => (
+										<tr key={vote.voter + vote.choice + vote.power}>
+											<TableData alignment={'left'}>
+												{truncateAddress(vote.voter)}
+											</TableData>
+											<TableData alignment={'right'}>
+												{proposal?.choices[vote.choice - 1]}
+											</TableData>
+											<TableData alignment={'right'}>{vote.power}</TableData>
+											<TableData alignment={'right'}>
+												{Math.round((vote.power / sumOfScores) * 100) + '%'}
+											</TableData>
+										</tr>
+									))}
+								</React.Fragment>
+							);
+						})}
 				</Body>
 			</Table>
 			<div className={styles.LoadMoreButton}>
+				{hasNoVotes && <span>No votes yet</span>}
 				{Boolean(voteHistory?.pages.length) && hasNextPage && (
 					<Button
 						isLoading={isFetchingNextPage}
