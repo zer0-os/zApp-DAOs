@@ -14,7 +14,7 @@ import { TableData } from '@zero-tech/zui/components/AsyncTable/Column';
 import { Button } from '@zero-tech/zui/components';
 
 import styles from './ProposalVoteList.module.scss';
-import ProposalClient from '../../../../../../zdao-sdk/lib/client/ProposalClient';
+import ProposalClient from '@zero-tech/zdao-sdk/lib/client/ProposalClient';
 
 const PAGE_SIZE = 10;
 
@@ -87,17 +87,18 @@ export const ProposalVoteList = () => {
 						</React.Fragment>
 					))}
 				</Body>
+			</Table>
+			<div className={styles.LoadMoreButton}>
 				{Boolean(voteHistory?.pages.length) && hasNextPage && (
 					<Button
 						isDisabled={isFetchingNextPage}
 						variant={'text'}
 						onPress={handleOnClickLoadMore}
-						className={styles.LoadMoreButton}
 					>
 						Load More
 					</Button>
 				)}
-			</Table>
+			</div>
 		</div>
 	);
 };
