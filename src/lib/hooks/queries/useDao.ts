@@ -1,11 +1,13 @@
 import { useQuery } from 'react-query';
 import { useZdaoSdk } from '../sdks';
+import { useWeb3 } from '../state';
 
 export const useDao = (zna: string) => {
 	const sdk = useZdaoSdk();
+	const { chainId } = useWeb3();
 
 	return useQuery(
-		['dao', { zna }],
+		['dao', { zna, chainId }],
 		async () => {
 			return await sdk.getZDAOByZNA(zna);
 		},
@@ -13,7 +15,7 @@ export const useDao = (zna: string) => {
 			retry: false,
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
-			enabled: zna && zna.trim().length > 0,
+			enabled: Boolean(zna.trim().length > 0),
 		},
 	);
 };

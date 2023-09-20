@@ -4,16 +4,18 @@ import { useQuery } from 'react-query';
 import { useDaoAssetsCoins } from './useDaoAssetsCoins';
 import { useDao } from './useDao';
 import { AssetType } from '@zero-tech/zdao-sdk';
+import { useSafeUrl } from '../state/useSafeUrl';
 
 export const useDaoAssets = (zna?: string) => {
 	const { data: dao, isLoading: isLoadingDao } = useDao(zna);
 	const { data: assets, isLoading: isLoadingCoins } = useDaoAssetsCoins(zna);
+	const { safeUrl } = useSafeUrl();
 
 	const queryData = useQuery(
 		['dao', 'assets', { zna }],
 		async () => {
 			const response = await fetch(
-				`https://safe-transaction-mainnet.safe.global/api/v2/safes/${dao.safeAddress}/collectibles/?trusted=false&exclude_spam=true`,
+				`${safeUrl}/api/v2/safes/${dao.safeAddress}/collectibles/?trusted=false&exclude_spam=true`,
 			);
 			const data = await response.json();
 
