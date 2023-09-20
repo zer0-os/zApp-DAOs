@@ -1,47 +1,48 @@
 .Modal {
-    width: 33rem;
+	width: 33rem;
 
-    h1 {
-        margin: 0 auto 0 0
-    }
+	h1 {
+		margin: 0 auto 0 0;
+	}
 }
 
 .Vote {
-    p, ul {
-        margin: 0;
-        padding: 0;
-    }
+	p,
+	ul {
+		margin: 0;
+		padding: 0;
+	}
 
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 
-    ul {
-        list-style: none;
+	ul {
+		list-style: none;
 
-        li {
-            display: flex;
-            align-items: center;
-            height: 1.5rem;
+		li {
+			display: flex;
+			align-items: center;
+			height: 1.5rem;
 
-            label {
-                font-size: 0.875rem;
-                width: 10rem;
-                color: var(--color-greyscale-11);
-            }
+			label {
+				font-size: 0.875rem;
+				width: 10rem;
+				color: var(--color-greyscale-11);
+			}
 
-            span {
-                font-weight: 700;
-            }
-        }
-    }
+			span {
+				font-weight: 700;
+			}
+		}
+	}
 
-    .Error {
-        color: var(--color-failure-11);
-        font-weight: bold;
-    }
+	.Error {
+		color: var(--color-failure-11);
+		font-weight: bold;
+	}
 
-    .Actions {
-        display: flex;
-        justify-content: space-between;
-    }
+	.Actions {
+		display: flex;
+		justify-content: space-between;
+	}
 }
