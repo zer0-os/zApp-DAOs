@@ -62,9 +62,7 @@ const Form = () => {
 const Details = () => {
 	const { data: proposal } = useCurrentProposal();
 	const { data: userVotePower, isLoading: isLoadingUserVotePower } =
-		useUserVotePower({
-			proposalId: proposal?.id,
-		});
+		useUserVotePower();
 	const { account } = useWeb3();
 
 	const choice = useVoteStore((state) => state.choice);
