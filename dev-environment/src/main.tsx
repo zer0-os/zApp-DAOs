@@ -6,23 +6,28 @@ import { render } from 'react-dom';
 import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
-import { createConfig, mainnet, WagmiConfig } from 'wagmi';
-import { createPublicClient, http } from 'viem';
+import { configureChains, createConfig, mainnet, WagmiConfig } from 'wagmi';
+import { publicProvider } from 'wagmi/providers/public';
 
 import { ThemeEngine } from '@zero-tech/zui/components';
 import { Themes } from '@zero-tech/zui/components/ThemeEngine';
 import { DevApp } from './components/DevApp';
 
 import './main.css';
+import { goerli } from 'viem/chains';
+import { InjectedConnector } from 'wagmi/connectors/injected';
 
 const history = createBrowserHistory();
 
+const { chains, publicClient } = configureChains(
+	[mainnet, goerli],
+	[publicProvider()],
+);
+
 const config = createConfig({
 	autoConnect: true,
-	publicClient: createPublicClient({
-		chain: mainnet,
-		transport: http(),
-	}),
+	connectors: [new InjectedConnector({ chains })],
+	publicClient,
 });
 
 render(

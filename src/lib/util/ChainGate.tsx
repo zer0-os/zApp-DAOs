@@ -15,7 +15,7 @@ interface ChainGateProps {
 export const ChainGate: FC<ChainGateProps> = ({ children }) => {
 	const { chainId } = useWeb3();
 
-	const isSupportedNetwork = Object.values(Network).includes(chainId);
+	const isSupportedNetwork = Object.values(Network).includes(Number(chainId));
 
 	if (!isSupportedNetwork) {
 		return (
