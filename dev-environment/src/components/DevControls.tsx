@@ -26,7 +26,6 @@ export const DevControls = () => {
 				bottom: 0,
 				width: '100%',
 				boxSizing: 'border-box',
-				background: 'white',
 				padding: '0.5rem',
 				borderRadius: '0.5rem',
 				display: 'flex',
@@ -38,8 +37,8 @@ export const DevControls = () => {
 			}}
 			data-testid="zapp-dev-controls"
 		>
-			<b>zApp DAOs {version}</b>
-			<span>{content}</span>
+			<b style={{ background: 'white' }}>zApp DAOs {version}</b>
+			<span style={{ background: 'white' }}>{content}</span>
 		</footer>
 	);
 };
