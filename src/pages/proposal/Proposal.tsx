@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { ProposalAttributes } from 'features/view-proposal-attributes';
 import { formatProposalBody } from 'features/view-dao-proposals/lib';
 import { useCurrentProposal } from './lib/useCurrentProposal';
 
 import { MarkdownViewer, MaybeSkeletonText } from '@zero-tech/zui/components';
+import { VoteFooter } from 'features/vote-on-proposal';
+import { ProposalAttributes } from 'features/view-proposal-attributes';
 import { AllProposalsLink } from './components/AllProposalsLink';
 import { VoteBar } from './components/VoteBar';
 import { ProposalVoteList } from './components/ProposalVoteList';
@@ -30,15 +31,14 @@ export const Proposal = () => {
 			)}
 			<ProposalAttributes proposal={proposal} isLoading={isLoadingProposal} />
 			{proposal && (
-				<MarkdownViewer
-					className={styles.Markdown}
-					text={formatProposalBody(proposal.body)}
-				/>
-			)}
-			{proposal && (
 				<>
+					<MarkdownViewer
+						className={styles.Markdown}
+						text={formatProposalBody(proposal.body)}
+					/>
 					<hr />
 					<ProposalVoteList />
+					<VoteFooter />
 				</>
 			)}
 		</div>

@@ -1,15 +1,17 @@
 import { useQuery } from 'react-query';
 import { useDao } from './useDao';
 import { AssetType } from '@zero-tech/zdao-sdk';
+import { useSafeUrl } from '../state/useSafeUrl';
 
 export const useDaoAssetsCoins = (zna?: string) => {
 	const { data: dao } = useDao(zna);
+	const { safeUrl } = useSafeUrl();
 
 	return useQuery(
 		['dao', 'assets', 'coins', zna],
 		async () => {
 			const response = await fetch(
-				`https://safe-transaction-mainnet.safe.global/api/v1/safes/${dao.safeAddress}/balances/usd/?trusted=false&exclude_spam=true`,
+				`${safeUrl}/api/v1/safes/${dao.safeAddress}/balances/usd/?trusted=false&exclude_spam=true`,
 			);
 
 			const data = await response.json();

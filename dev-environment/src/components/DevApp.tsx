@@ -5,14 +5,10 @@ import { DaosApp } from '@/index';
 import { ethers } from 'ethers';
 import { useAccount, useConnect } from 'wagmi';
 import { useEthersProvider } from '../lib/useEthersProvider';
-import { injectedConnector } from '../lib/connectors';
+import { CHAIN_ID, injectedConnector, RPC_URL } from '../lib/connectors';
 
 import { DevControls } from './DevControls';
 import { Redirect, Route, Switch } from 'react-router-dom';
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-const RPC_URL = import.meta.env.VITE_RPC_URL_1 ?? process.env.RPC_URL;
 
 export const DevApp = () => {
 	const { address } = useAccount();
@@ -20,7 +16,7 @@ export const DevApp = () => {
 		connector: injectedConnector,
 	});
 
-	const provider = useEthersProvider({ chainId: 1 });
+	const provider = useEthersProvider({ chainId: CHAIN_ID });
 
 	return (
 		<>
@@ -35,7 +31,7 @@ export const DevApp = () => {
 							}
 							route={'wilder'}
 							web3={{
-								chainId: provider?.network.chainId ?? 1,
+								chainId: provider?.network?.chainId ?? CHAIN_ID,
 								address: address,
 								connectWallet: connect,
 							}}
