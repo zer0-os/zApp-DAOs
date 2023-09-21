@@ -3,8 +3,9 @@ import type { zDAO } from '@zero-tech/zdao-sdk';
 
 import React, { createContext } from 'react';
 import { useRouteMatch } from 'react-router-dom';
-import { useDao } from '../hooks';
-import { extractZnaFromZnsRoute } from '../util/domains';
+import { useDao } from 'lib/hooks';
+import { extractZnaFromZnsRoute } from 'lib/util/domains';
+import { HARDCODED_DAO } from 'lib/constants/daos';
 
 export const CurrentDaoContext = createContext({
 	dao: undefined as zDAO | undefined,
@@ -28,7 +29,7 @@ export const CurrentDaoProvider: FC<CurrentDaoProviderProps> = ({
 		// @ts-ignore
 		params: { znsRoute },
 	} = useRouteMatch();
-	const zna = extractZnaFromZnsRoute(znsRoute);
+	const zna = HARDCODED_DAO ?? extractZnaFromZnsRoute(znsRoute);
 
 	const { isLoading, data: dao } = useDao(zna);
 

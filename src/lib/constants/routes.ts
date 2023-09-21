@@ -1,5 +1,7 @@
+import { HARDCODED_DAO } from './daos';
+
 export const DEFAULT_ZNS_DOMAIN = 'wilder';
-export const ROOT_PATH = `/0.${DEFAULT_ZNS_DOMAIN}`;
+export const ROOT_PATH = HARDCODED_DAO ? '/' : `/0.${DEFAULT_ZNS_DOMAIN}`;
 
 export enum ROUTES {
 	// ----- zDao ----- //
