@@ -98,24 +98,26 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({ zna }) => {
 					message={'This DAO has no assets'}
 				/>
 			)}
-			<div className={styles.FlexWrapper}>
-				<TableStatusMessage
-					className={styles.WarningContainer}
-					status={TableStatus.ERROR}
-					message={
-						<div className={styles.Warning}>
-							<span>Not all DAO collectibles may show in the list above</span>
-							<a
-								target={'_blank'}
-								rel={'noreferrer'}
-								href={etherscanUrl + 'tokenholdings?a=' + safeAddress}
-							>
-								Full asset collection <IconArrowUpRight size={16} />
-							</a>
-						</div>
-					}
-				/>
-			</div>
+			{!isLoading && (
+				<div className={styles.FlexWrapper}>
+					<TableStatusMessage
+						className={styles.WarningContainer}
+						status={TableStatus.ERROR}
+						message={
+							<div className={styles.Warning}>
+								<span>Not all DAO collectibles may show in the list above</span>
+								<a
+									target={'_blank'}
+									rel={'noreferrer'}
+									href={etherscanUrl + 'tokenholdings?a=' + safeAddress}
+								>
+									Full asset collection <IconArrowUpRight size={16} />
+								</a>
+							</div>
+						}
+					/>
+				</div>
+			)}
 		</div>
 	);
 };
