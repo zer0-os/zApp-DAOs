@@ -53,7 +53,7 @@ export const DAOPage: FC = () => {
 			</div>
 
 			<div className={styles.Content}>
-				<DAONav dao={dao} baseUrl={url} isLoadingDao={isLoadingDao} zna={zna} />
+				<DAONav baseUrl={url} zna={zna} />
 			</div>
 		</div>
 	);
