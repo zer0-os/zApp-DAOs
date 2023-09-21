@@ -1,9 +1,11 @@
 import React, { FC } from 'react';
-import { useLocation, useRouteMatch } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { BackLinkButton } from 'features/ui';
 import { DAOInfo, DAOTabs, DAONav } from './';
 
+import { HARDCODED_DAO } from 'lib/constants/daos';
+import { useRoute } from 'lib/hooks/state/useRoute';
 import { ROOT_PATH, ROUTES } from 'lib/constants/routes';
 import {
 	useCurrentDao,
@@ -30,12 +32,14 @@ export const DAOPage: FC = () => {
 	} = useDaoPageData();
 
 	const { pathname } = useLocation();
-	const { url } = useRouteMatch();
+	const { url } = useRoute();
 
 	return (
 		<div className={styles.Container}>
 			<div className={styles.Header} id="dao-page-nav-tabs">
-				<BackLinkButton label="All DAOs" to={ROOT_PATH + ROUTES.ZDAOS} />
+				{!HARDCODED_DAO && (
+					<BackLinkButton label="All DAOs" to={ROOT_PATH + ROUTES.ZDAOS} />
+				)}
 
 				<DAOInfo
 					isLoadingDao={isLoadingDao}

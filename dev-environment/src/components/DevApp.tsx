@@ -10,6 +10,8 @@ import { CHAIN_ID, injectedConnector, RPC_URL } from '../lib/connectors';
 import { DevControls } from './DevControls';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
+const HARDCODED_ZNA = import.meta.env.VITE_DAO_ZNA as string | undefined;
+
 export const DevApp = () => {
 	const { address } = useAccount();
 	const { connect } = useConnect({
@@ -23,7 +25,7 @@ export const DevApp = () => {
 			<DevControls />
 			<Switch>
 				<Route
-					path="/:znsRoute/:app"
+					path={HARDCODED_ZNA ? '' : '/:znsRoute/:app'}
 					component={() => (
 						<DaosApp
 							provider={
@@ -38,9 +40,11 @@ export const DevApp = () => {
 						/>
 					)}
 				/>
-				<Route>
-					<Redirect to={'/0.wilder/daos'} />
-				</Route>
+				{!HARDCODED_ZNA && (
+					<Route>
+						<Redirect to={'/0.wilder/daos'} />
+					</Route>
+				)}
 			</Switch>
 		</>
 	);
