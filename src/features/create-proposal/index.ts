@@ -1,1 +1,1 @@
-export * from './CreateProposal';
+export * from './components/CreateProposalForm';
