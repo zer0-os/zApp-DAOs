@@ -10,7 +10,8 @@ import { CHAIN_ID, injectedConnector, RPC_URL } from '../lib/connectors';
 import { DevControls } from './DevControls';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-const HARDCODED_ZNA = import.meta.env.VITE_DAO_ZNA as string | undefined;
+const HARDCODED_ZNA = (import.meta.env.VITE_DAO_ZNA ??
+	process.env.VITE_DAO_ZNA) as string | undefined;
 
 export const DevApp = () => {
 	const { address } = useAccount();
