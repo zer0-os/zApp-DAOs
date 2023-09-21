@@ -1,32 +1,31 @@
 .Form {
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 2.5rem;
 
-    .Grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 1.5rem;
-    }
-
+	.Grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-gap: 1.5rem;
+	}
 }
 
 .Buttons {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
 }
 
 .Modal {
-    width: 33rem;
+	width: 33rem;
 
-    h1 {
-        margin: 0 auto 0 0;
-    }
+	h1 {
+		margin: 0 auto 0 0;
+	}
 }
 
 .Markdown {
-    > div {
-        border-radius: 0.5rem;
-    }
+	> div {
+		border-radius: 0.5rem;
+	}
 }
