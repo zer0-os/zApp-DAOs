@@ -5,8 +5,7 @@ import { useCurrentDao, useResize } from 'lib/hooks';
 import { Proposal } from '@zero-tech/zdao-sdk';
 
 import { TableControls, ScrollTrigger } from 'features/ui';
-import { Row } from './Row';
-import { Card } from './Card';
+import { NewProposalButton } from 'features/create-proposal';
 import { Column } from '@zero-tech/zui/components/AsyncTable';
 import {
 	Body,
@@ -18,6 +17,8 @@ import {
 	TableStatusMessage,
 	View,
 } from '@zero-tech/zui/components';
+import { Row } from './Row';
+import { Card } from './Card';
 
 import styles from './ProposalTable.module.scss';
 
@@ -78,7 +79,7 @@ export const ProposalTable = ({ zna }: ProposalTableProps) => {
 	const isEmpty = !isLoading && proposals?.length === 0;
 
 	return (
-		<div className={styles.DaoProposalsTable} ref={containerRef}>
+		<div className={styles.Proposals} ref={containerRef}>
 			{isLoading && (
 				<TableStatusMessage
 					className={styles.Message}
@@ -88,8 +89,11 @@ export const ProposalTable = ({ zna }: ProposalTableProps) => {
 			)}
 			{proposals?.length && (
 				<Fragment>
-					<div className={styles.ControlsWrapper}>
-						<TableControls view={view} onChangeView={setView} />
+					<div className={styles.Actions}>
+						<NewProposalButton />
+						<div className={styles.ControlsWrapper}>
+							<TableControls view={view} onChangeView={setView} />
+						</div>
 					</div>
 					{view === View.TABLE ? (
 						<TableView proposals={proposals} />

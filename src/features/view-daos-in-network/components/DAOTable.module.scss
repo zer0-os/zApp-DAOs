@@ -1,6 +1,9 @@
 @import '../../../styles/breakpoints';
+@import '../../../styles/table';
 
 .DaosTable {
+	@include sticky-header;
+
 	margin-top: 1rem;
 
 	.ControlsWrapper {

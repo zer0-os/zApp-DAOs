@@ -1,6 +1,10 @@
 @import '../../../styles/breakpoints';
 
 .Container {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+
 	.Stats {
 		display: flex;
 		flex-direction: column;
@@ -99,14 +103,6 @@
 					line-height: 1.361rem;
 				}
 			}
-		}
-	}
-
-	.Content {
-		margin-top: 0.5rem;
-
-		@include container-breakpoint(500) {
-			margin-top: 1rem;
 		}
 	}
 }

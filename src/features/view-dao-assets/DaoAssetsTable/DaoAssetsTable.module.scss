@@ -1,7 +1,12 @@
 @import '../../../styles/breakpoints';
+@import '../../../styles/table';
 
 .DaoAssetsTable {
-	margin-top: 1rem;
+	@include sticky-header;
+
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 
 	.ControlsWrapper {
 		display: none;
@@ -9,9 +14,9 @@
 		@include container-breakpoint(500) {
 			display: flex;
 			justify-content: flex-end;
-			margin-bottom: 1rem;
 		}
 	}
+
 
 	.DaosAssetsView {
 		position: relative;
@@ -30,12 +35,6 @@
 	}
 
 	.FlexWrapper {
-		margin-top: 0.5rem;
-
-		@include container-breakpoint(500) {
-			margin-top: 1.5rem;
-		}
-
 		.WarningContainer {
 			display: flex;
 			justify-content: flex-start;
