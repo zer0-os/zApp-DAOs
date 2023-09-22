@@ -10,6 +10,8 @@ import { CHAIN_ID, injectedConnector, RPC_URL } from '../lib/connectors';
 import { DevControls } from './DevControls';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 const HARDCODED_ZNA = import.meta.env.VITE_DAO_ZNA as string | undefined;
 
 export const DevApp = () => {
