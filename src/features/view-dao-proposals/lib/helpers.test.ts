@@ -3,7 +3,18 @@ import { ProposalState } from '@zero-tech/zdao-sdk';
 
 describe('getProposalStatus', () => {
 	describe('when proposal is not compatible', () => {
-		it('returns "-"', () => {
+		it('returns "Closed" when proposal is closed', () => {
+			const result = getProposalStatus(
+				true,
+				true,
+				false,
+				[1, 2],
+				ProposalState.CLOSED,
+			);
+			expect(result).toEqual('Closed');
+		});
+
+		it('returns "Open" when proposal is active', () => {
 			const result = getProposalStatus(
 				true,
 				true,
@@ -11,7 +22,18 @@ describe('getProposalStatus', () => {
 				[1, 2],
 				ProposalState.ACTIVE,
 			);
-			expect(result).toEqual('-');
+			expect(result).toEqual('Open');
+		});
+
+		it('returns "Pending" when proposal is pending', () => {
+			const result = getProposalStatus(
+				true,
+				true,
+				false,
+				[1, 2],
+				ProposalState.PENDING,
+			);
+			expect(result).toEqual('Pending');
 		});
 	});
 
@@ -104,7 +126,7 @@ describe('getProposalStatus', () => {
 			expect(result).toEqual('Denial Favoured');
 		});
 
-		it('returns "More Votes Needed" when proposal has equal votes for and against', () => {
+		it('returns "Denial Favoured" when proposal has equal votes for and against', () => {
 			const result = getProposalStatus(
 				true,
 				true,
@@ -112,7 +134,7 @@ describe('getProposalStatus', () => {
 				[1, 1],
 				ProposalState.ACTIVE,
 			);
-			expect(result).toEqual('More Votes Needed');
+			expect(result).toEqual('Denial Favoured');
 		});
 	});
 });

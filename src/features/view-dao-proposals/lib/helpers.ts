@@ -108,6 +108,12 @@ export const getSnapshotProposalLink = (
 	return `https://snapshot.org/#/${dao.ens}/proposal/${proposal.id}`;
 };
 
+const DefaultProposalStatus = {
+	[ProposalState.ACTIVE]: 'Open',
+	[ProposalState.CLOSED]: 'Closed',
+	[ProposalState.PENDING]: 'Pending',
+};
+
 export const getProposalStatus = (
 	canExecute: boolean,
 	hasVotes: boolean,
@@ -116,7 +122,7 @@ export const getProposalStatus = (
 	state: ProposalState,
 ): string => {
 	if (!isCompatible) {
-		return '-';
+		return DefaultProposalStatus[state];
 	}
 
 	const isClosed = state === ProposalState.CLOSED;
@@ -137,28 +143,25 @@ export const getProposalStatus = (
 		}
 	}
 
+	const isApprove = scores[0] > scores[1];
+
 	if (isClosed) {
 		if (canExecute) {
 			return 'Approved';
 		} else {
-			return 'Denied';
+			if (!isApprove) {
+				return 'Denied';
+			} else {
+				return 'Not Enough Votes';
+			}
 		}
 	}
 
-	if (scores[0] > scores[1]) {
-		if (isClosed) {
-			if (canExecute) {
-				return 'Approved';
-			} else {
-				return 'Denied';
-			}
-		}
-		return isClosed ? 'Approved' : 'Approval Favoured';
-	} else if (scores[0] < scores[1]) {
-		return isClosed ? 'Denied' : 'Denial Favoured';
-	} else {
-		return 'More Votes Needed';
+	if (isApprove) {
+		return 'Approval Favoured';
 	}
+
+	return 'Denial Favoured';
 };
 
 /**

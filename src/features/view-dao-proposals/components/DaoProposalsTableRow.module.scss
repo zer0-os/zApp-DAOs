@@ -27,13 +27,10 @@
 	}
 
 	.Status {
-		width: 12rem;
 		text-transform: capitalize;
 	}
 
 	.Timer {
-		width: 12rem;
-
 		&.Concluded {
 			color: colors.$grey-lighter-2;
 		}
@@ -48,8 +45,6 @@
 	}
 
 	.Votes {
-		max-width: 5rem;
-		width: 5rem;
 		margin-left: auto;
 
 		* {

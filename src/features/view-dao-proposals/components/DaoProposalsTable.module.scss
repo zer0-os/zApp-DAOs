@@ -1,19 +1,40 @@
 @import '../../../styles/breakpoints';
 
 .DaoProposalsTable {
-	margin-top: 1rem;
+    margin-top: 1rem;
 
-	.ControlsWrapper {
-		display: none;
+    .ControlsWrapper {
+        display: none;
 
-		@include container-breakpoint(500) {
-			display: flex;
-			justify-content: flex-end;
-			margin-bottom: 1rem;
-		}
-	}
+        @include container-breakpoint(500) {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 1rem;
+        }
+    }
 
-	.Message {
-		margin-top: 3rem;
-	}
+    .Message {
+        margin-top: 3rem;
+    }
+
+    table {
+        table-layout: fixed;
+
+        th:nth-child(2) {
+            width: 8rem;
+        }
+
+        th:nth-child(3) {
+            width: 6rem;
+        }
+
+        th:nth-child(4) {
+            width: 3rem;
+        }
+
+        td {
+            overflow:hidden;
+            text-overflow: ellipsis;
+        }
+    }
 }
