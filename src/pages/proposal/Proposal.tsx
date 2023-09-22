@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { formatProposalBody } from 'features/view-dao-proposals/lib';
+import { formatProposalBody } from '../../features/view-proposals/lib';
 import { useCurrentProposal } from './lib/useCurrentProposal';
 
 import { MarkdownViewer, MaybeSkeletonText } from '@zero-tech/zui/components';

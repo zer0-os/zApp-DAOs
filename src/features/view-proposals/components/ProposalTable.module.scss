@@ -6,7 +6,7 @@
 	.ControlsWrapper {
 		display: none;
 
-		@include container-breakpoint(500) {
+		@include container-breakpoint(650) {
 			display: flex;
 			justify-content: flex-end;
 			margin-bottom: 1rem;

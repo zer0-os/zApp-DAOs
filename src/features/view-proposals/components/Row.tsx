@@ -6,7 +6,7 @@ import { useDaoProposalsTableItemData, ProposalClosingStatus } from '../lib';
 import { TableData } from '@zero-tech/zui/components/AsyncTable/Column';
 
 import classNames from 'classnames/bind';
-import styles from './DaoProposalsTableRow.module.scss';
+import styles from './Row.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -18,9 +18,7 @@ type DaoProposalsTableRowProps = {
 	proposal: Proposal;
 };
 
-export const DaoProposalsTableRow: FC<DaoProposalsTableRowProps> = ({
-	proposal,
-}) => {
+export const Row: FC<DaoProposalsTableRowProps> = ({ proposal }) => {
 	const { title, status, endTime, isConcluded, closingStatus, onClick } =
 		useDaoProposalsTableItemData(proposal);
 
