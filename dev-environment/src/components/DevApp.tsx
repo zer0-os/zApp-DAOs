@@ -1,14 +1,15 @@
 import React from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
-import { DaosApp } from '@/index';
+import { DaosApp } from '@/*';
 
 import { ethers } from 'ethers';
-import { useAccount, useConnect } from 'wagmi';
+import { useAccount } from 'wagmi';
+import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { useEthersProvider } from '../lib/useEthersProvider';
-import { CHAIN_ID, injectedConnector, RPC_URL } from '../lib/connectors';
+import { CHAIN_ID, RPC_URL } from '../lib/connectors';
 
 import { DevControls } from './DevControls';
-import { Redirect, Route, Switch } from 'react-router-dom';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -16,9 +17,7 @@ const HARDCODED_ZNA = import.meta.env.VITE_DAO_ZNA as string | undefined;
 
 export const DevApp = () => {
 	const { address } = useAccount();
-	const { connect } = useConnect({
-		connector: injectedConnector,
-	});
+	const { open } = useWeb3Modal();
 
 	const provider = useEthersProvider({ chainId: CHAIN_ID });
 
@@ -37,7 +36,7 @@ export const DevApp = () => {
 							web3={{
 								chainId: provider?.network?.chainId ?? CHAIN_ID,
 								address: address,
-								connectWallet: connect,
+								connectWallet: open,
 							}}
 						/>
 					)}

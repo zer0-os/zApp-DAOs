@@ -1,22 +1,21 @@
 import React from 'react';
 
-import { useAccount, useConnect } from 'wagmi';
+import { useAccount } from 'wagmi';
 import { truncateAddress } from '@zero-tech/zui/utils';
-import { injectedConnector } from '../lib/connectors';
+import { useWeb3Modal } from '@web3modal/wagmi/react';
+
 import { version } from '../../../package.json';
 
 export const DevControls = () => {
 	const { address } = useAccount();
-	const { connect } = useConnect({
-		connector: injectedConnector,
-	});
+	const { open } = useWeb3Modal();
 
 	const content = address ? (
 		<span>
 			Connected as <b>{truncateAddress(address)}</b>
 		</span>
 	) : (
-		<button onClick={() => connect()}>Connect</button>
+		<button onClick={() => open()}>Connect</button>
 	);
 
 	return (
