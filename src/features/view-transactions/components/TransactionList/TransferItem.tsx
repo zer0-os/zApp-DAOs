@@ -68,7 +68,7 @@ export const TransferItem = ({
 					target={'_blank'}
 					rel={'noreferrer'}
 				>
-					<IconLinkExternal1 size={16} />
+					<IconLinkExternal1 isFilled={true} size={16} />
 				</a>
 			</div>
 		</div>
