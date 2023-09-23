@@ -5,7 +5,7 @@ import { ROUTES } from 'lib/constants/routes';
 import { DAO_CREATE_PROPOSAL } from './Page';
 
 import { DaoAssetsTable } from 'features/view-dao-assets';
-import { DaoTransactionsList } from 'features/view-dao-transactions';
+import { TransactionList } from 'features/view-transactions';
 import { CreateProposal } from 'pages/create-proposal';
 import { ProposalTable } from 'features/view-proposals';
 
@@ -27,7 +27,7 @@ export const DAONav = ({ baseUrl, zna }: DAONavProps) => {
 			/>
 			<Route
 				path={baseUrl + ROUTES.ZDAO_TRANSACTIONS}
-				render={() => <DaoTransactionsList zna={zna} />}
+				render={() => <TransactionList zna={zna} />}
 			/>
 			<Route
 				path={baseUrl + ROUTES.ZDAO_PROPOSALS + '/' + DAO_CREATE_PROPOSAL}

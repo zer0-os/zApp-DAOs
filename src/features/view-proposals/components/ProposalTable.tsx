@@ -87,7 +87,7 @@ export const ProposalTable = ({ zna }: ProposalTableProps) => {
 					message={'Loading Proposals'}
 				/>
 			)}
-			{proposals?.length && (
+			{Boolean(proposals?.length) && (
 				<Fragment>
 					<div className={styles.Actions}>
 						<NewProposalButton />
