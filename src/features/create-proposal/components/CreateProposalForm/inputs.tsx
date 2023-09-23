@@ -4,10 +4,11 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { truncateAddress } from '@zero-tech/zui/utils';
 import { useWeb3 } from 'lib/hooks';
 
-import { Input, MarkdownEditor } from '@zero-tech/zui/components';
+import { Input, MarkdownEditor, Tooltip } from '@zero-tech/zui/components';
 import { NumberInput } from '@zero-tech/zui/components/Input/NumberInput';
 
 import styles from './Form.module.scss';
+import { IconHelpCircle } from '@zero-tech/zui/icons';
 
 export const TitleInput = () => {
 	const {
@@ -76,7 +77,7 @@ export const AmountInput = () => {
 	return (
 		<Controller
 			control={control}
-			defaultValue={'0'}
+			defaultValue={''}
 			name="amount"
 			rules={{ required: true }}
 			render={({ field }) => (
@@ -107,7 +108,20 @@ export const FromInput = () => {
 			name="from"
 			rules={{ required: true }}
 			render={({ field }) => (
-				<Input isDisabled={true} label={'From'} {...field} />
+				<Input
+					isDisabled={true}
+					label={
+						<Fragment>
+							From{' '}
+							<Tooltip
+								content={'Funds will be transferred from the DAO treasury.'}
+							>
+								<IconHelpCircle className={styles.HelpIcon} size={16} />
+							</Tooltip>
+						</Fragment>
+					}
+					{...field}
+				/>
 			)}
 		/>
 	);

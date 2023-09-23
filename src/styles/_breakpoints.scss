@@ -7,6 +7,8 @@ $breakpoint-modal-padding: 1rem;
 }
 
 @mixin modal-breakpoint($modal-width) {
+	$modal-padding: 2rem;
+
 	box-sizing: border-box;
 	margin: auto;
 

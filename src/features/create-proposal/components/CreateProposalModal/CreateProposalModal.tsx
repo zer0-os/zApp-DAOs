@@ -7,9 +7,10 @@ import { useWeb3 } from 'lib/hooks';
 import { useRoute } from 'lib/hooks/state/useRoute';
 import { useSubmitProposal } from '../../lib/useSubmitProposal';
 
-import { Alert, Button, Modal, Wizard } from '@zero-tech/zui/components';
+import { Alert, Button, Wizard } from '@zero-tech/zui/components';
+import { Modal } from 'features/ui/Modal';
 
-import styles from '../CreateProposalForm/Form.module.scss';
+import styles from './CreateProposalModal.module.scss';
 
 interface CreateProposalModalProps {
 	onClose: () => void;

@@ -20,7 +20,7 @@ export const ScrollTrigger = ({ className, onTrigger }: ScrollTriggerProps) => {
 			});
 			observer.observe(triggerRef.current);
 		}
-	}, [onTrigger, triggerRef.current]);
+	}, [onTrigger]);
 
 	return <div className={className} ref={triggerRef}></div>;
 };

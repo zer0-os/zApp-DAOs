@@ -1,0 +1,13 @@
+@import '../../../../styles/breakpoints';
+
+$modal-padding: 2rem;
+
+.Modal {
+	@include modal-breakpoint(33rem);
+}
+
+.Buttons {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}

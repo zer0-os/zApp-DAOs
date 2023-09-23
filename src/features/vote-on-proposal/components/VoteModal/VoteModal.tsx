@@ -1,16 +1,12 @@
-import ProposalClient from '@zero-tech/zdao-sdk/lib/client/ProposalClient';
-import { useVoteStore, VoteStep } from '../../lib/store';
 import { useCurrentProposal } from 'pages/proposal/lib/useCurrentProposal';
 import { useWeb3 } from 'lib/hooks';
+import ProposalClient from '@zero-tech/zdao-sdk/lib/client/ProposalClient';
 import { truncateAddress } from '@zero-tech/zui/utils';
-
-import {
-	Button,
-	MaybeSkeletonText,
-	Modal,
-	Wizard,
-} from '@zero-tech/zui/components';
 import { useUserVotePower } from '../../lib/useUserVotePower';
+import { useVoteStore, VoteStep } from '../../lib/store';
+
+import { Button, MaybeSkeletonText, Wizard } from '@zero-tech/zui/components';
+import { Modal } from 'features/ui/Modal';
 
 import styles from './VoteModal.module.scss';
 
