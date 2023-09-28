@@ -1,8 +1,7 @@
+@import '../../../styles/typography';
+
 .Create {
-	h1 {
-		margin: 0;
-		font-size: 2rem;
-	}
+	@include page-header;
 
 	display: flex;
 	flex-direction: column;

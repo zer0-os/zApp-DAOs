@@ -1,0 +1,56 @@
+@import '../../../styles/breakpoints';
+@import '../../../styles/table';
+
+.Proposals {
+	@include sticky-header;
+
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+
+	.Actions {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		.ControlsWrapper {
+			display: none;
+
+			@include container-breakpoint(650) {
+				display: flex;
+				justify-content: flex-end;
+				align-items: center;
+			}
+		}
+	}
+
+	.Grid {
+		margin-top: unset;
+	}
+
+	.Message {
+		margin-top: 3rem;
+	}
+
+	table {
+		table-layout: fixed;
+
+		th:nth-child(2) {
+			width: 8rem;
+		}
+
+		th:nth-child(3) {
+			width: 6rem;
+		}
+
+		th:nth-child(4) {
+			width: 3rem;
+		}
+
+		td {
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+	}
+}

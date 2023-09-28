@@ -29,9 +29,7 @@ export const useSubmitProposal = () => {
 		},
 		{
 			onSuccess: () => {
-				queryClient
-					.invalidateQueries(['dao', 'proposals', { zna }])
-					.then((d) => console.log('Invalidated proposals', d));
+				queryClient.invalidateQueries(['dao', 'proposals', { zna }]);
 			},
 		},
 	);

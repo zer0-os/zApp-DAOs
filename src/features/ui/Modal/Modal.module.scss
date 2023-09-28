@@ -1,0 +1,15 @@
+@import '../../../styles/breakpoints';
+
+.Modal {
+	position: relative;
+
+	h1 {
+		margin: 0 auto 0 0;
+	}
+
+	.Close {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+	}
+}

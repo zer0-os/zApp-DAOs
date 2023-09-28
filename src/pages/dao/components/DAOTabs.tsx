@@ -1,10 +1,9 @@
 import React, { useMemo } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-import { DAO_CREATE_PROPOSAL } from './Page';
 import { ROUTES } from 'lib/constants/routes';
 
-import { Button, TabNav, TabsNav } from '@zero-tech/zui/components';
+import { TabNav, TabsNav } from '@zero-tech/zui/components';
 
 import styles from './Page.module.scss';
 
@@ -19,15 +18,10 @@ enum DaoTab {
 //////////////
 
 export interface DAOTabsProps {
-	showCreateProposalButton?: boolean;
 	baseUrl: string;
 }
 
-export const DAOTabs = ({
-	showCreateProposalButton,
-	baseUrl,
-}: DAOTabsProps) => {
-	const history = useHistory();
+export const DAOTabs = ({ baseUrl }: DAOTabsProps) => {
 	const { pathname } = useLocation();
 
 	const tabs: TabNav[] = useMemo(
@@ -48,19 +42,12 @@ export const DAOTabs = ({
 		[baseUrl],
 	);
 
-	const handleOnPressNewProposal = () => {
-		history.push(`${baseUrl + ROUTES.ZDAO_PROPOSALS}/${DAO_CREATE_PROPOSAL}`);
-	};
+	// Remove trailing slash from URL
+	const location = pathname.replace(/\/$/, '');
 
 	return (
 		<div className={styles.TabsNav}>
-			{/* Dao Tabs */}
-			<TabsNav tabs={tabs} location={pathname} />
-
-			{/* New Proposal Button */}
-			{showCreateProposalButton && (
-				<Button onPress={handleOnPressNewProposal}>New Proposal</Button>
-			)}
+			<TabsNav tabs={tabs} location={location} />
 		</div>
 	);
 };

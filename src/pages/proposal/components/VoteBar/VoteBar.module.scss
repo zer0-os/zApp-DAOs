@@ -25,16 +25,11 @@
 		align-items: center;
 		width: 100%;
 
+		border-radius: 0.5rem;
+		overflow: hidden;
+
 		.Option {
 			height: 0.5rem;
-
-			&:first-child {
-				border-radius: 0.5rem 0 0 0.5rem;
-			}
-
-			&:last-child {
-				border-radius: 0 0.5rem 0.5rem 0;
-			}
 
 			&:nth-child(1n) {
 				background: linear-gradient(90deg, #52ffea 0%, #52cbff 100%);

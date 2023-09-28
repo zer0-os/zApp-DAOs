@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import { BackLinkButton } from 'features/ui';
 import { DAOInfo, DAOTabs, DAONav } from './';
@@ -22,16 +21,8 @@ export const DAO_CREATE_PROPOSAL = 'create';
 //////////////
 
 export const DAOPage: FC = () => {
-	const {
-		dao,
-		zna,
-		isLoadingDao,
-		isLoadingAssets,
-		assets,
-		isUserHoldingVotingToken,
-	} = useDaoPageData();
+	const { dao, zna, isLoadingDao, isLoadingAssets, assets } = useDaoPageData();
 
-	const { pathname } = useLocation();
 	const { url } = useRoute();
 
 	return (
@@ -48,12 +39,7 @@ export const DAOPage: FC = () => {
 					title={dao?.title}
 				/>
 
-				<DAOTabs
-					showCreateProposalButton={
-						pathname === url + ROUTES.ZDAO_PROPOSALS && isUserHoldingVotingToken
-					}
-					baseUrl={url}
-				/>
+				<DAOTabs baseUrl={url} />
 			</div>
 
 			<div className={styles.Content}>

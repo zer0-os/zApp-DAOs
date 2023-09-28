@@ -5,7 +5,7 @@ import { formatDistance } from 'date-fns/fp';
 import { formatDateTime } from 'lib/util/datetime';
 import { useWeb3 } from 'lib/hooks';
 import { getEtherscanUri } from 'lib/util/network';
-import { formatProposalStatus } from 'features/view-dao-proposals/lib';
+import { formatProposalStatus } from '../../view-proposals/lib';
 import { kebabCaseToTitleCase } from '../lib/format';
 
 import { Attribute, Attributes } from 'features/ui/Attributes/Attributes';

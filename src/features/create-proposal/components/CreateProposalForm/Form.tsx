@@ -7,7 +7,8 @@ import { schema } from './lib/validation';
 
 import { ConnectWallet } from 'features/ui';
 import { Attribute, Attributes } from 'features/ui/Attributes/Attributes';
-import { Button, TextStack } from '@zero-tech/zui/components';
+import { Button, Tooltip } from '@zero-tech/zui/components';
+import { IconHelpCircle } from '@zero-tech/zui/icons';
 import { CreateProposalModal } from '../CreateProposalModal';
 import {
 	AmountInput,
@@ -53,13 +54,13 @@ export const CreateProposalForm = () => {
 				onSubmit={methods.handleSubmit(handleOnSubmit)}
 			>
 				<TitleInput />
-				<TextStack
-					label={''}
-					primaryText={'Fund details'}
-					secondaryText={
-						'Proposals are currently limited to transferring tokens from the DAO treasury to a recipient'
-					}
-				/>
+				<div className={styles.Header}>
+					<h2>Fund details</h2>
+					<span>
+						Proposals are currently limited to transferring tokens from the DAO
+						treasury to a recipient
+					</span>
+				</div>
 				<div className={styles.Grid}>
 					<TokenInput />
 					<AmountInput />
@@ -67,17 +68,26 @@ export const CreateProposalForm = () => {
 					<RecipientInput />
 				</div>
 				<BodyInput />
-				<TextStack label={''} primaryText={'Vote Details'} secondaryText={''} />
+				<div className={styles.Header}>
+					<div>
+						<h2>Vote Details </h2>
+						<Tooltip content={'These settings are defined by the DAO.'}>
+							<IconHelpCircle className={styles.HelpIcon} size={16} />
+						</Tooltip>
+					</div>
+				</div>
 				<Attributes>
 					<Attribute label={'Vote Duration'} value={'7 days'} />
 					<Attribute label={'Voting Ends'} value={'7 days'} />
 					<Attribute label={'Voting System'} value={'Weighted Single Choice'} />
 					<Attribute label={'Execution Criteria'} value={'Absolute Majority'} />
 				</Attributes>
-				<button ref={submitButtonRef} hidden type={'submit'}></button>
-				<Button onPress={() => submitButtonRef.current?.click()}>
-					Publish Proposal
-				</Button>
+				<div className={styles.Action}>
+					<button ref={submitButtonRef} hidden type={'submit'}></button>
+					<Button onPress={() => submitButtonRef.current?.click()}>
+						Publish Proposal
+					</Button>
+				</div>
 			</form>
 		</FormProvider>
 	);
