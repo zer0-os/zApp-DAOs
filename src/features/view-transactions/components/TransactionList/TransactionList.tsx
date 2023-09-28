@@ -2,7 +2,8 @@ import React, { FC, Fragment } from 'react';
 
 import { useInfiniteTransactions } from '../../lib/useInfiniteTransactions';
 
-import { Button, LoadingIndicator } from '@zero-tech/zui/components';
+import { LoadingIndicator } from '@zero-tech/zui/components';
+import { ScrollTrigger } from 'features/ui';
 import { TransferItem } from './TransferItem';
 
 import styles from './TransactionList.module.scss';
@@ -52,9 +53,7 @@ export const TransactionList: FC<TransactionListProps> = ({ zna }) => {
 					/>
 				))}
 			</div>
-			{hasNextPage && (
-				<Button onPress={handleOnMoreTransfers}>Load More Transactions</Button>
-			)}
+			{hasNextPage && <ScrollTrigger onTrigger={handleOnMoreTransfers} />}
 			{isFetchingNextPage && (
 				<LoadingIndicator
 					className={styles.Loading}
