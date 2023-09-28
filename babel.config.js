@@ -7,15 +7,22 @@ module.exports = {
 			{
 				modules: 'commonjs',
 				targets: {
-					esmodules: true
-				}
-			}
-		]
+					esmodules: true,
+				},
+			},
+		],
 	],
 	plugins: [
 		[
 			'transform-rename-import',
-			{ original: '^(.+?)\\.scss$', replacement: '$1.css' }
+			{ original: '^(.+?)\\.scss$', replacement: '$1.css' },
+		],
+		[
+			'module-resolver',
+			{
+				extensions: ['.ts', '.tsx'],
+				root: ['src'],
+			},
 		],
 		'@babel/plugin-proposal-function-bind',
 		'@babel/plugin-proposal-export-default-from',
@@ -23,6 +30,6 @@ module.exports = {
 		'@babel/plugin-transform-spread',
 		'@babel/plugin-syntax-dynamic-import',
 		'@babel/plugin-proposal-class-properties',
-		'@babel/plugin-transform-classes'
-	]
+		'@babel/plugin-transform-classes',
+	],
 };
