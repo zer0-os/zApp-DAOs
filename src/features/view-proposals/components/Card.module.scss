@@ -38,19 +38,17 @@
 	}
 
 	.Buttons {
+		display: flex;
+		gap: 0.5rem;
 		margin-top: 1rem;
 
-		> span {
-			display: inline-flex;
-			justify-content: center;
-			align-items: center;
-			padding: 0.5rem 1rem;
+		span {
 			font-size: typography.$size-tiny;
 			font-weight: typography.$font-weight-bold;
-			line-height: 1rem;
 			color: colors.$grey-lighter-3;
 			border: 1px solid colors.$grey-dark;
-			border-radius: 9999px;
+			border-radius: 1000px;
+			padding: 0.5rem 1rem;
 
 			&.Closing {
 				&[status='warning'] {
@@ -63,7 +61,6 @@
 			}
 
 			&.Status {
-				margin-left: 1rem;
 				text-transform: capitalize;
 			}
 		}

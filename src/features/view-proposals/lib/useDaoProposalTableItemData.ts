@@ -1,6 +1,6 @@
 import { useHistory, useLocation } from 'react-router-dom';
 
-import { formatDuration, isBefore, intervalToDuration } from 'date-fns/fp';
+import { formatDuration, isBefore, intervalToDuration } from 'date-fns';
 import removeMarkdown from 'markdown-to-text';
 import type { Proposal } from '@zero-tech/zdao-sdk';
 import { useTimer } from 'lib/hooks';
@@ -50,6 +50,9 @@ export const useDaoProposalsTableItemData = (
 		? DEFAULT_TIMER_EXPIRED_LABEL
 		: `Closing in ${formatDuration(
 				intervalToDuration({ start: new Date(), end: new Date(proposal.end) }),
+				{
+					format: ['weeks', 'days', 'hours', 'minutes'],
+				},
 		  )}`;
 
 	const onClick = () => {

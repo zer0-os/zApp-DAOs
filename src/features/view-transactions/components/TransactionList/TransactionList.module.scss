@@ -1,5 +1,6 @@
 @use '../../../../../node_modules/@zero-tech/zui/styles/colors';
 @use '../../../../../node_modules/@zero-tech/zui/styles/typography';
+@use '../../../../styles/breakpoints';
 
 .Loading {
 	justify-content: center;
@@ -39,13 +40,21 @@
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
+
 }
 
 .Transfer {
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	align-items: baseline;
 	padding: 0.5rem;
+	flex-direction: column-reverse;
+	gap: 0.5rem;
+
+	@include breakpoints.container-breakpoint(700) {
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
 
 	.ArrowIcon {
 		background: none;
@@ -73,6 +82,12 @@
 		}
 
 		&:last-of-type {
+			font-size: 0.75rem;
+			@include breakpoints.container-breakpoint(700) {
+				font-size: inherit;
+			}
+
+
 			a {
 				color: var(--color-secondary-11);
 			}

@@ -8,15 +8,8 @@
 	}
 
 	> td {
-		padding: 0 0.5rem;
-
-		&:first-of-type {
-			padding-left: 0.5rem;
-		}
-
-		&:last-of-type {
-			padding-right: 0.5rem;
-		}
+		padding-top: 0;
+		padding-bottom: 0;
 	}
 
 	.Title {

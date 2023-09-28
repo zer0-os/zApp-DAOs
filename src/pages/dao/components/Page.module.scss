@@ -48,6 +48,9 @@
 		}
 
 		.TabsNav {
+			border-bottom: 1px solid var(--color-greyscale-transparency-7);
+			padding-bottom: 1rem;
+
 			[class*='_List'] {
 				flex-direction: column;
 				gap: 0.5rem;
