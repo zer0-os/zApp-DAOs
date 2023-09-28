@@ -40,7 +40,6 @@
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
-
 }
 
 .Transfer {
@@ -86,7 +85,6 @@
 			@include breakpoints.container-breakpoint(700) {
 				font-size: inherit;
 			}
-
 
 			a {
 				color: var(--color-secondary-11);
