@@ -34,10 +34,10 @@ export const DAOTabs = ({ baseUrl }: DAOTabsProps) => {
 				text: DaoTab.Transactions,
 				to: baseUrl + ROUTES.ZDAO_TRANSACTIONS,
 			},
-			{
-				text: DaoTab.Proposals,
-				to: baseUrl + ROUTES.ZDAO_PROPOSALS,
-			},
+			// {
+			// 	text: DaoTab.Proposals,
+			// 	to: baseUrl + ROUTES.ZDAO_PROPOSALS,
+			// },
 		],
 		[baseUrl],
 	);
