@@ -11,9 +11,8 @@ import { CHAIN_ID, RPC_URL } from '../lib/connectors';
 
 import { DevControls } from './DevControls';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-const HARDCODED_ZNA = import.meta.env.VITE_DAO_ZNA as string | undefined;
+const HARDCODED_ZNA = (import.meta.env.VITE_DAO_ZNA ??
+	process.env.VITE_DAO_ZNA) as string | undefined;
 
 export const DevApp = () => {
 	const { address } = useAccount();
