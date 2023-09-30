@@ -13,4 +13,12 @@ export default defineConfig({
 			'react-router-dom': require.resolve('react-router-dom'),
 		},
 	},
+	define: {
+		VITE_DAO_ZNA: process.env.VITE_DAO_ZNA,
+		VITE_DAO_ENS: process.env.VITE_DAO_ENS,
+		VITE_DAO_NAME: process.env.VITE_DAO_NAME,
+		VITE_DAO_SAFE_ADDRESS: process.env.VITE_DAO_SAFE_ADDRESS,
+		VITE_DAO_VOTING_TOKEN: process.env.VITE_DAO_VOTING_TOKEN,
+		VITE_DAO_CREATOR: process.env.VITE_DAO_CREATOR,
+	},
 });
