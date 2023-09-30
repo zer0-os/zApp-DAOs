@@ -36,8 +36,8 @@ export const Proposal = () => {
 						className={styles.Markdown}
 						text={formatProposalBody(proposal.body)}
 					/>
-					<hr />
-					<ProposalVoteList />
+					{/*<hr />*/}
+					{/*<ProposalVoteList />*/}
 					<VoteFooter />
 				</>
 			)}
