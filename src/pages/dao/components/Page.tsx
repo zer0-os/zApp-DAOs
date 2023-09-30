@@ -34,10 +34,10 @@ export const DAOPage: FC = () => {
 				)}
 
 				<DAOInfo
-					isLoadingDao={isLoadingDao}
+					isLoadingDao={!daoParams && isLoadingDao}
 					isLoadingAssets={isLoadingAssets || isLoadingDao}
 					assetsInUsd={assets?.amountInUSD}
-					title={dao?.title}
+					title={daoParams?.title ?? dao?.title}
 				/>
 
 				<DAOTabs baseUrl={url} />
