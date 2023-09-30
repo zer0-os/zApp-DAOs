@@ -9,8 +9,6 @@ import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { useEthersProvider } from '../lib/useEthersProvider';
 import { CHAIN_ID, RPC_URL } from '../lib/connectors';
 
-import { DevControls } from './DevControls';
-
 const DAO_ZNA = import.meta.env.VITE_DAO_ZNA;
 const DAO_ENS = import.meta.env.VITE_DAO_ENS;
 const DAO_SAFE_ADDRESS = import.meta.env.VITE_DAO_SAFE_ADDRESS;
@@ -34,7 +32,6 @@ export const DevApp = () => {
 
 	return (
 		<Fragment>
-			<DevControls />
 			<Switch>
 				<Route
 					path={isUsingHardcodedDao ? '' : '/:znsRoute/:app'}
