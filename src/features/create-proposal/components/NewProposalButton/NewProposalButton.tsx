@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { DAO_CREATE_PROPOSAL } from 'pages';
