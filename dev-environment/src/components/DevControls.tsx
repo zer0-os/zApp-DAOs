@@ -4,7 +4,7 @@ import { useAccount } from 'wagmi';
 import { truncateAddress } from '@zero-tech/zui/utils';
 import { useWeb3Modal } from '@web3modal/wagmi/react';
 
-import { version } from '../../../package.json';
+import { Button } from '@zero-tech/zui/components/Button';
 
 export const DevControls = () => {
 	const { address } = useAccount();
@@ -15,7 +15,7 @@ export const DevControls = () => {
 			Connected as <b>{truncateAddress(address)}</b>
 		</span>
 	) : (
-		<button onClick={() => open()}>Connect</button>
+		<Button onPress={() => open()}>Connect</Button>
 	);
 
 	return (
@@ -25,19 +25,18 @@ export const DevControls = () => {
 				bottom: 0,
 				width: '100%',
 				boxSizing: 'border-box',
-				padding: '0.5rem',
+				padding: '1rem',
 				borderRadius: '0.5rem',
 				display: 'flex',
 				justifyContent: 'space-between',
-				height: '2rem',
 				alignItems: 'center',
 				color: 'black',
 				zIndex: 1000,
 			}}
 			data-testid="zapp-dev-controls"
 		>
-			<b style={{ background: 'white' }}>zApp DAOs {version}</b>
-			<span style={{ background: 'white' }}>{content}</span>
+			<div></div>
+			<span style={{}}>{content}</span>
 		</footer>
 	);
 };

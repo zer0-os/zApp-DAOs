@@ -1,3 +1,5 @@
+import { CreateZDAOParams } from '@zero-tech/zdao-sdk';
+
 enum Chains {
 	MainNet = 1,
 	Morden = 2,
@@ -17,4 +19,5 @@ export type AppProps = {
 		address: string;
 		connectWallet;
 	};
+	dao?: CreateZDAOParams;
 };

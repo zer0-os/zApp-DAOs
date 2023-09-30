@@ -1,14 +1,23 @@
 import { useQuery } from 'react-query';
-import { useZdaoSdk } from '../sdks';
-import { useWeb3 } from '../state';
+import { useZdaoSdk } from 'lib/hooks/sdks';
+import { useWeb3 } from 'lib/hooks/state';
+import { useDaoStore } from 'lib/stores/dao';
 
 export const useDao = (zna: string) => {
 	const sdk = useZdaoSdk();
 	const { chainId } = useWeb3();
+	const daoParams = useDaoStore((state) => state.daoParams);
 
 	return useQuery(
 		['dao', { zna, chainId }],
 		async () => {
+			if (daoParams) {
+				try {
+					return await sdk.createZDAOFromParams(daoParams);
+				} catch (e) {
+					return await sdk.getZDAOByZNA(zna);
+				}
+			}
 			return await sdk.getZDAOByZNA(zna);
 		},
 		{

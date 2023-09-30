@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { DaosApp } from '@/*';
@@ -11,8 +11,20 @@ import { CHAIN_ID, RPC_URL } from '../lib/connectors';
 
 import { DevControls } from './DevControls';
 
-const HARDCODED_ZNA = (import.meta.env.VITE_DAO_ZNA ??
-	process.env.VITE_DAO_ZNA) as string | undefined;
+const DAO_ZNA = import.meta.env.VITE_DAO_ZNA;
+const DAO_ENS = import.meta.env.VITE_DAO_ENS;
+const DAO_SAFE_ADDRESS = import.meta.env.VITE_DAO_SAFE_ADDRESS;
+const DAO_VOTING_TOKEN = import.meta.env.VITE_DAO_VOTING_TOKEN;
+const DAO_NAME = import.meta.env.VITE_DAO_NAME;
+const DAO_CREATOR = import.meta.env.VITE_DAO_CREATOR;
+
+const isUsingHardcodedDao =
+	DAO_ZNA &&
+	DAO_ENS &&
+	DAO_SAFE_ADDRESS &&
+	DAO_VOTING_TOKEN &&
+	DAO_NAME &&
+	DAO_CREATOR;
 
 export const DevApp = () => {
 	const { address } = useAccount();
@@ -21,11 +33,11 @@ export const DevApp = () => {
 	const provider = useEthersProvider({ chainId: CHAIN_ID });
 
 	return (
-		<>
+		<Fragment>
 			<DevControls />
 			<Switch>
 				<Route
-					path={HARDCODED_ZNA ? '' : '/:znsRoute/:app'}
+					path={isUsingHardcodedDao ? '' : '/:znsRoute/:app'}
 					component={() => (
 						<DaosApp
 							provider={
@@ -37,15 +49,26 @@ export const DevApp = () => {
 								address: address,
 								connectWallet: open,
 							}}
+							dao={
+								isUsingHardcodedDao && {
+									ens: DAO_ENS,
+									zNA: DAO_ZNA,
+									title: DAO_NAME,
+									creator: DAO_CREATOR,
+									network: 1,
+									safeAddress: DAO_SAFE_ADDRESS,
+									votingToken: DAO_VOTING_TOKEN,
+								}
+							}
 						/>
 					)}
 				/>
-				{!HARDCODED_ZNA && (
+				{!isUsingHardcodedDao && (
 					<Route>
 						<Redirect to={'/0.wilder/daos'} />
 					</Route>
 				)}
 			</Switch>
-		</>
+		</Fragment>
 	);
 };
