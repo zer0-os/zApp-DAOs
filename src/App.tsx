@@ -2,7 +2,6 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import { ROOT_PATH, ROUTES } from './lib/constants/routes';
-import { HARDCODED_DAO } from './lib/constants/daos';
 import { useRoute } from './lib/hooks/state/useRoute';
 
 import {
@@ -13,16 +12,18 @@ import {
 import { DAOsPage, DAOPage, Proposal, CreateProposal } from './pages';
 
 import styles from './App.module.scss';
+import { useDaoStore } from './lib/stores/dao';
 
 export const App = () => {
 	const { url } = useRoute();
+	const daoParams = useDaoStore((state) => state.daoParams);
 
 	return (
 		<DynamicSizeWrapper>
 			<ZAppContent>
 				<main className={styles.Main}>
 					<Switch>
-						{!HARDCODED_DAO && (
+						{!daoParams && (
 							<Route
 								path={ROOT_PATH + ROUTES.ZDAOS}
 								exact

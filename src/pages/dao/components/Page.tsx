@@ -3,7 +3,6 @@ import React, { FC } from 'react';
 import { BackLinkButton } from 'features/ui';
 import { DAOInfo, DAOTabs, DAONav } from './';
 
-import { HARDCODED_DAO } from 'lib/constants/daos';
 import { useRoute } from 'lib/hooks/state/useRoute';
 import { ROOT_PATH, ROUTES } from 'lib/constants/routes';
 import {
@@ -11,6 +10,7 @@ import {
 	useDaoAssetsCoins,
 	useUserPaymentTokenBalance,
 } from 'lib/hooks';
+import { useDaoStore } from 'lib/stores/dao';
 
 import styles from './Page.module.scss';
 
@@ -22,21 +22,22 @@ export const DAO_CREATE_PROPOSAL = 'create';
 
 export const DAOPage: FC = () => {
 	const { dao, zna, isLoadingDao, isLoadingAssets, assets } = useDaoPageData();
+	const daoParams = useDaoStore((state) => state.daoParams);
 
 	const { url } = useRoute();
 
 	return (
 		<div className={styles.Container}>
 			<div className={styles.Header} id="dao-page-nav-tabs">
-				{!HARDCODED_DAO && (
+				{!daoParams && (
 					<BackLinkButton label="All DAOs" to={ROOT_PATH + ROUTES.ZDAOS} />
 				)}
 
 				<DAOInfo
-					isLoadingDao={isLoadingDao}
+					isLoadingDao={!daoParams && isLoadingDao}
 					isLoadingAssets={isLoadingAssets || isLoadingDao}
 					assetsInUsd={assets?.amountInUSD}
-					title={dao?.title}
+					title={daoParams?.title ?? dao?.title}
 				/>
 
 				<DAOTabs baseUrl={url} />

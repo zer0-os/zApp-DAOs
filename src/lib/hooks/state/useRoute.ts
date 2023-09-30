@@ -1,10 +1,11 @@
 import { useRouteMatch } from 'react-router-dom';
-import { HARDCODED_DAO } from '../../constants/daos';
+import { useDaoStore } from '../../stores/dao';
 
 export const useRoute = () => {
 	const { url } = useRouteMatch();
+	const daoParams = useDaoStore((state) => state.daoParams);
 
 	return {
-		url: HARDCODED_DAO ? url.substring(1) : url,
+		url: daoParams ? url.substring(1) : url,
 	};
 };
