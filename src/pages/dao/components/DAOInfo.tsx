@@ -3,11 +3,12 @@ import React from 'react';
 import { DOLLAR_SYMBOL } from 'lib/constants/currency';
 import { formatFiat } from 'lib/util/format';
 
-import { Card, SkeletonText } from '@zero-tech/zui/components';
+import { Card, SkeletonText, Image } from '@zero-tech/zui/components';
 
 import DaoIcon from 'assets/default_dao.svg';
 
 import styles from './Page.module.scss';
+import { useDaoStore } from '../../../lib/stores/dao';
 
 //////////////
 // DAO Info //
@@ -27,10 +28,17 @@ export const DAOInfo = ({
 	isLoadingAssets,
 	assetsInUsd,
 }: DAOInfoProps) => {
+	const daoParams = useDaoStore((state) => state.daoParams);
+	const imageUri = daoParams?.logoUri ?? DaoIcon;
+
 	return (
 		<div className={styles.Stats}>
 			<div className={styles.Dao}>
-				<img alt={title + ' icon'} src={DaoIcon} />
+				{daoParams?.logoUri ? (
+					<Image className={styles.Logo} alt={title + ' icon'} src={imageUri} />
+				) : (
+					<img className={styles.Logo} alt={title + ' icon'} src={imageUri} />
+				)}
 				<SkeletonText
 					as="h1"
 					asyncText={{ text: title, isLoading: isLoadingDao }}

@@ -15,6 +15,7 @@ const DAO_SAFE_ADDRESS = import.meta.env.VITE_DAO_SAFE_ADDRESS;
 const DAO_VOTING_TOKEN = import.meta.env.VITE_DAO_VOTING_TOKEN;
 const DAO_NAME = import.meta.env.VITE_DAO_NAME;
 const DAO_CREATOR = import.meta.env.VITE_DAO_CREATOR;
+const DAO_LOGO_URI = import.meta.env.VITE_DAO_LOGO_URI;
 
 const isUsingHardcodedDao =
 	DAO_ZNA &&
@@ -55,6 +56,7 @@ export const DevApp = () => {
 									network: 1,
 									safeAddress: DAO_SAFE_ADDRESS,
 									votingToken: DAO_VOTING_TOKEN,
+									logoUri: DAO_LOGO_URI,
 								}
 							}
 						/>
