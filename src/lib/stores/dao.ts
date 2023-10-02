@@ -1,9 +1,9 @@
 import { createContext, useContext } from 'react';
-import { CreateZDAOParams } from '@zero-tech/zdao-sdk';
 import { createStore, useStore } from 'zustand';
+import { DaoParams } from 'lib/types/app';
 
 interface DaoProps {
-	daoParams?: CreateZDAOParams;
+	daoParams?: DaoParams;
 }
 
 interface DaoState extends DaoProps {

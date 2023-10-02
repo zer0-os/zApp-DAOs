@@ -10,7 +10,11 @@ enum Chains {
 	Local = 5777,
 }
 
-export type AppProps = {
+export interface DaoParams extends CreateZDAOParams {
+	logoUri: string;
+}
+
+export interface AppProps {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	provider: any;
 	route: string;
@@ -19,5 +23,5 @@ export type AppProps = {
 		address: string;
 		connectWallet;
 	};
-	dao?: CreateZDAOParams;
-};
+	dao?: DaoParams;
+}
