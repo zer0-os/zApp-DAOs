@@ -21,6 +21,15 @@ export const TransferItem = ({
 }: TransferItemProps) => {
 	const isIncoming = transfer.to === safeAddress;
 
+	let tokenSymbol: string = 'ETH';
+	if (transfer.tokenInfo?.symbol) {
+		if (transfer.tokenInfo?.symbol === 'ZERO') {
+			tokenSymbol = 'MEOW';
+		} else {
+			tokenSymbol = transfer.tokenInfo?.symbol;
+		}
+	}
+
 	return (
 		<div
 			className={styles.Transfer}
@@ -39,9 +48,7 @@ export const TransferItem = ({
 									),
 							  ).toLocaleString()
 							: 1}{' '}
-						{transfer.type === 'ETHER_TRANSFER'
-							? 'ETH'
-							: transfer.tokenInfo?.symbol}
+						{tokenSymbol}
 					</b>{' '}
 					{isIncoming ? 'from' : 'to'}{' '}
 					<b>
