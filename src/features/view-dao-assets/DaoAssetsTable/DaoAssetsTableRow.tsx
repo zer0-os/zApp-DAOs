@@ -7,8 +7,6 @@ import { convertAssetImage, formatTotalAmountOfTokens } from './lib/helpers';
 import { Image, TableData } from '@zero-tech/zui/components';
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 
-import ZeroIcon from 'assets/zero.svg';
-
 import styles from './DaoAssetsTableRow.module.scss';
 
 //////////////////////////
@@ -21,32 +19,21 @@ type DaoAssetsTableRowProps = {
 
 export const DaoAssetsTableRow: FC<DaoAssetsTableRowProps> = ({ data }) => {
 	const { image, name, subtext, amountInUSD, amount, decimals } = data;
-
-	const ImageComponent = useMemo(() => {
-		if (name === 'ZERO') {
-			return <img alt={name} src={ZeroIcon} className={styles.Image} />;
-		}
-
-		const { isIpfsUrl, src } = convertAssetImage(image);
-
-		if (isIpfsUrl) {
-			return (
-				<IpfsMedia
-					alt={name}
-					src={src}
-					className={styles.Image}
-					options={{ size: 'thumbnail' }}
-				/>
-			);
-		}
-
-		return <Image alt={name} className={styles.Image} src={src} />;
-	}, [image]);
+	const { isIpfsUrl, src } = convertAssetImage(image);
 
 	return (
 		<tr className={styles.Row}>
 			<TableData alignment="left" className={styles.Dao}>
-				{ImageComponent}
+				{isIpfsUrl ? (
+					<IpfsMedia
+						alt={name}
+						src={src}
+						className={styles.Image}
+						options={{ size: 'thumbnail' }}
+					/>
+				) : (
+					<Image alt={name} className={styles.Image} src={src} />
+				)}
 
 				<div className={styles.Content}>
 					<span className={styles.Title}>{name}</span>

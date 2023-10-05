@@ -27,13 +27,18 @@ export const convertAsset = (asset: Asset): DaoAssetTableDataItem => {
 
 	const amount = a.amount ?? 1;
 	const symbol = a.symbol ?? a.tokenSymbol;
-	const image =
-		symbol === 'WILD'
-			? wildIcon
-			: a.metadata?.image ?? a.logoUri ?? defaultAssetIcon;
-
 	const name = a.metadata?.name ?? a.metadata?.title ?? a.name ?? a.tokenName;
 	const subtext = a.symbol ?? a.tokenSymbol;
+
+	let image: string;
+	if (symbol === 'WILD') {
+		image = wildIcon;
+	} else if (symbol === 'ZERO' || symbol === 'MEOW') {
+		image =
+			'https://res.cloudinary.com/fact0ry/image/upload/v1696209374/logos/zero.svg';
+	} else {
+		image = a.metadata?.image ?? a.logoUri ?? defaultAssetIcon;
+	}
 
 	return {
 		amount,
