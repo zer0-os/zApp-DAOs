@@ -14,7 +14,5 @@ export const NewProposalButton = () => {
 		history.push(`${url}/${DAO_CREATE_PROPOSAL}`.replace('//', '/'));
 	};
 
-	return <div></div>;
-
-	// return <Button onPress={handleOnPressNewProposal}>New Proposal</Button>;
+	return <Button onPress={handleOnPressNewProposal}>New Proposal</Button>;
 };

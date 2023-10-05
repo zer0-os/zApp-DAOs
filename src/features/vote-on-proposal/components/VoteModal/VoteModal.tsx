@@ -80,7 +80,7 @@ const Details = () => {
 				<label>Your voting power</label>
 				<MaybeSkeletonText
 					text={{
-						text: `${userVotePower} ${tokenSymbol}`,
+						text: `${userVotePower.toString()} ${tokenSymbol}`,
 						isLoading: isLoadingUserVotePower,
 					}}
 				/>

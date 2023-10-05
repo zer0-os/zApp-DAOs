@@ -72,7 +72,7 @@ export const DAOTable = () => {
 				<TableStatusMessage
 					className={styles.Message}
 					status={TableStatus.EMPTY}
-					message={'No daos here or the zNA does not exist'}
+					message={'No DAOs here, or this zNA does not exist'}
 				/>
 			)}
 		</div>
