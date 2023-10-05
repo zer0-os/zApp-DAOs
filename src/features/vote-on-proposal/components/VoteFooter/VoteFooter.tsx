@@ -11,36 +11,23 @@ import styles from './VoteFooter.module.scss';
 
 export const VoteFooter = () => {
 	const { account, connectWallet } = useWeb3();
-	const { data: proposal } = useCurrentProposal();
-	const { dao } = useCurrentDao();
-
-	console.log('proposal', proposal);
-
-	console.log(`https://snapshot.org/#/${dao.ens}/proposal/${proposal.id}`);
 
 	return (
 		<footer className={styles.Footer}>
-			<a
-				href={`https://snapshot.org/#/${dao.ens}/proposal/${proposal.id}`}
-				target={'_blank'}
-				rel={'noreferrer'}
-				style={{ color: 'var(--color-secondary-11)' }}
-			>
-				View this proposal in Snapshot
-			</a>
-			{/*<VoteModal />*/}
-			{/*{account ? (*/}
-			{/*	<Vote />*/}
-			{/*) : (*/}
-			{/*	<Button className={styles.Button} onPress={connectWallet}>*/}
-			{/*		Connect to wallet to vote*/}
-			{/*	</Button>*/}
-			{/*)}*/}
+			<VoteModal />
+			{account ? (
+				<Vote />
+			) : (
+				<Button className={styles.Button} onPress={connectWallet}>
+					Connect to wallet to vote
+				</Button>
+			)}
 		</footer>
 	);
 };
 
 const Vote = () => {
+	const { dao } = useCurrentDao();
 	const { data: proposal } = useCurrentProposal();
 	const { data: userVote, isLoading: isLoadingUserVote } = useUserVote();
 	const { data: userVotePower, isLoading: isLoadingUserVotePower } =
@@ -80,5 +67,14 @@ const Vote = () => {
 		);
 	}
 
-	return <div>Please vote on this proposal using Snapshot</div>;
+	return (
+		<a
+			href={`https://snapshot.org/#/${dao.ens}/proposal/${proposal.id}`}
+			target={'_blank'}
+			rel={'noreferrer'}
+			style={{ color: 'var(--color-secondary-11)' }}
+		>
+			Vote on this proposal in Snapshot
+		</a>
+	);
 };
