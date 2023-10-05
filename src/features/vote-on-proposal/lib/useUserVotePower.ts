@@ -1,19 +1,22 @@
 import { useQuery } from 'react-query';
 
-import { useCurrentProposal } from 'pages/proposal/lib/useCurrentProposal';
-import { useWeb3 } from 'lib/hooks';
+import { useCurrentDao, useWeb3, useZnsSdk } from 'lib/hooks';
 
 export const useUserVotePower = () => {
-	const { data: proposal, proposalId } = useCurrentProposal();
+	const { dao } = useCurrentDao();
 	const { account } = useWeb3();
+	const znsSdk = useZnsSdk();
 
 	return useQuery(
-		['dao', 'proposal', 'power', { account, proposalId }],
+		['dao', 'proposal', 'power', { account, dao: dao?.id }],
 		async () => {
-			return proposal.getVotingPowerOfUser(account);
+			return znsSdk.zauction.getUserBalanceForPaymentToken(
+				account,
+				dao.votingToken.token,
+			);
 		},
 		{
-			enabled: Boolean(proposal) && Boolean(account),
+			enabled: Boolean(account) && Boolean(dao),
 		},
 	);
 };

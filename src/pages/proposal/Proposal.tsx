@@ -38,7 +38,7 @@ export const Proposal = () => {
 					/>
 					<hr />
 					<ProposalVoteList />
-					<VoteFooter />
+					{proposal.state !== 'CLOSED' && <VoteFooter />}
 				</>
 			)}
 		</div>

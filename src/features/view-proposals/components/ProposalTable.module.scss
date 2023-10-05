@@ -33,6 +33,17 @@
 		margin-top: 3rem;
 	}
 
+	.Empty {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 2rem;
+
+		button {
+			width: 200px;
+		}
+	}
+
 	table {
 		table-layout: fixed;
 

@@ -38,7 +38,7 @@ const Vote = () => {
 		return <div>Loading...</div>;
 	}
 
-	if (!userVotePower) {
+	if (!userVotePower?.gt(0)) {
 		return <div>Your wallet is not eligible to vote on this proposal</div>;
 	}
 
