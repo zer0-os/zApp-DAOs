@@ -32,14 +32,17 @@ export const convertAsset = (asset: Asset): DaoAssetTableDataItem => {
 			? wildIcon
 			: a.metadata?.image ?? a.logoUri ?? defaultAssetIcon;
 
+	const name = a.metadata?.name ?? a.metadata?.title ?? a.name ?? a.tokenName;
+	const subtext = a.symbol ?? a.tokenSymbol;
+
 	return {
 		amount,
 		decimals: a.decimals ?? 0,
 		image: image,
 		id: a.metadata?.image ?? a.logoUri,
 		key: amount + a.address,
-		name: a.metadata?.name ?? a.metadata?.title ?? a.name ?? a.tokenName,
-		subtext: a.symbol ?? a.tokenSymbol,
+		name: name === 'ZERO' ? 'MEOW' : name,
+		subtext: subtext === 'ZERO' ? 'MEOW' : subtext,
 		amountInUSD: a.amountInUSD
 			? DOLLAR_SYMBOL + formatFiat(a.amountInUSD)
 			: '-',
