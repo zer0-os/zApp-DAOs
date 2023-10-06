@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import { Controller, useFormContext } from 'react-hook-form';
 import { truncateAddress } from '@zero-tech/zui/utils';
-import { useWeb3 } from 'lib/hooks';
+import { useCurrentDao, useWeb3 } from 'lib/hooks';
 
 import { Input, MarkdownEditor, Tooltip } from '@zero-tech/zui/components';
 import { NumberInput } from '@zero-tech/zui/components/Input/NumberInput';
@@ -98,13 +98,13 @@ export const AmountInput = () => {
 };
 
 export const FromInput = () => {
-	const { account } = useWeb3();
+	const { dao } = useCurrentDao();
 	const { control } = useFormContext();
 
 	return (
 		<Controller
 			control={control}
-			defaultValue={truncateAddress(account)}
+			defaultValue={truncateAddress(dao?.safeAddress)}
 			name="from"
 			rules={{ required: true }}
 			render={({ field }) => (

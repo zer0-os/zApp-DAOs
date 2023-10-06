@@ -10,7 +10,7 @@ export const AllProposalsLink = () => {
 	const toAllProposals = useMemo(() => {
 		const pathname = history.location.pathname.replace(
 			/\/proposals\/.*/,
-			'/proposals/',
+			'/proposals',
 		);
 		const state = cloneDeep(history.location.state);
 
