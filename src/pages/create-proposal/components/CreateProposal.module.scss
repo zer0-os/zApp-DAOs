@@ -7,3 +7,40 @@
 	flex-direction: column;
 	gap: 2.5rem;
 }
+
+.Loading {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.Message {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2rem;
+
+	width: 100%;
+
+	text-align: center;
+}
+
+.ERC20 {
+	p {
+		padding: 0;
+		margin: 0;
+
+		&:first-of-type {
+			color: var(--color-warning-11);
+		}
+	}
+}
+
+.Token {
+	a {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		color: var(--color-secondary-11);
+	}
+}

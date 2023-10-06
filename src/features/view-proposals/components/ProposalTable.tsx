@@ -92,7 +92,7 @@ export const ProposalTable = ({ zna }: ProposalTableProps) => {
 			{Boolean(proposals?.length) && (
 				<Fragment>
 					<div className={styles.Actions}>
-						<div>{userVotePower?.gt(0) && <NewProposalButton />}</div>
+						<NewProposalButton />
 						<div className={styles.ControlsWrapper}>
 							<TableControls view={view} onChangeView={setView} />
 						</div>
@@ -111,7 +111,7 @@ export const ProposalTable = ({ zna }: ProposalTableProps) => {
 						status={TableStatus.EMPTY}
 						message={'This DAO has no proposals.'}
 					/>
-					{userVotePower?.gt(0) && <NewProposalButton />}
+					<NewProposalButton />
 				</div>
 			)}
 			{hasNextPage && !isFetchingNextPage && (
