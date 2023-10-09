@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import { useFormContext } from 'react-hook-form';
 import { parseUnits } from 'ethers/lib/utils';
-import { useWeb3 } from 'lib/hooks';
+import { useCurrentDao, useDaoAssetsCoins } from 'lib/hooks';
 import { useRoute } from 'lib/hooks/state/useRoute';
 import { useSubmitProposal } from '../../lib/useSubmitProposal';
 
@@ -25,8 +25,9 @@ enum CreateProposalStep {
 
 export const CreateProposalModal = ({ onClose }: CreateProposalModalProps) => {
 	const form = useFormContext();
-	const { account } = useWeb3();
 	const { submitProposal } = useSubmitProposal();
+	const { zna } = useCurrentDao();
+	const { data: daoCoins } = useDaoAssetsCoins(zna);
 
 	const [step, setStep] = useState<CreateProposalStep>(
 		CreateProposalStep.CONFIRM,
@@ -38,7 +39,26 @@ export const CreateProposalModal = ({ onClose }: CreateProposalModalProps) => {
 	const [newProposalId, setNewProposalId] = useState<string | undefined>();
 
 	const handleOnClickPublish = () => {
-		const { title, body, recipient, amount, token } = form.getValues();
+		const {
+			title,
+			body,
+			recipient,
+			amount,
+			token: tokenAddress,
+			from,
+		} = form.getValues();
+
+		const token = daoCoins?.coins.find((c) => c.address === tokenAddress);
+
+		if (!token) {
+			form.setError('token', {
+				type: 'manual',
+				message: 'Token not found',
+			});
+			onClose();
+			return;
+		}
+
 		setStep(CreateProposalStep.LOADING);
 
 		submitProposal(
@@ -46,12 +66,12 @@ export const CreateProposalModal = ({ onClose }: CreateProposalModalProps) => {
 				title,
 				body,
 				transfer: {
-					sender: account,
+					sender: from,
 					recipient,
-					amount: parseUnits(amount.toString()).toString(),
-					token,
-					decimals: 18,
-					symbol: 'mWILD',
+					amount: parseUnits(amount.toString(), token.decimals).toString(),
+					token: token.address,
+					decimals: token.decimals,
+					symbol: token.symbol,
 				},
 			},
 			{

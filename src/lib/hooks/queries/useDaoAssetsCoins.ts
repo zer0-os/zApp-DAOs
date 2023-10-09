@@ -22,16 +22,33 @@ export const useDaoAssetsCoins = (zna?: string) => {
 				0,
 			);
 
-			const coins = data.map((d) => ({
-				type: d.token ? AssetType.ERC20 : AssetType.NATIVE_TOKEN,
-				address: d.tokenAddress,
-				name: d.token ? d.token.name : 'Ether',
-				decimals: d.token ? d.token.decimals : '18',
-				symbol: d.token ? d.token.symbol : 'ETH',
-				logoUri: d.token ? d.token.logoUri : undefined,
-				amount: d.balance,
-				amountInUSD: d.fiatBalance,
-			}));
+			const coins = data.map((d) => {
+				const { fiatBalance, balance, tokenAddress, token } = d;
+
+				if (!token) {
+					return {
+						type: AssetType.NATIVE_TOKEN,
+						address: '',
+						name: 'Ether',
+						decimals: '18',
+						symbol: 'ETH',
+						logoUri: undefined,
+						amount: balance,
+						amountInUSD: fiatBalance,
+					};
+				}
+
+				return {
+					type: AssetType.ERC20,
+					address: tokenAddress,
+					name: token.name === 'ZERO' ? 'MEOW' : token.name,
+					decimals: token.decimals,
+					symbol: token.symbol === 'ZERO' ? 'MEOW' : token.symbol,
+					logoUri: token.logoUri,
+					amount: balance,
+					amountInUSD: fiatBalance,
+				};
+			});
 
 			return {
 				amountInUSD,
