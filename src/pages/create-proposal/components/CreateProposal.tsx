@@ -81,29 +81,29 @@ const Body = () => {
 		);
 	}
 
-	// if (userVotePower?.lte(0)) {
-	// 	return (
-	// 		<Message className={styles.Token}>
-	// 			<span>
-	// 				You must be holding the DAO voting token{' '}
-	// 				<b>({dao.votingToken.symbol})</b> in order to create a proposal.
-	// 			</span>
-	// 			{dao.votingToken.decimals > 0 && (
-	// 				<a
-	// 					href={
-	// 						'https://app.uniswap.org/swap?theme=dark&outputCurrency=' +
-	// 						dao.votingToken.token
-	// 					}
-	// 					target={'_blank'}
-	// 					rel={'noreferrer'}
-	// 				>
-	// 					Purchase {dao.votingToken.symbol} on Uniswap{' '}
-	// 					<IconLinkExternal1 isFilled={true} size={16} />
-	// 				</a>
-	// 			)}
-	// 		</Message>
-	// 	);
-	// }
+	if (userVotePower?.lte(0)) {
+		return (
+			<Message className={styles.Token}>
+				<span>
+					You must be holding the DAO voting token{' '}
+					<b>({dao.votingToken.symbol})</b> in order to create a proposal.
+				</span>
+				{dao.votingToken.decimals > 0 && (
+					<a
+						href={
+							'https://app.uniswap.org/swap?theme=dark&outputCurrency=' +
+							dao.votingToken.token
+						}
+						target={'_blank'}
+						rel={'noreferrer'}
+					>
+						Purchase {dao.votingToken.symbol} on Uniswap{' '}
+						<IconLinkExternal1 isFilled={true} size={16} />
+					</a>
+				)}
+			</Message>
+		);
+	}
 
 	return <CreateProposalForm />;
 };
