@@ -3,7 +3,6 @@ import { useInfiniteQuery } from 'react-query';
 
 import { useCurrentDao, useResize } from 'lib/hooks';
 import { Proposal } from '@zero-tech/zdao-sdk';
-import { useUserVotePower } from 'features/vote-on-proposal/lib/useUserVotePower';
 
 import { TableControls, ScrollTrigger } from 'features/ui';
 import { NewProposalButton } from 'features/create-proposal';
@@ -41,7 +40,6 @@ export const ProposalTable = ({ zna }: ProposalTableProps) => {
 	const [view, setView] = useState<View>(View.TABLE);
 
 	const { dao, isLoading: isLoadingDao } = useCurrentDao();
-	const { data: userVotePower } = useUserVotePower();
 
 	const {
 		data: sortedProposals,

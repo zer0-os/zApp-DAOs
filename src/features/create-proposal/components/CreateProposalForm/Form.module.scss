@@ -10,6 +10,10 @@
 		grid-template-columns: repeat(1, 1fr);
 		grid-gap: 1.5rem;
 
+		> button {
+			padding: 0;
+		}
+
 		@include container-breakpoint(500) {
 			grid-template-columns: repeat(2, 1fr);
 		}

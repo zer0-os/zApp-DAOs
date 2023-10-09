@@ -1,10 +1,14 @@
 import React, { Fragment } from 'react';
 
 import { Controller, useFormContext } from 'react-hook-form';
-import { truncateAddress } from '@zero-tech/zui/utils';
-import { useCurrentDao, useWeb3 } from 'lib/hooks';
+import { useCurrentDao, useDaoAssetsCoins } from 'lib/hooks';
 
-import { Input, MarkdownEditor, Tooltip } from '@zero-tech/zui/components';
+import {
+	Input,
+	MarkdownEditor,
+	SelectInput,
+	Tooltip,
+} from '@zero-tech/zui/components';
 import { NumberInput } from '@zero-tech/zui/components/Input/NumberInput';
 
 import styles from './Form.module.scss';
@@ -45,25 +49,52 @@ export const TokenInput = () => {
 		formState: { errors },
 	} = useFormContext();
 
+	const { zna } = useCurrentDao();
+	const { data } = useDaoAssetsCoins(zna);
+
+	const erc20 = data?.coins?.filter((c) => c.type === 'ERC20');
+	const items = erc20?.map((c) => ({
+		id: c.address,
+		label: c.symbol,
+	}));
+
 	return (
 		<Controller
 			control={control}
 			defaultValue={''}
 			name="token"
 			rules={{ required: true }}
-			render={({ field }) => (
-				<Input
-					error={Boolean(errors.token)}
-					alert={
-						Boolean(errors.token) && {
-							variant: 'error',
-							text: errors.token.message,
+			render={({ field }) => {
+				const { onChange, value, ...rest } = field;
+
+				const token = erc20?.find((c) => c.address === value);
+				const tokenName = token?.symbol;
+
+				return (
+					<SelectInput
+						error={Boolean(errors.token)}
+						alert={
+							Boolean(errors.token) && {
+								variant: 'error',
+								text: errors.token.message,
+							}
 						}
-					}
-					label={'Token'}
-					{...field}
-				/>
-			)}
+						value={tokenName ?? ''}
+						className={'hello'}
+						placeholder={'Select a token'}
+						items={
+							items.map((i) => ({
+								...i,
+								onSelect: () => {
+									onChange(i.id);
+								},
+							})) ?? []
+						}
+						label={'Token'}
+						{...rest}
+					/>
+				);
+			}}
 		/>
 	);
 };
@@ -104,7 +135,7 @@ export const FromInput = () => {
 	return (
 		<Controller
 			control={control}
-			defaultValue={truncateAddress(dao?.safeAddress)}
+			defaultValue={dao?.safeAddress}
 			name="from"
 			rules={{ required: true }}
 			render={({ field }) => (

@@ -24,7 +24,13 @@ import { DaosTotalProvider } from './pages/daos/lib/DaosTotalProvider';
 import './styles/global.scss';
 import { createDaoStore, DaoContext } from './lib/stores/dao';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+		},
+	},
+});
 
 export const DaosApp: FC<AppProps> = ({ provider, web3, dao }) => {
 	const store = useRef(createDaoStore({ daoParams: dao })).current;
