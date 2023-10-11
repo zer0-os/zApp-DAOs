@@ -11,7 +11,7 @@ export const useDaoAssetsCoins = (zna?: string) => {
 		['dao', 'assets', 'coins', zna],
 		async () => {
 			const response = await fetch(
-				`${safeUrl}/api/v1/safes/${dao.safeAddress}/balances/usd/?trusted=false&exclude_spam=true`,
+				`${safeUrl}/api/v1/safes/${dao.safeAddress}/balances/usd/?trusted=true&exclude_spam=true`,
 			);
 
 			const data = await response.json();
