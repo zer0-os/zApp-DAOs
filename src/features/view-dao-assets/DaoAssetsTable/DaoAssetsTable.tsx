@@ -1,10 +1,11 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { FC } from 'react';
 
 import { convertAsset } from './lib/helpers';
-import { useDao, useDaoAssets } from 'lib/hooks';
+import { useDao, useDaoAssets, useEtherscanUrl } from 'lib/hooks';
 
 import { TableControls } from '../../ui';
+import { IconArrowUpRight } from '@zero-tech/zui/icons';
 import { DaoAssetsTableRow } from './DaoAssetsTableRow';
 import { DaoAssetsTableCard } from './DaoAssetsTableCard';
 import type { Column } from '@zero-tech/zui/components/AsyncTable';
@@ -53,7 +54,9 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({ zna }) => {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [view, setView] = useState<View>(View.TABLE);
 
-	const { isLoading, isEmpty, tableData } = useDaoAssetsTableData(zna);
+	const { etherscanUrl } = useEtherscanUrl();
+	const { isLoading, isEmpty, tableData, safeAddress } =
+		useDaoAssetsTableData(zna);
 
 	useEffect(() => {
 		const resizeObserver = new ResizeObserver(() => {
@@ -94,6 +97,26 @@ export const DaoAssetsTable: FC<DaoAssetsTableProps> = ({ zna }) => {
 					status={TableStatus.EMPTY}
 					message={'This DAO has no assets'}
 				/>
+			)}
+			{!isLoading && (
+				<div className={styles.FlexWrapper}>
+					<TableStatusMessage
+						className={styles.WarningContainer}
+						status={TableStatus.ERROR}
+						message={
+							<div className={styles.Warning}>
+								<span>Not all DAO collectibles may show in the list above</span>
+								<a
+									target={'_blank'}
+									rel={'noreferrer'}
+									href={etherscanUrl + 'tokenholdings?a=' + safeAddress}
+								>
+									Full asset collection <IconArrowUpRight size={16} />
+								</a>
+							</div>
+						}
+					/>
+				</div>
 			)}
 		</div>
 	);
