@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { useAllZnas, useCurrentDao, useRedirect } from 'lib/hooks';
 import { DOLLAR_SYMBOL } from 'lib/constants/currency';
 import { formatFiat } from 'lib/util/format';
-import { useDaosTotal } from '../lib';
 import { DEFAULT_ZNS_DOMAIN, ROOT_PATH, ROUTES } from 'lib/constants/routes';
+import { useTotalsStore } from 'lib/stores/totals';
 
 import { DAOTable } from 'features/view-daos-in-network';
 import { Card } from '@zero-tech/zui/components';
@@ -16,12 +16,9 @@ import styles from './Page.module.scss';
 ///////////////
 
 export const DAOsPage = () => {
-	const { isLoading: isLoadingZnas, data: znas } = useAllZnas();
-	const { isLoading: isLoadingDaosTotal, total } = useDaosTotal();
-
-	const { zna, isLoading, dao } = useCurrentDao();
-
 	const { redirect } = useRedirect();
+	const { isLoading: isLoadingZnas, data: znas } = useAllZnas();
+	const { zna, isLoading, dao } = useCurrentDao();
 
 	/**
 	 * Handle loading a DAO which does not exist
@@ -44,13 +41,7 @@ export const DAOsPage = () => {
 	return (
 		<>
 			<div className={styles.Stats}>
-				<Card
-					label="Total Value"
-					primaryText={{
-						isLoading: isLoadingDaosTotal,
-						text: DOLLAR_SYMBOL + formatFiat(total),
-					}}
-				/>
+				<TotalValueCard />
 				<Card
 					label="DAOs"
 					primaryText={{
@@ -62,5 +53,24 @@ export const DAOsPage = () => {
 
 			<DAOTable />
 		</>
+	);
+};
+
+const TotalValueCard = () => {
+	const { data: znas } = useAllZnas();
+
+	const assetTotalUsd = useTotalsStore((state) =>
+		state.daos.reduce((acc, dao) => acc + dao.totalUsd, 0),
+	);
+	const numDaos = useTotalsStore((state) => state.daos.length);
+
+	return (
+		<Card
+			label="Total Value"
+			primaryText={{
+				isLoading: numDaos !== znas?.length,
+				text: DOLLAR_SYMBOL + formatFiat(assetTotalUsd),
+			}}
+		/>
 	);
 };

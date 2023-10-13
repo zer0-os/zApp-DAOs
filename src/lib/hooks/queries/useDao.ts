@@ -2,6 +2,7 @@ import { useQuery } from 'react-query';
 import { useZdaoSdk } from 'lib/hooks/sdks';
 import { useWeb3 } from 'lib/hooks/state';
 import { useDaoStore } from 'lib/stores/dao';
+import { HARDCODED_PARAMS } from 'lib/constants/daos';
 
 export const useDao = (zna: string) => {
 	const sdk = useZdaoSdk();
@@ -11,6 +12,14 @@ export const useDao = (zna: string) => {
 	return useQuery(
 		['dao', { zna, chainId }],
 		async () => {
+			if (HARDCODED_PARAMS[zna]) {
+				try {
+					return await sdk.getZDAOByZNAFromParams(zna);
+				} catch (e) {
+					return await sdk.createZDAOFromParams(HARDCODED_PARAMS[zna]);
+				}
+			}
+
 			if (daoParams) {
 				try {
 					return await sdk.createZDAOFromParams(daoParams);
