@@ -37,7 +37,7 @@ export interface ProposalTableProps {
 
 export const ProposalTable = ({ zna }: ProposalTableProps) => {
 	const containerRef = useRef<HTMLDivElement>(null);
-	const [view, setView] = useState<View>(View.TABLE);
+	const [view, setView] = useState<View>(View.GRID);
 
 	const { dao, isLoading: isLoadingDao } = useCurrentDao();
 
