@@ -1,14 +1,16 @@
 import { useQuery } from 'react-query';
 import { useDao } from './useDao';
 import { AssetType } from '@zero-tech/zdao-sdk';
+import { useTotalsStore } from '../../stores/totals';
 import { useSafeUrl } from '../state/useSafeUrl';
 
 export const useDaoAssetsCoins = (zna?: string) => {
 	const { data: dao } = useDao(zna);
 	const { safeUrl } = useSafeUrl();
+	const addDao = useTotalsStore((state) => state.addDao);
 
 	return useQuery(
-		['dao', 'assets', 'coins', zna],
+		['dao', 'assets', 'coins', { zna }],
 		async () => {
 			const response = await fetch(
 				`${safeUrl}/api/v1/safes/${dao.safeAddress}/balances/usd/?trusted=true&exclude_spam=true`,
@@ -48,6 +50,11 @@ export const useDaoAssetsCoins = (zna?: string) => {
 					amount: balance,
 					amountInUSD: fiatBalance,
 				};
+			});
+
+			addDao({
+				zna,
+				totalUsd: amountInUSD,
 			});
 
 			return {

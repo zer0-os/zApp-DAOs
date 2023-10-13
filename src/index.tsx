@@ -19,8 +19,6 @@ import {
 	CurrentDaoProvider,
 } from './lib/providers';
 
-import { DaosTotalProvider } from './pages/daos/lib/DaosTotalProvider';
-
 import './styles/global.scss';
 import { createDaoStore, DaoContext } from './lib/stores/dao';
 
@@ -49,11 +47,9 @@ export const DaosApp: FC<AppProps> = ({ provider, web3, dao }) => {
 							<ZdaoSdkProvider>
 								<RouterBlockerProvider>
 									<CurrentDaoProvider>
-										<DaosTotalProvider>
-											<ZUIProvider>
-												<App />
-											</ZUIProvider>
-										</DaosTotalProvider>
+										<ZUIProvider>
+											<App />
+										</ZUIProvider>
 									</CurrentDaoProvider>
 								</RouterBlockerProvider>
 							</ZdaoSdkProvider>
