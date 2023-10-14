@@ -26,8 +26,6 @@ export const ProposalAttributes = ({
 	const { chainId } = useWeb3();
 	const { dao } = useCurrentDao();
 
-	console.log(dao?.ens, proposal);
-
 	const snapshotLink = `https://snapshot.org/#/${dao?.ens}/proposal/${proposal?.id}`;
 
 	const etherscanUri = getEtherscanUri(chainId ?? 1);
