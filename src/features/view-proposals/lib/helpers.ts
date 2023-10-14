@@ -125,6 +125,10 @@ export const getProposalStatus = (
 		return DefaultProposalStatus[state];
 	}
 
+	if (state === 'PENDING') {
+		return 'Not Started';
+	}
+
 	const isClosed = state === ProposalState.CLOSED;
 
 	if (!hasVotes) {

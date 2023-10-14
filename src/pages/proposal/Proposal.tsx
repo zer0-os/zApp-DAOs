@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { formatProposalBody } from '../../features/view-proposals/lib';
 import { useCurrentProposal } from './lib/useCurrentProposal';
@@ -36,9 +36,13 @@ export const Proposal = () => {
 						className={styles.Markdown}
 						text={formatProposalBody(proposal.body)}
 					/>
-					<hr />
-					<ProposalVoteList />
-					{proposal.state !== 'CLOSED' && <VoteFooter />}
+
+					{proposal.state !== 'PENDING' && (
+						<Fragment>
+							<hr /> <ProposalVoteList />
+						</Fragment>
+					)}
+					{proposal.state === 'ACTIVE' && <VoteFooter />}
 				</>
 			)}
 		</div>

@@ -2,6 +2,19 @@ import { getProposalStatus } from './helpers';
 import { ProposalState } from '@zero-tech/zdao-sdk';
 
 describe('getProposalStatus', () => {
+	describe('when proposal is pending', () => {
+		it('returns "Not Started" when proposal is pending', () => {
+			const result = getProposalStatus(
+				true,
+				true,
+				false,
+				[1, 2],
+				ProposalState.PENDING,
+			);
+			expect(result).toEqual('Not Started');
+		});
+	});
+
 	describe('when proposal is not compatible', () => {
 		it('returns "Closed" when proposal is closed', () => {
 			const result = getProposalStatus(
