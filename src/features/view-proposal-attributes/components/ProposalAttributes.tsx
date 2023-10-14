@@ -1,15 +1,17 @@
-import React from 'react';
 import { Proposal, ProposalState } from '@zero-tech/zdao-sdk';
 
 import { formatDistance } from 'date-fns/fp';
 import { formatDateTime } from 'lib/util/datetime';
-import { useWeb3 } from 'lib/hooks';
+import { useCurrentDao, useWeb3 } from 'lib/hooks';
 import { getEtherscanUri } from 'lib/util/network';
 import { formatProposalStatus } from '../../view-proposals/lib';
 import { kebabCaseToTitleCase } from '../lib/format';
 
 import { Attribute, Attributes } from 'features/ui/Attributes/Attributes';
 import { EtherscanLink } from 'features/ui';
+import { IconLinkExternal1 } from '@zero-tech/zui/icons';
+
+import styles from './ProposalAttributes.module.scss';
 
 export interface ProposalAttributesProps {
 	proposal?: Proposal;
@@ -22,6 +24,11 @@ export const ProposalAttributes = ({
 	isLoading,
 }: ProposalAttributesProps) => {
 	const { chainId } = useWeb3();
+	const { dao } = useCurrentDao();
+
+	console.log(dao?.ens, proposal);
+
+	const snapshotLink = `https://snapshot.org/#/${dao?.ens}/proposal/${proposal?.id}`;
 
 	const etherscanUri = getEtherscanUri(chainId ?? 1);
 	const isClosed = proposal?.state === ProposalState.CLOSED;
@@ -74,6 +81,22 @@ export const ProposalAttributes = ({
 							etherscanUri={etherscanUri}
 							address={proposal.author}
 						/>
+					)
+				}
+			/>
+			<Attribute
+				isLoading={!proposal || !dao}
+				label={'Snapshot'}
+				value={
+					proposal && (
+						<a
+							className={styles.Snapshot}
+							target="_blank"
+							rel="noreferrer"
+							href={snapshotLink}
+						>
+							Open in Snapshot <IconLinkExternal1 size={12} isFilled={true} />
+						</a>
 					)
 				}
 			/>
