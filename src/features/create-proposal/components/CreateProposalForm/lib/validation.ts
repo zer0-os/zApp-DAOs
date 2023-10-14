@@ -9,7 +9,7 @@ export const schema = z.object({
 			message: 'Must be a valid Ethereum address',
 		}),
 	amount: z.preprocess(
-		(a) => parseInt((a as string) ?? '0', 10),
+		(a) => parseFloat((a as string) ?? '0'),
 		z.number().positive().gt(0),
 	),
 	body: z.string().min(1, { message: 'Required' }),
