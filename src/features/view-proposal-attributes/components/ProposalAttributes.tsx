@@ -30,6 +30,7 @@ export const ProposalAttributes = ({
 
 	const etherscanUri = getEtherscanUri(chainId ?? 1);
 	const isClosed = proposal?.state === ProposalState.CLOSED;
+	const isPending = proposal?.state === ProposalState.PENDING;
 
 	return (
 		<Attributes>
@@ -38,16 +39,20 @@ export const ProposalAttributes = ({
 				label={'Status'}
 				value={proposal && formatProposalStatus(proposal)}
 			/>
+			{proposal?.state === ProposalState.ACTIVE && (
+				<Attribute
+					isLoading={isLoading}
+					label={'Time Remaining'}
+					value={
+						!proposal || isClosed
+							? '-'
+							: formatDistance(new Date(), proposal.end)
+					}
+				/>
+			)}
 			<Attribute
 				isLoading={isLoading}
-				label={'Time Remaining'}
-				value={
-					!proposal || isClosed ? '-' : formatDistance(new Date(), proposal.end)
-				}
-			/>
-			<Attribute
-				isLoading={isLoading}
-				label={'Voting Started'}
+				label={isPending ? 'Voting Starts' : 'Voting Started'}
 				value={proposal && formatDateTime(proposal.start)}
 			/>
 			<Attribute
@@ -65,11 +70,13 @@ export const ProposalAttributes = ({
 				label={'Execution Criteria'}
 				value={'Absolute Majority'}
 			/>
-			<Attribute
-				isLoading={isLoading}
-				label={'Voters'}
-				value={proposal?.votes.toString()}
-			/>
+			{!isPending && (
+				<Attribute
+					isLoading={isLoading}
+					label={'Voters'}
+					value={proposal?.votes.toString()}
+				/>
+			)}
 			<Attribute
 				isLoading={isLoading}
 				label={'Creator'}

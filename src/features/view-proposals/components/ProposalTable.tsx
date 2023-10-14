@@ -134,7 +134,7 @@ interface ViewProps {
 const TABLE_COLUMNS: Column[] = [
 	{ id: 'title', header: 'Title', alignment: 'left' },
 	{ id: 'status', header: 'Status', alignment: 'left' },
-	{ id: 'closes', header: 'Closes', alignment: 'left' },
+	{ id: 'closes', header: 'Next Phase', alignment: 'left' },
 	{ id: 'votes', header: 'Votes', alignment: 'right' },
 ];
 

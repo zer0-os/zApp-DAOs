@@ -37,7 +37,13 @@ export interface AttributeProps {
 export const Attribute = ({ label, value, isLoading }: AttributeProps) => {
 	return (
 		<li className={styles.Attribute} key={label + value}>
-			<span className={styles.Traits}>{label}</span>
+			<MaybeSkeletonText
+				text={{ text: label, isLoading }}
+				className={styles.Traits}
+				skeletonOptions={{
+					width: '50%',
+				}}
+			/>
 			<MaybeSkeletonText
 				text={{ text: value, isLoading }}
 				className={styles.Properties}
