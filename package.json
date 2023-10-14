@@ -1,6 +1,6 @@
 {
 	"name": "@zero-tech/zapp-daos",
-	"version": "0.14.1",
+	"version": "0.15.0",
 	"main": "dist/index.js",
 	"repository": "git@github.com:zer0-os/zApp-DAOs.git",
 	"scripts": {
