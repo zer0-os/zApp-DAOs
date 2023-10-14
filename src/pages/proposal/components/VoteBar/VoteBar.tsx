@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import styles from './VoteBar.module.scss';
 
@@ -10,20 +10,29 @@ type VoteBarProps = {
 export const VoteBar = ({ scores, options }: VoteBarProps) => {
 	const barData = useMemo(() => {
 		const totalVotes = scores.reduce((acc, score) => acc + score, 0);
-		return scores.map((score, index) => ({
-			percentage: (score / totalVotes) * 100,
-			option: options[index],
-			score,
-		}));
+		const shouldShowBar = Boolean(totalVotes);
+		return {
+			shouldShowBar,
+			shouldShowLabels: shouldShowBar && options.length === 2,
+			bars: scores.map((score, index) => ({
+				percentage: totalVotes ? (score / totalVotes) * 100 : 0,
+				option: options[index],
+				score,
+			})),
+		};
 	}, [options, scores]);
 
-	const shouldShowLabels = (barData.length = 2);
+	if (!barData.shouldShowBar) {
+		return null;
+	}
 
 	return (
 		<div className={styles.Container}>
-			{shouldShowLabels && <span>{Math.round(barData[0].percentage)}%</span>}
+			{barData.shouldShowLabels && (
+				<span>{Math.round(barData.bars[0].percentage ?? 0)}%</span>
+			)}
 			<div className={styles.Options}>
-				{barData.map((bar) => (
+				{barData.bars.map((bar) => (
 					<div
 						key={bar.option + bar.percentage}
 						style={{ width: bar.percentage + '%' }}
@@ -31,7 +40,9 @@ export const VoteBar = ({ scores, options }: VoteBarProps) => {
 					></div>
 				))}
 			</div>
-			{shouldShowLabels && <span>{Math.round(barData[1].percentage)}%</span>}
+			{barData.shouldShowLabels && (
+				<span>{Math.round(barData.bars[1].percentage ?? 0)}%</span>
+			)}
 		</div>
 	);
 };
