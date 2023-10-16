@@ -105,7 +105,11 @@ const Actions = () => {
 	const handleOnConfirm = async () => {
 		setStep(VoteStep.WAITING_FOR_APPROVAL);
 		try {
-			await proposal.vote(provider, account, proposal.choices.indexOf(choice));
+			await proposal.vote(
+				provider,
+				account,
+				proposal.choices.indexOf(choice) + 1,
+			);
 			handleOnSuccess();
 		} catch (e) {
 			setStep(VoteStep.FAILED);
