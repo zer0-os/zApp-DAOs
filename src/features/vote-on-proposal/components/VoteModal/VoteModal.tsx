@@ -48,9 +48,7 @@ const Form = () => {
 				<p>Please sign transaction in your wallet</p>
 			)}
 			{step === VoteStep.SUCCESS && (
-				<Alert variant="success">
-                Vote submitted successfully!
-				</Alert>
+				<Alert variant="success">Vote submitted successfully!</Alert>
 			)}
 			{step === VoteStep.CONFIRMING && (
 				<p>
