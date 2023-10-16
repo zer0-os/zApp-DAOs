@@ -2,7 +2,7 @@ import { Proposal, ProposalState } from '@zero-tech/zdao-sdk';
 
 import { formatDistance } from 'date-fns/fp';
 import { formatDateTime } from 'lib/util/datetime';
-import {   useWeb3 } from 'lib/hooks';
+import { useWeb3 } from 'lib/hooks';
 import { getEtherscanUri } from 'lib/util/network';
 import { formatProposalStatus } from '../../view-proposals/lib';
 import { kebabCaseToTitleCase } from '../lib/format';
