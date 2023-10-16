@@ -4,8 +4,14 @@ import ProposalClient from '@zero-tech/zdao-sdk/lib/client/ProposalClient';
 import { truncateAddress } from '@zero-tech/zui/utils';
 import { useUserVotePower } from '../../lib/useUserVotePower';
 import { useVoteStore, VoteStep } from '../../lib/store';
+import { useQueryClient } from 'react-query';
 
-import { Button, MaybeSkeletonText, Wizard } from '@zero-tech/zui/components';
+import {
+	Alert,
+	Button,
+	MaybeSkeletonText,
+	Wizard,
+} from '@zero-tech/zui/components';
 import { Modal } from 'features/ui/Modal';
 
 import styles from './VoteModal.module.scss';
@@ -40,6 +46,9 @@ const Form = () => {
 			<Details />
 			{step === VoteStep.WAITING_FOR_APPROVAL && (
 				<p>Please sign transaction in your wallet</p>
+			)}
+			{step === VoteStep.SUCCESS && (
+				<Alert variant="success">Vote submitted successfully!</Alert>
 			)}
 			{step === VoteStep.CONFIRMING && (
 				<p>
@@ -93,6 +102,8 @@ const Actions = () => {
 	const { data: proposal } = useCurrentProposal();
 	const { account, provider } = useWeb3();
 
+	const queryClient = useQueryClient();
+
 	const choice = useVoteStore((state) => state.choice);
 	const setChoice = useVoteStore((state) => state.setChoice);
 	const setStep = useVoteStore((state) => state.setStep);
@@ -110,6 +121,12 @@ const Actions = () => {
 				account,
 				proposal.choices.indexOf(choice) + 1,
 			);
+			await queryClient.invalidateQueries([
+				'dao',
+				'proposal',
+				'votes',
+				{ proposalId: proposal.id },
+			]);
 			handleOnSuccess();
 		} catch (e) {
 			setStep(VoteStep.FAILED);
