@@ -13,10 +13,13 @@ export const useAllZnas = () => {
 	return useQuery(
 		['daos', 'znas', { chainId }],
 		async () => {
-			return (await sdk.listZNAs())
-				?.filter((zna) => zna !== DEFAULT_ZNS_DOMAIN && zna !== 'degen')
-				.concat(Object.keys(HARDCODED_PARAMS))
-				.sort((a, b) => a.localeCompare(b));
+            const znas = (await sdk.listZNAs())?.filter((zna) => zna !== DEFAULT_ZNS_DOMAIN && zna !== 'degen');
+
+            if(chainId === 1) {
+                return znas.concat(Object.keys(HARDCODED_PARAMS))
+            }
+
+            return znas;
 		},
 		{
 			retry: false,
