@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { useWeb3, useZdaoSdk } from '../';
 import { DEFAULT_ZNS_DOMAIN } from 'lib/constants/routes';
-import { HARDCODED_PARAMS } from 'lib/constants/daos';
+import { HARDCODED_DAOS } from 'lib/constants/daos';
 
 /**
  * Returns a list of all zNA on the current chain
@@ -17,8 +17,8 @@ export const useAllZnas = () => {
 				(zna) => zna !== DEFAULT_ZNS_DOMAIN && zna !== 'degen',
 			);
 
-			if (chainId === 1) {
-				return znas.concat(Object.keys(HARDCODED_PARAMS));
+			if (HARDCODED_DAOS[chainId]) {
+				return znas.concat(Object.keys(HARDCODED_DAOS[chainId]));
 			}
 
 			return znas;
