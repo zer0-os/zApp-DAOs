@@ -13,13 +13,15 @@ export const useAllZnas = () => {
 	return useQuery(
 		['daos', 'znas', { chainId }],
 		async () => {
-            const znas = (await sdk.listZNAs())?.filter((zna) => zna !== DEFAULT_ZNS_DOMAIN && zna !== 'degen');
+			const znas = (await sdk.listZNAs())?.filter(
+				(zna) => zna !== DEFAULT_ZNS_DOMAIN && zna !== 'degen',
+			);
 
-            if(chainId === 1) {
-                return znas.concat(Object.keys(HARDCODED_PARAMS))
-            }
+			if (chainId === 1) {
+				return znas.concat(Object.keys(HARDCODED_PARAMS));
+			}
 
-            return znas;
+			return znas;
 		},
 		{
 			retry: false,
