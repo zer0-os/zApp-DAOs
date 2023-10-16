@@ -6,7 +6,12 @@ import { useUserVotePower } from '../../lib/useUserVotePower';
 import { useVoteStore, VoteStep } from '../../lib/store';
 import { useQueryClient } from 'react-query';
 
-import { Button, MaybeSkeletonText, Wizard } from '@zero-tech/zui/components';
+import {
+	Alert,
+	Button,
+	MaybeSkeletonText,
+	Wizard,
+} from '@zero-tech/zui/components';
 import { Modal } from 'features/ui/Modal';
 
 import styles from './VoteModal.module.scss';
@@ -41,6 +46,11 @@ const Form = () => {
 			<Details />
 			{step === VoteStep.WAITING_FOR_APPROVAL && (
 				<p>Please sign transaction in your wallet</p>
+			)}
+			{step === VoteStep.SUCCESS && (
+				<Alert variant="success">
+                Vote submitted successfully!
+				</Alert>
 			)}
 			{step === VoteStep.CONFIRMING && (
 				<p>
@@ -102,7 +112,7 @@ const Actions = () => {
 	const step = useVoteStore((state) => state.step);
 
 	const handleOnSuccess = () => {
-		setChoice(undefined);
+		setStep(VoteStep.SUCCESS);
 	};
 
 	const handleOnConfirm = async () => {
