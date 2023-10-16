@@ -4,6 +4,7 @@ import ProposalClient from '@zero-tech/zdao-sdk/lib/client/ProposalClient';
 import { truncateAddress } from '@zero-tech/zui/utils';
 import { useUserVotePower } from '../../lib/useUserVotePower';
 import { useVoteStore, VoteStep } from '../../lib/store';
+import { useQueryClient } from 'react-query';
 
 import { Button, MaybeSkeletonText, Wizard } from '@zero-tech/zui/components';
 import { Modal } from 'features/ui/Modal';
@@ -93,13 +94,15 @@ const Actions = () => {
 	const { data: proposal } = useCurrentProposal();
 	const { account, provider } = useWeb3();
 
+	const queryClient = useQueryClient();
+
 	const choice = useVoteStore((state) => state.choice);
 	const setChoice = useVoteStore((state) => state.setChoice);
 	const setStep = useVoteStore((state) => state.setStep);
 	const step = useVoteStore((state) => state.step);
 
 	const handleOnSuccess = () => {
-		setStep(VoteStep.SUCCESS);
+		setChoice(undefined);
 	};
 
 	const handleOnConfirm = async () => {
@@ -110,6 +113,12 @@ const Actions = () => {
 				account,
 				proposal.choices.indexOf(choice) + 1,
 			);
+			await queryClient.invalidateQueries([
+				'dao',
+				'proposal',
+				'votes',
+				{ proposalId: proposal.id },
+			]);
 			handleOnSuccess();
 		} catch (e) {
 			setStep(VoteStep.FAILED);

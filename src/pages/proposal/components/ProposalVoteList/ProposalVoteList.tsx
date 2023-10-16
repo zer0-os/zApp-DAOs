@@ -85,7 +85,9 @@ export const ProposalVoteList = () => {
 											</TableData>
 											<TableData alignment={'right'}>{vote.power}</TableData>
 											<TableData alignment={'right'}>
-												{Math.round((vote.power / sumOfScores) * 100) + '%'}
+												{sumOfScores === 0
+													? '100%'
+													: Math.round((vote.power / sumOfScores) * 100) + '%'}
 											</TableData>
 										</tr>
 									))}
