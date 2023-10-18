@@ -26,6 +26,9 @@ export const ProposalAttributes = ({
 	const isClosed = proposal?.state === ProposalState.CLOSED;
 	const isPending = proposal?.state === ProposalState.PENDING;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const quorum = (proposal as any)?.properties.quorum;
+
 	return (
 		<Attributes>
 			<Attribute
@@ -64,12 +67,29 @@ export const ProposalAttributes = ({
 				label={'Execution Criteria'}
 				value={'Absolute Majority'}
 			/>
-			{!isPending && (
+			{isPending && quorum && (
 				<Attribute
 					isLoading={isLoading}
-					label={'Voters'}
-					value={proposal?.votes.toString()}
+					label={'Quorum'}
+					value={quorum.toString()}
 				/>
+			)}
+			{!isPending && (
+				<>
+					<Attribute
+						isLoading={isLoading}
+						label={'Voters'}
+						value={proposal?.votes.toString()}
+					/>
+					<Attribute
+						isLoading={isLoading}
+						label={'Votes'}
+						value={
+							proposal?.scores.reduce((a, b) => a + b, 0).toString() +
+							(quorum ? `/${quorum}` : '')
+						}
+					/>
+				</>
 			)}
 			<Attribute
 				isLoading={isLoading}
