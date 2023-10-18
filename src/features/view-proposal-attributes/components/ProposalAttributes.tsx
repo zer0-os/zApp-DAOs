@@ -26,7 +26,7 @@ export const ProposalAttributes = ({
 	const isClosed = proposal?.state === ProposalState.CLOSED;
 	const isPending = proposal?.state === ProposalState.PENDING;
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const quorum = (proposal as any)?.properties.quorum;
 
 	return (
