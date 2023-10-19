@@ -156,7 +156,7 @@ export const getProposalStatus = (
 			if (!isApprove) {
 				return 'Denied';
 			} else {
-				return 'Not Enough Votes';
+				return 'Quorum Not Met';
 			}
 		}
 	}
