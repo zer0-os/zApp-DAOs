@@ -60,9 +60,9 @@ const TotalValueCard = () => {
 	const { data: znas } = useAllZnas();
 
 	const assetTotalUsd = useTotalsStore((state) =>
-		state.daos.reduce((acc, dao) => acc + dao.totalUsd, 0),
+		state?.daos.reduce((acc, dao) => acc + dao.totalUsd, 0) ?? 0,
 	);
-	const numDaos = useTotalsStore((state) => state.daos.length);
+	const numDaos = useTotalsStore((state) => state?.daos.length ?? 0);
 
 	return (
 		<Card
