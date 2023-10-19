@@ -74,13 +74,9 @@ export const ProposalAttributes = ({
 					value={quorum ? quorum.toLocaleString() : 0}
 				/>
 			)}
-            {!quorum && (
-				<Attribute
-					isLoading={isLoading}
-					label={'Quorum'}
-					value={0}
-				/>
-            )}
+			{!quorum && (
+				<Attribute isLoading={isLoading} label={'Quorum'} value={0} />
+			)}
 			{!isPending && (
 				<>
 					<Attribute
