@@ -71,7 +71,7 @@ export const ProposalAttributes = ({
 				<Attribute
 					isLoading={isLoading}
 					label={'Quorum'}
-					value={quorum.toString()}
+					value={quorum.toLocaleString()}
 				/>
 			)}
 			{!isPending && (
@@ -79,14 +79,14 @@ export const ProposalAttributes = ({
 					<Attribute
 						isLoading={isLoading}
 						label={'Voters'}
-						value={proposal?.votes.toString()}
+						value={proposal?.votes.toLocaleString()}
 					/>
 					<Attribute
 						isLoading={isLoading}
 						label={'Votes'}
 						value={
-							proposal?.scores.reduce((a, b) => a + b, 0).toString() +
-							(quorum ? `/${quorum}` : '')
+							proposal?.scores.reduce((a, b) => a + b, 0).toLocaleString() +
+							(quorum ? `/${quorum.toLocaleString()}` : '')
 						}
 					/>
 				</>
