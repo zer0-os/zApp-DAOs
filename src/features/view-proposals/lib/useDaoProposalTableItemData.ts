@@ -2,17 +2,20 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import { formatDuration, isBefore, intervalToDuration } from 'date-fns';
 import removeMarkdown from 'markdown-to-text';
-import { ProposalState, type Proposal } from '@zero-tech/zdao-sdk';
+import {
+	ProposalState,
+	ProposalProperties,
+} from '@zero-tech/zdao-sdk';
 import { useTimer } from 'lib/hooks';
 import { truncateString } from 'lib/util/string';
 import {
 	DEFAULT_TIMER_EXPIRED_LABEL,
 	DEFAULT_TIMER_INTERVAL,
 	formatProposalEndTime,
-	formatProposalStatus,
 	getProposalClosingStatus,
 	PROPOSAL_TITLE_MAX_CHARACTERS,
 	ProposalClosingStatus,
+	proposalStatus,
 } from './';
 
 //////////////////////////////////
@@ -31,7 +34,7 @@ export type DaoProposalsTableItemData = {
 };
 
 export const useDaoProposalsTableItemData = (
-	proposal: Proposal,
+	proposal: ProposalProperties,
 	isGridView = false,
 ): DaoProposalsTableItemData => {
 	const history = useHistory();
@@ -46,7 +49,11 @@ export const useDaoProposalsTableItemData = (
 		targetDate,
 		isConcluded ? null : DEFAULT_TIMER_INTERVAL,
 	);
-	const status = formatProposalStatus(proposal);
+	const status = proposalStatus(
+		proposal.scores,
+		proposal.state,
+		proposal.quorum,
+	);
 	const endTime = formatProposalEndTime(time);
 	const closingStatus = getProposalClosingStatus(time, isConcluded);
 	const closingMessage = isConcluded

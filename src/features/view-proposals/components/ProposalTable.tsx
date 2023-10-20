@@ -1,8 +1,8 @@
-import React, { Fragment, useRef, useState } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
 
-import { useCurrentDao, useResize } from 'lib/hooks';
-import { Proposal } from '@zero-tech/zdao-sdk';
+import { useCurrentDao, useResize, useWeb3 } from 'lib/hooks';
+import { ProposalProperties } from '@zero-tech/zdao-sdk';
 
 import { TableControls, ScrollTrigger } from 'features/ui';
 import { NewProposalButton } from 'features/create-proposal';
@@ -19,6 +19,36 @@ import {
 } from '@zero-tech/zui/components';
 import { Row } from './Row';
 import { Card } from './Card';
+
+const PROPOSAL_QUERY = `
+query {
+    proposals(
+      first: FIRST
+      skip: SKIP
+      where: { space_in: [ "ENS" ], network: "NETWORK" }
+      orderBy: "created"
+      orderDirection: desc
+    ) {
+      id
+      type
+      author
+      title
+      body
+      ipfs
+      choices
+      created
+      start
+      end
+      state
+      network
+      snapshot
+      scores_state
+      scores
+      votes
+      quorum
+    }
+}
+`;
 
 import styles from './ProposalTable.module.scss';
 
@@ -40,6 +70,7 @@ export const ProposalTable = ({ zna }: ProposalTableProps) => {
 	const [view, setView] = useState<View>(View.GRID);
 
 	const { dao, isLoading: isLoadingDao } = useCurrentDao();
+	const { chainId } = useWeb3();
 
 	const {
 		data: sortedProposals,
@@ -50,10 +81,30 @@ export const ProposalTable = ({ zna }: ProposalTableProps) => {
 	} = useInfiniteQuery(
 		['dao', 'proposals', { zna }],
 		async ({ pageParam = 0 }) => {
-			return dao.listProposals({
-				from: pageParam * PAGE_SIZE,
-				count: PAGE_SIZE,
+			const from = pageParam * PAGE_SIZE;
+			const count = PAGE_SIZE;
+
+			const query = PROPOSAL_QUERY.replace('FIRST', count.toString())
+				.replace('SKIP', from.toString())
+				.replace('ENS', dao?.ens)
+				.replace('NETWORK', chainId.toString());
+
+			const res = await fetch('https://hub.snapshot.org/graphql', {
+				method: 'POST',
+
+				headers: {
+					'Content-Type': 'application/json',
+				},
+
+				body: JSON.stringify({
+					query,
+				}),
 			});
+
+			const body = await res.json();
+			const proposals = body?.data?.proposals as ProposalProperties[];
+
+			return proposals;
 		},
 		{
 			getNextPageParam: (lastPage, pages) => {
@@ -128,7 +179,7 @@ export const ProposalTable = ({ zna }: ProposalTableProps) => {
 ////////////////
 
 interface ViewProps {
-	proposals: Proposal[];
+	proposals: ProposalProperties[];
 }
 
 const TABLE_COLUMNS: Column[] = [

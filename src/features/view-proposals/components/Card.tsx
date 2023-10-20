@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
-import type { Proposal } from '@zero-tech/zdao-sdk';
+import type { ProposalProperties } from '@zero-tech/zdao-sdk';
 import { useDaoProposalsTableItemData } from '../lib';
 
 import styles from './Card.module.scss';
@@ -10,7 +10,7 @@ import styles from './Card.module.scss';
 /////////////////////////
 
 type CardProps = {
-	proposal: Proposal;
+	proposal: ProposalProperties;
 };
 
 export const Card: FC<CardProps> = ({ proposal }) => {
