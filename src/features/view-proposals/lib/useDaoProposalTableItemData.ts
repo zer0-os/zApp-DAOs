@@ -2,10 +2,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import { formatDuration, isBefore, intervalToDuration } from 'date-fns';
 import removeMarkdown from 'markdown-to-text';
-import {
-	ProposalState,
-	ProposalProperties,
-} from '@zero-tech/zdao-sdk';
+import { ProposalState, ProposalProperties } from '@zero-tech/zdao-sdk';
 import { useTimer } from 'lib/hooks';
 import { truncateString } from 'lib/util/string';
 import {
