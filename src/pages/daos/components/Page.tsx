@@ -59,8 +59,8 @@ export const DAOsPage = () => {
 const TotalValueCard = () => {
 	const { data: znas } = useAllZnas();
 
-	const assetTotalUsd = useTotalsStore((state) =>
-		state?.daos.reduce((acc, dao) => acc + dao.totalUsd, 0) ?? 0,
+	const assetTotalUsd = useTotalsStore(
+		(state) => state?.daos.reduce((acc, dao) => acc + dao.totalUsd, 0) ?? 0,
 	);
 	const numDaos = useTotalsStore((state) => state?.daos.length ?? 0);
 
