@@ -129,7 +129,7 @@ export const getProposalStatus = (
 		return 'Not Started';
 	}
 
-	const isClosed = state === ProposalState.CLOSED;
+	const isClosed = state.toLowerCase() === ProposalState.CLOSED.toLowerCase();
 
 	if (!hasVotes) {
 		if (isClosed) {
@@ -166,6 +166,23 @@ export const getProposalStatus = (
 	}
 
 	return 'Denial Favoured';
+};
+
+export const proposalStatus = (
+	scores: number[],
+	state: ProposalState,
+	quourm: number,
+): string => {
+	const sumOfScores = scores.reduce((a, b) => a + b, 0);
+	const canExecute = state === ProposalState.ACTIVE && sumOfScores > quourm;
+
+	return getProposalStatus(
+		canExecute,
+		Boolean(sumOfScores),
+		true,
+		scores,
+		state,
+	);
 };
 
 /**

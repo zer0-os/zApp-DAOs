@@ -4,7 +4,7 @@ import { formatDistance } from 'date-fns/fp';
 import { formatDateTime } from 'lib/util/datetime';
 import { useWeb3 } from 'lib/hooks';
 import { getEtherscanUri } from 'lib/util/network';
-import { formatProposalStatus } from '../../view-proposals/lib';
+import { proposalStatus } from '../../view-proposals/lib';
 import { kebabCaseToTitleCase } from '../lib/format';
 
 import { Attribute, Attributes } from 'features/ui/Attributes/Attributes';
@@ -34,7 +34,10 @@ export const ProposalAttributes = ({
 			<Attribute
 				isLoading={isLoading}
 				label={'Status'}
-				value={proposal && formatProposalStatus(proposal)}
+				value={
+					proposal &&
+					proposalStatus(proposal.scores, proposal.state, proposal.quorum)
+				}
 			/>
 			{proposal?.state === ProposalState.ACTIVE && (
 				<Attribute
