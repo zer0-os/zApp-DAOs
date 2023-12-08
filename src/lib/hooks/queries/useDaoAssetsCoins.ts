@@ -3,7 +3,6 @@ import { useDao } from './useDao';
 import { AssetType } from '@zero-tech/zdao-sdk';
 import { useTotalsStore } from '../../stores/totals';
 import { useSafeUrl } from '../state/useSafeUrl';
-import { supabase } from 'lib/util/supabase';
 import { ethers } from 'ethers';
 
 export const useDaoAssetsCoins = (zna?: string) => {
@@ -27,19 +26,26 @@ export const useDaoAssetsCoins = (zna?: string) => {
 						return d.token.symbol;
 					});
 
-					const res = await supabase.functions.invoke(
-						`prices?symbol=${symbols.join(',')}`,
-						{
-							method: 'GET',
-						},
-					);
+					const symbolsString = symbols.join(',');
+					const api = `https://token-price.brett-b26.workers.dev?symbol=${symbolsString}`;
 
-					if (res.error) {
+					const res = await fetch(api, {
+						method: 'GET',
+					});
+
+					if (!res.ok) {
+						const error = await res.json();
+						throw error;
+					}
+
+					const body = await res.json();
+
+					if (!body?.data || body.error) {
 						console.error('Failed to retrieved token prices', res);
 						throw new Error('Failed to retrieve token prices');
 					}
 
-					const prices = res.data.data;
+					const prices = body.data;
 
 					data.forEach((d) => {
 						const price = prices[d.token?.symbol ?? 'ETH']?.filter((p) => {
