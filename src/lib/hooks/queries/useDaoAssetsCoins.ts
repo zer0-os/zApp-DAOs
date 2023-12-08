@@ -23,6 +23,14 @@ export const useDaoAssetsCoins = (zna?: string) => {
 				if (!Number(data[0].fiatBalance ?? 1)) {
 					const symbols = data.map((d) => {
 						if (!d.token) return 'eth';
+
+						// @note: manually remapping ZERO to MEOW since Safe API hasn't updated token symbol
+						if (
+							d.tokenAddress === '0x0eC78ED49C2D27b315D462d43B5BAB94d2C79bf8'
+						) {
+							d.token.symbol = 'MEOW';
+						}
+
 						return d.token.symbol;
 					});
 
