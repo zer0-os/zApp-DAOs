@@ -7,7 +7,7 @@ describe('getProposalStatus', () => {
 			const result = getProposalStatus(
 				true,
 				true,
-				false,
+				true,
 				[1, 2],
 				ProposalState.PENDING,
 			);

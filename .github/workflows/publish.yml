@@ -14,7 +14,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - run: echo '//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}' >> .npmrc
-      - run: npm i
+      - run: npm ci
       - run: npm run test
       - run: npm run build
       - run: npm publish
