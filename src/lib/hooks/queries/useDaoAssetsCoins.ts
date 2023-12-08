@@ -34,6 +34,11 @@ export const useDaoAssetsCoins = (zna?: string) => {
 						},
 					);
 
+					if (res.error) {
+						console.error('Failed to retrieved token prices', res);
+						throw new Error('Failed to retrieve token prices');
+					}
+
 					const prices = res.data.data;
 
 					data.forEach((d) => {
