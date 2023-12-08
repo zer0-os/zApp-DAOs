@@ -28,7 +28,7 @@ export const useDaoAssetsCoins = (zna?: string) => {
 					});
 
 					const res = await supabase.functions.invoke(
-						`get_token_price?symbol=${symbols.join(',')}`,
+						`prices?symbol=${symbols.join(',')}`,
 						{
 							method: 'GET',
 						},
