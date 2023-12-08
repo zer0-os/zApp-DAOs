@@ -12,7 +12,7 @@
 		"isolatedModules": true,
 		"jsx": "react-jsx",
 		"lib": ["dom", "dom.iterable", "esnext"],
-		"module": "CommonJS",
+		"module": "esnext",
 		"moduleResolution": "node",
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitAny": false,

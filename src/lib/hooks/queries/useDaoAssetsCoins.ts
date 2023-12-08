@@ -3,6 +3,7 @@ import { useDao } from './useDao';
 import { AssetType } from '@zero-tech/zdao-sdk';
 import { useTotalsStore } from '../../stores/totals';
 import { useSafeUrl } from '../state/useSafeUrl';
+import { ethers } from 'ethers';
 
 export const useDaoAssetsCoins = (zna?: string) => {
 	const { data: dao } = useDao(zna);
@@ -18,11 +19,56 @@ export const useDaoAssetsCoins = (zna?: string) => {
 
 			const data = await response.json();
 
-			const amountInUSD = data.reduce(
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				(acc: number, item: any) => acc + Number(item.fiatBalance),
-				0,
-			);
+			try {
+				if (!Number(data[0].fiatBalance ?? 1)) {
+					const symbols = data.map((d) => {
+						if (!d.token) return 'eth';
+						return d.token.symbol;
+					});
+
+					const symbolsString = symbols.join(',');
+					const api = `https://token-price.brett-b26.workers.dev?symbol=${symbolsString}`;
+
+					const res = await fetch(api, {
+						method: 'GET',
+					});
+
+					if (!res.ok) {
+						const error = await res.json();
+						throw error;
+					}
+
+					const body = await res.json();
+
+					if (!body?.data || body.error) {
+						console.error('Failed to retrieved token prices', res);
+						throw new Error('Failed to retrieve token prices');
+					}
+
+					const prices = body.data;
+
+					data.forEach((d) => {
+						const price = prices[d.token?.symbol ?? 'ETH']?.filter((p) => {
+							if (!p.platform?.tokenAddress) {
+								return true;
+							}
+							return (
+								p.platform.tokenAddress.toLowerCase() ===
+								(d.tokenAddress?.toLowerCase() ?? undefined)
+							);
+						})[0];
+						if (price) {
+							const balanceAsNumber = Number(
+								ethers.utils.formatUnits(d.balance, d.token?.decimals ?? 18),
+							);
+							const priceInUSD = price.quote['USD'].price;
+							d.fiatBalance = balanceAsNumber * priceInUSD;
+						}
+					});
+				}
+			} catch (e) {
+				console.error('Failed to retrieve token prices', e);
+			}
 
 			const coins = data.map((d) => {
 				const { fiatBalance, balance, tokenAddress, token } = d;
@@ -51,6 +97,12 @@ export const useDaoAssetsCoins = (zna?: string) => {
 					amountInUSD: fiatBalance,
 				};
 			});
+
+			const amountInUSD = data.reduce(
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				(acc: number, item: any) => acc + Number(item.fiatBalance),
+				0,
+			);
 
 			addDao({
 				zna,
