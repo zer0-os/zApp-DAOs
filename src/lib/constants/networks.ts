@@ -5,7 +5,7 @@ export enum Network {
 
 export const DEFAULT_NETWORK = Network.GOERLI;
 
-export const DEFAULT_IPFS_GATEWAY = 'snapshot.mypinata.cloud';
+export const DEFAULT_IPFS_GATEWAY = 'zns.mypinata.cloud';
 
 interface NetworkConfig {
 	rpcUrl: string;
