@@ -30,6 +30,15 @@
 			border-radius: 0.5rem !important;
 		}
 
+		[class*='wmde-markdown-color'] {
+			opacity: 0;
+			-webkit-user-select: none;
+		}
+
+		[class*='w-md-editor-text-input'] {
+			-webkit-text-fill-color: unset;
+		}
+
 		[class*='w-md-editor'] {
 			padding-bottom: 0;
 		}
