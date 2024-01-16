@@ -5,6 +5,7 @@ import { truncateAddress } from '@zero-tech/zui/utils';
 import { useUserVotePower } from '../../lib/useUserVotePower';
 import { useVoteStore, VoteStep } from '../../lib/store';
 import { useQueryClient } from 'react-query';
+import { ethers } from 'ethers';
 
 import {
 	Alert,
@@ -72,8 +73,14 @@ const Details = () => {
 
 	const choice = useVoteStore((state) => state.choice);
 
-	const tokenSymbol = (proposal as ProposalClient)?.['options']?.strategies?.[0]
-		?.params?.symbol;
+	const strategy = (proposal as ProposalClient)?.['options']?.strategies?.[0];
+
+	const tokenSymbol = strategy?.params?.symbol;
+	const amount =
+		userVotePower &&
+		(strategy?.name === 'erc20-balance-of'
+			? ethers.utils.formatEther(userVotePower)
+			: userVotePower);
 
 	return (
 		<ul>
@@ -89,7 +96,10 @@ const Details = () => {
 				<label>Your voting power</label>
 				<MaybeSkeletonText
 					text={{
-						text: `${userVotePower.toString()} ${tokenSymbol}`,
+						text:
+							amount !== undefined
+								? `${Number(amount).toLocaleString()} ${tokenSymbol}`
+								: undefined,
 						isLoading: isLoadingUserVotePower,
 					}}
 				/>

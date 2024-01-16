@@ -31,19 +31,23 @@ export type DaoProposalsTableItemData = {
 };
 
 export const useDaoProposalsTableItemData = (
-	proposal: ProposalProperties,
+	// SDK type is incorrect - end and start are number, not date
+	proposal: Omit<Omit<ProposalProperties, 'end'>, 'start'> & {
+		end: number;
+		start: number;
+	},
 	isGridView = false,
 ): DaoProposalsTableItemData => {
 	const history = useHistory();
 	const location = useLocation();
 
-	const isConcluded = isBefore(new Date(proposal.end), new Date());
+	const isConcluded = isBefore(new Date(proposal.end * 1000), new Date());
 	const isPending = proposal.state === ProposalState.PENDING;
 
-	const targetDate = isPending ? proposal.start : proposal.end;
+	const targetDate = isPending ? proposal.start * 1000 : proposal.end * 1000;
 
 	const { time } = useTimer(
-		targetDate,
+		new Date(targetDate),
 		isConcluded ? null : DEFAULT_TIMER_INTERVAL,
 	);
 	const status = proposalStatus(

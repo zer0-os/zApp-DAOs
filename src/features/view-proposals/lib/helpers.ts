@@ -121,15 +121,17 @@ export const getProposalStatus = (
 	scores: number[],
 	state: ProposalState,
 ): string => {
+	const formattedState = state.toUpperCase();
+
 	if (!isCompatible) {
 		return DefaultProposalStatus[state];
 	}
 
-	if (state === 'PENDING') {
+	if (formattedState === 'PENDING') {
 		return 'Not Started';
 	}
 
-	const isClosed = state.toLowerCase() === ProposalState.CLOSED.toLowerCase();
+	const isClosed = formattedState === ProposalState.CLOSED;
 
 	if (!hasVotes) {
 		if (isClosed) {
@@ -174,7 +176,8 @@ export const proposalStatus = (
 	quourm: number,
 ): string => {
 	const sumOfScores = scores.reduce((a, b) => a + b, 0);
-	const canExecute = state === ProposalState.ACTIVE && sumOfScores > quourm;
+	const canExecute =
+		state.toUpperCase() === ProposalState.ACTIVE && sumOfScores > quourm;
 
 	return getProposalStatus(
 		canExecute,
