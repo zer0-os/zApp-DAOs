@@ -25,7 +25,7 @@ enum CreateProposalStep {
 
 export const CreateProposalModal = ({ onClose }: CreateProposalModalProps) => {
 	const form = useFormContext();
-	const { submitProposal } = useSubmitProposal();
+	const { submitProposal, error } = useSubmitProposal();
 	const { zna } = useCurrentDao();
 	const { data: daoCoins } = useDaoAssetsCoins(zna);
 
@@ -90,8 +90,10 @@ export const CreateProposalModal = ({ onClose }: CreateProposalModalProps) => {
 		<Modal className={styles.Modal} open={true} onOpenChange={onClose}>
 			<Wizard.Container header={'Publish Proposal'}>
 				<p>{getMessage(step)}</p>
-				{step === CreateProposalStep.ERROR && (
-					<Alert variant={'error'}>Failed to publish proposal</Alert>
+				{step === CreateProposalStep.ERROR && error && (
+					<Alert variant={'error'}>
+						{(error as Error).message ?? 'Failed to submit proposal'}
+					</Alert>
 				)}
 				{step === CreateProposalStep.SUCCESS && (
 					<Alert variant={'success'}>Your proposal is live</Alert>
