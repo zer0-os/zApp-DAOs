@@ -80,7 +80,6 @@ export const TokenInput = () => {
 							}
 						}
 						value={tokenName ?? ''}
-						className={'hello'}
 						placeholder={'Select a token'}
 						items={
 							items.map((i) => ({
