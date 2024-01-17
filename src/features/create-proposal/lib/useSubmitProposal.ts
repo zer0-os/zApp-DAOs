@@ -18,14 +18,25 @@ export const useSubmitProposal = () => {
 
 	const { mutate: submitProposal, ...rest } = useMutation(
 		[['dao', 'proposals', 'publish', { zna }]],
-		async (params: SubmitProposalParams) => {
+		async ({ body, ...params }: SubmitProposalParams) => {
 			const snapshot = await provider.getBlockNumber();
-			return dao.createProposal(provider, account, {
-				snapshot,
-				duration: DEFAULT_VOTE_DURATION_SECONDS,
-				choices: DEFAULT_VOTE_CHOICES,
-				...(params as SubmitProposalParams),
-			});
+			if (body.length > 10000) {
+				// Small wait for UX
+				await new Promise((resolve) => setTimeout(resolve, 500));
+				throw new Error('Proposal body is too long - max 10,000 characters');
+			}
+			try {
+				return dao.createProposal(provider, account, {
+					snapshot,
+					duration: DEFAULT_VOTE_DURATION_SECONDS,
+					choices: DEFAULT_VOTE_CHOICES,
+					body,
+					...(params as SubmitProposalParams),
+				});
+			} catch (e) {
+				console.error(e);
+				throw new Error('Failed to submit proposal');
+			}
 		},
 		{
 			onSuccess: () => {
