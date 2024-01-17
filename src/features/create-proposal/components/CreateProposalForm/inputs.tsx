@@ -200,7 +200,7 @@ export const BodyInput = () => {
 			name="body"
 			rules={{ required: true }}
 			render={({ field }) => (
-				<Fragment>
+				<div className={styles.MarkdownContainer}>
 					<input hidden={true} {...field}></input>
 					<MarkdownEditor
 						error={Boolean(errors.body)}
@@ -211,7 +211,8 @@ export const BodyInput = () => {
 						onChange={field.onChange}
 						className={styles.Markdown}
 					/>
-				</Fragment>
+					<div className={styles.Count}>{field.value.length}/10,000</div>
+				</div>
 			)}
 		/>
 	);
