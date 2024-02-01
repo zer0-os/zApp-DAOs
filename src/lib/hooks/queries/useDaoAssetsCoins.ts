@@ -57,11 +57,11 @@ export const useDaoAssetsCoins = (zna?: string) => {
 
 					data.forEach((d) => {
 						const price = prices[d.token?.symbol ?? 'ETH']?.filter((p) => {
-							if (!p.platform?.tokenAddress) {
+							if (!p.platform?.token_address) {
 								return true;
 							}
 							return (
-								p.platform.tokenAddress.toLowerCase() ===
+								p.platform.token_address.toLowerCase() ===
 								(d.tokenAddress?.toLowerCase() ?? undefined)
 							);
 						})[0];
