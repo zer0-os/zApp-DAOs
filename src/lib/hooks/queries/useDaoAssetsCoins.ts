@@ -14,13 +14,14 @@ export const useDaoAssetsCoins = (zna?: string) => {
 		['dao', 'assets', 'coins', { zna }],
 		async () => {
 			const response = await fetch(
-				`${safeUrl}/api/v1/safes/${dao.safeAddress}/balances/usd/?trusted=true&exclude_spam=true`,
+				`${safeUrl}/api/v1/safes/${dao.safeAddress}/balances/?trusted=true&exclude_spam=true`,
 			);
 
 			const data = await response.json();
 
 			try {
-				if (!Number(data[0].fiatBalance ?? 1)) {
+				const hasFiatBalance = !!data[0]?.fiatBalance;
+				if (!hasFiatBalance) {
 					const symbols = data.map((d) => {
 						if (!d.token) return 'eth';
 
