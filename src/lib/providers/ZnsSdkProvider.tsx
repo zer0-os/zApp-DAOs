@@ -22,9 +22,11 @@ export const ZnsSdkProvider: FC = ({ children }) => {
 		 */
 		switch (network) {
 			case Network.MAINNET: {
-				return zns.createInstance(
-					zns.configuration.mainnetConfiguration(provider),
-				);
+				const configuration = zns.configuration.mainnetConfiguration(provider);
+				configuration.subgraphUri =
+					'https://gateway-arbitrum.network.thegraph.com/api/8f7076f60dfe982cc74ca5a9fe267af6/subgraphs/id/5ATKjB7dJ56wqmGzy1vBqZRcn15SBPWqAVUwbfp95o4f';
+
+				return zns.createInstance(configuration);
 			}
 
 			case Network.GOERLI: {
