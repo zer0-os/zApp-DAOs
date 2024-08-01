@@ -30,12 +30,15 @@ export const ZdaoSdkProvider: FC<ZdaoSdkProviderProps> = ({ children }) => {
 
 		switch (network) {
 			case Network.MAINNET: {
-				return createSDKInstance(
-					productionConfiguration(
-						provider,
-						NETWORK_CONFIGS[network].ipfsGateway,
-					),
+				const configuration = productionConfiguration(
+					provider,
+					NETWORK_CONFIGS[network].ipfsGateway,
 				);
+
+				configuration.zNS.subgraphUri =
+					'https://gateway-arbitrum.network.thegraph.com/api/8f7076f60dfe982cc74ca5a9fe267af6/subgraphs/id/5ATKjB7dJ56wqmGzy1vBqZRcn15SBPWqAVUwbfp95o4f';
+
+				return createSDKInstance(configuration);
 			}
 
 			case Network.GOERLI: {
