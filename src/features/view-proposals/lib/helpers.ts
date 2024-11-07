@@ -13,6 +13,7 @@ import {
 	PROPOSAL_FILTER_START_DATE,
 	ProposalClosingStatus,
 } from './constants';
+import { DEFAULT_IPFS_GATEWAY } from 'lib/constants/networks';
 
 const MILLIFY_THRESHOLD = 1000000;
 const MILLIFY_PRECISION = 3;
@@ -82,7 +83,7 @@ export const getProposalClosingStatus = (
  * @returns formatted proposal bod
  */
 export const formatProposalBody = (body: string): string => {
-	return body.replace('ipfs://', 'https://snapshot.mypinata.cloud/ipfs/');
+	return body.replace('ipfs://', `${DEFAULT_IPFS_GATEWAY}/`);
 };
 
 /**
